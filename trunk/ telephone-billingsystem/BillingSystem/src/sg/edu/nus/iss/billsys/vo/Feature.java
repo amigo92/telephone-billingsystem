@@ -8,12 +8,12 @@ public class Feature {
 	private final FeatureType aFeatureType;
 	private String name;
 	private Date dateCommenced;
-	private Date dateterminated;
+	private Date dateTerminated;
 
-	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateterminated, String name) {
+	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateTerminated, String name) {
 		this.aFeatureType = aFeatureType;
 		this.dateCommenced = dateCommenced;
-		this.dateterminated = dateterminated;
+		this.dateTerminated = dateTerminated;
 		this.name = (name == null ? aFeatureType.toString() : name); //for additional channel name
 	}
 	
@@ -29,11 +29,11 @@ public class Feature {
 		return dateCommenced;
 	}
 
-	public Date getDateterminated() {
-		return dateterminated;
+	public Date getDateTerminated() {
+		return dateTerminated;
 	}
 
-	public void setDateterminated(Date dateterminated) {
-		this.dateterminated = dateterminated;
+	public void setDateTerminated(Date dateTerminated) {
+		this.dateTerminated = dateTerminated;
 	}
 }
