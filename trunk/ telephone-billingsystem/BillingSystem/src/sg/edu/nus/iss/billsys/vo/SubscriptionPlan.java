@@ -9,8 +9,8 @@ public abstract class SubscriptionPlan implements Serializable{
 	private static final long serialVersionUID = 1572263436009780430L;
 
 	private String acctNo;
+	
 	protected Feature basicFeature;
-
 	protected ArrayList<Feature> optionalFeatures;
 	
 	protected SubscriptionPlan(Feature basicFeature){
