@@ -22,8 +22,5 @@ public enum CallTxnType {
 	public String toString(){
 		return name;
 	}
-	
-	public int getRate(){
-		return 0; //TODO
-	}
+
 }
