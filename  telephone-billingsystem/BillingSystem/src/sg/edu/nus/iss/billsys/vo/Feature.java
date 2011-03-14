@@ -6,17 +6,15 @@ import sg.edu.nus.iss.billsys.constant.*;
 public class Feature {
 	
 	private final FeatureType aFeatureType;
-
 	private String name;
 	private Date dateCommenced;
 	private Date dateterminated;
 
-	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateterminated) {
-		super();
+	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateterminated, String name) {
 		this.aFeatureType = aFeatureType;
-		this.name = aFeatureType.toString();
 		this.dateCommenced = dateCommenced;
 		this.dateterminated = dateterminated;
+		this.name = (name == null ? aFeatureType.toString() : name); //for additional channel name
 	}
 	
 	public FeatureType getaFeatureType() {
@@ -27,16 +25,8 @@ public class Feature {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getDateCommenced() {
 		return dateCommenced;
-	}
-
-	public void setDateCommenced(Date dateCommenced) {
-		this.dateCommenced = dateCommenced;
 	}
 
 	public Date getDateterminated() {

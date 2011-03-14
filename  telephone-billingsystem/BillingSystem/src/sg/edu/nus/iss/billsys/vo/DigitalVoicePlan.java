@@ -10,7 +10,7 @@ public class DigitalVoicePlan extends SubscriptionPlan {
 	private String assignedTelNo;
 	
 	public DigitalVoicePlan(String assignedTelNo, Date dateCommenced, Date dateterminated){
-		super(new Feature(FeatureType.Line, dateCommenced, dateterminated));
+		super(new Feature(FeatureType.Line, dateCommenced, dateterminated, null));
 		this.assignedTelNo = assignedTelNo;
 	}
 	
@@ -21,10 +21,5 @@ public class DigitalVoicePlan extends SubscriptionPlan {
 	public String getAssignedTelNo() {
 		return assignedTelNo;
 	}
-
-	public void setAssignedTelNo(String assignedTelNo) {
-		this.assignedTelNo = assignedTelNo;
-	}
-
 
 }
