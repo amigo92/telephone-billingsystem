@@ -9,8 +9,9 @@ public class MobileVoicePlan extends SubscriptionPlan {
 	private static final long serialVersionUID = 7648993467677690245L;
 	private String assignedTelNo;
 	
-	public MobileVoicePlan(Date dateCommenced, Date dateterminated){
+	public MobileVoicePlan(String assignedTelNo, Date dateCommenced, Date dateterminated){
 		super(new Feature(FeatureType.Mobile, dateCommenced, dateterminated));
+		this.assignedTelNo = assignedTelNo;
 	}
 	
 	public String getPlanDescription(){
