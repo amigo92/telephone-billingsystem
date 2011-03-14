@@ -12,7 +12,8 @@ public enum FeatureType {
 	Mobile(2, "Mobile", false),
 	DataService(3, "Data Services", true),
 	Roaming(4, "Roaming", true),
-	StdChannels(5, "Three Standard Channels", false);
+	StdChannels(5, "Three Standard Channels", false),
+	AddChannel(6, "Additional Channel", true);
 	
 	public int typeCd;
 	public boolean isOptional;

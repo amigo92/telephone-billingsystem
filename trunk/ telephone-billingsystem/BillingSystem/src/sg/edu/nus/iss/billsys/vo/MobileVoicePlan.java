@@ -10,7 +10,7 @@ public class MobileVoicePlan extends SubscriptionPlan {
 	private String assignedTelNo;
 	
 	public MobileVoicePlan(String assignedTelNo, Date dateCommenced, Date dateterminated){
-		super(new Feature(FeatureType.Mobile, dateCommenced, dateterminated));
+		super(new Feature(FeatureType.Mobile, dateCommenced, dateterminated, null));
 		this.assignedTelNo = assignedTelNo;
 	}
 	
@@ -22,7 +22,4 @@ public class MobileVoicePlan extends SubscriptionPlan {
 		return assignedTelNo;
 	}
 
-	public void setAssignedTelNo(String assignedTelNo) {
-		this.assignedTelNo = assignedTelNo;
-	}
 }

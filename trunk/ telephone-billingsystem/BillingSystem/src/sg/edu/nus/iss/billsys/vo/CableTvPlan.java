@@ -9,7 +9,7 @@ public class CableTvPlan extends SubscriptionPlan {
 	private static final long serialVersionUID = -1488023047795943161L;
 
 	public CableTvPlan(Date dateCommenced, Date dateterminated){
-		super(new Feature(FeatureType.StdChannels, dateCommenced, dateterminated));
+		super(new Feature(FeatureType.StdChannels, dateCommenced, dateterminated, null));
 	}
 	
 	public String getPlanDescription(){

@@ -9,11 +9,11 @@ public abstract class SubscriptionPlan implements Serializable{
 	private static final long serialVersionUID = 1572263436009780430L;
 
 	private String acctNo;
-	
 	protected Feature basicFeature;
+
 	protected ArrayList<Feature> optionalFeatures;
 	
-	public SubscriptionPlan(Feature basicFeature){
+	protected SubscriptionPlan(Feature basicFeature){
 		this.basicFeature = basicFeature;
 		optionalFeatures =  new ArrayList<Feature>();
 	}
@@ -28,10 +28,6 @@ public abstract class SubscriptionPlan implements Serializable{
 
 	public Date getDateCommenced() {
 		return basicFeature.getDateCommenced();
-	}
-
-	public void setDateCommenced(Date dateCommenced) {
-		this.basicFeature.setDateCommenced(dateCommenced);
 	}
 
 	public Date getDateterminated() {
@@ -56,6 +52,14 @@ public abstract class SubscriptionPlan implements Serializable{
 		}
 		
 		optionalFeatures.remove(curr);
+	}
+	
+	public Feature getBasicFeature() {
+		return basicFeature;
+	}
+
+	public ArrayList<Feature> getOptionalFeatures() {
+		return optionalFeatures;
 	}
 	
 	public abstract String getPlanDescription();
