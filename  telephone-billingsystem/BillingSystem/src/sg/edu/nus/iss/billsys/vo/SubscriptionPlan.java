@@ -30,12 +30,12 @@ public abstract class SubscriptionPlan implements Serializable{
 		return basicFeature.getDateCommenced();
 	}
 
-	public Date getDateterminated() {
-		return basicFeature.getDateterminated();
+	public Date getDateTerminated() {
+		return basicFeature.getDateTerminated();
 	}
 
-	public void setDateterminated(Date dateterminated) {
-		this.basicFeature.setDateterminated(dateterminated);
+	public void setDateTerminated(Date dateTerminated) {
+		this.basicFeature.setDateTerminated(dateTerminated);
 	}
 	
 	public void addOptionalFeature(Feature feature){
