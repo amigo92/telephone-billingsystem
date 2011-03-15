@@ -11,6 +11,7 @@ public class MgrFactory {
 	private static AccountMgr aAccountMgr;
 	private static ComplaintMgr aComplaintMgr;
 	private static SubscriptionMgr aSubscriptionMgr;
+	private static BillMgr aBillMgr;
 	
 	public static UserMgr getUserMgr(){
 		if(aUserMgr == null){
@@ -42,5 +43,13 @@ public class MgrFactory {
 		}
 		
 		return aSubscriptionMgr;
+	}
+	
+	public static BillMgr getBillMgr(){
+		if(aBillMgr == null){
+			aBillMgr = new BillMgr();
+		}
+		
+		return aBillMgr;
 	}
 }
