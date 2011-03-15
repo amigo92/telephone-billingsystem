@@ -12,27 +12,41 @@ import java.util.*;
 public class CallHist {
 
 	private String acctNo;
-	private CallTxnType aCallTxnType;
+	private int callTxnTypeCd;
 	private String telNo;
 	private Date timeOfCall;
 	private long callDuration;
 	
-	public CallHist(String acctNo, CallTxnType aCallTxnType, String telNo, Date timeOfCall, long callDuration) {
+	public void setAcctNo(String acctNo) {
 		this.acctNo = acctNo;
-		this.aCallTxnType = aCallTxnType;
+	}
+
+	public int getCallTxnTypeCd() {
+		return callTxnTypeCd;
+	}
+
+
+	public void setCallTxnTypeCd(int callTxnTypeCd) {
+		this.callTxnTypeCd = callTxnTypeCd;
+	}
+
+
+	public void setTelNo(String telNo) {
 		this.telNo = telNo;
+	}
+
+	public void setTimeOfCall(Date timeOfCall) {
 		this.timeOfCall = timeOfCall;
+	}
+
+	public void setCallDuration(long callDuration) {
 		this.callDuration = callDuration;
 	}
-	
+
 	public String getAcctNo() {
 		return acctNo;
 	}
-
-	public CallTxnType getaCallTxnType() {
-		return aCallTxnType;
-	}
-
+	
 	public String getTelNo() {
 		return telNo;
 	}
