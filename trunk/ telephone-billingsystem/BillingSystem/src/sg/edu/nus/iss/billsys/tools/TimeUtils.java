@@ -10,6 +10,17 @@ import java.text.*;
  */
 public class TimeUtils {
 
+	/**
+	 * 
+	 * @param dateTime e.g. 2010-02-18 18:10:01
+	 * @return
+	 * @throws ParseException
+	 */
+	public static Date parseDate(String dateTime) throws ParseException{
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.parse(dateTime);
+	}
+	
 	public static int getYear(Date date){
 		Calendar now = Calendar.getInstance();
 		now.setTime(date);
