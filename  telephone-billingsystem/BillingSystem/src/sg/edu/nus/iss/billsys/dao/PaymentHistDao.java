@@ -8,6 +8,22 @@ public class PaymentHistDao extends GenericDao {
 	/**
 	 * 
 	 * @param billDate
+	 * @param acctNo
+	 * @return a list of payment history within the given bill month period and account No.
+	 */
+	public ArrayList<PaymentHist> getPaymentHistByBillDateAcctNo(Date billDate, String acctNo){
+		ArrayList<PaymentHist> list = new ArrayList<PaymentHist>();
+		for(PaymentHist ph : getPaymentHistByBillDate(billDate)){
+			if(ph.getAcctNo().equals(acctNo)){
+				list.add(ph);
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param billDate
 	 * @return a list of payment history within the given bill month period
 	 */
 	public ArrayList<PaymentHist> getPaymentHistByBillDate(Date billDate){
