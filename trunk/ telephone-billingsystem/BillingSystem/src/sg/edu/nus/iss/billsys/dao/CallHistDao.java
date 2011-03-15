@@ -9,6 +9,23 @@ public class CallHistDao extends GenericDao {
 	/**
 	 * 
 	 * @param billDate
+	 * @param acctNo
+	 * @return a list of call history within the given bill month period and account No.
+	 */
+	public ArrayList<CallHist> getCallHistByBillDateAcctNo(Date billDate, String acctNo){
+		ArrayList<CallHist> list = new ArrayList<CallHist>();
+		for(CallHist ch : getCallHistByBillDate(billDate)){
+			if(ch.getAcctNo().equals(acctNo)){
+				list.add(ch);
+			}
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param billDate
 	 * @return a list of call history within the given bill month period
 	 */
 	public ArrayList<CallHist> getCallHistByBillDate(Date billDate){
