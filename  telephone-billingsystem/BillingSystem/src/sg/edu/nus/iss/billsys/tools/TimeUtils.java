@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.tools;
 
 import java.util.*;
+import java.text.*;
 
 /**
  * 
@@ -34,5 +35,9 @@ public class TimeUtils {
 		else{
 			return false;
 		}
+	}
+	
+	public static String formatDate(Date date){
+		return new SimpleDateFormat("dd-MMM-yy").format(date);
 	}
 }
