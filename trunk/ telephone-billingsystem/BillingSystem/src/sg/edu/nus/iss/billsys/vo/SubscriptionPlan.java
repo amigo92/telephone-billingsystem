@@ -42,16 +42,14 @@ public abstract class SubscriptionPlan implements Serializable{
 		optionalFeatures.add(feature);
 	}
 	
-	public void removeOptionalFeature(FeatureType type){
-		Feature curr = null;
-		for(Feature f : optionalFeatures){
-			if(f.getaFeatureType() == type){
-				curr = f;
-				break;
+	public Feature getOptionalFeatureByType(FeatureType type){
+		for(Feature curr : optionalFeatures){
+			if(curr.getaFeatureType().equals(type)){
+				return curr;
 			}
 		}
 		
-		optionalFeatures.remove(curr);
+		return null;
 	}
 	
 	public Feature getBasicFeature() {
