@@ -22,4 +22,7 @@ public class DigitalVoicePlan extends SubscriptionPlan {
 		return assignedTelNo;
 	}
 
+	public boolean isCallBased(){
+		return true;
+	}
 }
