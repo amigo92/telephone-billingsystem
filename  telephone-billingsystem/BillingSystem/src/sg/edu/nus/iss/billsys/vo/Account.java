@@ -5,6 +5,10 @@ import java.util.*;
 public class Account {
 
 	private String acctNo;
+	
+	private int balance;
+	private Date balanceUpdateDate;
+	
 	private ArrayList<SubscriptionPlan> plans;
 
 	public String getAcctNo() {
@@ -22,6 +26,21 @@ public class Account {
 	public void setPlans(ArrayList<SubscriptionPlan> plans) {
 		this.plans = plans;
 	}
-	
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public Date getBalanceUpdateDate() {
+		return balanceUpdateDate;
+	}
+
+	public void setBalanceUpdateDate(Date balanceUpdateDate) {
+		this.balanceUpdateDate = balanceUpdateDate;
+	}
 	
 }
