@@ -2,6 +2,7 @@ package sg.edu.nus.iss.billsys.vo;
 
 import java.util.Date;
 
+import sg.edu.nus.iss.billsys.constant.CallTxnType;
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 
 public class CableTvPlan extends SubscriptionPlan {
@@ -18,5 +19,9 @@ public class CableTvPlan extends SubscriptionPlan {
 	
 	public boolean isCallBased(){
 		return false;
+	}
+	
+	public int getUsageRate(CallTxnType type){
+		return 0; //TODO
 	}
 }
