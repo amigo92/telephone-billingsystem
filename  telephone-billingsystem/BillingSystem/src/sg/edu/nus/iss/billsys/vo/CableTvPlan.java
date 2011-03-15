@@ -15,4 +15,8 @@ public class CableTvPlan extends SubscriptionPlan {
 	public String getPlanDescription(){
 		return "Cable TV";
 	}
+	
+	public boolean isCallBased(){
+		return false;
+	}
 }
