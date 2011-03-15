@@ -28,9 +28,4 @@ public enum FeatureType {
 	public String toString(){
 		return name;
 	}
-	
-	public int getSubscriptionCharges(){
-		return 0; //TODO
-	}
-
 }

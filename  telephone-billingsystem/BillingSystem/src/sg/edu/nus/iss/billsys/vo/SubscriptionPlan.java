@@ -65,4 +65,6 @@ public abstract class SubscriptionPlan implements Serializable{
 	public abstract String getPlanDescription();
 	
 	public abstract boolean isCallBased();
+	
+	public abstract int getUsageRate(CallTxnType type);
 }

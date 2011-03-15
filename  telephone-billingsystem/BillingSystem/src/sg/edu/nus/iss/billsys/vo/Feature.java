@@ -24,6 +24,10 @@ public class Feature {
 	public String getName() {
 		return name;
 	}
+	
+	public boolean isActive(Date billStartDate){
+		return !dateTerminated.before(billStartDate);
+	}
 
 	public Date getDateCommenced() {
 		return dateCommenced;
@@ -35,5 +39,9 @@ public class Feature {
 
 	public void setDateTerminated(Date dateTerminated) {
 		this.dateTerminated = dateTerminated;
+	}
+	
+	public int getSubscriptionCharges(){
+		return 0; //TODO
 	}
 }
