@@ -23,8 +23,5 @@ public class SystemUtils {
 		
 		return profile;
 	}
-	
-	public static double getGSTRate(){
-		return 0.07;
-	}
+
 }
