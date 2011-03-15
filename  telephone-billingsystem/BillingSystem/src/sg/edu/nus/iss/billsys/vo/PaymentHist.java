@@ -15,11 +15,21 @@ public class PaymentHist {
 	private int paymentAmt;
 	private Date paymentDate;
 
-	public PaymentHist(String acctNo, int paymentAmt, Date paymentDate) {
+	public void setAcctNo(String acctNo) {
 		this.acctNo = acctNo;
+	}
+
+	public void setPaymentAmt(int paymentAmt) {
 		this.paymentAmt = paymentAmt;
+	}
+
+
+
+	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+
+
 
 	public String getAcctNo() {
 		return acctNo;
