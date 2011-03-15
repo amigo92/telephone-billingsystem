@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.util.*;
+
 import sg.edu.nus.iss.billsys.tools.*;
 
 /**
@@ -11,35 +12,31 @@ import sg.edu.nus.iss.billsys.tools.*;
 public class PaymentHist {
 
 	private String acctNo;
-	private int previousBalance;
-	private int paymentMaded;
-	private Date paymentConsolidationDate;
-	
-	public PaymentHist(String acctNo, int previousBalance, int paymentMaded, Date paymentConsolidationDate) {
+	private int paymentAmt;
+	private Date paymentDate;
+
+	public PaymentHist(String acctNo, int paymentAmt, Date paymentDate) {
 		this.acctNo = acctNo;
-		this.previousBalance = previousBalance;
-		this.paymentMaded = paymentMaded;
-		this.paymentConsolidationDate = paymentConsolidationDate;
+		this.paymentAmt = paymentAmt;
+		this.paymentDate = paymentDate;
 	}
 
 	public String getAcctNo() {
 		return acctNo;
 	}
 
-	public int getPreviousBalance() {
-		return previousBalance;
+	public int getPaymentAmt() {
+		return paymentAmt;
 	}
 
-	public int getPaymentMaded() {
-		return paymentMaded;
+
+
+	public Date getPaymentDate() {
+		return paymentDate;
 	}
 
-	public Date getPaymentConsolidationDate() {
-		return paymentConsolidationDate;
-	}
-	
 	public boolean isCurrMonthTxn(Date billDate){
-		return TimeUtils.equalsYearMonth(getPaymentConsolidationDate(), billDate);
+		return TimeUtils.equalsYearMonth(getPaymentDate(), billDate);
 	}
 	
 }
