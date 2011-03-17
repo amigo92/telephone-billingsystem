@@ -21,6 +21,12 @@ public class TimeUtils {
 		return sdf.parse(dateTime);
 	}
 	
+	public static Date addDays(Date oDate, int days){
+		Calendar cal = Calendar.getInstance(); 
+		cal.add(Calendar.DATE, days); 
+		return cal.getTime();
+	}
+	
 	public static int getYear(Date date){
 		Calendar now = Calendar.getInstance();
 		now.setTime(date);
