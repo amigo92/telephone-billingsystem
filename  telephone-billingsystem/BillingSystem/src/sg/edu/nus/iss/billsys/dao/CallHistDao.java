@@ -66,7 +66,7 @@ public class CallHistDao extends GenericDao {
 	 * @throws ParseException
 	 */
 	private CallHist convert(String callHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(callHist, ",");
+		StringTokenizer st = new StringTokenizer(callHist, ", ");
 		
 		CallHist hist = new CallHist();
 		hist.setAcctNo(st.nextToken()); 
