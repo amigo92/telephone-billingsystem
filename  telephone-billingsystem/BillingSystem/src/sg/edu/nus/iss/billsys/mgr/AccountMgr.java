@@ -5,7 +5,18 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 public class AccountMgr {
 
-	ArrayList<Customer> getAllCustomers(){
+	/**
+	 * Make sure the customer object has a reference to account object, 
+	 * and the account object refers to a list of available subscription plan objects
+	 * @param customerId
+	 * @return
+	 * @client BillMgr
+	 */
+	public Customer getCustomerDetailsById(String customerId){
+		return null; //TODO
+	}
+	
+	public ArrayList<Customer> getAllCustomers(){
 		return null; //TODO
 	}
 }
