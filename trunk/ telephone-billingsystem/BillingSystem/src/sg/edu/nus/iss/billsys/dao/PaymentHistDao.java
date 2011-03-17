@@ -59,12 +59,12 @@ public class PaymentHistDao extends GenericDao {
 	
 	/**
 	 * 
-	 * @param callHist e.g. 'SA-2010-02-10, 20080, 2010-02-18 18:10:01'
+	 * @param callHist e.g. 'SA-2010-02-10,20080,2010-02-18 18:10:01'
 	 * @return
 	 * @throws ParseException
 	 */
 	private PaymentHist convert(String paymentHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(paymentHist, ", ");
+		StringTokenizer st = new StringTokenizer(paymentHist, ",");
 		
 		PaymentHist hist = new PaymentHist();
 		hist.setAcctNo(st.nextToken()); 
