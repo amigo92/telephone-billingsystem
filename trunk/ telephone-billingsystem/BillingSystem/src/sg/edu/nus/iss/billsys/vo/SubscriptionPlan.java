@@ -3,7 +3,6 @@ package sg.edu.nus.iss.billsys.vo;
 import java.io.Serializable;
 import java.util.*;
 import sg.edu.nus.iss.billsys.constant.*;
-import sg.edu.nus.iss.billsys.dao.*;
 
 public abstract class SubscriptionPlan implements Serializable{
 
