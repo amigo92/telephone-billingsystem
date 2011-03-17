@@ -64,7 +64,7 @@ public class PaymentHistDao extends GenericDao {
 	 * @throws ParseException
 	 */
 	private PaymentHist convert(String paymentHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(paymentHist, ",");
+		StringTokenizer st = new StringTokenizer(paymentHist, ", ");
 		
 		PaymentHist hist = new PaymentHist();
 		hist.setAcctNo(st.nextToken()); 
