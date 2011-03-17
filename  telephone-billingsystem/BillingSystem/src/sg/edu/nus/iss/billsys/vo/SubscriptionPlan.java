@@ -60,6 +60,8 @@ public abstract class SubscriptionPlan implements Serializable{
 		return optionalFeatures;
 	}
 	
+	public abstract PlanType getPlanType();
+	
 	public abstract String getPlanDescription();
 	
 	public abstract boolean isCallBased();

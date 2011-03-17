@@ -4,6 +4,7 @@ import java.util.Date;
 
 import sg.edu.nus.iss.billsys.constant.CallTxnType;
 import sg.edu.nus.iss.billsys.constant.FeatureType;
+import sg.edu.nus.iss.billsys.constant.PlanType;
 
 public class MobileVoicePlan extends SubscriptionPlan {
 	
@@ -13,6 +14,10 @@ public class MobileVoicePlan extends SubscriptionPlan {
 	public MobileVoicePlan(String assignedTelNo, Date dateCommenced, Date dateterminated){
 		super(new Feature(FeatureType.Mobile, dateCommenced, dateterminated, null));
 		this.assignedTelNo = assignedTelNo;
+	}
+	
+	public PlanType getPlanType(){
+		return PlanType.MobileVoice;
 	}
 	
 	public String getPlanDescription(){
