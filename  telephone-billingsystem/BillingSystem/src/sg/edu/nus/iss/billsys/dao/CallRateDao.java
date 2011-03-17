@@ -1,12 +1,6 @@
 package sg.edu.nus.iss.billsys.dao;
 
-import sg.edu.nus.iss.billsys.constant.*;
 
-/**
- * 
- * @author Xu Guoneng
- *
- */
 public class CallRateDao extends GenericDao {
 
 	public CallRateDao(){
