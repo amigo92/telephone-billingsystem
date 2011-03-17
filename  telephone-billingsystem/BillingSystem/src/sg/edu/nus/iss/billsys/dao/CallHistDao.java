@@ -61,12 +61,12 @@ public class CallHistDao extends GenericDao {
 	
 	/**
 	 * 
-	 * @param callHist e.g. 'SA-2010-02-10, 66178954, 0, 2010-02-18 18:10:01, 1800'
+	 * @param callHist e.g. 'SA-2010-02-10,66178954,0,2010-02-18 18:10:01,1800'
 	 * @return
 	 * @throws ParseException
 	 */
 	private CallHist convert(String callHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(callHist, ", ");
+		StringTokenizer st = new StringTokenizer(callHist, ",");
 		
 		CallHist hist = new CallHist();
 		hist.setAcctNo(st.nextToken()); 
