@@ -14,4 +14,9 @@ public class SubscriptionMgr {
 	public int getSubscriptionCharge(int featureTypeCd){
 		return aSubscriptionChargesDao.getSubscriptionCharge(featureTypeCd);
 	}
+	public void getSubscriptionPlanDetail(){	
+		//TODO
+	    //return plan name / feature name list / charge
+		//for introduction page
+	}
 }
