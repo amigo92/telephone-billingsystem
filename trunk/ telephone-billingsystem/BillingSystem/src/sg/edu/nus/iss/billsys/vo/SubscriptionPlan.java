@@ -7,6 +7,7 @@ import sg.edu.nus.iss.billsys.constant.*;
 public abstract class SubscriptionPlan implements Serializable{
 
 	private static final long serialVersionUID = 1572263436009780430L;
+	private final long referenceNo;
 
 	private String acctNo;
 	
@@ -16,8 +17,15 @@ public abstract class SubscriptionPlan implements Serializable{
 	protected SubscriptionPlan(Feature basicFeature){
 		this.basicFeature = basicFeature;
 		optionalFeatures =  new ArrayList<Feature>();
+		referenceNo = new Date().getTime();
 	}
 	
+	
+	public long getReferenceNo() {
+		return referenceNo;
+	}
+
+
 	public String getAcctNo() {
 		return acctNo;
 	}
