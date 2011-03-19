@@ -91,6 +91,10 @@ public class Bill {
 		aSummaryChargesList.add(charges);
 	}
 	
+	public ArrayList<SummaryCharges> getSummaryChargesList() {
+		return aSummaryChargesList;
+	}
+
 	public void addDetailChargesList(DetailCharges charges){
 		aDetailChargesList.add(charges);
 	}
