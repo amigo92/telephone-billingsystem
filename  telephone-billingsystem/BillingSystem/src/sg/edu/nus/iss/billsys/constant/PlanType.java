@@ -19,6 +19,14 @@ public enum PlanType {
 		this.name = name;
 	}
 	
+	/**
+	 * 
+	 * @Client BillMgr
+	 */
+	public int getPlanCd(){
+		return planCode.ordinal();
+	}
+	
 	public String toString(){
 		return name;
 	}
