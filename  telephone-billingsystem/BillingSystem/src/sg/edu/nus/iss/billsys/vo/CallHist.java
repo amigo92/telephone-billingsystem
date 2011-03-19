@@ -15,7 +15,7 @@ public class CallHist {
 	private int callTxnTypeCd;
 	private String telNo;
 	private Date timeOfCall;
-	private int callDuration;
+	private long callDuration;
 	
 	public void setAcctNo(String acctNo) {
 		this.acctNo = acctNo;
@@ -39,7 +39,7 @@ public class CallHist {
 		this.timeOfCall = timeOfCall;
 	}
 
-	public void setCallDuration(int callDuration) {
+	public void setCallDuration(long callDuration) {
 		this.callDuration = callDuration;
 	}
 
@@ -55,7 +55,7 @@ public class CallHist {
 		return timeOfCall;
 	}
 
-	public int getCallDuration() {
+	public long getCallDuration() {
 		return callDuration;
 	}
 }
