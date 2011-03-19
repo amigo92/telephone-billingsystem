@@ -12,7 +12,7 @@ public enum CallTxnType {
 	RoamingCall(2, "Roaming Calls");
 	
 	public final int typeCd;
-	String name;
+	public final String name;
 	
 	CallTxnType(int typeCd, String name){
 		this.typeCd = typeCd;
