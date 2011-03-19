@@ -88,7 +88,7 @@ public class CallHistDao extends GenericDao {
 		hist.setTelNo(st.nextToken()); 
 		hist.setCallTxnTypeCd(Integer.parseInt(st.nextToken()));
 		hist.setTimeOfCall(TimeUtils.parseDate(st.nextToken()));
-		hist.setCallDuration(Long.parseLong(st.nextToken()));
+		hist.setCallDuration(Integer.parseInt(st.nextToken()));
 		
 	    return hist; 
 	}
