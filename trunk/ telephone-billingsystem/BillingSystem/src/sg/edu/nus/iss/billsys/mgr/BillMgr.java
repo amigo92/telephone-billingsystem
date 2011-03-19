@@ -39,7 +39,7 @@ public class BillMgr {
 		
 		for(SubscriptionPlan plan : acct.getPlans()){
 			if(isInBillMonth(billDate, plan.getDateCommenced(), plan.getDateTerminated())){
-				if(plan.isCallBased()){
+				if(plan instanceof VoicePlan){
 					processCallBasedPlan(bill, billDate, plan);
 				}
 				else{
@@ -65,14 +65,14 @@ public class BillMgr {
 		CableTvPlan cableTvPlan = (CableTvPlan)plan;
 		Feature basicFeature = plan.getBasicFeature();
 		
-		int basicCharges = MgrFactory.getSubscriptionMgr().getSubscriptionCharge(basicFeature.getaFeatureType().typeCd);
+		int basicCharges = MgrFactory.getSubscriptionMgr().getSubscriptionCharge(basicFeature.getaFeatureType());
 		int channels = 0;
 		int additionCharges = 0;
 		
 		for(Feature channel : cableTvPlan.getOptionalFeatures()){
 			if(isInBillMonth(billDate, channel.getDateCommenced(), channel.getDateTerminated())){
 				channels++;
-				additionCharges += MgrFactory.getSubscriptionMgr().getSubscriptionCharge(channel.getaFeatureType().typeCd);
+				additionCharges += MgrFactory.getSubscriptionMgr().getSubscriptionCharge(channel.getaFeatureType());
 			}
 		}
 		
