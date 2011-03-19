@@ -14,9 +14,19 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class PaymentHistDao extends GenericDao {
 
-	public PaymentHistDao(){
-		super("C:/payments.txt");
+	@Override
+	protected void saveObjectData() {
+		// TODO Auto-generated method stub
+		
 	}
+	@Override
+protected void objectDataMapping(String[][] data) {
+	// TODO Auto-generated method stub
+	
+}
+	/*public PaymentHistDao(){
+		super("C:/payments.txt");
+	}*/
 	
 	/**
 	 * 
@@ -44,7 +54,7 @@ public class PaymentHistDao extends GenericDao {
 			ArrayList<PaymentHist> list = new ArrayList<PaymentHist>();
 			
 			String res = null;
-			BufferedReader br = getCurrReader();
+			BufferedReader br = null;//getCurrReader();
 			while((res = br.readLine()) != null){
 				list.add(convert(res));
 			}
@@ -55,6 +65,11 @@ public class PaymentHistDao extends GenericDao {
 		catch(Exception ex){
 			throw new RuntimeException(ex);
 		}
+	}
+	@Override
+	protected boolean validateData(String[][] data) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/**
