@@ -26,8 +26,12 @@ public class Feature {
 	}
 	
 	public boolean isActive(Date billStartDate){
-		return !dateTerminated.before(billStartDate);
+		return (dateTerminated == null) ? true : !dateTerminated.before(billStartDate);
 	}
+
+	public boolean isTerminated() {
+		return (dateTerminated == null) ? false : (dateTerminated.getTime() <= System.currentTimeMillis());
+	}	
 
 	public Date getDateCommenced() {
 		return dateCommenced;
