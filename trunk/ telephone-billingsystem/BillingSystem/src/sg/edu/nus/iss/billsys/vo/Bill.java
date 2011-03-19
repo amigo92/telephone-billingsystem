@@ -20,8 +20,9 @@ public class Bill {
 	
 	private int previousBalance;
 	private int totalPaymentMade;
-	private int currChargesDue;
+	private int totalCurrCharges;
 	private int totalGST;
+	private int currChargesDue;
 	
 	private ArrayList<Entry> aPaymentReceivedList;
 	private ArrayList<SummaryCharges> aSummaryChargesList;
@@ -35,6 +36,18 @@ public class Bill {
 	
 	
 	
+	public int getTotalCurrCharges() {
+		return totalCurrCharges;
+	}
+
+
+
+	public void setTotalCurrCharges(int totalCurrCharges) {
+		this.totalCurrCharges = totalCurrCharges;
+	}
+
+
+
 	public String getBillDate() {
 		return billDate;
 	}
