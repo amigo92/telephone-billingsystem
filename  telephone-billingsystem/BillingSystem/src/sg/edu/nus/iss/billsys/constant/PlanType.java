@@ -2,24 +2,28 @@ package sg.edu.nus.iss.billsys.constant;
 
 /**
  * 
- * @author Xu Guoneng
+ * @author Xu Guoneng, Lem Kian Hoa (Stephen)
  *
  */
 public enum PlanType {
 
-	DigitalVoice(0, "Digital Voice"),
-	MobileVoice(1, "Mobile Voice"),
-	CableTv(2, "Cable TV");
+	DigitalVoice(PlanCode.DIGITAL_VOICE, "Digital Voice"),
+	MobileVoice(PlanCode.MOBILE_VOICE, "Mobile Voice"),
+	CableTv(PlanCode.CABLE_TV, "Cable TV");
 	
-	int planTypeCd;
-	String planName;
+	public final PlanCode planCode;
+	public final String name;
 	
-	PlanType(int code, String name){
-		planTypeCd = code;
-		planName = name;
+	private PlanType(PlanCode code, String name){
+		this.planCode = code;
+		this.name = name;
 	}
 	
 	public String toString(){
-		return planName;
+		return name;
+	}
+
+	public enum PlanCode {
+		DIGITAL_VOICE, MOBILE_VOICE, CABLE_TV
 	}
 }

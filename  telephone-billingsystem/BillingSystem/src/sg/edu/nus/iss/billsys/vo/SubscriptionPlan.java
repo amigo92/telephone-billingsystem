@@ -1,20 +1,30 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
-import java.util.*;
-import sg.edu.nus.iss.billsys.constant.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public abstract class SubscriptionPlan implements Serializable{
+import sg.edu.nus.iss.billsys.constant.*;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+
+/**
+ * 
+ * @author Lem Kian Hoa (Stephen)
+ *
+ */
+public abstract class SubscriptionPlan implements Serializable {
 
 	private static final long serialVersionUID = 1572263436009780430L;
 	private final long referenceNo;
 
 	private String acctNo;
 	
-	protected Feature basicFeature;
-	protected ArrayList<Feature> optionalFeatures;
+	private final Feature basicFeature;
+	protected final ArrayList<Feature> optionalFeatures;
 	
-	protected SubscriptionPlan(Feature basicFeature){
+	protected SubscriptionPlan(String acctNo, Feature basicFeature) {
+		this.acctNo = acctNo;
 		this.basicFeature = basicFeature;
 		optionalFeatures =  new ArrayList<Feature>();
 		referenceNo = new Date().getTime();
@@ -25,13 +35,8 @@ public abstract class SubscriptionPlan implements Serializable{
 		return referenceNo;
 	}
 
-
 	public String getAcctNo() {
 		return acctNo;
-	}
-
-	public void setAcctNo(String acctNo) {
-		this.acctNo = acctNo;
 	}
 
 	public Date getDateCommenced() {
@@ -43,11 +48,15 @@ public abstract class SubscriptionPlan implements Serializable{
 	}
 
 	public void setDateTerminated(Date dateTerminated) {
-		this.basicFeature.setDateTerminated(dateTerminated);
+		basicFeature.setDateTerminated(dateTerminated);
 	}
 	
-	public void addOptionalFeature(Feature feature){
-		optionalFeatures.add(feature);
+	public Feature getBasicFeature() {
+		return basicFeature;
+	}
+
+	public List<Feature> getOptionalFeatures() {
+		return optionalFeatures;
 	}
 	
 	public Feature getOptionalFeatureByType(FeatureType type){
@@ -56,22 +65,12 @@ public abstract class SubscriptionPlan implements Serializable{
 				return curr;
 			}
 		}
-		
 		return null;
-	}
-	
-	public Feature getBasicFeature() {
-		return basicFeature;
-	}
-
-	public ArrayList<Feature> getOptionalFeatures() {
-		return optionalFeatures;
 	}
 	
 	public abstract PlanType getPlanType();
 	
 	public abstract String getPlanDescription();
 	
-	public abstract boolean isCallBased();
-	
+	public abstract void addOptionalFeature(Feature feature) throws BillingSystemException;
 }

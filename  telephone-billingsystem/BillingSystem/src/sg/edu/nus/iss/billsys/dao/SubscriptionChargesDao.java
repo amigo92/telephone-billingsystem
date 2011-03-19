@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.dao;
 
+import sg.edu.nus.iss.billsys.constant.FeatureType.FeatureCode;
+
 public class SubscriptionChargesDao extends GenericDao {
 
 	@Override
@@ -22,7 +24,7 @@ public class SubscriptionChargesDao extends GenericDao {
 		//super("C:/subscriptioncharges.txt");
 	}
 	
-	public int getSubscriptionCharge(int featureTypeCd){
+	public int getSubscriptionCharge(FeatureCode featureCode){
 		return 0; //TODO
 	}
 }
