@@ -1,0 +1,2 @@
+#plan_id||name||acc_no||is_terminated||assigned_telno||plan_type||date_commenced||date_terminated
+plan_id||name||acc_no||is_terminated||assigned_telno||plan_type||date_commenced||date_terminated

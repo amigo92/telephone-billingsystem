@@ -1,0 +1,2 @@
+#customer_id||name||address1||address2||address3||contact_tel||interest||is_deleted||nric
+customer_id||name||address1||address2||address3||contact_tel||interest||is_deleted||nric
