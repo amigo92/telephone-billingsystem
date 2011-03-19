@@ -226,6 +226,14 @@ public class Bill {
 			this.desc = desc;
 			this.amt = amt;
 		}
+
+		public String getDesc() {
+			return desc;
+		}
+
+		public Integer getAmt() {
+			return amt;
+		}
 	}
 
 	public String toString(){
