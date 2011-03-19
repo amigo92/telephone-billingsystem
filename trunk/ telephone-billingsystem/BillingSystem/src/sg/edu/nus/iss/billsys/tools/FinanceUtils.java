@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.tools;
 
 import java.text.*;
+import java.math.*;
 
 /**
  * 
@@ -9,11 +10,16 @@ import java.text.*;
  */
 public class FinanceUtils {
 
-	public static double getGSTRate(){
-		return 0.07;
-	}
-	
 	public static String formatCentToDollar(int cents){
 		return new DecimalFormat("0.00").format(cents/100.00);
 	}
+	
+	public static int calGST(int amtInCent){
+		return new BigDecimal(amtInCent).multiply(getGSTRate()).intValue();
+	}
+	
+	public static BigDecimal getGSTRate(){
+		return new BigDecimal("0.07");
+	}
+
 }
