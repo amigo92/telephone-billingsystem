@@ -11,7 +11,7 @@ public enum CallTxnType {
 	IDD(1, "IDD Calls"),
 	RoamingCall(2, "Roaming Calls");
 	
-	int typeCd;
+	public final int typeCd;
 	String name;
 	
 	CallTxnType(int typeCd, String name){
