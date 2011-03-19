@@ -175,7 +175,7 @@ public class BillMgr {
 	}
 	
 	private int getSubscriptionCharges(Feature feature){
-		return MgrFactory.getSubscriptionMgr().getSubscriptionCharge(feature.getaFeatureType().typeCd);
+		return MgrFactory.getSubscriptionMgr().getSubscriptionCharge(feature.getaFeatureType());
 	}
 	
 	private Date calculateDueDate(Date billDate){
