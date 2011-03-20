@@ -15,12 +15,14 @@ import sg.edu.nus.iss.billsys.vo.Bill.*;
  */
 public class BillMgr {
 
-	public ArrayList<Bill> generate(Date billDate){
+	private static List<FeatureType> callTxnTypes;
+	
+	public ArrayList<Bill> generate(BillPeriod billPeriod){
 		ArrayList<Bill> list = new ArrayList<Bill>();
 		
 		ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
 		for(Customer c : customers){
-			Bill bill = generate(billDate, c.getCustomerId());
+			Bill bill = generate(billPeriod, c.getCustomerId());
 			if(bill != null){
 				list.add(bill);
 			}
@@ -29,30 +31,30 @@ public class BillMgr {
 		return list;
 	}
 	
-	public Bill generate(Date billDate, String customerId){
+	public Bill generate(BillPeriod billPeriod, String customerId){
 		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerId);
 		Account acct = customer.getAcct();
 		
 		Bill bill = new Bill();
-		bill.setBillDate(billDate);
-		bill.setDueDate(calculateDueDate(billDate));
+		bill.setBillDate(billPeriod.getBillDate());
+		bill.setDueDate(billPeriod.getDueDate());
 		bill.setaCustomer(customer);
 		bill.setaAccount(acct);
 		
 		int paymentAmt = 0;
-		for(PaymentHist ph : new PaymentHistDao().getPaymentHistByBillDateAcctNo(billDate, acct.getAcctNo())){
+		for(PaymentHist ph : new PaymentHistDao().getPaymentHistByBillPeriodAcctNo(billPeriod, acct.getAcctNo())){
 			bill.addPaymentReceived(ph.getPaymentDate(), ph.getPaymentAmt());
 			paymentAmt += ph.getPaymentAmt();
 		}
 		bill.setTotalPaymentMade(paymentAmt);
 
 		for(SubscriptionPlan plan : acct.getPlans()){
-			if(isInBillMonth(billDate, plan.getDateCommenced(), plan.getDateTerminated())){
+			if(billPeriod.isOverlapped(plan.getDateCommenced(), plan.getDateTerminated())){
 				if(plan instanceof VoicePlan){
-					processCallBasedPlan(bill, billDate, plan);
+					processCallBasedPlan(bill, billPeriod, (VoicePlan)plan);
 				}
 				else{
-					processNonCallBasedPlan(bill, billDate, plan);
+					processNonCallBasedPlan(bill, billPeriod, plan);
 				}
 			}
 		}
@@ -65,11 +67,7 @@ public class BillMgr {
 		return bill;
 	}
 	
-	private boolean isInBillMonth(Date billDate, Date commencedDate, Date terminateDate){
-		return true; //TODO
-	}
-	
-	private void processCallBasedPlan(Bill bill, Date billDate, SubscriptionPlan plan){
+	private void processCallBasedPlan(Bill bill, BillPeriod billPeriod, VoicePlan plan){
 
 		DetailCharges detail = bill.new DetailCharges();
 		
@@ -89,7 +87,7 @@ public class BillMgr {
 			detail.addEntry(bill.new Entry(f.getName(), amt));
 		}
 		
-		int total_use_charges = getTotalUsage(billDate, bill, detail, plan);
+		int total_use_charges = getTotalUsage(billPeriod, bill, detail, plan);
 		detail.setTotalAmt(total_sub_charges + total_use_charges);
 		
 		bill.addDetailChargesList(detail);
@@ -103,7 +101,7 @@ public class BillMgr {
 		bill.addSummaryCharges(sum);
 	}
 	
-	private void processNonCallBasedPlan(Bill bill, Date billDate, SubscriptionPlan plan){
+	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, SubscriptionPlan plan){
 		CableTvPlan cableTvPlan = (CableTvPlan)plan;
 		Feature basicFeature = plan.getBasicFeature();
 		
@@ -112,7 +110,7 @@ public class BillMgr {
 		int additionCharges = 0;
 		
 		for(Feature channel : cableTvPlan.getOptionalFeatures()){
-			if(isInBillMonth(billDate, channel.getDateCommenced(), channel.getDateTerminated())){
+			if(billPeriod.isOverlapped(channel.getDateCommenced(), channel.getDateTerminated())){
 				channels++;
 				additionCharges += getSubscriptionCharges(channel);
 			}
@@ -132,13 +130,13 @@ public class BillMgr {
 		bill.addDetailChargesList(detail);
 	}
 	
-	private int getTotalUsage(Date billDate, Bill bill, DetailCharges detail, SubscriptionPlan plan){
+	private int getTotalUsage(BillPeriod billPeriod, Bill bill, DetailCharges detail, VoicePlan plan){
 		detail.addEntry(bill.new Entry("Usage Charges", null));
 		
-		ArrayList<CallHist> calls = new CallHistDao().getCallHistByBillDateAcctNo(billDate, plan.getAcctNo());
+		ArrayList<CallHist> calls = new CallHistDao().getCallHistByBillDateAcctNo(billPeriod, plan.getAcctNo());
 		
 		int total_use_charges = 0;
-		for(CallTxnType ct : CallTxnType.values()){
+		for(FeatureType ct : getCallTxnTypes()){
 			Entry entry = calculateUsageCharges(calls, bill, ct, plan);
 			if(entry != null){
 				detail.addEntry(entry);
@@ -151,35 +149,26 @@ public class BillMgr {
 		return total_use_charges;
 	}
 
-	private Entry calculateUsageCharges(ArrayList<CallHist> calls, Bill bill, CallTxnType ct, SubscriptionPlan plan){		
-		String telNo = getAssignedtelNo(plan);
+	private Entry calculateUsageCharges(ArrayList<CallHist> calls, Bill bill, FeatureType ct, VoicePlan plan){		
 		int total_duration = 0;
 		for(CallHist ch : calls){
-			if(ch.getTelNo().equals(telNo) && ch.getCallTxnTypeCd() == ct.typeCd){
+			if(ch.getTelNo().equals(plan.getAssignedTelNo()) && ch.getCallTxnTypeCd() == ct.getFeatureCd()){
 				total_duration += ch.getCallDuration();
 			}
 		}
 		
-		int usage_per_number = total_duration * new CallRateDao().getRate(plan.getPlanType().planTypeCd, ct.typeCd);
-		
-		return bill.new Entry(ct.name, usage_per_number);
-	}
-	
-	private String getAssignedtelNo(SubscriptionPlan plan){
-		if(plan instanceof DigitalVoicePlan){
-			return ((DigitalVoicePlan)plan).getAssignedTelNo();
+		if(total_duration != 0){
+			int usage_per_number = total_duration * new CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
+			
+			return bill.new Entry(ct.name, usage_per_number);
 		}
 		else{
-			return ((MobileVoicePlan)plan).getAssignedTelNo();
+			return null;
 		}
 	}
 	
 	private int getSubscriptionCharges(Feature feature){
 		return MgrFactory.getSubscriptionMgr().getSubscriptionCharge(feature.getaFeatureType());
-	}
-	
-	private Date calculateDueDate(Date billDate){
-		return TimeUtils.addDays(billDate, 15);
 	}
 	
 	private int calculateTotalCurrChargesBeforeGST(ArrayList<SummaryCharges> sums){
@@ -189,6 +178,19 @@ public class BillMgr {
 		}
 		
 		return amt;
+	}
+	
+	private static List<FeatureType> getCallTxnTypes(){
+		if(callTxnTypes == null){
+			callTxnTypes = new ArrayList<FeatureType>();
+			for(FeatureType f : FeatureType.values()){
+				if(f.usageCharge){
+					callTxnTypes.add(f);
+				}
+			}
+		}
+		
+		return callTxnTypes;
 	}
 
 }
