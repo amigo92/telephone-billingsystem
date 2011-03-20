@@ -28,10 +28,12 @@ public class BillMgr {
 	
 	public Bill getBill(BillPeriod billPeriod, String customerId){
 		for(Bill bill : getBills(billPeriod)){
-			
+			if(bill.getaCustomer().getCustomerId().equals(customerId)){
+				return bill;
+			}
 		}
 		
-		return null;//TOTO
+		return null;
 	}
 	
 	
