@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.vo;
 
+import java.io.Serializable;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
@@ -9,13 +10,15 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
  * @author Xu Guoneng
  *
  */
-public class BillPeriod {
+public class BillPeriod implements Serializable{
 
-	int year;
-	int month;
+	private static final long serialVersionUID = -7707485868822025708L;
 	
-	Calendar startCal;
-	Calendar endCal;
+	private int year;
+	private int month;
+	
+	private Calendar startCal;
+	private Calendar endCal;
 	
 	/**
 	 * 
@@ -64,6 +67,25 @@ public class BillPeriod {
 	
 	public String getBillDate(){
 		return TimeUtils.formatDate(getEndTime());
+	}
+	
+	/**
+	 * @override
+	 */
+	public boolean equals(Object obj){
+		if(obj instanceof BillPeriod){
+			BillPeriod bp = (BillPeriod)obj;
+			return year == bp.year && month == bp.month;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * @override
+	 */
+	public int hashCode(){
+		return Integer.parseInt("" + month + year);
 	}
 	
 //	public static void main(String[] args){
