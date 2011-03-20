@@ -5,7 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import sg.edu.nus.iss.billsys.vo.User;
-
+/**
+ * 
+ * @author Veera
+ *
+ */
 public class UserDao extends GenericDao{
 	
 	private List<User> listUser=new ArrayList<User>();
@@ -19,10 +23,9 @@ public class UserDao extends GenericDao{
 	    	
 	    	User usr=new User();
 	    		
-	    	usr.setUserId(data[i][0]);
-	    	usr.setUsername(data[i][1]);
-	    	usr.setPassword(data[i][2]);
-	    	usr.setRole(data[i][3]);
+	    	usr.setUsername(data[i][0]);
+	    	usr.setPassword(data[i][1]);
+	    	usr.setRole(data[i][2]);
 	    	
 	    	listUser.add(usr);	
 	    }
@@ -35,16 +38,15 @@ public class UserDao extends GenericDao{
 	protected void saveObjectData(){
 	int cnt=0;
 	
-	String data[][]=new String[listUser.size()][4];
+	String data[][]=new String[listUser.size()][3];
 		
 	for (Iterator iter = listUser.iterator(); iter.hasNext();) {
 	
 		User element = (User) iter.next();			
 			
-			data[cnt][0]=element.getUserId();
-			data[cnt][1]=element.getUsername();
-			data[cnt][2]=element.getPassword();
-			data[cnt][3]=element.getRole();
+			data[cnt][0]=element.getUsername();
+			data[cnt][1]=element.getPassword();
+			data[cnt][2]=element.getRole();
 			
 			cnt++;				
 		}
@@ -77,7 +79,7 @@ public class UserDao extends GenericDao{
 		for (Iterator iter = listUser.iterator(); iter.hasNext();) {
 			User element = (User) iter.next();
 			
-			if(element.getUserId().equals(usr.getUserId())){
+			if(element.getUsername().equals(usr.getUsername())){
 				listUser.set(cnt, usr);
 				break;
 			}
