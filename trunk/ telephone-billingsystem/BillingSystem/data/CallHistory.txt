@@ -1,2 +1,2 @@
-#call_id||call_type||call_number||assigned_telno||yyyy-MM-dd HH:mm:ss||duration||acc_no
-00||00||00||00||00||00||00
+#call_id||call_type||assigned_telno||yyyy-MM-dd HH:mm:ss||duration||acc_no
+00||00||00||00||00||00
