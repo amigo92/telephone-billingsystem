@@ -16,7 +16,7 @@ public class Bill {
 	
 	private CompanyProfile aCompanyProfile;
 	private Customer aCustomer;
-	private Account aAccount;
+	private String acctNo;
 	
 	private int previousBalance;
 	private int totalPaymentMade;
@@ -125,12 +125,27 @@ public class Bill {
 	}
 
 	public void setaCustomer(Customer aCustomer) {
-		this.aCustomer = aCustomer;
+		try{
+			this.aCustomer = (Customer)aCustomer.clone();
+		}
+		catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
 	}
 
-	public void setaAccount(Account aAccount) {
-		this.aAccount = aAccount;
+	public Customer getaCustomer() {
+		return aCustomer;
 	}
+
+	public String getAcctNo() {
+		return acctNo;
+	}
+
+
+	public void setAcctNo(String acctNo) {
+		this.acctNo = acctNo;
+	}
+
 
 	public void setPreviousBalance(int previousBalance) {
 		this.previousBalance = previousBalance;
