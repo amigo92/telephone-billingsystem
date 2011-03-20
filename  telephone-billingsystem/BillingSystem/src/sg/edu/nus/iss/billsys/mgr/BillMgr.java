@@ -54,7 +54,7 @@ public class BillMgr {
 					processCallBasedPlan(bill, billPeriod, (VoicePlan)plan);
 				}
 				else{
-					processNonCallBasedPlan(bill, billPeriod, plan);
+					processNonCallBasedPlan(bill, billPeriod, (CableTvPlan)plan);
 				}
 			}
 		}
@@ -101,9 +101,8 @@ public class BillMgr {
 		bill.addSummaryCharges(sum);
 	}
 	
-	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, SubscriptionPlan plan){
-		CableTvPlan cableTvPlan = (CableTvPlan)plan;
-		Feature basicFeature = plan.getBasicFeature();
+	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, CableTvPlan cableTvPlan){
+		Feature basicFeature = cableTvPlan.getBasicFeature();
 		
 		int basicCharges = getSubscriptionCharges(basicFeature);
 		int channels = 0;
@@ -124,7 +123,7 @@ public class BillMgr {
 		bill.addSummaryCharges(sum);
 		
 		DetailCharges detail = bill.new DetailCharges();
-		detail.setDesc(plan.getPlanDescription());
+		detail.setDesc(cableTvPlan.getPlanDescription());
 		detail.addEntry(bill.new Entry("Subscriptions charges", basicCharges));
 		detail.addEntry(bill.new Entry("Additional " + channels + " Channel charge(s)" , additionCharges));
 		bill.addDetailChargesList(detail);
