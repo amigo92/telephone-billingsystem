@@ -30,6 +30,14 @@ public enum FeatureType {
 		this.usageCharge = usageCharge;
 	}
 	
+	/**
+	 * 
+	 * @return int representation of Feature Code, as it is an Integer in the .txt file
+	 */
+	public int getFeatureCode(){
+		return featureCode.ordinal();
+	}
+	
 	public String toString(){
 		return name;
 	}
