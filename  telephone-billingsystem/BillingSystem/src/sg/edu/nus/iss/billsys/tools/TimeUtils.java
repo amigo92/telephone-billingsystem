@@ -55,6 +55,6 @@ public class TimeUtils {
 	}
 	
 	public static String formatDate(Date date){
-		return new SimpleDateFormat("dd-MMM-yy").format(date);
+		return new SimpleDateFormat("dd-MMM-yyyy").format(date);
 	}
 }
