@@ -15,17 +15,22 @@ import sg.edu.nus.iss.billsys.vo.Bill.*;
  */
 public class BillMgr {
 
+	private static BillDao aBillDao = new BillDao();
 	private static List<FeatureType> callTxnTypes;
 	
 	public BillPeriod getNextBillPeriod(){
-		return null; //TOTO
+		return aBillDao.getNextBillPeriod();
 	}
 	
 	public ArrayList<Bill> getBills(BillPeriod billPeriod){
-		return null;//TOTO
+		return aBillDao.getBills(billPeriod);
 	}
 	
 	public Bill getBill(BillPeriod billPeriod, String customerId){
+		for(Bill bill : getBills(billPeriod)){
+			
+		}
+		
 		return null;//TOTO
 	}
 	
@@ -52,7 +57,7 @@ public class BillMgr {
 		bill.setBillDate(billPeriod.getBillDate());
 		bill.setDueDate(billPeriod.getDueDate());
 		bill.setaCustomer(customer);
-		bill.setaAccount(acct);
+		bill.setAcctNo(acct.getAcctNo());
 		
 		int paymentAmt = 0;
 		for(PaymentHist ph : new PaymentHistDao().getPaymentHistByBillPeriodAcctNo(billPeriod, acct.getAcctNo())){
