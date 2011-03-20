@@ -5,6 +5,7 @@ import java.util.*;
 import sg.edu.nus.iss.billsys.constant.*;
 import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.dao.*;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
 import sg.edu.nus.iss.billsys.vo.Bill.*;
 
@@ -18,10 +19,24 @@ public class BillMgr {
 	private static BillDao aBillDao = new BillDao();
 	private static List<FeatureType> callTxnTypes;
 	
+	/**
+	 * 
+	 * @client GUI
+	 */
+	public BillPeriod[] getAllGeneratedBillPeriods(){
+		Set<BillPeriod> set = aBillDao.getAllGeneratedBillPeriods();
+		BillPeriod[] bps = new BillPeriod[set.size()];
+		return set.toArray(bps);
+	}
+	
+	/**
+	 * 
+	 * @client GUI
+	 */
 	public BillPeriod getNextBillPeriod(){
 		return aBillDao.getNextBillPeriod();
 	}
-	
+		
 	public ArrayList<Bill> getBills(BillPeriod billPeriod){
 		return aBillDao.getBills(billPeriod);
 	}
@@ -36,8 +51,16 @@ public class BillMgr {
 		return null;
 	}
 	
-	
-	private ArrayList<Bill> generate(BillPeriod billPeriod){
+	/**
+	 * 
+	 * @throws BillingSystemException 
+	 * @client GUI
+	 */
+	public void generate(BillPeriod billPeriod) throws BillingSystemException{
+		if(!billPeriod.equals(getNextBillPeriod())){
+			throw new BillingSystemException("The next bill generation period must be " + billPeriod.getBillDate());
+		}
+		
 		ArrayList<Bill> list = new ArrayList<Bill>();
 		
 		ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
@@ -48,7 +71,8 @@ public class BillMgr {
 			}
 		}
 		
-		return list;
+		aBillDao.add(billPeriod, list);
+		aBillDao.setCurrBillPeriod(billPeriod);
 	}
 	
 	private Bill generate(BillPeriod billPeriod, String customerId){
@@ -56,6 +80,7 @@ public class BillMgr {
 		Account acct = customer.getAcct();
 		
 		Bill bill = new Bill();
+		bill.setPreviousBalance(acct.getBalance());
 		bill.setBillDate(billPeriod.getBillDate());
 		bill.setDueDate(billPeriod.getDueDate());
 		bill.setaCustomer(customer);
@@ -83,6 +108,10 @@ public class BillMgr {
 		bill.setTotalGST(FinanceUtils.calGST(chargesBefGST));
 		bill.setTotalCurrCharges(chargesBefGST + bill.getTotalGST());
 		bill.setCurrChargesDue(bill.getPreviousBalance() - bill.getTotalPaymentMade() + bill.getTotalCurrCharges());
+		
+		acct.setBalance(bill.getCurrChargesDue());
+		acct.setBalanceUpdateDate(billPeriod.getEndTime());
+		MgrFactory.getAccountMgr().update(acct);
 		
 		return bill;
 	}
