@@ -1,2 +1,6 @@
-#payment_id||yyyy-MM-dd HH:mm:ss||acct_balance||acc_no
-payment_id||yyyy-MM-dd HH:mm:ss||acct_balance||acc_no
+#acc_no||pay_month||acct_balance
+acc_no1||2010-02-18 18:10:01||123
+acc_no2||2010-02-18 19:10:01||123
+acc_no3||2010-02-18 20:10:01||12
+acc_no4||2010-02-18 21:10:01||123
+
