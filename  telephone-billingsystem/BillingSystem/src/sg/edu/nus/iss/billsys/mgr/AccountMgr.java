@@ -27,4 +27,13 @@ public class AccountMgr {
 	public void update(Account acct){
 		//TODO
 	}
+	
+	/**
+	 * Retrieve account obj by account no.
+	 * @client SubscriptionMgr
+	 */
+	public Account getAccountObject(String accountNo){
+		//TODO
+		return null;
+	}
 }
