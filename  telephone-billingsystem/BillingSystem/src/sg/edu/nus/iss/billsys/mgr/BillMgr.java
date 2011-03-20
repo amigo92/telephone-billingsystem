@@ -116,7 +116,7 @@ public class BillMgr {
 		}
 		
 		SummaryCharges sum = bill.new SummaryCharges();
-		sum.setDesc(basicFeature.getaFeatureType().toString());
+		sum.setDesc(basicFeature.getName());
 		sum.addEntry(bill.new Entry("Subscription charges", basicCharges));
 		sum.addEntry(bill.new Entry("Additional Channel charges", additionCharges));
 		sum.setTotalAmt(basicCharges + additionCharges);
