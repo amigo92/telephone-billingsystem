@@ -8,23 +8,15 @@ public class AccountMgr {
 	/**
 	 * Make sure the customer object has a reference to account object, 
 	 * and the account object refers to a list of available subscription plan objects
-	 * @param customerId
+	 * @param accNo
 	 * @return
 	 * @client BillMgr
 	 */
-	public Customer getCustomerDetailsById(String customerId){
+	public Customer getCustomerDetailsById(String accNo){
 		return null; //TODO
 	}
 	
 	public ArrayList<Customer> getAllCustomers(){
 		return null; //TODO
-	}
-	
-	/**
-	 * update acct balance
-	 * @client BillMgr
-	 */
-	public void update(Account acct){
-		//TODO
 	}
 }
