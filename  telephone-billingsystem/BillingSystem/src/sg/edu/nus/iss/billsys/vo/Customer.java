@@ -1,6 +1,6 @@
 package sg.edu.nus.iss.billsys.vo;
 
-public class Customer {
+public class Customer implements Cloneable {
 
 	private String customerId;
 	private Account acct;
@@ -21,4 +21,8 @@ public class Customer {
 		this.customerId = customerId;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+	}
+
 }
