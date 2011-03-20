@@ -69,6 +69,10 @@ public class BillPeriod implements Serializable{
 		return TimeUtils.formatDate(getEndTime());
 	}
 	
+	public BillPeriod getNextBillPeriod(){
+		return new BillPeriod(year, month+1);
+	}
+	
 	/**
 	 * @override
 	 */
