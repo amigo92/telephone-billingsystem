@@ -22,6 +22,7 @@ public class UserDao extends GenericDao{
 	    	usr.setUserId(data[i][0]);
 	    	usr.setUsername(data[i][1]);
 	    	usr.setPassword(data[i][2]);
+	    	usr.setRole(data[i][3]);
 	    	
 	    	listUser.add(usr);	
 	    }
@@ -43,6 +44,7 @@ public class UserDao extends GenericDao{
 			data[cnt][0]=element.getUserId();
 			data[cnt][1]=element.getUsername();
 			data[cnt][2]=element.getPassword();
+			data[cnt][3]=element.getRole();
 			
 			cnt++;				
 		}
