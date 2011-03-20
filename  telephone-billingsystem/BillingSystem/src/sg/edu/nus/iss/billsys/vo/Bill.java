@@ -9,8 +9,10 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
  * @author Xu Guoneng
  *
  */
-public class Bill {
+public class Bill implements Serializable{
 
+	private static final long serialVersionUID = -985027259591734266L;
+	
 	private String billDate;
 	private String dueDate;
 	
