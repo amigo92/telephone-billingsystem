@@ -34,7 +34,7 @@ public enum FeatureType {
 	 * 
 	 * @return int representation of Feature Code, as it is an Integer in the .txt file
 	 */
-	public int getFeatureCode(){
+	public int getFeatureCd(){
 		return featureCode.ordinal();
 	}
 	
