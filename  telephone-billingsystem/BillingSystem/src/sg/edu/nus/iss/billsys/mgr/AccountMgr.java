@@ -19,4 +19,12 @@ public class AccountMgr {
 	public ArrayList<Customer> getAllCustomers(){
 		return null; //TODO
 	}
+	
+	/**
+	 * update acct balance
+	 * @client BillMgr
+	 */
+	public void update(Account acct){
+		//TODO
+	}
 }
