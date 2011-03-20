@@ -29,7 +29,6 @@ public class TestDao extends GenericDao{
 	public static void main(String[] args) {
 		TestDao td=new TestDao();
 		
-		td.print("td.getAccountData()",td.getAccountData());
 		td.print("td.getCallHistoryData()",td.getCallHistoryData());
 		td.print("td.getCustomerData()",td.getCustomerData());
 		td.print("td.getFeatureData()",td.getFeatureData());
@@ -39,33 +38,41 @@ public class TestDao extends GenericDao{
 		td.print("td.getSubscriptionPlanData()",td.getSubscriptionPlanData());
 		td.print("td.getUserData()",td.getUserData());
 		
-		td.testWriteAccountData(td.getAccountData());
 		
-		td.print("td.getAccountData()",td.getAccountData());
+		
+		
 		
 		UserDao usr=new UserDao();
 		
 		User user=new User();
-		user.setUserId("1");
 		user.setUsername("Veera1");
 		user.setPassword("pass1");
+		user.setRole("test");
 		
 		usr.updatePassword(user);
 		usr.saveObjectData();
 		
+		CallHistDao cdao= new CallHistDao();
+		
+		PaymentHistDao pdao =new PaymentHistDao();
+		
+		FeatureRateDao frdao=new FeatureRateDao();
+		
+		System.out.println(frdao.getPricebyFeatureCode("a"));
+		
+		PlanRateDao prdao=new PlanRateDao();
+		
+		System.out.println(prdao.getPricebyPlanType("b"));	
+		
+		CustomerDao cudao=new CustomerDao();
+		
+		
+		
+		
 		
 	}
 	
-	public void testWriteAccountData(String[][] data){
 		
-		
-		TestDao td=new TestDao();
-		
-		td.saveAccountData(td.getAccountData());
-		
-		
-	}
-	
 	public void  print(String filename,String[][] data){
 		System.out.print("Filename :"+filename);
 		System.out.print("\n");
