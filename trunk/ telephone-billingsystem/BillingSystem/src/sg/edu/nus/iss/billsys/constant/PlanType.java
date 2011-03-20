@@ -21,7 +21,7 @@ public enum PlanType {
 	
 	/**
 	 * 
-	 * @Client BillMgr
+	 * @return int representation of Plan Code, as it is an Integer in the .txt file
 	 */
 	public int getPlanCd(){
 		return planCode.ordinal();
