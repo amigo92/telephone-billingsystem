@@ -30,13 +30,13 @@ protected void objectDataMapping(String[][] data) {
 	
 	/**
 	 * 
-	 * @param billDate
+	 * @param billPeriod
 	 * @param acctNo
 	 * @return a list of payment history within the given bill month period and account No.
 	 */
-	public ArrayList<PaymentHist> getPaymentHistByBillDateAcctNo(Date billDate, String acctNo){
+	public ArrayList<PaymentHist> getPaymentHistByBillPeriodAcctNo(BillPeriod billPeriod, String acctNo){
 		ArrayList<PaymentHist> list = new ArrayList<PaymentHist>();
-		for(PaymentHist ph : getPaymentHistByBillDate(billDate)){
+		for(PaymentHist ph : getPaymentHistByBillPeriod(billPeriod)){
 			if(ph.getAcctNo().equals(acctNo)){
 				list.add(ph);
 			}
@@ -46,19 +46,24 @@ protected void objectDataMapping(String[][] data) {
 	
 	/**
 	 * 
-	 * @param billDate
+	 * @param billPeriod
 	 * @return a list of payment history within the given bill month period
 	 */
-	public ArrayList<PaymentHist> getPaymentHistByBillDate(Date billDate){
+	public ArrayList<PaymentHist> getPaymentHistByBillPeriod(BillPeriod billPeriod){
 		try{
 			ArrayList<PaymentHist> list = new ArrayList<PaymentHist>();
 			
-			String res = null;
-			BufferedReader br = null;//getCurrReader();
-			while((res = br.readLine()) != null){
-				list.add(convert(res));
+			String[][] matrix = getPaymentHistoryData();
+			for(String[] row : matrix){
+				PaymentHist hist = new PaymentHist();
+				hist.setPaymentDate(TimeUtils.parseDate(row[1]));
+				hist.setPaymentAmt(Integer.parseInt(row[2])); 
+				hist.setAcctNo(row[3]); 
+				
+				if(billPeriod.isInRange(hist.getPaymentDate())){
+					list.add(hist);
+				}
 			}
-			br.close();
 			
 			return list;
 		}
