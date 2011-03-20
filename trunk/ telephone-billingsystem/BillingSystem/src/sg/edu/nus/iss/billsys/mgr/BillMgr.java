@@ -17,7 +17,20 @@ public class BillMgr {
 
 	private static List<FeatureType> callTxnTypes;
 	
-	public ArrayList<Bill> generate(BillPeriod billPeriod){
+	public BillPeriod getNextBillPeriod(){
+		return null; //TOTO
+	}
+	
+	public ArrayList<Bill> getBills(BillPeriod billPeriod){
+		return null;//TOTO
+	}
+	
+	public Bill getBill(BillPeriod billPeriod, String customerId){
+		return null;//TOTO
+	}
+	
+	
+	private ArrayList<Bill> generate(BillPeriod billPeriod){
 		ArrayList<Bill> list = new ArrayList<Bill>();
 		
 		ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
@@ -31,7 +44,7 @@ public class BillMgr {
 		return list;
 	}
 	
-	public Bill generate(BillPeriod billPeriod, String customerId){
+	private Bill generate(BillPeriod billPeriod, String customerId){
 		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerId);
 		Account acct = customer.getAcct();
 		
