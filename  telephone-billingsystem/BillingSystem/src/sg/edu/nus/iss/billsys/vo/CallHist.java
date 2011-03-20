@@ -1,7 +1,5 @@
 package sg.edu.nus.iss.billsys.vo;
 
-import sg.edu.nus.iss.billsys.constant.*;
-
 import java.util.*;
 
 /**
@@ -14,6 +12,7 @@ public class CallHist {
 	private String acctNo;
 	private int callTxnTypeCd;
 	private String telNo;
+	private String assignedTelNo;
 	private Date timeOfCall;
 	private int callDuration;
 	
@@ -57,5 +56,13 @@ public class CallHist {
 
 	public int getCallDuration() {
 		return callDuration;
+	}
+
+	public String getAssignedTelNo() {
+		return assignedTelNo;
+	}
+
+	public void setAssignedTelNo(String assignedTelNo) {
+		this.assignedTelNo = assignedTelNo;
 	}
 }
