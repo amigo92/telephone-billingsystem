@@ -1,11 +1,13 @@
 package sg.edu.nus.iss.billsys.dao;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import sg.edu.nus.iss.billsys.vo.*;
 
 import java.util.*;
+import java.io.*;
 
 /**
  * 
@@ -17,7 +19,28 @@ public class BillDao {
 	private static BillStore aBillStore;
 	
 	static{
-		aBillStore = new BillStore();
+		FileInputStream fis = null;
+		try{
+			fis = new FileInputStream(new File(getFilepath()));
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			aBillStore = (BillStore)ois.readObject();
+			
+			if(aBillStore == null){
+				aBillStore = new BillStore();
+			}
+			
+			ois.close();
+		}
+		catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
+		finally{
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public Set<BillPeriod> getAllGeneratedBillPeriods(){
@@ -48,6 +71,30 @@ public class BillDao {
 	
 	public void add(BillPeriod billPeriod, ArrayList<Bill> bills){
 		aBillStore.getMap().put(billPeriod, bills);
+	}
+	
+	public static void save(){
+		FileOutputStream fos = null;
+		try{
+			fos = new FileOutputStream(new File(getFilepath()));
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(aBillStore);
+			oos.close();
+		}
+		catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
+		finally{
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static String getFilepath(){
+		return "data/BillStore.ser";
 	}
 	
 	private static class BillStore implements Serializable{

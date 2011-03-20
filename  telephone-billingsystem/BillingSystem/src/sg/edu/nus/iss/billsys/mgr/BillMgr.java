@@ -73,6 +73,7 @@ public class BillMgr {
 		
 		aBillDao.add(billPeriod, list);
 		aBillDao.setCurrBillPeriod(billPeriod);
+		aBillDao.save();
 	}
 	
 	private Bill generate(BillPeriod billPeriod, String customerId){
