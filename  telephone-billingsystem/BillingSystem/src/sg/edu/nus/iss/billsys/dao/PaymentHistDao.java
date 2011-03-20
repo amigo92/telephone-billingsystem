@@ -1,7 +1,5 @@
 package sg.edu.nus.iss.billsys.dao;
 
-import java.io.BufferedReader;
-import java.text.ParseException;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
@@ -20,13 +18,10 @@ public class PaymentHistDao extends GenericDao {
 		
 	}
 	@Override
-protected void objectDataMapping(String[][] data) {
-	// TODO Auto-generated method stub
-	
-}
-	/*public PaymentHistDao(){
-		super("C:/payments.txt");
-	}*/
+	protected void objectDataMapping(String[][] data) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/**
 	 * 
@@ -75,22 +70,5 @@ protected void objectDataMapping(String[][] data) {
 	protected boolean validateData(String[][] data) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-	
-	/**
-	 * 
-	 * @param callHist e.g. 'SA-2010-02-10,20080,2010-02-18 18:10:01'
-	 * @return
-	 * @throws ParseException
-	 */
-	private PaymentHist convert(String paymentHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(paymentHist, ",");
-		
-		PaymentHist hist = new PaymentHist();
-		hist.setAcctNo(st.nextToken()); 
-		hist.setPaymentAmt(Integer.parseInt(st.nextToken())); 
-		hist.setPaymentDate(TimeUtils.parseDate(st.nextToken()));
-		
-	    return hist; 
 	}
 }
