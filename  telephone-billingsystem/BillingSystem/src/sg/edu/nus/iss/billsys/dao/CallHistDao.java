@@ -29,9 +29,6 @@ public class CallHistDao extends GenericDao {
 		// TODO Auto-generated method stub
 		
 	}
-	/*public CallHistDao(){
-		super("C:/callhist.txt");
-	}*/
 
 	/**
 	 * 
@@ -39,9 +36,9 @@ public class CallHistDao extends GenericDao {
 	 * @param acctNo
 	 * @return a list of call history within the given bill month period and account No.
 	 */
-	public ArrayList<CallHist> getCallHistByBillDateAcctNo(Date billDate, String acctNo){
+	public ArrayList<CallHist> getCallHistByBillDateAcctNo(BillPeriod billPeriod, String acctNo){
 		ArrayList<CallHist> list = new ArrayList<CallHist>();
-		for(CallHist ch : getCallHistByBillDate(billDate)){
+		for(CallHist ch : getCallHistByBillDate(billPeriod)){
 			if(ch.getAcctNo().equals(acctNo)){
 				list.add(ch);
 			}
@@ -52,44 +49,31 @@ public class CallHistDao extends GenericDao {
 	
 	/**
 	 * 
-	 * @param billDate
+	 * @param billPeriod
 	 * @return a list of call history within the given bill month period
 	 */
-	public ArrayList<CallHist> getCallHistByBillDate(Date billDate){
+	public ArrayList<CallHist> getCallHistByBillDate(BillPeriod billPeriod){
 		try{
 			ArrayList<CallHist> list = new ArrayList<CallHist>();
 			
-			String res = null;
-			BufferedReader br =null;// getCurrReader();
-			while((res = br.readLine()) != null){
-				list.add(convert(res));
+			String[][] matrix = getCallHistoryData();
+			for(String[] row : matrix){
+				CallHist hist = new CallHist();
+				hist.setCallTxnTypeCd(Integer.parseInt(row[1]));
+				hist.setTelNo(row[3]); 
+				hist.setTimeOfCall(TimeUtils.parseDate(row[4]));
+				hist.setCallDuration(Integer.parseInt(row[5])); 
+				hist.setAcctNo(row[6]); 
+
+				if(billPeriod.isInRange(hist.getTimeOfCall())){
+					list.add(hist);
+				}
 			}
-			
-			br.close();
-			
+
 			return list;
 		}
 		catch(Exception ex){
 			throw new RuntimeException(ex);
 		}
-	}
-	
-	/**
-	 * 
-	 * @param callHist e.g. 'SA-2010-02-10,66178954,0,2010-02-18 18:10:01,1800'
-	 * @return
-	 * @throws ParseException
-	 */
-	private CallHist convert(String callHist) throws ParseException{
-		StringTokenizer st = new StringTokenizer(callHist, ",");
-		
-		CallHist hist = new CallHist();
-		hist.setAcctNo(st.nextToken()); 
-		hist.setTelNo(st.nextToken()); 
-		hist.setCallTxnTypeCd(Integer.parseInt(st.nextToken()));
-		hist.setTimeOfCall(TimeUtils.parseDate(st.nextToken()));
-		hist.setCallDuration(Integer.parseInt(st.nextToken()));
-		
-	    return hist; 
 	}
 }
