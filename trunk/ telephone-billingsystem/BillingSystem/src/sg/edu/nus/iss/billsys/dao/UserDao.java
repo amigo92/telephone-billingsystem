@@ -35,7 +35,7 @@ public class UserDao extends GenericDao{
 	protected void saveObjectData(){
 	int cnt=0;
 	
-	String data[][]=new String[listUser.size()][3];
+	String data[][]=new String[listUser.size()][4];
 		
 	for (Iterator iter = listUser.iterator(); iter.hasNext();) {
 	
