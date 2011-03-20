@@ -42,6 +42,10 @@ public class BillPeriod {
 		return endCal.getTime();
 	}
 	
+	public String getDueDate(){
+		return TimeUtils.formatDate(TimeUtils.addDays(getEndTime(), 15));
+	}
+	
 	public String getBillDate(){
 		return TimeUtils.formatDate(getEndTime());
 	}
