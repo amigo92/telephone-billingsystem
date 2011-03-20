@@ -3,9 +3,8 @@ package sg.edu.nus.iss.billsys.vo;
 import java.util.*;
 
 public class Account {
-
-	private String acctNo;
 	
+	private String acctNo;
 	private int balance;
 	private Date balanceUpdateDate;
 	
