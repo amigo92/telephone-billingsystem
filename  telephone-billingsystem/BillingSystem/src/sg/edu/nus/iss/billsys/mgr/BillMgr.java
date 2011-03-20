@@ -65,7 +65,7 @@ public class BillMgr {
 		
 		ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
 		for(Customer c : customers){
-			Bill bill = generate(billPeriod, c.getAcct().getAcctNo());
+			Bill bill = generate(billPeriod, c.getNric());
 			if(bill != null){
 				list.add(bill);
 			}
@@ -76,8 +76,8 @@ public class BillMgr {
 		aBillDao.save();
 	}
 	
-	private Bill generate(BillPeriod billPeriod, String accNo){
-		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(accNo);
+	private Bill generate(BillPeriod billPeriod, String nric){
+		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(nric);
 		Account acct = customer.getAcct();
 		
 		Bill bill = new Bill();
