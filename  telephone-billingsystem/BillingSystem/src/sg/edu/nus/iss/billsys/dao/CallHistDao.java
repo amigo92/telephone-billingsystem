@@ -40,12 +40,11 @@ public class CallHistDao extends GenericDao {
 	    	
 			CallHist callHx=new CallHist();
 	    		
-			callHx.setAcctNo(data[i][5]);
-			callHx.setAssignedTelNo(data[i][2]);
-			callHx.setCallDuration(Integer.parseInt(data[i][4]));
+			callHx.setAcctNo(data[i][4]);
+			callHx.setCallDuration(Integer.parseInt(data[i][3]));
 			callHx.setCallTxnTypeCd(Integer.parseInt(data[i][0]));
 			callHx.setTelNo(data[i][1]);
-			callHx.setTimeOfCall(TimeUtils.parseDate(data[i][3]));
+			callHx.setTimeOfCall(TimeUtils.parseDate(data[i][2]));
 	    	
 	    	listCallHx.add(callHx);	
 	    }
