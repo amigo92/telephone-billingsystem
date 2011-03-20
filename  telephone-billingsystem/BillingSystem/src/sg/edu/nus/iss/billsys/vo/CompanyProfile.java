@@ -1,12 +1,16 @@
 package sg.edu.nus.iss.billsys.vo;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Xu Guoneng
  *
  */
-public class CompanyProfile {
+public class CompanyProfile implements Serializable{
 
+	private static final long serialVersionUID = -6711670615803325320L;
+	
 	private String companyName;
 	private String street;
 	private String unit;
