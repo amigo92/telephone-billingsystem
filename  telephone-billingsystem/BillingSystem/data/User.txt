@@ -1,6 +1,6 @@
-#user_id||username||password
-1||Veera1||pass1
-2||Veera1||Veera123
-3||Veera2||Veera123
-4||Veera3||Veera123
-5||Veera4||Veera123
+#user_id||username||password||role
+1||Veera1||pass1||agent
+2||Veera1||Veera123||admin
+3||Veera2||Veera123||admin
+4||Veera3||Veera123||admin
+5||Veera4||Veera123||admin
