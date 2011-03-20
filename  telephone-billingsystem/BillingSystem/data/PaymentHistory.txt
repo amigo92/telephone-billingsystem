@@ -1,2 +1,2 @@
-#payment_id||pay_month||acct_balance||acc_no||payment_received
-payment_id||pay_month||acct_balance||acc_no||payment_received
+#payment_id||yyyy-MM-dd HH:mm:ss||acct_balance||acc_no
+payment_id||yyyy-MM-dd HH:mm:ss||acct_balance||acc_no
