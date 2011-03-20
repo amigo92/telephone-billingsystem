@@ -1,2 +1,4 @@
-#plan_rate_id||plan_type||price
-plan_rate_id||plan_type||price
+#plan_type||price
+a||123
+b||123
+c||123

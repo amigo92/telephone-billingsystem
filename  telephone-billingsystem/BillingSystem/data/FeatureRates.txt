@@ -1,2 +1,4 @@
-#feature_rate_id||feature_code||price
-feature_rate_id||feature_code||price
+#feature_code||price
+a||123
+b||123
+c||123
