@@ -45,6 +45,7 @@ public class CallHistDao extends GenericDao {
 			callHx.setCallTxnTypeCd(Integer.parseInt(data[i][0]));
 			callHx.setTelNo(data[i][1]);
 			callHx.setTimeOfCall(TimeUtils.parseDate(data[i][2]));
+			callHx.setNumberCalled(data[i][5]);
 	    	
 	    	listCallHx.add(callHx);	
 	    }
