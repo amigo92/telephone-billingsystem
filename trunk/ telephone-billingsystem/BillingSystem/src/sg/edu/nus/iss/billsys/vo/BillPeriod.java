@@ -46,6 +46,18 @@ public class BillPeriod {
 		return (!date.before(getSatrtTime())) && (!date.after(getEndTime()));
 	}
 	
+	public boolean isOverlapped(Date sDate, Date eDate){
+		if(isInRange(sDate) || isInRange(eDate)){
+			return true;
+		}
+		else if(sDate.before(getSatrtTime()) && eDate.after(getEndTime())){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public String getDueDate(){
 		return TimeUtils.formatDate(TimeUtils.addDays(getEndTime(), 15));
 	}
