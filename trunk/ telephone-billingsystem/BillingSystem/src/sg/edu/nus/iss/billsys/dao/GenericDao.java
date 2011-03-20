@@ -24,7 +24,7 @@ public abstract class GenericDao {
 	 * Constants Holding the file name for the data structure.It is kept private 
 	 * since the IO will be only made through this BaseDao
 	 */
-	private final static String  ACCOUNT_DATA_FILE="data/Account.txt";
+	
 	private final static String  CALL_HISTORY_DATA_FILE="data/CallHistory.txt";
 	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";
 	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
@@ -34,7 +34,7 @@ public abstract class GenericDao {
 	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
 	private final static String  USER_DATA_FILE="data/User.txt";
 	
-	private static String [][] accountData=null;
+	
 	private static String [][] callHistoryData=null;
 	private static String [][] customerData=null;
 	private static String [][] featureData=null;
@@ -192,7 +192,7 @@ public abstract class GenericDao {
 		
 	private static void initializeLoadData(){
 		
-		accountData=getDataAsArray(ACCOUNT_DATA_FILE);
+		
 		callHistoryData=getDataAsArray(CALL_HISTORY_DATA_FILE);
 		customerData=getDataAsArray(CUSTOMER_DATA_FILE);
 		featureData=getDataAsArray(FEATURE_DATA_FILE);
@@ -225,10 +225,7 @@ public abstract class GenericDao {
 	 * These are the list of protected methods used by the subclasses to get the reference to
 	 * the Data object which represents the Data file.
 	 */
-	protected String[][] getAccountData(){
-		
-		return accountData;
-	}	
+	
 	protected String[][] getCallHistoryData(){
 		
 		return callHistoryData;
@@ -266,10 +263,6 @@ public abstract class GenericDao {
 	 * the Data object which represents the Data file on to the Data file.
 	 */
 	
-	protected boolean saveAccountData(String[][] data){
-		accountData=data;
-		return storeDataByArray(ACCOUNT_DATA_FILE, accountData);
-	}	
 	protected boolean saveCallHistoryData(String[][] data){
 		callHistoryData=data;
 		return storeDataByArray(CALL_HISTORY_DATA_FILE, callHistoryData);
