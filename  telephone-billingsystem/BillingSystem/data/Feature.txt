@@ -1,2 +1,2 @@
-#feature_id||plan_id||is_terminated||name||feature_code||date_commenced||date_terminated.
-feature_id||plan_id||is_terminated||name||feature_code||date_commenced||date_terminated.
+#feature_id||plan_id||feature_code||date_commenced||date_terminated.
+feature_id||plan_id||feature_code||date_commenced||date_terminated.
