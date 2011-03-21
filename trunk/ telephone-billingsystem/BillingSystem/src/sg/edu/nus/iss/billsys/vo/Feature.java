@@ -7,6 +7,7 @@ public class Feature {
 	
 	private final FeatureType aFeatureType;
 	private String name;
+	private String featureId;
 	private Date dateCommenced;
 	private Date dateTerminated;
 
@@ -45,7 +46,19 @@ public class Feature {
 		this.dateTerminated = dateTerminated;
 	}
 	
+	public void setDateCommenced(Date dateCommenced) {
+		this.dateCommenced = dateCommenced;
+	}
+	
 	public int getSubscriptionCharges(){
 		return 0; //TODO
+	}
+
+	public String getFeatureId() {
+		return featureId;
+	}
+
+	public void setFeatureId(String featureId) {
+		this.featureId = featureId;
 	}
 }

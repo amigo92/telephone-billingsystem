@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.billsys.dao;
 
+import com.ibm.jvm.ClassLoader;
+
+import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.vo.User;
 
 /**
@@ -67,7 +70,10 @@ public class TestDao extends GenericDao{
 		CustomerDao cudao=new CustomerDao();
 		
 		
+		SubscriptionPlanDao subplandao=new SubscriptionPlanDao();
 		
+		
+		System.out.println(subplandao.getAccountbyAccountNo("acc_no1"));
 		
 		
 	}
