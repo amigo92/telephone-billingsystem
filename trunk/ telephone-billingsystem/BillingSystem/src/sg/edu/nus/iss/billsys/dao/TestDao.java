@@ -61,7 +61,7 @@ public class TestDao extends GenericDao{
 		
 		FeatureRateDao frdao=new FeatureRateDao();
 		
-		System.out.println(frdao.getPricebyFeatureCode("a"));
+		System.out.println(frdao.getPricebyFeatureCode(0));
 		
 		PlanRateDao prdao=new PlanRateDao();
 		

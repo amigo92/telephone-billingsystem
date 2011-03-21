@@ -54,7 +54,7 @@ public class FeatureRateDao extends GenericDao{
 	 this.objectDataMapping(getFeatureRateData());
 	}
 	
-	public Rate getPricebyFeatureCode(String feature_code){
+	public Rate getPricebyFeatureCode(int feature_code){
 		
 		Rate tempRate=null;
 		
