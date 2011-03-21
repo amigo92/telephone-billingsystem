@@ -16,7 +16,7 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 public abstract class SubscriptionPlan implements Serializable {
 
 	private static final long serialVersionUID = 1572263436009780430L;
-	private final long referenceNo;
+	private String planId;
 
 	private String acctNo;
 	
@@ -27,14 +27,9 @@ public abstract class SubscriptionPlan implements Serializable {
 		this.acctNo = acctNo;
 		this.basicFeature = basicFeature;
 		optionalFeatures =  new ArrayList<Feature>();
-		referenceNo = new Date().getTime();
+		
 	}
 	
-	
-	public long getReferenceNo() {
-		return referenceNo;
-	}
-
 	public String getAcctNo() {
 		return acctNo;
 	}
@@ -51,6 +46,9 @@ public abstract class SubscriptionPlan implements Serializable {
 		basicFeature.setDateTerminated(dateTerminated);
 	}
 	
+	public void setDateCommenced(Date dateCommenced) {
+		basicFeature.setDateCommenced(dateCommenced);
+	}
 	public Feature getBasicFeature() {
 		return basicFeature;
 	}
@@ -73,4 +71,18 @@ public abstract class SubscriptionPlan implements Serializable {
 	public abstract String getPlanDescription();
 	
 	public abstract void addOptionalFeature(Feature feature) throws BillingSystemException;
+
+
+
+
+	public String getPlanId() {
+		return planId;
+	}
+
+
+
+
+	public void setPlanId(String planId) {
+		this.planId = planId;
+	}
 }
