@@ -1,2 +1,8 @@
-#feature_id||plan_id||feature_code||date_commenced||date_terminated.
-feature_id||plan_id||feature_code||date_commenced||date_terminated.
+#feature_id||plan_id||feature_code||date_commenced||date_terminated
+1||1||LINE||2010-02-18 18:10:01||2010-02-18 18:10:01
+2||1||IDD_CALL||2010-02-18 18:10:01||2010-02-18 18:10:01
+3||2||ROAMING||2010-02-18 18:10:01||2010-02-18 18:10:01
+4||2||MOBILE||2010-02-18 18:10:01||2010-02-18 18:10:01
+5||2||IDD_CALL||2010-02-18 18:10:01||2010-02-18 18:10:01
+6||2||DATA_SERVICES||2010-02-18 18:10:01||2010-02-18 18:10:01
+7||3||STD_CHANNEL||2010-02-18 18:10:01||2010-02-18 18:10:01
