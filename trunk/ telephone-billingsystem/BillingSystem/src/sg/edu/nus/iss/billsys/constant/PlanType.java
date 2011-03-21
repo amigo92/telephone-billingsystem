@@ -12,8 +12,7 @@ public enum PlanType {
 		"Digital Voice",
 		FeatureType.Line,
 		new FeatureType[] {
-			FeatureType.LocalCall,
-			FeatureType.IDDCall,
+			FeatureType.DigiIDD,
 			FeatureType.CallTransfer
 		}),
 	MobileVoice(
@@ -21,11 +20,9 @@ public enum PlanType {
 		"Mobile Voice",
 		FeatureType.Mobile,
 		new FeatureType[] {
-			FeatureType.LocalCall,
-			FeatureType.IDDCall,
+			FeatureType.MobileIDD,
 			FeatureType.DataService,
 			FeatureType.Roaming,
-			FeatureType.RoamingCall
 		}),
 	CableTv(
 		PlanCode.CABLE_TV,
