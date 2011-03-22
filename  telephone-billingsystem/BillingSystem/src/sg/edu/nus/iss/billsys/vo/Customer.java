@@ -1,98 +1,47 @@
-package sg.edu.nus.iss.billsys.vo;
+//package sg.edu.nus.iss.billsys.vo;
+
 /**
- * 
- * @author Veera
- *
+ * @author Wen Jing; Mar 19 2011;
+ * Modified: 22 Mar 2011;
+ * Methods: getters and setters;
+ * Deregister: Set status to Deleted;
+ * Reactivate: Set status to Active;
+ * New Customer: Status = Fresh;
  */
-public class Customer implements Cloneable {
 
+
+public class Customer {
+	private String custName;
+	private String custNRIC;
+	private String addressLine1;
+	private String addressLine2;
+	private String addressLine3;
+	private String contactTel;
+	private String custInterest;
 	
-	private String name;
-	private String address1;
-	private String address2;
-	private String address3;
-	private String contact_tel;
-	private String interest;
-	private String isDeleted;
-	private String nric;
-	
-	
-	private Account acct;
-
-	public Account getAcct() {
-		return acct;
-	}
-
-	public void setAcct(Account acct) {
-		this.acct = acct;
-	}
-
-	public String getAddress1() {
-		return address1;
-	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
-
-	public String getAddress2() {
-		return address2;
-	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-
-	public String getAddress3() {
-		return address3;
-	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
-	}
-
-	public String getContact_tel() {
-		return contact_tel;
-	}
-
-	public void setContact_tel(String contact_tel) {
-		this.contact_tel = contact_tel;
-	}
-
-	public String getInterest() {
-		return interest;
-	}
-
-	public void setInterest(String interest) {
-		this.interest = interest;
-	}
-
-	public String getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(String isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getNric() {
-		return nric;
-	}
-
-	public void setNric(String nric) {
-		this.nric = nric;
+	public Customer(String custName, String custNRIC, String addressLine1, String addressLine2, String addressLine3, String contactTel, String custInterest){
+		this.custName = custName;
+		this.custNRIC = custNRIC;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.addressLine3 = addressLine3;
+		this.contactTel = contactTel;
+		this.custInterest = custInterest;
 	}
 	
-	public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+	public String getCustName() {
+		return custName;
+	}
+	
+	public String getCustAddress(){
+		return this.addressLine1 + "\n" + this.addressLine2 + "\n" + this.addressLine3 + "\n";
+	}
+
+	public String showCustomer(){
+		String custDetails = null;
+		custDetails = "Customer Name: " + getCustName()+ ";\nNRIC: " + this.custNRIC + ";\nTel: " + this.contactTel + ";\n";
+		custDetails += "Address: " + this.getCustAddress() + "Interest: " + this.custInterest+ ";\n";
+		return custDetails;
 	}
 
 }
