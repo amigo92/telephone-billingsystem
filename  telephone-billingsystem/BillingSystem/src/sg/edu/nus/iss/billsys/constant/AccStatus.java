@@ -1,4 +1,4 @@
-
+package sg.edu.nus.iss.billsys.constant;
 
 /**
  * @author Wen Jing; Mar 19 2011
