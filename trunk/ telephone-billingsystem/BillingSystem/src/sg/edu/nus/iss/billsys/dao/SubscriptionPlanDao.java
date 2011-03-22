@@ -311,8 +311,8 @@ public class SubscriptionPlanDao extends GenericDao{
 					featureData[cnt][0]=element.getFeatureId();
 					featureData[cnt][1]=planId;
 					featureData[cnt][2]=String.valueOf(element.getFeatureType().getFeatureCd());
-					featureData[cnt][3]=String.valueOf(element.getDateCommenced());
-					featureData[cnt][4]=String.valueOf(element.getDateTerminated());
+					featureData[cnt][3]=TimeUtils.dateToString(element.getDateCommenced());
+					featureData[cnt][4]=TimeUtils.dateToString(element.getDateTerminated());
 							
 					cnt++;	
 							
