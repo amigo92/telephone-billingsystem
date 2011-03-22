@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
@@ -15,6 +16,7 @@ import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.MobileVoicePlan;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
+import sg.edu.nus.iss.billsys.vo.VoicePlan;
 
 
 /**
@@ -255,7 +257,73 @@ public class SubscriptionPlanDao extends GenericDao{
 	
 	@Override
 	protected void saveObjectData() {
-		// TODO Auto-generated method stub
+		int cnt=0;	
+		int featureCount=0;
+		List<SubscriptionPlan> tempSubPlanList=new ArrayList<SubscriptionPlan>();
+		Map<String,List<Feature>> tempFeatureMap=new HashMap<String,List<Feature>>();
+			
+		for (Iterator iter = accList.iterator(); iter.hasNext();) {
+			Account element = (Account) iter.next();
+			if(element.getPlans()!=null && element.getPlans().size()>0){
+				tempSubPlanList.addAll(element.getPlans());
+			}
+				
+		}
+		
+		String planData[][]=new String[tempSubPlanList.size()][4];
+		
+		for (Iterator iter = tempSubPlanList.iterator(); iter.hasNext();) {
+			List<Feature> tempFeatureList=new ArrayList<Feature>();			
+			
+			SubscriptionPlan element = (SubscriptionPlan) iter.next();
+			
+			planData[cnt][0]=element.getPlanId();
+			planData[cnt][1]=element.getAcctNo();
+			planData[cnt][3]=String.valueOf(element.getPlanType().getPlanCd());
+			if(element.getPlanType().getPlanCd()!=2){
+				VoicePlan vplan=(VoicePlan)element;
+				planData[cnt][2]=vplan.getAssignedTelNo();
+			}
+			tempFeatureList.add(element.getBasicFeature());
+			featureCount+=1;
+			if(element.getOptionalFeatures()!=null && element.getOptionalFeatures().size()>0){
+				tempFeatureList.addAll(element.getOptionalFeatures());
+				featureCount+=element.getOptionalFeatures().size();
+			}
+			
+			tempFeatureMap.put(element.getPlanId(), tempFeatureList);
+			cnt++;	
+					
+		}
+		
+		String featureData[][]=new String[featureCount][5];
+		cnt=0;	
+		
+		 Iterator it = tempFeatureMap.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pairs = (Map.Entry)it.next();
+		        String planId=(String)pairs.getKey();
+		        List<Feature> tempFeatureList=(ArrayList<Feature>)pairs.getValue();
+		       
+		        for (Iterator iter = tempFeatureList.iterator(); iter.hasNext();) {
+					Feature element = (Feature) iter.next();
+					
+					featureData[cnt][0]=element.getFeatureId();
+					featureData[cnt][1]=planId;
+					featureData[cnt][2]=String.valueOf(element.getFeatureType().getFeatureCd());
+					featureData[cnt][3]=String.valueOf(element.getDateCommenced());
+					featureData[cnt][4]=String.valueOf(element.getDateTerminated());
+							
+					cnt++;	
+							
+				}
+		        
+		        
+		    }
+		
+		
+			saveSubscriptionPlanData(planData);
+			saveFeatureData(featureData);
 		
 	}
 	
@@ -269,6 +337,11 @@ public class SubscriptionPlanDao extends GenericDao{
 		this.objectDataMapping(getSubscriptionPlanData());
 	}
 	
+	public String generateSequence(){
 		
+		return UUID.randomUUID().toString();
+		
+	}
+	
 
 }
