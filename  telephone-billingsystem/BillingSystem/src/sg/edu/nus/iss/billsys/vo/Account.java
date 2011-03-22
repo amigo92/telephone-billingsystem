@@ -31,7 +31,7 @@ public class Account {
 	}
 
 	public void setPlans(List<SubscriptionPlan> plans) {
-		this.plans.clear();
+		this.plans=new HashMap<String,SubscriptionPlan>();
 		for (SubscriptionPlan plan : plans) {
 			this.plans.put(plan.getPlanId(), plan);
 		}
