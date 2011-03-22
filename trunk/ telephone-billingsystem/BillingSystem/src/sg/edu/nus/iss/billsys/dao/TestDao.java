@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.dao;
 
+import java.util.UUID;
+
 import com.ibm.jvm.ClassLoader;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
@@ -48,17 +50,7 @@ public class TestDao extends GenericDao{
 		
 		UserDao usr=new UserDao();
 		
-		User user=new User();
-		user.setUsername("Veera1");
-		user.setPassword("pass1");
-		user.setRole("test");
-		
-		usr.updatePassword(user);
 		usr.saveObjectData();
-		
-		CallHistDao cdao= new CallHistDao();
-		
-		PaymentHistDao pdao =new PaymentHistDao();
 		
 		FeatureRateDao frdao=new FeatureRateDao();
 		
@@ -66,18 +58,30 @@ public class TestDao extends GenericDao{
 		
 		PlanRateDao prdao=new PlanRateDao();
 		
-		System.out.println(prdao.getPricebyPlanType("b"));	
+		System.out.println(prdao.getPricebyPlanType("0"));	
 		
-		CustomerDao cudao=new CustomerDao();
+		
+		CallHistDao cdao= new CallHistDao();
+		
+		PaymentHistDao pdao =new PaymentHistDao();
 		
 		ComplaintsDao codao=new ComplaintsDao();
 		
+		codao.saveObjectData();
+		
+		CustomerDao cudao=new CustomerDao();
+		
+		cudao.saveObjectData();
+		/*
 		
 		SubscriptionPlanDao subplandao=new SubscriptionPlanDao();
+		subplandao.saveObjectData();
 		
 		
 		System.out.println(subplandao.getAccountbyAccountNo("acc_no1"));
 		
+		System.out.println(UUID.randomUUID().toString());
+		*/
 		
 	}
 	
