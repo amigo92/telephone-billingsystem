@@ -5,7 +5,7 @@ import java.text.*;
 
 /**
  * 
- * @author Xu Guoneng
+ * @author Xu Guoneng,Veera
  *
  */
 public class TimeUtils {
@@ -56,5 +56,9 @@ public class TimeUtils {
 	
 	public static String formatDate(Date date){
 		return new SimpleDateFormat("dd-MMM-yyyy").format(date);
+	}
+	
+	public static String dateToString(Date date){
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 	}
 }
