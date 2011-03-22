@@ -127,7 +127,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		try{
 			
 			FeatureType[] temp=FeatureType.values();
-			feature =new Feature(temp[Integer.parseInt(data[index][2])],TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]),null);
+			feature =new Feature(temp[Integer.parseInt(data[index][2])],TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
 			feature.setFeatureId(data[index][0]);
 			
 			}
@@ -155,7 +155,7 @@ public class SubscriptionPlanDao extends GenericDao{
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
 						Feature element = (Feature) iter.next();
-						if(element.getaFeatureType().equals(FeatureType.Line)){
+						if(element.getFeatureType().equals(FeatureType.Line)){
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
 						}else{						
@@ -184,7 +184,7 @@ public class SubscriptionPlanDao extends GenericDao{
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
 						Feature element = (Feature) iter.next();
-						if(element.getaFeatureType().equals(FeatureType.Mobile)){
+						if(element.getFeatureType().equals(FeatureType.Mobile)){
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
 						}else{						
@@ -211,7 +211,7 @@ public class SubscriptionPlanDao extends GenericDao{
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
 						Feature element = (Feature) iter.next();
-						if(element.getaFeatureType().equals(FeatureType.StdChannels)){
+						if(element.getFeatureType().equals(FeatureType.StdChannels)){
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
 						}else{						

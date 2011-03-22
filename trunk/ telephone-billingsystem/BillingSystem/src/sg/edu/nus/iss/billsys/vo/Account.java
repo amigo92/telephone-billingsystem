@@ -8,7 +8,7 @@ public class Account {
 	private int balance;
 	private Date balanceUpdateDate;
 	
-	private ArrayList<SubscriptionPlan> plans;
+	private HashMap<String,SubscriptionPlan> plans;
 
 	public String getAcctNo() {
 		return acctNo;
@@ -17,13 +17,24 @@ public class Account {
 	public void setAcctNo(String acctNo) {
 		this.acctNo = acctNo;
 	}
-
-	public ArrayList<SubscriptionPlan> getPlans() {
-		return plans;
+	
+	public void addPlan(SubscriptionPlan plan) {
+		plans.put(plan.getPlanId(), plan);
+	}
+	
+	public SubscriptionPlan getPlan(String planId) {
+		return plans.get(planId);
 	}
 
-	public void setPlans(ArrayList<SubscriptionPlan> plans) {
-		this.plans = plans;
+	public Collection<SubscriptionPlan> getPlans() {
+		return plans.values();
+	}
+
+	public void setPlans(List<SubscriptionPlan> plans) {
+		this.plans.clear();
+		for (SubscriptionPlan plan : plans) {
+			this.plans.put(plan.getPlanId(), plan);
+		}
 	}
 
 	public int getBalance() {

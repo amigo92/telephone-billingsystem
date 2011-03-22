@@ -13,6 +13,10 @@ public class Feature {
 	private Date dateCommenced;
 	private Date dateTerminated;
 
+	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateTerminated) {
+		this(aFeatureType, dateCommenced, dateTerminated, null);
+	}
+
 	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateTerminated, String name) {
 		this.aFeatureType = aFeatureType;
 		this.dateCommenced = dateCommenced;
@@ -20,7 +24,7 @@ public class Feature {
 		this.name = (name == null ? aFeatureType.toString() : name); //for additional channel name
 	}
 	
-	public FeatureType getaFeatureType() {
+	public FeatureType getFeatureType() {
 		return aFeatureType;
 	}
 	
