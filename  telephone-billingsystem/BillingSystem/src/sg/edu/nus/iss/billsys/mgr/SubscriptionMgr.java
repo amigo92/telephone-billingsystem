@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.mgr;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class SubscriptionMgr {
 	//Output: List of Subscription Plan Object?  must have existing subscription detail:
 	//refNo, planID, planName,startDate,endDate
 	//List of features(featureID, featureName, startDate, endDate)
-    public List<SubscriptionPlan> getAccountSubscriptions(String accountNo) {
+    public Collection<SubscriptionPlan> getAccountSubscriptions(String accountNo) {
     	Account acct = MgrFactory.getAccountMgr().getAccountObject(accountNo);
     	if (acct == null) {
     		return null;
@@ -90,16 +91,13 @@ public class SubscriptionMgr {
     	}
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
-    		// TODO
-    		new DigitalVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated);
+    		acct.addPlan(new DigitalVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated));
     		break;
     	case MOBILE_VOICE:
-    		// TODO
-    		new MobileVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated);
+    		acct.addPlan(new MobileVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated));
     		break;
     	case CABLE_TV:
-    		//TODO
-    		new CableTvPlan(accountNo,dateCommenced,dateTerminated);
+    		acct.addPlan(new CableTvPlan(accountNo,dateCommenced,dateTerminated));
     		break;
     	default:
     		throw new BillingSystemException("Unknown plan type!");
@@ -111,12 +109,12 @@ public class SubscriptionMgr {
 	//Activity: Click "OK" button	
 	//Input:
 	//Output: 
-    public void registerNewFeature(String accountNo, String refNo, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
+    public void registerNewFeature(String accountNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
     	if (accountNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
-    	if (refNo == null) {
-    		throw new BillingSystemException("Reference number cannot be null.");
+    	if (planId == null) {
+    		throw new BillingSystemException("Plan id cannot be null.");
     	}
     	if (featureType == null) {
     		throw new BillingSystemException("Feature type cannot be null.");
@@ -131,7 +129,11 @@ public class SubscriptionMgr {
     	if (acct == null) {
     		throw new BillingSystemException("Invalid account number.");
     	}
-    	//TODO
+    	SubscriptionPlan plan = acct.getPlan(planId);
+    	if (plan == null) {
+    		throw new BillingSystemException("Invalid plan id.");
+    	}
+    	plan.addOptionalFeature(new Feature(featureType, dateCommenced, dateTerminated));
     }
     
     //TODO
@@ -139,8 +141,29 @@ public class SubscriptionMgr {
 	//Activity:Page loading
 	//Input:
 	//Output:List of features object which is not registered? (feature id, name, start date, end date)
-    public List<Feature> getUnregisteredFeatures(String accountNo, String refNo){
-    	return null;
+    public List<Feature> getUnregisteredFeatures(String accountNo, String planId) {
+       	if (accountNo == null) {
+    		return null;
+    	}
+    	if (planId == null) {
+    		return null;
+    	}
+    	Account acct = MgrFactory.getAccountMgr().getAccountObject(accountNo);
+    	if (acct == null) {
+    		return null;
+    	}
+    	SubscriptionPlan plan = acct.getPlan(planId);
+    	if (plan == null) {
+    		return null;
+    	}
+    	ArrayList<Feature> list = new ArrayList<Feature>();
+    	List<Feature> features = plan.getOptionalFeatures();
+    	for (Feature f : features) {
+    		if (f.isTerminated()) {
+    			list.add(f);
+    		}
+    	}
+    	return list;
     }
     
     //TODO
@@ -148,12 +171,12 @@ public class SubscriptionMgr {
 	//Activity:ck "Submit" button
 	//Input:
 	//Output: 
-    public void deregisterFeature(String accountNo, String refNo, FeatureType featureType, Date dateTerminated) throws BillingSystemException {
+    public void deregisterFeature(String accountNo, String planId, FeatureType featureType, Date dateTerminated) throws BillingSystemException {
     	if (accountNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
-    	if (refNo == null) {
-    		throw new BillingSystemException("Reference number cannot be null.");
+    	if (planId == null) {
+    		throw new BillingSystemException("Plan id cannot be null.");
     	}
     	if (featureType == null) {
     		throw new BillingSystemException("Feature type cannot be null.");
@@ -161,6 +184,19 @@ public class SubscriptionMgr {
     	if (dateTerminated == null) {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
+    	Account acct = MgrFactory.getAccountMgr().getAccountObject(accountNo);
+    	if (acct == null) {
+    		throw new BillingSystemException("Invalid account number.");
+    	}
+    	SubscriptionPlan plan = acct.getPlan(planId);
+    	if (plan == null) {
+    		throw new BillingSystemException("Invalid plan id.");
+    	}
+    	Feature feature = plan.getOptionalFeatureByType(featureType);
+    	if (feature == null) {
+    		throw new BillingSystemException("Invalid feature type or feature is not registered.");
+    	}
+    	feature.setDateTerminated(dateTerminated);
     }
     
     //TODO
@@ -168,15 +204,24 @@ public class SubscriptionMgr {
 	//Activity: "Submit" button
 	//Input:
 	//Output: 
-    public void deregisterSubscriptionPlan(String accountNo, String refNo, Date dateTerminated) throws BillingSystemException {
+    public void deregisterSubscriptionPlan(String accountNo, String planId, Date dateTerminated) throws BillingSystemException {
     	if (accountNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
-    	if (refNo == null) {
-    		throw new BillingSystemException("Reference number cannot be null.");
+    	if (planId == null) {
+    		throw new BillingSystemException("Plan id cannot be null.");
     	}
     	if (dateTerminated == null) {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
+    	Account acct = MgrFactory.getAccountMgr().getAccountObject(accountNo);
+    	if (acct == null) {
+    		throw new BillingSystemException("Invalid account number.");
+    	}
+    	SubscriptionPlan plan = acct.getPlan(planId);
+    	if (plan == null) {
+    		throw new BillingSystemException("Invalid plan id.");
+    	}
+    	plan.setDateTerminated(dateTerminated);
     }
 }
