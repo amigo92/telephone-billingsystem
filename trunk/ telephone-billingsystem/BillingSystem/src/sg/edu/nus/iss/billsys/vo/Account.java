@@ -1,92 +1,56 @@
+package sg.edu.nus.iss.billsys.vo;
+
 import java.util.*;
-import java.text.*;
-
-
-//package sg.edu.nus.iss.billsys.vo;
-
-/**
- * @author Wen Jing; Mar 19 2011;
- * Modified: 20 Mar 2011;
- * Methods: getters and setters;
- * paymentTerms: bill due in how many days;
- * setDueDate(): Calculate next due date based on the latest bill date
- */
 
 public class Account {
-	private int numOfPlans;
-	private String accountId;
-	private Date accountCreated;
-	private Date lastDeregistered;
-	private AccStatus accStatus;
 	
-    private List<SubscriptionPlan> plans;
-    private Customer customer;
+	private String acctNo;
+	private int balance;
+	private Date balanceUpdateDate;
 	
-    SimpleDateFormat dateFormat = new SimpleDateFormat();
-    public Account(Customer customer, int nextAccountId, Date today){
-    	Calendar calendar = Calendar.getInstance();
-		if(customer == null){
-			System.out.println("Error! Invalid customer!");
-			return;
-		}
-		calendar.setTime(today);
-		this.accountId  = this.genAccountId(nextAccountId, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
-		this.accountCreated = today;
-		this.lastDeregistered = null;
-		this.accStatus = AccStatus.Active;
-		this.customer = customer;
-		this.numOfPlans = 0;
-		plans = new ArrayList<SubscriptionPlan>();
-	}
-	
-	public String genAccountId(int nextAccountId, int year, int month){
-		String newAccountId = null;
-		newAccountId = "SA-" + year + "-" + month + "-" + nextAccountId; 
-		return newAccountId;
-	}
-	
-	public Date getLastDeregistered() {
-		return lastDeregistered;
+	private HashMap<String,SubscriptionPlan> plans;
+
+	public String getAcctNo() {
+		return acctNo;
 	}
 
-	public void setLastDeregistered(Date lastDeregistered) {
-		this.lastDeregistered = lastDeregistered;
+	public void setAcctNo(String acctNo) {
+		this.acctNo = acctNo;
+	}
+	
+	public void addPlan(SubscriptionPlan plan) {
+		plans.put(plan.getPlanId(), plan);
+	}
+	
+	public SubscriptionPlan getPlan(String planId) {
+		return plans.get(planId);
 	}
 
-	public AccStatus getAccStatus() {
-		return accStatus;
+	public Collection<SubscriptionPlan> getPlans() {
+		return plans.values();
 	}
 
-	public void setAccStatus(AccStatus accStatus, Date today) {
-		this.accStatus = accStatus;
-		if(accStatus == AccStatus.Deleted){
-			this.lastDeregistered = today;
+	public void setPlans(List<SubscriptionPlan> plans) {
+		this.plans.clear();
+		for (SubscriptionPlan plan : plans) {
+			this.plans.put(plan.getPlanId(), plan);
 		}
 	}
 
-	public int getNumOfPlans() {
-		return numOfPlans;
+	public int getBalance() {
+		return balance;
 	}
 
-	public String getAccountId() {
-		return accountId;
+	public void setBalance(int balance) {
+		this.balance = balance;
 	}
 
-	public Date getAccountCreated() {
-		return accountCreated;
+	public Date getBalanceUpdateDate() {
+		return balanceUpdateDate;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public void setBalanceUpdateDate(Date balanceUpdateDate) {
+		this.balanceUpdateDate = balanceUpdateDate;
 	}
-
-	public String showAccount(){
-		String accDetails = null;
-		accDetails = "Account No.: " + this.getAccountId() + "; Customer: " + customer.getCustName() + "\n"; 
-		accDetails += "Created at: " + dateFormat.format(this.getAccountCreated()) + ";";
-		if(this.getAccStatus() == AccStatus.Deleted){
-			accDetails += " Terminated at: " + dateFormat.format(this.getLastDeregistered());
-		}
-		return accDetails;
-	}
+	
 }
