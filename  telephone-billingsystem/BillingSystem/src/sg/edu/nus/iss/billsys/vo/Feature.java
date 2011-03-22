@@ -2,6 +2,8 @@ package sg.edu.nus.iss.billsys.vo;
 
 import java.util.Date;
 import sg.edu.nus.iss.billsys.constant.*;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 
 public class Feature {
 	
@@ -50,8 +52,8 @@ public class Feature {
 		this.dateCommenced = dateCommenced;
 	}
 	
-	public int getSubscriptionCharges(){
-		return 0; //TODO
+	public int getSubscriptionCharges() {
+		return MgrFactory.getSubscriptionMgr().getSubscriptionCharge(aFeatureType);
 	}
 
 	public String getFeatureId() {

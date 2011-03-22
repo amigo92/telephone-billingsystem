@@ -127,12 +127,12 @@ public class BillMgr {
 		detail.addEntry(bill.new Entry("Subscription Charges", null));
 
 		Feature basicFeature = plan.getBasicFeature();
-		int basicCharges = getSubscriptionCharges(basicFeature);
+		int basicCharges = basicFeature.getSubscriptionCharges();
 		total_sub_charges += basicCharges;
 		detail.addEntry(bill.new Entry(basicFeature.getName(), basicCharges));
 		
 		for(Feature f : plan.getOptionalFeatures()){
-			int amt = getSubscriptionCharges(f);
+			int amt = f.getSubscriptionCharges();
 			total_sub_charges += amt;
 			detail.addEntry(bill.new Entry(f.getName(), amt));
 		}
@@ -154,14 +154,14 @@ public class BillMgr {
 	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, CableTvPlan cableTvPlan){
 		Feature basicFeature = cableTvPlan.getBasicFeature();
 		
-		int basicCharges = getSubscriptionCharges(basicFeature);
+		int basicCharges = basicFeature.getSubscriptionCharges();
 		int channels = 0;
 		int additionCharges = 0;
 		
 		for(Feature channel : cableTvPlan.getOptionalFeatures()){
 			if(billPeriod.isOverlapped(channel.getDateCommenced(), channel.getDateTerminated())){
 				channels++;
-				additionCharges += getSubscriptionCharges(channel);
+				additionCharges += channel.getSubscriptionCharges();
 			}
 		}
 		
@@ -214,10 +214,6 @@ public class BillMgr {
 		else{
 			return null;
 		}
-	}
-	
-	private int getSubscriptionCharges(Feature feature){
-		return MgrFactory.getSubscriptionMgr().getSubscriptionCharge(feature.getaFeatureType());
 	}
 	
 	private int calculateTotalCurrChargesBeforeGST(ArrayList<SummaryCharges> sums){
