@@ -59,6 +59,6 @@ public class TimeUtils {
 	}
 	
 	public static String dateToString(Date date){
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+		return date!=null?new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date):null;
 	}
 }
