@@ -61,7 +61,7 @@ public class FeatureRateDao extends GenericDao{
 		for (Iterator iter = listFeatureRates.iterator(); iter.hasNext();) {
 			Rate element = (Rate) iter.next();
 			
-			if(element.getRate_code().equals(feature_code)){
+			if(element.getRate_code().equals(String.valueOf(feature_code))){
 				tempRate=element;
 				break;
 			}
