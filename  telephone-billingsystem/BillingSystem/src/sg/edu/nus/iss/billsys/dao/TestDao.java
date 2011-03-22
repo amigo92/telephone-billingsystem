@@ -40,6 +40,7 @@ public class TestDao extends GenericDao{
 		td.print("td.getPlanRatesData()",td.getPlanRatesData());
 		td.print("td.getSubscriptionPlanData()",td.getSubscriptionPlanData());
 		td.print("td.getUserData()",td.getUserData());
+		td.print("td.getComplaintsData()",td.getComplaintsData());
 		
 		
 		
@@ -68,6 +69,8 @@ public class TestDao extends GenericDao{
 		System.out.println(prdao.getPricebyPlanType("b"));	
 		
 		CustomerDao cudao=new CustomerDao();
+		
+		ComplaintsDao codao=new ComplaintsDao();
 		
 		
 		SubscriptionPlanDao subplandao=new SubscriptionPlanDao();

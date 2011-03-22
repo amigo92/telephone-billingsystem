@@ -33,6 +33,7 @@ public abstract class GenericDao {
 	private final static String  PLANRATES_DATA_FILE="data/PlanRates.txt";
 	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
 	private final static String  USER_DATA_FILE="data/User.txt";
+	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
 	
 	
 	private static String [][] callHistoryData=null;
@@ -43,6 +44,8 @@ public abstract class GenericDao {
 	private static String [][] planRatesData=null;
 	private static String [][] subscriptionPlanData=null;
 	private static String [][] userData=null;
+	private static String [][] complaintData=null;
+	
 	/*
 	 * This static block will load the data to the String [][] objects which represents the
 	 * data file .
@@ -201,6 +204,8 @@ public abstract class GenericDao {
 		planRatesData=getDataAsArray(PLANRATES_DATA_FILE);
 		subscriptionPlanData=getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
 		userData=getDataAsArray(USER_DATA_FILE);
+		complaintData=getDataAsArray(COMPLAINTS_DATA_FILE);
+		
 		
 	}
 	/*
@@ -257,6 +262,10 @@ public abstract class GenericDao {
 	protected String[][] getUserData(){
 		
 		return userData;
+	}	
+	protected String[][] getComplaintsData(){
+		
+		return complaintData;
 	}
 	/*
 	 * These are the list of protected methods used by the subclasses to write the 
@@ -294,6 +303,10 @@ public abstract class GenericDao {
 	protected boolean saveUserData(String[][] data){
 		userData=data;
 		return storeDataByArray(USER_DATA_FILE, userData);
+	}
+	protected boolean saveComplaintsData(String[][] data){
+		complaintData=data;
+		return storeDataByArray(COMPLAINTS_DATA_FILE, complaintData);
 	}
 	
 
