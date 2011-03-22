@@ -76,6 +76,10 @@ public class CustomerDao extends GenericDao{
 		
 	}
 	
+	public CustomerDao() {
+	 this.objectDataMapping(getCustomerData());
+	}
+	
 	@Override
 	protected boolean validateData(String[][] data) {
 		// TODO Auto-generated method stub

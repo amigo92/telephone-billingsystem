@@ -33,7 +33,7 @@ public class ComplaintsDao extends GenericDao {
 				data[cnt][1]=element.getComplaint_id();
 				data[cnt][2]=element.getComplaint_Details();
 				data[cnt][3]=element.getStatus();
-				data[cnt][4]=element.getComplaintDate().toString();
+				data[cnt][4]=TimeUtils.dateToString(element.getComplaintDate());
 				
 				cnt++;				
 			}
