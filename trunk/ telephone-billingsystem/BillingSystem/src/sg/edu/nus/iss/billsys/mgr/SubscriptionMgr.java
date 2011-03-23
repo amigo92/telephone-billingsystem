@@ -17,6 +17,12 @@ import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.MobileVoicePlan;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
+/**
+ * 
+ * @author Lem Kian Hoa (Stephen)
+ *
+ */
+
 public class SubscriptionMgr {
 
 	private static CallRateDao aCallRateDao = new CallRateDao();

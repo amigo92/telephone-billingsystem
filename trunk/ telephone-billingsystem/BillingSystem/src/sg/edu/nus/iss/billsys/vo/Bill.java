@@ -122,6 +122,10 @@ public class Bill implements Serializable{
 		this.dueDate = TimeUtils.formatDate(date);
 	}
 
+	public CompanyProfile getCompanyProfile() {
+		return aCompanyProfile;
+	}
+
 	public void setaCompanyProfile(CompanyProfile aCompanyProfile) {
 		this.aCompanyProfile = aCompanyProfile;
 	}

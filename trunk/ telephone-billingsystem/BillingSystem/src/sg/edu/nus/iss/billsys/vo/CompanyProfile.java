@@ -10,7 +10,8 @@ import java.io.Serializable;
 public class CompanyProfile implements Serializable{
 
 	private static final long serialVersionUID = -6711670615803325320L;
-	
+
+	private String alias;
 	private String companyName;
 	private String street;
 	private String unit;
@@ -18,6 +19,13 @@ public class CompanyProfile implements Serializable{
 	private String postalCd;
 	private String hotline;
 	private String email;
+	
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 	
 	public String getCompanyName() {
 		return companyName;
