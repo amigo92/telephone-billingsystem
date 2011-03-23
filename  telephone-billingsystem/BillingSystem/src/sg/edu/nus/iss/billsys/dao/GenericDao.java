@@ -99,7 +99,7 @@ public abstract class GenericDao {
 		    		if(z<data[i].length-1)sb.append("||");
 		    	}
 		    	out.write(sb.toString());	
-		    	out.newLine();    	
+		    	if(i!=data.length-1)out.newLine();    	
 		    }
     
 		    out.close();
