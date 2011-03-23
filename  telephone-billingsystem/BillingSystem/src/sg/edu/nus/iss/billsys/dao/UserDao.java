@@ -73,7 +73,10 @@ public class UserDao extends GenericDao{
 		return usr;
 	}
 	
-	public void updatePassword(User usr){
+	/// chuichi: changed the return type to Boolean to tell whether the password is updated 
+	public Boolean updatePassword(User usr){
+		
+		Boolean updated = false;
 		
 		int cnt=0;
 		for (Iterator iter = listUser.iterator(); iter.hasNext();) {
@@ -81,12 +84,13 @@ public class UserDao extends GenericDao{
 			
 			if(element.getUsername().equals(usr.getUsername())){
 				listUser.set(cnt, usr);
+				updated = true;
 				break;
 			}
 			cnt++;				
 		}
 			
-		
+		return updated;
 	}
 	
 	@Override
