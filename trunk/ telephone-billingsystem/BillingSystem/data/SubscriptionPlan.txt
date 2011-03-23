@@ -1,4 +1,4 @@
-#plan_id||acc_no||assigned_telno||plan_type
-abcd||acc_no1||8899||0
-zzzz||acc_no1||null||2
-efgh||acc_no1||8899||1
+#"plan_id","acc_no","assigned_telno","plan_type"
+"abcd","acc_no1","8899","0"
+"zzzz","acc_no1","null","2"
+"efgh","acc_no1","8899","1"
