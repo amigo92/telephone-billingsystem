@@ -41,10 +41,6 @@ public class TestDao extends GenericDao{
 		td.print("td.getUserData()",td.getUserData());
 		td.print("td.getComplaintsData()",td.getComplaintsData());
 		
-		
-		
-		
-		
 		UserDao usr=new UserDao();
 		
 		usr.saveObjectData();
@@ -80,11 +76,6 @@ public class TestDao extends GenericDao{
 		System.out.println(PlanType.DigitalVoice.getPlanCd());
 		System.out.println(PlanType.CableTv.getPlanCd());
 		System.out.println(PlanType.MobileVoice.getPlanCd());
-		
-		
-		
-		
-		
 		
 	}
 	

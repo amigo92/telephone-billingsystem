@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+
 
 
 /**
@@ -94,9 +94,10 @@ public abstract class GenericDao {
 		    for(int i=0;i<data.length;i++){
 		    	StringBuffer sb=new StringBuffer("");
 		    	for(int z=0;z<data[i].length;z++){
-		    		
+		    		sb.append("\"");
 		    		sb.append(data[i][z]);
-		    		if(z<data[i].length-1)sb.append("||");
+		    		if(z<data[i].length-1)sb.append("\",");
+		    		else sb.append("\"");
 		    	}
 		    	out.write(sb.toString());	
 		    	if(i!=data.length-1)out.newLine();    	
@@ -156,27 +157,37 @@ public abstract class GenericDao {
 		}
 		return linesList;
 	}
+	
+	private static String[] parse(String line){
+		return line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+	}
+	
+	private static String removeQoutes(String cell){
+		String tempCell=null;
+		
+		if(cell!=null && cell.length()>2){
+			tempCell=cell.substring(1, cell.length()-1);
+		}
+		return tempCell;
+	}
 	/*
 	 * This is a helper method to convert the list object retrieved from the file on to a String [][] 
 	 * which gives precise information on the cell level detail of the data.
 	 */
 	private static String[][]  initializeArray(ArrayList<String> lines){
 		
-		int cols=new StringTokenizer(((String)lines.get(0)),"||").countTokens();
+		int cols=parse((String)lines.get(0)).length; 
+		
 		
 		String [][] data=new String [lines.size()-1][cols];
 				
 		try{
 			for(int i=0;i<data.length;i++){
-				int z=0;
-				StringTokenizer st =new StringTokenizer(((String)lines.get(i+1)),"||") ;
-				while (st.hasMoreTokens() && z<=cols)
-				{
-					
-					data[i][z]=st.nextToken();
-					z++;
+				String[] cell=parse((String)lines.get(i+1));
+				for (int j = 0; j < cell.length; j++) {
+					data[i][j]=removeQoutes(cell[j]);
 				}
-				
+			
 			}
 		
 		
