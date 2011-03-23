@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
@@ -40,68 +41,50 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 		for(int i=0;i<featureData.length;i++){
 			String planid=featureData[i][1];			
-			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){				
-				if(groupfeatureByPlanId.get(planid)!=null){					
+			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty() && groupfeatureByPlanId.get(planid)!=null){				
 					List <Feature> tempList=(List<Feature>)groupfeatureByPlanId.get(planid);					
-					if(tempList!=null && tempList.size()>0){
-						tempList.add(initialiseFeature(featureData, i));
-						groupfeatureByPlanId.put(planid,tempList);
-					}else{
-						groupFeatureByPlanId(groupfeatureByPlanId, featureData, i);	
-					}					
-				}else{
-					groupFeatureByPlanId(groupfeatureByPlanId, featureData, i);
-				}								
-			}else {				
+					tempList.add(initialiseFeature(featureData, i));
+					BillingSystemLogger.logInfo("groupfeatureByPlanId.size() -- existing planid "+planid+" "+groupfeatureByPlanId.size());
+					groupfeatureByPlanId.put(planid,tempList);									
+			}else {	
+				BillingSystemLogger.logInfo("groupfeatureByPlanId -- new planid");
 				groupFeatureByPlanId(groupfeatureByPlanId, featureData, i);
 			}   		
 	    }
+		BillingSystemLogger.logInfo("groupfeatureByPlanId.size()"+groupfeatureByPlanId.size());
 		
 		for(int i=0;i<data.length;i++){
 			String accNo=data[i][1];
 			
-			if(groupPlansByAccNo!=null && !groupPlansByAccNo.isEmpty()){
-				
-				if(groupPlansByAccNo.get(accNo)!=null){
-					
+			if(groupPlansByAccNo!=null && !groupPlansByAccNo.isEmpty() && groupPlansByAccNo.get(accNo)!=null){
 					List <SubscriptionPlan> tempList=(List<SubscriptionPlan>)groupPlansByAccNo.get(accNo);
-					
-					if(tempList!=null && tempList.size()>0){
-						try{							
-							
+					try{							
+						BillingSystemLogger.logInfo("tempList.size()"+tempList.size());					
 						tempList.add(initialisePlan(data, i ,groupfeatureByPlanId));			
-							
-						groupPlansByAccNo.put(accNo, tempList);
-						
+						groupPlansByAccNo.put(accNo, tempList);						
 						}
-						catch(Exception ex){
-							throw new RuntimeException(ex);
-						}
-					}else{
-						groupPlansByAccNo(groupPlansByAccNo, data, i ,groupfeatureByPlanId);	
+					catch(Exception ex){
+						throw new RuntimeException(ex);
 					}
-					
-				}else{
-					groupPlansByAccNo(groupPlansByAccNo, data, i ,groupfeatureByPlanId);
-				}				
 				
 			}else {				
 				groupPlansByAccNo(groupPlansByAccNo, data, i ,groupfeatureByPlanId);
 			}
-
-			 Iterator it = groupPlansByAccNo.entrySet().iterator();
-			    while (it.hasNext()) {
-			        Map.Entry pairs = (Map.Entry)it.next();
-			        
-			        Account acct=new Account();
-			        acct.setAcctNo((String)pairs.getKey());
-			        acct.setPlans((ArrayList<SubscriptionPlan>)pairs.getValue());
-			        accList.add(acct);
-			        
-			    }
-    		
 	    }
-	
+		BillingSystemLogger.logInfo("groupPlansByAccNo.size()"+groupPlansByAccNo.size());
+		
+		Iterator it = groupPlansByAccNo.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        
+	        Account acct=new Account();
+	        acct.setAcctNo((String)pairs.getKey());
+	        acct.setPlans((ArrayList<SubscriptionPlan>)pairs.getValue());
+	        accList.add(acct);
+	        
+	    }
+		
+		
 		this.accList=accList;
 		
 		
@@ -124,12 +107,24 @@ public class SubscriptionPlanDao extends GenericDao{
 		return tempAccount;
 	}
 	
+	private FeatureType getFeatureTypeByCode(String featureCode){
+		
+		FeatureType[] temp=FeatureType.values();
+		FeatureType tempFeatureType=null;
+		
+		for (int i = 0; i < temp.length; i++) {
+			if(String.valueOf(temp[i].getFeatureCd()).equals(featureCode))
+				tempFeatureType=temp[i];
+				
+		}
+		return tempFeatureType;
+	}
+	
 	private Feature initialiseFeature(String data[][],int index){
 		Feature feature=null;
 		try{
 			
-			FeatureType[] temp=FeatureType.values();
-			feature =new Feature(temp[Integer.parseInt(data[index][2])],TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
+			feature =new Feature(getFeatureTypeByCode(data[index][2]),TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
 			feature.setFeatureId(data[index][0]);
 			
 			}
@@ -143,24 +138,34 @@ public class SubscriptionPlanDao extends GenericDao{
 	private SubscriptionPlan initialisePlan(String data[][],int index,Map<String,List<Feature>> groupfeatureByPlanId){
 		
 		
-		SubscriptionPlan plan =null;							
+		SubscriptionPlan plan =null;	
+		
+		BillingSystemLogger.logInfo("Digital Voice - Plan Type"+data[index][3] +" Plan id "+data[index][0]);
+		
 		if(PlanType.DigitalVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
 			
-			plan=new DigitalVoicePlan(data[index][1],data[index][2],null,null);		
+			plan=new DigitalVoicePlan(data[index][1],data[index][2],null,null);
+			plan.setPlanId(data[index][0]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 							
-				List<Feature> featureList=groupfeatureByPlanId.get(data[index][1]);
+				List<Feature> featureList=groupfeatureByPlanId.get(data[index][0]);
 				
 				if(featureList!=null && featureList.size()>0){
+					
+					BillingSystemLogger.logInfo("Digital Voice - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
 						Feature element = (Feature) iter.next();
+						BillingSystemLogger.logInfo("Digital Voice - element.getFeatureType()"+element.getFeatureType());
 						if(element.getFeatureType().equals(FeatureType.Line)){
+							BillingSystemLogger.logInfo("Digital Voice - Basic element.getFeatureType()"+element.getFeatureType());
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
+							plan.setBasicFeatureId(element.getFeatureId());
 						}else{						
+							BillingSystemLogger.logInfo("Digital Voice - Optional element.getFeatureType()"+element.getFeatureType());
 							plan.addOptionalFeature(element);
 						}
 						}catch (Exception e) {
@@ -176,12 +181,15 @@ public class SubscriptionPlanDao extends GenericDao{
 					
 		}else if(PlanType.MobileVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
 			plan=new MobileVoicePlan(data[index][1],data[index][2],null,null);
+			plan.setPlanId(data[index][0]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
-				List<Feature> featureList=groupfeatureByPlanId.get(data[index][1]);
+				List<Feature> featureList=groupfeatureByPlanId.get(data[index][0]);
 				
 				if(featureList!=null && featureList.size()>0){
+					
+					BillingSystemLogger.logInfo("Mobile Voice - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
@@ -189,6 +197,7 @@ public class SubscriptionPlanDao extends GenericDao{
 						if(element.getFeatureType().equals(FeatureType.Mobile)){
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
+							plan.setBasicFeatureId(element.getFeatureId());
 						}else{						
 							plan.addOptionalFeature(element);
 						}
@@ -203,12 +212,15 @@ public class SubscriptionPlanDao extends GenericDao{
 			
 		}else if(PlanType.CableTv.getPlanCd()==Integer.parseInt((data[index][3]))){
 			plan=new CableTvPlan(data[index][1],null,null);
+			plan.setPlanId(data[index][0]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
-				List<Feature> featureList=groupfeatureByPlanId.get(data[index][1]);
+				List<Feature> featureList=groupfeatureByPlanId.get(data[index][0]);
 				
 				if(featureList!=null && featureList.size()>0){
+					
+					BillingSystemLogger.logInfo("Cable TV - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
 						try{
@@ -216,6 +228,7 @@ public class SubscriptionPlanDao extends GenericDao{
 						if(element.getFeatureType().equals(FeatureType.StdChannels)){
 							plan.setDateTerminated(element.getDateTerminated());
 							plan.setDateCommenced(element.getDateCommenced());
+							plan.setBasicFeatureId(element.getFeatureId());
 						}else{						
 							plan.addOptionalFeature(element);
 						}

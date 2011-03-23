@@ -1,11 +1,8 @@
 package sg.edu.nus.iss.billsys.dao;
 
-import java.util.UUID;
+import sg.edu.nus.iss.billsys.constant.PlanType;
 
-import com.ibm.jvm.ClassLoader;
 
-import sg.edu.nus.iss.billsys.constant.FeatureType;
-import sg.edu.nus.iss.billsys.vo.User;
 
 /**
  * This class is temp used to test the read write errors and parsing errors ,
@@ -72,7 +69,7 @@ public class TestDao extends GenericDao{
 		CustomerDao cudao=new CustomerDao();
 		
 		cudao.saveObjectData();
-		/*
+		
 		
 		SubscriptionPlanDao subplandao=new SubscriptionPlanDao();
 		subplandao.saveObjectData();
@@ -80,8 +77,14 @@ public class TestDao extends GenericDao{
 		
 		System.out.println(subplandao.getAccountbyAccountNo("acc_no1"));
 		
-		System.out.println(UUID.randomUUID().toString());
-		*/
+		System.out.println(PlanType.DigitalVoice.getPlanCd());
+		System.out.println(PlanType.CableTv.getPlanCd());
+		System.out.println(PlanType.MobileVoice.getPlanCd());
+		
+		
+		
+		
+		
 		
 	}
 	

@@ -58,6 +58,10 @@ public abstract class SubscriptionPlan implements Serializable {
 		basicFeature.setDateCommenced(dateCommenced);
 	}
 	
+	public void setBasicFeatureId(String featureId) {
+		basicFeature.setFeatureId(featureId);
+	}
+	
 	public Feature getBasicFeature() {
 		return basicFeature;
 	}
