@@ -1,5 +1,9 @@
 package sg.edu.nus.iss.billsys.gui;
 
+/**
+ * @author Ma Huazhen
+ *
+ */
 import sg.edu.nus.iss.billsys.*;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
