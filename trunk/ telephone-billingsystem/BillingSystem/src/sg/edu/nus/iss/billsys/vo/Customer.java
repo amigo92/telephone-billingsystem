@@ -1,7 +1,8 @@
 package sg.edu.nus.iss.billsys.vo;
 /**
  * 
- * @author Veera
+ * @author: Wen Jing
+ * Mar 24 2011
  *
  */
 public class Customer implements Cloneable {
@@ -93,6 +94,21 @@ public class Customer implements Cloneable {
 	
 	public Object clone() throws CloneNotSupportedException {
         return super.clone();
+	}
+	
+	public String getAddress(){
+		return this.address1 + "\n" + this.address2 + "\n" + this.address3 + "\n";
+	}
+	
+	public String showCustomer(){
+		String custDetails = null;
+		custDetails = "Name: " + this.name + "; NRIC: " + this.nric + ";\n";
+		custDetails += "Address: " + this.getAddress();
+		custDetails += "Contact: " + this.contact_tel + "\n";
+		custDetails += "Interest: " + this.interest + "\n";
+		if(this.isDeleted == "Y"){
+			custDetails += "This customer has been deleted.";
+		}
 	}
 
 }
