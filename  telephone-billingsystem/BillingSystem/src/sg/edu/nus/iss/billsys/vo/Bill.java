@@ -283,18 +283,6 @@ public class Bill implements Serializable{
 	}
 
 	public String toString(){
-		return printOverview() + printSummarySection() + printDetailsSection();
-	}
-	
-	private String printOverview(){
-		return "page 1 info"; //TODO
-	}
-	
-	private String printSummarySection(){
-		return "Summary Section"; //TODO
-	}
-	
-	private String printDetailsSection(){
-		return "Details Section"; //TODO
+		return new TextBill(80,70,this).toString();
 	}
 }
