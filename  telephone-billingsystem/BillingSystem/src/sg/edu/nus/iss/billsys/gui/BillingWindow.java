@@ -1,9 +1,5 @@
 package sg.edu.nus.iss.billsys.gui;
 
-/**
- * @author Ma Huazhen
- *
- */
 
 import sg.edu.nus.iss.billsys.*;
 
