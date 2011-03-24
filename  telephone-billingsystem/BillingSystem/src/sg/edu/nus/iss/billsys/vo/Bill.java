@@ -101,6 +101,10 @@ public class Bill implements Serializable{
 	public void addPaymentReceived(Date date, int amt){
 		aPaymentReceivedList.add(new Entry(TimeUtils.formatDate(date), amt));
 	}
+
+	public ArrayList<Entry> getPaymentReceived(){
+		return aPaymentReceivedList;
+	}
 	
 	public void addSummaryCharges(SummaryCharges charges){
 		aSummaryChargesList.add(charges);
@@ -112,6 +116,10 @@ public class Bill implements Serializable{
 
 	public void addDetailChargesList(DetailCharges charges){
 		aDetailChargesList.add(charges);
+	}
+	
+	public ArrayList<DetailCharges> getDetailChargesList() {
+		return aDetailChargesList;
 	}
 
 	public void setBillDate(Date date) {
