@@ -140,7 +140,7 @@ public class TextBill {
 		}
 		s = profile.getEmail();
 		if (s != null && s.length() > 0) {
-			companyInfoL.add(new TextItem(s,SPACE));
+			companyInfoL.add(new TextItem(SPACE));
 			TextItem item = new TextItem(SPACE);
 			item.text.append("Email: ");
 			item.text.append(s);
