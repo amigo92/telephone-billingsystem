@@ -109,6 +109,7 @@ public class Customer implements Cloneable {
 		if(this.isDeleted == "Y"){
 			custDetails += "This customer has been deleted.";
 		}
+		return custDetails;
 	}
 
 }
