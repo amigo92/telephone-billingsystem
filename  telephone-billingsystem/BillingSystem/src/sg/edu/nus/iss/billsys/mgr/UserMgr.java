@@ -46,18 +46,18 @@ public class UserMgr {
 			return null;		
 	}
 	
-	public Boolean isValidAuthUser(String userId, String pwd)
-	{		 
-		User user = dao.getUserByUsername(userId);
-		if(user==null)
-			return false; //username not found		
-		else if(user.getPassword()!=pwd)
-			return false; //password invalid
-		else
-		{
-			currentUser = user;
-			return true;
+	public boolean isValidAuthUser(String userId, String pwd)
+	{	
+		if(userId != null && pwd != null){
+			User user = dao.getUserByUsername(userId);
+			
+			if(user != null && user.getPassword().equals(pwd)){
+				currentUser = user;
+				return true;
+			}
 		}
+
+		return false;
 	}
 	
 	/**
