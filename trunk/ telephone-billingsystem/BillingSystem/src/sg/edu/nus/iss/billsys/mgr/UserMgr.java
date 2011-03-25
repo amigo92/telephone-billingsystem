@@ -15,7 +15,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 public class UserMgr {
 		
 	private UserDao dao;
-	private User currentUser;
+	private static User currentUser;
 	
 	/*
 	 * Default Constructor
@@ -58,6 +58,13 @@ public class UserMgr {
 			currentUser = user;
 			return true;
 		}
+	}
+	
+	/**
+	 * Call after the user signs off
+	 */
+	public static void logout(){
+		currentUser = null;
 	}
 	
 	public Boolean changePassword(String pwd)
