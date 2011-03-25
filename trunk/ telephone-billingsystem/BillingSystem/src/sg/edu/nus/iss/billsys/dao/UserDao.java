@@ -59,18 +59,13 @@ public class UserDao extends GenericDao{
 	
 	
 	public User getUserByUsername(String username){
-		User usr=null;
-		
-		for (Iterator iter = listUser.iterator(); iter.hasNext();) {
-			User element = (User) iter.next();
-			if(element.getUsername().equals(username)){
-				usr=element;
-				break;
+		for(User user : listUser){
+			if(user.getUsername().equals(username)){
+				return user;
 			}
-				
 		}
 		
-		return usr;
+		return null;
 	}
 	
 	/// chuichi: changed the return type to Boolean to tell whether the password is updated 
