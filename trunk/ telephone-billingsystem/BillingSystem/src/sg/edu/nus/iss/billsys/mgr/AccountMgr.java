@@ -6,13 +6,22 @@ import sg.edu.nus.iss.billsys.vo.*;
 public class AccountMgr {
 
 	/**
+	 * save the customer and the account object
+	 * @param customer
+	 * @return
+	 */
+	public Customer create(Customer customer){
+		return null; //TODO
+	}
+	
+	/**
 	 * Make sure the customer object has a reference to account object, 
 	 * and the account object refers to a list of available subscription plan objects
-	 * @param customerId
+	 * @param nric
 	 * @return
 	 * @client BillMgr
 	 */
-	public Customer getCustomerDetailsById(String customerId){
+	public Customer getCustomerDetailsById(String nric){
 		return null; //TODO
 	}
 	
