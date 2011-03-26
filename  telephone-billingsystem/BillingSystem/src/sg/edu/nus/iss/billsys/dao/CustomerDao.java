@@ -36,7 +36,7 @@ public class CustomerDao extends GenericDao{
 			
 			customer.setAcct(acct);
 			customer.setInterest(data[i][6]);
-			customer.setIsDeleted(data[i][7]);
+			customer.setIsDeleted(Boolean.valueOf(data[i][7]));
 			customer.setName(data[i][1]);
 			customer.setNric(data[i][8]);
 			
@@ -66,7 +66,7 @@ public class CustomerDao extends GenericDao{
 				data[cnt][4]=element.getAddress3();
 				data[cnt][5]=element.getContact_tel();
 				data[cnt][6]=element.getInterest();
-				data[cnt][7]=element.getIsDeleted();
+				data[cnt][7]=String.valueOf(element.getIsDeleted());
 				data[cnt][8]=element.getNric();
 				
 				
