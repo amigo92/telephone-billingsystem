@@ -65,97 +65,98 @@ public class CustomerRegistration {
 	 */
 	private void initialize() {
 		
-		final JFrame frame = new JFrame("GridBagLayout");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridBagLayout());
+		final JFrame frmCustomerRegistration = new JFrame("GridBagLayout");
+		frmCustomerRegistration.setTitle("Customer Registration");
+		frmCustomerRegistration.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCustomerRegistration.getContentPane().setLayout(new GridBagLayout());
 		
 		//Customer Name
 		JLabel customerNameLabel=new JLabel("Customer Name *");		
 		GridBagConstraints gbc = new GridBagConstraints(0, 0,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(customerNameLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(customerNameLabel, gbc);
 		
 		JTextField customerNameText = new JTextField();
 		gbc = new GridBagConstraints(1, 0,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(customerNameText, gbc);
+		frmCustomerRegistration.getContentPane().add(customerNameText, gbc);
 		//------------------------------
 		
 		//NRC
 		JLabel nrcLabel=new JLabel("NRC *");		
 		gbc = new GridBagConstraints(0, 1,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(nrcLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(nrcLabel, gbc);
 		
 		JTextField nrcText = new JTextField();
 		gbc = new GridBagConstraints(1, 1,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(nrcText, gbc);
+		frmCustomerRegistration.getContentPane().add(nrcText, gbc);
 		//------------------------------
 		
 		//DOB
 		JLabel dobLabel=new JLabel("Date of Birth *");		
 		gbc = new GridBagConstraints(0, 2,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(dobLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(dobLabel, gbc);
 		
 		JTextField dobText = new JTextField();
 		gbc = new GridBagConstraints(1, 2,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(dobText, gbc);
+		frmCustomerRegistration.getContentPane().add(dobText, gbc);
 		//------------------------------
 		
 		//Gender
 		JLabel genderLabel=new JLabel("Gender *");		
 		gbc = new GridBagConstraints(0, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(genderLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(genderLabel, gbc);
 		
 		JRadioButton genderMaleLabel=new JRadioButton("Male");		
 		gbc = new GridBagConstraints(1, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(genderMaleLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(genderMaleLabel, gbc);
 		
 		JRadioButton genderFemaleLabel=new JRadioButton("Female");		
 		gbc = new GridBagConstraints(2, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(genderFemaleLabel, gbc);
+		frmCustomerRegistration.getContentPane().add(genderFemaleLabel, gbc);
 		//------------------------------
 		
 		//Address1
 		JLabel address1Label=new JLabel("Address 1 *");		
 		gbc = new GridBagConstraints(0, 4,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(address1Label, gbc);
+		frmCustomerRegistration.getContentPane().add(address1Label, gbc);
 		
 		JTextField address1Text = new JTextField();
 		gbc = new GridBagConstraints(1, 4,
 		2, 2, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(address1Text, gbc);
+		frmCustomerRegistration.getContentPane().add(address1Text, gbc);
 		//------------------------------
 		
 		//Address 2
 		JLabel address2Label=new JLabel("Address 2");		
 		gbc = new GridBagConstraints(0, 6,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(address2Label, gbc);
+		frmCustomerRegistration.getContentPane().add(address2Label, gbc);
 		
 		JTextField address2Text = new JTextField();
 		gbc = new GridBagConstraints(1, 6,
 		2, 2, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(address2Text, gbc);
+		frmCustomerRegistration.getContentPane().add(address2Text, gbc);
 		//------------------------------
 		
 		//Address 3
 		JLabel address3Label=new JLabel("Address 3");		
 		gbc = new GridBagConstraints(0, 8,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(address3Label, gbc);
+		frmCustomerRegistration.getContentPane().add(address3Label, gbc);
 		
 		JTextField address3Text = new JTextField();
 		gbc = new GridBagConstraints(1, 8,
 		2, 2, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(address3Text, gbc);
+		frmCustomerRegistration.getContentPane().add(address3Text, gbc);
 		//------------------------------
 		
 		//Buttons
@@ -168,7 +169,7 @@ public class CustomerRegistration {
 		});
 		gbc = new GridBagConstraints(1, 11,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 5), 0, 0);
-		frame.getContentPane().add(submitButton, gbc);
+		frmCustomerRegistration.getContentPane().add(submitButton, gbc);
 		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
@@ -178,11 +179,11 @@ public class CustomerRegistration {
 		});
 		gbc = new GridBagConstraints(2, 11,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0);
-		frame.getContentPane().add(cancelButton, gbc);
+		frmCustomerRegistration.getContentPane().add(cancelButton, gbc);
 		//------------------------------
 		
-		frame.setSize(300, 336);
-		frame.setVisible(true);
+		frmCustomerRegistration.setSize(300, 336);
+		frmCustomerRegistration.setVisible(true);
 		
 		
 	}
