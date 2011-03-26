@@ -18,7 +18,7 @@ public class BillingMenu extends JMenuBar {
 		if(role != null){
 			//TODO check for Agent or Admin
 		
-	       JMenuItem menuItem;
+	        JMenuItem menuItem;
 	        JMenu menu;
 
 	        menu = new JMenu("Customer  ");
@@ -62,6 +62,8 @@ public class BillingMenu extends JMenuBar {
 		    });
 	        menu.add(menuItem);
 	        
+	        menu.addSeparator();
+	        
 	        menuItem = new JMenuItem("Generate Bill");
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
@@ -71,7 +73,6 @@ public class BillingMenu extends JMenuBar {
 		    });
 	        menu.add(menuItem);
 	        
-	        menu.addSeparator();
 	        
 	        menu = new JMenu("Subscription  ");
 	        menu.setMnemonic(KeyEvent.VK_A);
@@ -94,6 +95,8 @@ public class BillingMenu extends JMenuBar {
 		    });
 	        menu.add(menuItem);
 	        
+	        menu.addSeparator();
+	        
 	        menuItem = new JMenuItem("Register");
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
@@ -112,6 +115,8 @@ public class BillingMenu extends JMenuBar {
 		    });
 	        menu.add(menuItem);
 	        
+	        menu.addSeparator();
+	        
 	        menuItem = new JMenuItem("De-Register");
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
@@ -121,9 +126,42 @@ public class BillingMenu extends JMenuBar {
 		    });
 	        menu.add(menuItem);
 
+	        
+	        
+	       ///////////////////////////////////////////////////////////////////////////////
+	        
+	        menu = new JMenu("Compaint  ");
+	        add(menu);   
+
+	        menuItem = new JMenuItem("Add Complaint");
+	        menuItem.addActionListener (new ActionListener () {
+			     public void actionPerformed (ActionEvent e) {
+			    	 //TODO
+			     }
+		    });
+	        menu.add(menuItem);
+	        
 	        menu.addSeparator();
 	        
-	        menu = new JMenu("Help  ");
+	        menuItem = new JMenuItem("Search Complaint");
+	        menuItem.addActionListener (new ActionListener () {
+			     public void actionPerformed (ActionEvent e) {
+			    	//TODO
+			     }
+		    });
+	        menu.add(menuItem); 
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        /////////////////////////////////////////////////////////////////////////////
+	        
+	        menu = new JMenu("Action  ");
 	        menu.setMnemonic(KeyEvent.VK_H);
 	        add(menu);   
 
@@ -135,6 +173,7 @@ public class BillingMenu extends JMenuBar {
 			     }
 		    });
 	        menu.add(menuItem);
+
 		}
 	}
 }
