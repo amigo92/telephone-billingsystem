@@ -56,7 +56,7 @@ public class BillingSystem extends JFrame {
         frame.setVisible(true);
 	}
 	
-	public static void setMsg(String msg){
+	public static void setMsgOK(String msg){
 		JOptionPane.showMessageDialog(frame, msg);
 	}
 	

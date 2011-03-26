@@ -10,9 +10,10 @@ import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 
 public class Login extends JPanel {
 
+	private static final long serialVersionUID = -787796397769905542L;
 	
-	JTextField txtName;
-	JPasswordField txtPwd;
+	private JTextField txtName;
+	private JPasswordField txtPwd;
 	
 	public Login(){
 		super();
@@ -40,7 +41,7 @@ public class Login extends JPanel {
 					}
 					else{
 						BillingSystem.updateContentPane(new Login());
-						BillingSystem.setMsg("Invalid input for username or password!");
+						BillingSystem.setMsgOK("Invalid input for username or password!");
 					}
 				}
 	        }
