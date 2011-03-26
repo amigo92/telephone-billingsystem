@@ -45,6 +45,7 @@ public class ComplaintMgr {
 			newComplaint.setAccNo(acctNo);
 			newComplaint.setComplaint_Details(description);
 			newComplaint.setComplaintDate(systemDate);
+			newComplaint.setStatus(ComplaintStatus.PENDING);
 			
 			//successful
 			return Long.parseLong(dao.addComplaint(newComplaint)); 
@@ -59,8 +60,11 @@ public class ComplaintMgr {
 	
 	public long createComplaintByCustomerId(String custId, String description)
 	{
-		String acctNo = getAcctNoByCustId(custId);		
-		return this.createComplaintByAccount(acctNo,description);
+		String acctNo = getAcctNoByCustId(custId);
+		if(acctNo=="")
+			return 0; // account not found for this customer id
+		else
+			return this.createComplaintByAccount(acctNo,description);
 	}
 	
 	public List<CustComplaint> getComplaintByAccount(String acctNo)

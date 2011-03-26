@@ -26,9 +26,7 @@ public class ComplaintsDao extends GenericDao {
 	protected void saveObjectData() {
 		int cnt=0;
 		
-		String data[][]=new String[listComplaints.size()][5];
-		String temp;
-		ComplaintStatus status;
+		String data[][]=new String[listComplaints.size()][5];	
 		
 		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) {
 		
@@ -141,7 +139,7 @@ public class ComplaintsDao extends GenericDao {
 	 */
 	public String addComplaint(CustComplaint obj)
 	{
-		String newId = Integer.toString(listComplaints.size());
+		String newId = Integer.toString(listComplaints.size() + 1);
 		obj.setComplaint_id(newId);
 		listComplaints.add(obj);
 		this.saveObjectData();
