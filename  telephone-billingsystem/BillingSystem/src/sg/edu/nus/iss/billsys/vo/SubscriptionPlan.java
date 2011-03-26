@@ -64,6 +64,13 @@ public abstract class SubscriptionPlan implements Serializable {
 	public void addOptionalFeature(Feature feature) throws BillingSystemException {
 		for (FeatureType ft : getPlanType().optionalFeatures) {
 			if (ft.featureCode == feature.getFeatureType().featureCode) {
+				for (Feature f : optionalFeatures) {
+					if (f.getFeatureType() == feature.getFeatureType()) {
+						if (!f.isTerminated()) {
+							throw new BillingSystemException("");
+						}
+					}
+				}
 				optionalFeatures.add(feature);
 				return;
 			}
