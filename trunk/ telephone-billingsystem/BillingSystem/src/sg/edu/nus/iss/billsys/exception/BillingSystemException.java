@@ -23,6 +23,7 @@ public class BillingSystemException extends Exception{
 	
 	public BillingSystemException(String msg) {
 		super(msg);
+		this.errorMsg=msg;
 	}
 		
 	private String getErrorCodebyException(Exception e){
@@ -36,7 +37,10 @@ public class BillingSystemException extends Exception{
 	}
 	
 	public String getMessagebyException(){
+		
+		if(errorMsg==null)
 		getErrorCodebyException(e);
+		
 		return errorMsg;
 		
 	}
