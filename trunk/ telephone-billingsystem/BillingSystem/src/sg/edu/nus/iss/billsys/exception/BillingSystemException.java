@@ -1,4 +1,7 @@
 package sg.edu.nus.iss.billsys.exception;
+
+import sg.edu.nus.iss.billsys.resource.ResourceHandler;
+
 /**
  * This is a Exception handler class used by the BillingSystem.All the method to handle exception will 
  * throw it to this class.
@@ -40,6 +43,14 @@ public class BillingSystemException extends Exception{
 		
 		if(errorMsg==null)
 		getErrorCodebyException(e);
+		
+		if(errorMsg!=null){
+			try{
+				errorMsg=ResourceHandler.getError(errorMsg);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return errorMsg;
 		
