@@ -9,6 +9,7 @@ import sg.edu.nus.iss.billsys.*;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.dao.CustomerDao;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
 
 public class AccountMgr {
@@ -24,9 +25,12 @@ public class AccountMgr {
 		return customer;
 	}
 	
-	public Customer createCustomer(String name, String nric, String tel, String address1, String address2, String address3, String interest){
+	public Customer createCustomer(String name, String nric, String tel, String address1, String address2, String address3, String interest)throws BillingSystemException{
 		if(nric == null || nric == ""){
-			return null;
+	    	throw new BillingSystemException("Invalid NRIC!");
+		}
+		if( name == null || name == ""){
+			throw new BillingSystemException("Invalid name!");
 		}
 		Customer newCust = new Customer(name, address1, address2, address3, tel, interest, nric);
 		Calendar today = Calendar.getInstance();
