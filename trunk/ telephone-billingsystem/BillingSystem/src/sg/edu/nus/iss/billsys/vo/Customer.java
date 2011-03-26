@@ -13,7 +13,7 @@ public class Customer implements Cloneable {
 	private String address3;
 	private String contactTel;
 	private String interest;
-	private String isDeleted;
+	private boolean isDeleted;
 	private String nric;
 	private Account acct;
 	
@@ -49,14 +49,6 @@ public class Customer implements Cloneable {
 		this.address3 = address3;
 	}
 
-	public String getContact_tel() {
-		return contactTel;
-	}
-
-	public void setContact_tel(String contact_tel) {
-		this.contactTel = contact_tel;
-	}
-
 	public String getInterest() {
 		return interest;
 	}
@@ -65,11 +57,19 @@ public class Customer implements Cloneable {
 		this.interest = interest;
 	}
 
-	public String getIsDeleted() {
+	public String getContactTel() {
+		return contactTel;
+	}
+
+	public void setContactTel(String contactTel) {
+		this.contactTel = contactTel;
+	}
+
+	public boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(String isDeleted) {
+	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -103,7 +103,7 @@ public class Customer implements Cloneable {
 		custDetails += "Address: " + this.getAddress();
 		custDetails += "Contact: " + this.contactTel + "\n";
 		custDetails += "Interest: " + this.interest + "\n";
-		if(this.isDeleted == "Y"){
+		if(this.isDeleted){
 			custDetails += "This customer has been deleted.";
 		}
 		return custDetails;
