@@ -2,6 +2,8 @@ package sg.edu.nus.iss.billsys.vo;
 
 import java.util.Date;
 
+import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
+
 /**
  * 
  * @author Veera
@@ -13,7 +15,7 @@ public class CustComplaint {
 	private String accNo;
 	private String complaint_id;
 	private String complaint_Details;
-	private String status;
+	private ComplaintStatus status; //chuichi: change to enum
 	private Date complaintDate;
 	
 	public String getAccNo() {
@@ -40,10 +42,10 @@ public class CustComplaint {
 	public void setComplaintDate(Date complaintDate) {
 		this.complaintDate = complaintDate;
 	}
-	public String getStatus() {
+	public ComplaintStatus getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(ComplaintStatus status) {
 		this.status = status;
 	}
 	
