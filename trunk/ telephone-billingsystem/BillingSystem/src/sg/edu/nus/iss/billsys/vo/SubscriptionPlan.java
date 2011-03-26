@@ -16,26 +16,21 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 public abstract class SubscriptionPlan implements Serializable {
 
 	private static final long serialVersionUID = 1572263436009780430L;
-	private String planId;
 
-	private String acctNo;
-	
+	private String planId;
+	private String acctNo;	
 	private final Feature basicFeature;
 	protected final ArrayList<Feature> optionalFeatures;
 	
-	protected SubscriptionPlan(String acctNo, Feature basicFeature) {
+	protected SubscriptionPlan(String planId, String acctNo, Feature basicFeature) {
+		this.planId = planId;
 		this.acctNo = acctNo;
 		this.basicFeature = basicFeature;
 		optionalFeatures =  new ArrayList<Feature>();
-		
 	}
 
 	public String getPlanId() {
 		return planId;
-	}
-
-	public void setPlanId(String planId) {
-		this.planId = planId;
 	}
 	
 	public String getAcctNo() {

@@ -144,8 +144,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 		if(PlanType.DigitalVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
 			
-			plan=new DigitalVoicePlan(data[index][1],data[index][2],null,null);
-			plan.setPlanId(data[index][0]);
+			plan=new DigitalVoicePlan(data[index][0],data[index][1],data[index][2],null,null);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 							
@@ -180,8 +179,7 @@ public class SubscriptionPlanDao extends GenericDao{
 			
 					
 		}else if(PlanType.MobileVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
-			plan=new MobileVoicePlan(data[index][1],data[index][2],null,null);
-			plan.setPlanId(data[index][0]);
+			plan=new MobileVoicePlan(data[index][0],data[index][1],data[index][2],null,null);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
@@ -211,8 +209,7 @@ public class SubscriptionPlanDao extends GenericDao{
 			}
 			
 		}else if(PlanType.CableTv.getPlanCd()==Integer.parseInt((data[index][3]))){
-			plan=new CableTvPlan(data[index][1],null,null);
-			plan.setPlanId(data[index][0]);
+			plan=new CableTvPlan(data[index][0],data[index][1],null,null);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
@@ -350,7 +347,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		this.objectDataMapping(getSubscriptionPlanData());
 	}
 	
-	public String generateSequence(){
+	public static String generateSequence(){
 		
 		return UUID.randomUUID().toString();
 		

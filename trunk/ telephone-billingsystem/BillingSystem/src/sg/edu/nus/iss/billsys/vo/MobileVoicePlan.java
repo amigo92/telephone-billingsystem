@@ -14,12 +14,8 @@ public class MobileVoicePlan extends VoicePlan {
 	
 	private static final long serialVersionUID = 7648993467677690245L;
 	
-	public MobileVoicePlan(String acctNo, String assignedTelNo, Date dateCommenced, Date dateTerminated) {
-		super(acctNo, assignedTelNo, new Feature(FeatureType.Mobile, dateCommenced, dateTerminated));
-	}
-	
-	public String getAssignedTelNo() {
-		return assignedTelNo;
+	public MobileVoicePlan(String planId, String acctNo, String assignedTelNo, Date dateCommenced, Date dateTerminated) {
+		super(planId, acctNo, assignedTelNo, new Feature(FeatureType.Mobile, dateCommenced, dateTerminated));
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionMgr {
 
+	private static SubscriptionPlanDao subPlanDao = new SubscriptionPlanDao();
 	private static FeatureRateDao featureRateDao = new FeatureRateDao();
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -94,15 +95,16 @@ public class SubscriptionMgr {
     	if (acct == null) {
     		throw new BillingSystemException("Invalid account number.");
     	}
+    	String planId = subPlanDao.generateSequence();
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
-    		acct.addPlan(new DigitalVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated));
+    		acct.addPlan(new DigitalVoicePlan(planId,accountNo,assignedTelNo,dateCommenced,dateTerminated));
     		break;
     	case MOBILE_VOICE:
-    		acct.addPlan(new MobileVoicePlan(accountNo,assignedTelNo,dateCommenced,dateTerminated));
+    		acct.addPlan(new MobileVoicePlan(planId,accountNo,assignedTelNo,dateCommenced,dateTerminated));
     		break;
     	case CABLE_TV:
-    		acct.addPlan(new CableTvPlan(accountNo,dateCommenced,dateTerminated));
+    		acct.addPlan(new CableTvPlan(planId,accountNo,dateCommenced,dateTerminated));
     		break;
     	default:
     		throw new BillingSystemException("Unknown plan type!");
