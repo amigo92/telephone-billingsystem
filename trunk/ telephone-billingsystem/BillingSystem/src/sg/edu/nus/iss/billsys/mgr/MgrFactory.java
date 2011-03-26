@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.mgr;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+
 /**
  * To ensure there is only one copy of each of the manager at runtime
  * @author Xu Guoneng
@@ -13,7 +15,7 @@ public class MgrFactory {
 	private static SubscriptionMgr aSubscriptionMgr;
 	private static BillMgr aBillMgr;
 	
-	public static UserMgr getUserMgr(){
+	public static UserMgr getUserMgr() throws BillingSystemException{
 		if(aUserMgr == null){
 			aUserMgr = new UserMgr();
 		}
@@ -29,7 +31,7 @@ public class MgrFactory {
 		return aAccountMgr;
 	}
 	
-	public static ComplaintMgr getComplaintMgr(){
+	public static ComplaintMgr getComplaintMgr() throws BillingSystemException{
 		if(aComplaintMgr == null){
 			aComplaintMgr = new ComplaintMgr();
 		}
@@ -37,7 +39,7 @@ public class MgrFactory {
 		return aComplaintMgr;
 	}
 	
-	public static SubscriptionMgr getSubscriptionMgr(){
+	public static SubscriptionMgr getSubscriptionMgr() throws BillingSystemException{
 		if(aSubscriptionMgr == null){
 			aSubscriptionMgr = new SubscriptionMgr();
 		}
