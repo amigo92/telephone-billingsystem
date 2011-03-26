@@ -40,7 +40,7 @@ public class UserDao extends GenericDao{
 	
 	String data[][]=new String[listUser.size()][3];
 		
-	for (Iterator iter = listUser.iterator(); iter.hasNext();) {
+	for (Iterator<User> iter = listUser.iterator(); iter.hasNext();) {
 	
 		User element = (User) iter.next();			
 			
@@ -69,12 +69,12 @@ public class UserDao extends GenericDao{
 	}
 	
 	/// chuichi: changed the return type to Boolean to tell whether the password is updated 
-	public Boolean updatePassword(User usr){
+	/*public Boolean updatePassword(User usr){
 		
 		Boolean updated = false;
 		
 		int cnt=0;
-		for (Iterator iter = listUser.iterator(); iter.hasNext();) {
+		for (Iterator<User> iter = listUser.iterator(); iter.hasNext();) {
 			User element = (User) iter.next();
 			
 			if(element.getUsername().equals(usr.getUsername())){
@@ -86,7 +86,7 @@ public class UserDao extends GenericDao{
 		}
 			
 		return updated;
-	}
+	}*/
 	
 	@Override
 	protected boolean validateData(String[][] data) {
