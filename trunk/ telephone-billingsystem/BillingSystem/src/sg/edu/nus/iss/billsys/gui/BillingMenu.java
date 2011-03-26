@@ -21,7 +21,7 @@ public class BillingMenu extends JMenuBar {
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
 			     public void actionPerformed (ActionEvent e) {
-			    	 
+			    	 //new CustomerRegistration().setVisible(true);
 			     }
 		    });
 	        menu.add(menuItem);
