@@ -14,8 +14,22 @@ public class DigitalVoicePlan extends VoicePlan {
 
 	private static final long serialVersionUID = -2343499822220564332L;
 	
-	public DigitalVoicePlan(String planId, String acctNo, String assignedTelNo, Date dateCommenced, Date dateTerminated){
-		super(planId, acctNo, assignedTelNo, new Feature(FeatureType.Line, dateCommenced, dateTerminated));
+	public DigitalVoicePlan(String planId, String acctNo, String assignedTelNo) {
+		super(planId, acctNo, assignedTelNo, null);
+	}
+	
+	public DigitalVoicePlan(String planId, String acctNo, String assignedTelNo, String basicFeatureId, Date dateCommenced, Date dateTerminated) {
+		super(
+			planId,
+			acctNo,
+			assignedTelNo,
+			new Feature(
+				basicFeatureId,
+				FeatureType.Line,
+				dateCommenced,
+				dateTerminated
+			)
+		);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public abstract class SubscriptionPlan implements Serializable {
 
 	private String planId;
 	private String acctNo;	
-	private final Feature basicFeature;
+	private Feature basicFeature;
 	protected final ArrayList<Feature> optionalFeatures;
 	
 	protected SubscriptionPlan(String planId, String acctNo, Feature basicFeature) {
@@ -53,12 +53,12 @@ public abstract class SubscriptionPlan implements Serializable {
 		basicFeature.setDateCommenced(dateCommenced);
 	}
 	
-	public void setBasicFeatureId(String featureId) {
-		basicFeature.setFeatureId(featureId);
-	}
-	
 	public Feature getBasicFeature() {
 		return basicFeature;
+	}
+	
+	public void setBasicFeature(Feature basicFeature) {
+		this.basicFeature = basicFeature;
 	}
 	
 	public void addOptionalFeature(Feature feature) throws BillingSystemException {

@@ -124,8 +124,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		Feature feature=null;
 		try{
 			
-			feature =new Feature(getFeatureTypeByCode(data[index][2]),TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
-			feature.setFeatureId(data[index][0]);
+			feature = new Feature(data[index][0],getFeatureTypeByCode(data[index][2]),TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
 			
 			}
 			catch(Exception ex){
@@ -144,7 +143,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 		if(PlanType.DigitalVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
 			
-			plan=new DigitalVoicePlan(data[index][0],data[index][1],data[index][2],null,null);
+			plan=new DigitalVoicePlan(data[index][0],data[index][1],data[index][2]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 							
@@ -160,9 +159,7 @@ public class SubscriptionPlanDao extends GenericDao{
 						BillingSystemLogger.logInfo("Digital Voice - element.getFeatureType()"+element.getFeatureType());
 						if(element.getFeatureType().equals(FeatureType.Line)){
 							BillingSystemLogger.logInfo("Digital Voice - Basic element.getFeatureType()"+element.getFeatureType());
-							plan.setDateTerminated(element.getDateTerminated());
-							plan.setDateCommenced(element.getDateCommenced());
-							plan.setBasicFeatureId(element.getFeatureId());
+							plan.setBasicFeature(element);
 						}else{						
 							BillingSystemLogger.logInfo("Digital Voice - Optional element.getFeatureType()"+element.getFeatureType());
 							plan.addOptionalFeature(element);
@@ -179,7 +176,7 @@ public class SubscriptionPlanDao extends GenericDao{
 			
 					
 		}else if(PlanType.MobileVoice.getPlanCd()==Integer.parseInt((data[index][3]))){
-			plan=new MobileVoicePlan(data[index][0],data[index][1],data[index][2],null,null);
+			plan=new MobileVoicePlan(data[index][0],data[index][1],data[index][2]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
@@ -193,9 +190,7 @@ public class SubscriptionPlanDao extends GenericDao{
 						try{
 						Feature element = (Feature) iter.next();
 						if(element.getFeatureType().equals(FeatureType.Mobile)){
-							plan.setDateTerminated(element.getDateTerminated());
-							plan.setDateCommenced(element.getDateCommenced());
-							plan.setBasicFeatureId(element.getFeatureId());
+							plan.setBasicFeature(element);
 						}else{						
 							plan.addOptionalFeature(element);
 						}
@@ -209,7 +204,7 @@ public class SubscriptionPlanDao extends GenericDao{
 			}
 			
 		}else if(PlanType.CableTv.getPlanCd()==Integer.parseInt((data[index][3]))){
-			plan=new CableTvPlan(data[index][0],data[index][1],null,null);
+			plan=new CableTvPlan(data[index][0],data[index][1]);
 			
 			if(groupfeatureByPlanId!=null && !groupfeatureByPlanId.isEmpty()){
 				
@@ -223,9 +218,7 @@ public class SubscriptionPlanDao extends GenericDao{
 						try{
 						Feature element = (Feature) iter.next();
 						if(element.getFeatureType().equals(FeatureType.StdChannels)){
-							plan.setDateTerminated(element.getDateTerminated());
-							plan.setDateCommenced(element.getDateCommenced());
-							plan.setBasicFeatureId(element.getFeatureId());
+							plan.setBasicFeature(element);
 						}else{						
 							plan.addOptionalFeature(element);
 						}
