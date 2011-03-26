@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import sg.edu.nus.iss.billsys.constant.*;
 
 import javax.swing.*;
 
@@ -13,7 +14,7 @@ public class BillingMenu extends JMenuBar {
 
 	public BillingMenu(){
 		
-		String role = MgrFactory.getUserMgr().getCurrentAuthUserRole();
+		UserRole role = MgrFactory.getUserMgr().getAuthUserRole();
 		
 		if(role != null){
 			//TODO check for Agent or Admin
