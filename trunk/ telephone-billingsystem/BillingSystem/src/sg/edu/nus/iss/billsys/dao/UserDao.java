@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.User;
 /**
  * 
@@ -13,11 +14,12 @@ import sg.edu.nus.iss.billsys.vo.User;
  */
 public class UserDao extends GenericDao{
 	
+	private static final int COL_LENGTH=3;
 	private List<User> listUser=new ArrayList<User>();
 	
 	@Override
-	protected void objectDataMapping(String[][] data) {
-		
+	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+		if(validateData(data,"Authorised User",COL_LENGTH)){
 		List<User> listUser=new ArrayList<User>();
 		
 		for(int i=0;i<data.length;i++){
@@ -33,13 +35,14 @@ public class UserDao extends GenericDao{
 
 		
 		this.listUser=listUser;
+		}
 	}
 	
 	@Override
-	protected void saveObjectData(){
+	protected void saveObjectData() throws BillingSystemException{
 	int cnt=0;
 	
-	String data[][]=new String[listUser.size()][3];
+	String data[][]=new String[listUser.size()][COL_LENGTH];
 		
 	for (Iterator<User> iter = listUser.iterator(); iter.hasNext();) {
 	
@@ -51,10 +54,12 @@ public class UserDao extends GenericDao{
 			
 			cnt++;				
 		}
+	if(validateData(data,"Authorised User",COL_LENGTH)){
 		saveUserData(data);
+	}
 	}	
 	
-	public UserDao() {
+	public UserDao() throws BillingSystemException{
 	 this.objectDataMapping(getUserData());
 	}
 	
@@ -84,6 +89,7 @@ public class UserDao extends GenericDao{
 	}
 	
 	/// chuichi: changed the return type to Boolean to tell whether the password is updated 
+	//Veera : This is a method to give a idea of the dao design implementation and not used for any usecase.
 	/*public Boolean updatePassword(User usr){
 		
 		Boolean updated = false;
@@ -103,11 +109,4 @@ public class UserDao extends GenericDao{
 		return updated;
 	}*/
 	
-	@Override
-	protected boolean validateData(String[][] data) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-
 }
