@@ -22,7 +22,7 @@ import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 
 
 
-public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
+public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
 	
     protected SubscriptionMgr manager;
@@ -36,12 +36,13 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
     private BillingWindow window;
     private String accountNo;
 	   
-	public SubscriptionPlanAddDialog(BillingWindow window, PlanType planType, String accountNo) {
+	public SubscriptionPlanDelDialog(BillingWindow window, PlanType planType, String accountNo) {
 		super(window,  "Register new Subscription Plan :"  + planType.name);
 		manager = MgrFactory.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;
+		
 		
 		if(planType.planCode == PlanCode.CABLE_TV ){
 			assignedNumberField.setVisible(false);
