@@ -21,15 +21,20 @@ public class BillDao {
 	static{
 		FileInputStream fis = null;
 		try{
-			fis = new FileInputStream(new File(getFilepath()));
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			aBillStore = (BillStore)ois.readObject();
-			
-			if(aBillStore == null){
+			try{
+				fis = new FileInputStream(new File(getFilepath()));
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				aBillStore = (BillStore)ois.readObject();
+				
+				if(aBillStore == null){
+					aBillStore = new BillStore();
+				}
+				
+				ois.close();
+			}
+			catch(java.io.EOFException ex){
 				aBillStore = new BillStore();
 			}
-			
-			ois.close();
 		}
 		catch(Exception ex){
 			throw new RuntimeException(ex);
