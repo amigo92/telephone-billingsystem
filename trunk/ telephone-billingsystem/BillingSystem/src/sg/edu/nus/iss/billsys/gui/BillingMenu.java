@@ -7,9 +7,17 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+
 public class BillingMenu extends JMenuBar {
 
 	public BillingMenu(){
+		
+		String role = MgrFactory.getUserMgr().getCurrentAuthUserRole();
+		
+		if(role != null){
+			//TODO check for Agent or Admin
+		
 	       JMenuItem menuItem;
 	        JMenu menu;
 
@@ -127,5 +135,6 @@ public class BillingMenu extends JMenuBar {
 			     }
 		    });
 	        menu.add(menuItem);
+		}
 	}
 }
