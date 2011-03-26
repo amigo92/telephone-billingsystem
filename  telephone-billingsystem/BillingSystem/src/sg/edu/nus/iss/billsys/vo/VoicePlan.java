@@ -11,8 +11,8 @@ public abstract class VoicePlan extends SubscriptionPlan {
 
 	protected final String assignedTelNo;
 	
-	public VoicePlan(String acctNo, String assignedTelNo, Feature feature) {
-		super(acctNo, feature);
+	public VoicePlan(String planId, String acctNo, String assignedTelNo, Feature feature) {
+		super(planId, acctNo, feature);
 		this.assignedTelNo = assignedTelNo;
 	}
 	
