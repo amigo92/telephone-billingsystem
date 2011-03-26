@@ -113,5 +113,17 @@ public class DigitalVoicePlanTest extends TestCase {
 			fail();
 		} catch (BillingSystemException bsExp) {
 		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.DigiIDD,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.CallTransfer,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
 	}
 }
