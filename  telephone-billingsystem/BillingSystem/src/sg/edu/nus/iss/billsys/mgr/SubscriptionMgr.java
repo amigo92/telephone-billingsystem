@@ -25,6 +25,7 @@ import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionMgr {
 
+	private static SubscriptionPlanDao subPlanDao = new SubscriptionPlanDao();
 	private static FeatureRateDao featureRateDao = new FeatureRateDao();
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -37,12 +38,8 @@ public class SubscriptionMgr {
 	//Input:null
 	//Output: planName, available optional features , rate(monthly charge & usage charge)
 	
-	public List<PlanType> getAllPlanType() {
-		ArrayList<PlanType> list = new ArrayList<PlanType>();
-		list.add(PlanType.DigitalVoice);
-		list.add(PlanType.MobileVoice);
-		list.add(PlanType.CableTv);
-		return list;
+	public PlanType[] getAllPlanType() {
+		return PlanType.values();
 	}
 	
 	public FeatureType getPlanBasicFeatures(PlanType planType) {

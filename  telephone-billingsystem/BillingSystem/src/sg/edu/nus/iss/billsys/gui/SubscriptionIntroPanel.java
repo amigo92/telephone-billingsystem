@@ -37,7 +37,7 @@ public class SubscriptionIntroPanel extends JPanel {
     	p.add(new JLabel(""));
     	p.add(new JLabel("Monthly Subscription Charge"));
     	p.add(new JLabel("Usage Charge (per second)"));
-    	List<PlanType> planTypes = manager.getAllPlanType();
+    	PlanType[] planTypes = manager.getAllPlanType();
     	
     	for (PlanType planType : planTypes){
     	
