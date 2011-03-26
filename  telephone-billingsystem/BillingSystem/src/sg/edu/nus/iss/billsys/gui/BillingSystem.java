@@ -61,7 +61,7 @@ public class BillingSystem extends JFrame {
 	}
 	
 	private static void displayMenuBar(){
-		if(MgrFactory.getUserMgr().getCurrentAuthUserId() != null){
+		if(MgrFactory.getUserMgr().getAuthUserName() != null){
 			frame.setJMenuBar(new BillingMenu());
 		}
 		else{
