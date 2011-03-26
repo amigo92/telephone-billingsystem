@@ -1,5 +1,9 @@
 package sg.edu.nus.iss.billsys.mgr;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.constant.*;
@@ -17,50 +21,94 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 public class ComplaintMgr {
 	
+	private ComplaintsDao dao;
 	
+	public ComplaintMgr()
+	{
+		dao = new ComplaintsDao();
+	}
+	
+	/**
+	 * 
+	 * @param acctNo the account number this complaints belong to
+	 * @param description
+	 * @return the newly created Complaint id
+	 */
 	public long createComplaintByAccount(String acctNo, String description)
 	{
-		//system date for the creation date
-		
-		//successful
-		//TODO: return complaint id 
-		
-		//fail
-		return 0;
+		try
+		{
+			//system date for the creation date
+			 Date systemDate = new Date();
+	
+			CustComplaint newComplaint = new CustComplaint();
+			newComplaint.setAccNo(acctNo);
+			newComplaint.setComplaint_Details(description);
+			newComplaint.setComplaintDate(systemDate);
+			
+			//successful
+			return Long.parseLong(dao.addComplaint(newComplaint)); 
+		}
+		catch(Exception e)
+		{
+			//fail
+			return 0;
+			
+		}
 	}
 	
 	public long createComplaintByCustomerId(String custId, String description)
 	{
-		//system date for the creation date
-		
-		//successful
-		//TODO: return complaint id 
-		
-		//fail
-		return 0;
+		String acctNo = getAcctNoByCustId(custId);		
+		return this.createComplaintByAccount(acctNo,description);
 	}
 	
 	public List<CustComplaint> getComplaintByAccount(String acctNo)
-	{
-		List<CustComplaint> complaintList = new ArrayList<CustComplaint>();
-		return complaintList;
-	}
+	{		
+		return dao.getComplaintList(acctNo);
+	}	
 	
 	public List<CustComplaint> getComplaintByCustomerId(String custId)
 	{
-		List<CustComplaint> complaintList = new ArrayList<CustComplaint>();
-		return complaintList;
+		String acctNo = getAcctNoByCustId(custId);		
+		return getComplaintByAccount(acctNo);
 	}
 	
-	public int updateComplaint(long complaintId, String status)
+	/***
+	 * 
+	 * @param complaintId
+	 * @param status either "Pending" or "Completed"
+	 * @return 1 for success, 0 for fail
+	 */
+	public int updateComplaint(long complaintId, ComplaintStatus status)
 	{
-		//use system date to be the update Date
-		
-		//successful
-		//TODO: return 1;
-		
-		//fail
-		return 0;
+		int success = 0;
+		//use system date to be the update Date	
+		CustComplaint complaint = dao.getComplaint(Long.toString(complaintId));
+		if(complaint!=null)
+		{
+			complaint.setStatus(status);
+			success = dao.updateComplaint(complaint);
+		}	
+
+		return success;
 	}	
+	
+	/**
+	 * 
+	 * @param custId the customer id/ nric to search by
+	 * @return the account number for this customer, will be empty string if not found
+	 */
+	private String getAcctNoByCustId(String custId)
+	{
+		String acctNo = "";
+		
+		AccountMgr accountManager = new AccountMgr();
+		Customer thisCustomer = accountManager.getCustomerDetailsById(custId);
+		if(thisCustomer!=null) //customer found
+			acctNo = thisCustomer.getAcct().getAcctNo();
+				
+		return acctNo;
+	}
 
 }
