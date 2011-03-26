@@ -29,7 +29,7 @@ public class ViewCustomerDetail {
 			public void run() {
 				try {
 					ViewCustomerDetail window = new ViewCustomerDetail();
-					window.frame.setVisible(true);
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
