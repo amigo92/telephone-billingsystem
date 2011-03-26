@@ -35,7 +35,7 @@ public class ComplaintsDao extends GenericDao {
 				data[cnt][0]=element.getAccNo();
 				data[cnt][1]=element.getComplaint_id();
 				data[cnt][2]=element.getComplaint_Details();				
-				data[cnt][3]= element.getStatus();
+				//data[cnt][3]= element.getStatus();
 				data[cnt][4]=TimeUtils.dateToString(element.getComplaintDate());
 				
 				cnt++;				
@@ -64,7 +64,7 @@ public class ComplaintsDao extends GenericDao {
 			comp.setComplaint_Details(data[i][2]);
 			comp.setComplaint_id(data[i][1]);
 			comp.setComplaintDate(TimeUtils.parseDate(data[i][4]));
-			comp.setStatus(data[i][3]);
+			//comp.setStatus(data[i][3]);
 	    		    	
 			listComplaints.add(comp);	
 	    }
