@@ -9,6 +9,7 @@ import org.junit.Test;
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
@@ -76,11 +77,41 @@ public class DigitalVoicePlanTest extends TestCase {
 
 	@Test
 	public void testAddOptionalFeature() {
-//		FeatureType.DigiIDD
-//		FeatureType.CallTransfer
-		
-//		new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.DigiIDD,)
-//		digiPlan1.addOptionalFeature();
-		assertEquals(dateTerminated1,digiPlan1.getDateTerminated());
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.DigiIDD,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.CallTransfer,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.MobileIDD,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.DataService,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.Roaming,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
+		try {
+			Feature f = new Feature(SubscriptionPlanDao.generateSequence(),FeatureType.AddChannel,new Date(),null);
+			digiPlan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+		}
 	}
 }
