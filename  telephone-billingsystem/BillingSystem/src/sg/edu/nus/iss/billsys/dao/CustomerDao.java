@@ -29,14 +29,14 @@ public class CustomerDao extends GenericDao{
 			customer.setAddress1(data[i][2]);
 			customer.setAddress2(data[i][3]);
 			customer.setAddress3(data[i][4]);
-			customer.setContact_tel(data[i][5]);
+			customer.setContactTel(data[i][5]);
 			
 			Account acct=new Account();
 			acct.setAcctNo(data[i][0]);
 			
 			customer.setAcct(acct);
 			customer.setInterest(data[i][6]);
-			customer.setIsDeleted(Boolean.valueOf(data[i][7]));
+			customer.setDeleted(Boolean.valueOf(data[i][7]));
 			customer.setName(data[i][1]);
 			customer.setNric(data[i][8]);
 			
@@ -64,9 +64,9 @@ public class CustomerDao extends GenericDao{
 				data[cnt][2]=element.getAddress1();
 				data[cnt][3]=element.getAddress2();
 				data[cnt][4]=element.getAddress3();
-				data[cnt][5]=element.getContact_tel();
+				data[cnt][5]=element.getContactTel();
 				data[cnt][6]=element.getInterest();
-				data[cnt][7]=String.valueOf(element.getIsDeleted());
+				data[cnt][7]=String.valueOf(element.isDeleted());
 				data[cnt][8]=element.getNric();
 				
 				
