@@ -13,11 +13,11 @@ public class BillingMenu extends JMenuBar {
 	       JMenuItem menuItem;
 	        JMenu menu;
 
-	        menu = new JMenu("Account  ");
+	        menu = new JMenu("Customer  ");
 	        menu.setMnemonic(KeyEvent.VK_A);
 	        add(menu);   
 
-	        menuItem = new JMenuItem("item1");
+	        menuItem = new JMenuItem("Customer Registration");
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
 			     public void actionPerformed (ActionEvent e) {
@@ -27,6 +27,19 @@ public class BillingMenu extends JMenuBar {
 	        menu.add(menuItem);
 	        
 	        menu.addSeparator();
+	        
+	        JMenuItem mntmActivationdeativiation = new JMenuItem("Activation/Deativiation");
+	        menu.add(mntmActivationdeativiation);
+	        
+	        menu.addSeparator();
+	        
+	        JMenuItem mntmViewCustomerDetails = new JMenuItem("View Customer Details");
+	        menu.add(mntmViewCustomerDetails);
+	        
+	        menu.addSeparator();
+	        
+	        JMenuItem mntmSearchCustomer = new JMenuItem("Search Customer");
+	        menu.add(mntmSearchCustomer);
 	        
 	        menu = new JMenu("Billing  ");
 	        menu.setMnemonic(KeyEvent.VK_A);
