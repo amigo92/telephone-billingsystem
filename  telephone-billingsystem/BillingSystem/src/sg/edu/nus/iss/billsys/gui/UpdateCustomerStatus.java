@@ -197,7 +197,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	}
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
-		 BillingSystem.updateContentPane(new ViewCustomerDetails()); 
+		 BillingSystem.updateContentPane(new SearchCustomer()); 
 	}
 
 	private void controlsToObject(Customer cust){
