@@ -23,6 +23,9 @@ public class Account {
 		this.balanceUpdateDate = null;
 		this.acctNo = this.genAcctNo(today, nextAcct);
 	}
+	public Account() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	private String genAcctNo(Date today, int nextAcct){
 		Calendar calendar = Calendar.getInstance();
