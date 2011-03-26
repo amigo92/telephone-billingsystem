@@ -25,7 +25,6 @@ import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionMgr {
 
-	private static CallRateDao aCallRateDao = new CallRateDao();
 	private static FeatureRateDao featureRateDao = new FeatureRateDao();
 		
 	public int getSubscriptionCharge(FeatureType featureType){
