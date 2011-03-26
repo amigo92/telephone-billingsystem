@@ -4,6 +4,8 @@ import sg.edu.nus.iss.billsys.*;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 
 import java.awt.EventQueue;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import java.util.*;
 
 import javax.swing.*;
@@ -25,6 +27,9 @@ public class BillingSystem extends JFrame {
 			public void run() {
 				frame = new BillingSystem();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setExtendedState(Frame.MAXIMIZED_BOTH); 
+				frame.setSize(600, 600);
+				
 				updateContentPane(new Login());
 			}
 			
@@ -51,7 +56,7 @@ public class BillingSystem extends JFrame {
 		displayMenuBar();
 		
 		frame.setContentPane(newPanel);
-		frame.pack();
+		frame.validate();
         frame.setVisible(true);
 	}
 	
