@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+
 
 
 /**
@@ -223,19 +225,33 @@ public abstract class GenericDao {
 	 * This method is used by the dao classes to validate the data type and 
 	 * data format.
 	 */
-	protected abstract boolean validateData(String [][] data);
+	protected boolean validateData(String [][] data,String dataType, int colLength) throws BillingSystemException{
+
+		boolean valid =false;
+		
+		if(data==null){
+			throw new BillingSystemException(dataType+" Data is Empty . Please check again");
+		}else if(data!=null && data.length==0){
+			throw new BillingSystemException(dataType+" Data is Empty . Please check again");
+		}else if(data[0].length!=colLength)
+			throw new BillingSystemException(dataType+" Data is Corrupted , Expecting "+colLength+" columns but the actual size is "+data[0].length);
+		
+		valid=true;
+		
+		return valid;
+	}
 	
 	/*
 	 * This method is used by the dao classes to map the data object with the 
 	 * domain object
 	 */
-	protected abstract void objectDataMapping(String [][] data);
+	protected abstract void objectDataMapping(String [][] data) throws BillingSystemException;
 	
 	/*
 	 * This method is used by the dao classes to save the  
 	 * domain object to data object for saving.
 	 */
-	protected abstract void saveObjectData();
+	protected abstract void saveObjectData() throws BillingSystemException;
 	
 	/*
 	 * These are the list of protected methods used by the subclasses to get the reference to

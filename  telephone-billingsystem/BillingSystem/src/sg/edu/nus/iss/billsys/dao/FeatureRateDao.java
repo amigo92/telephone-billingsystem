@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.Rate;
 
 /**
@@ -12,18 +13,13 @@ import sg.edu.nus.iss.billsys.vo.Rate;
  *
  */
 public class FeatureRateDao extends GenericDao{
-	
+	private static final int COL_LENGTH=2;
 	private List<Rate> listFeatureRates=new ArrayList<Rate>();
 	
-	@Override
-	protected boolean validateData(String[][] data) {
-		// To be Implemented later , to check the correctness of the data file.
-		return false;
-	}
 	
 	@Override
-	protected void objectDataMapping(String[][] data) {
-	
+	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+		if(validateData(data,"Feature Rate",COL_LENGTH)){
 		try{
 			List<Rate> listFeatureRates=new ArrayList<Rate>();
 			
@@ -43,14 +39,15 @@ public class FeatureRateDao extends GenericDao{
 			catch(Exception ex){
 				throw new RuntimeException(ex);
 			}
+		}
 	}
 	
 	@Override
-	protected void saveObjectData(){
+	protected void saveObjectData() throws BillingSystemException{
 	//This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 	}	
 	
-	public FeatureRateDao() {
+	public FeatureRateDao() throws BillingSystemException{
 	 this.objectDataMapping(getFeatureRateData());
 	}
 	
