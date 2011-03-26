@@ -14,6 +14,8 @@ public class Account {
 	private int balance;
 	private Date balanceUpdateDate;
 	private int paymentTerms;
+	private Date dateCreated;
+	private Date dateDeleted;
 	
 //	private HashMap<String,SubscriptionPlan> plans;
 
@@ -43,7 +45,19 @@ public class Account {
 		this.acctNo = acctNo;
 	}
 	
-/*	public void addPlan(SubscriptionPlan plan) {
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	public Date getDateDeleted() {
+		return dateDeleted;
+	}
+	public void setDateDeleted(Date dateDeleted) {
+		this.dateDeleted = dateDeleted;
+	}
+	/*	public void addPlan(SubscriptionPlan plan) {
 		plans.put(plan.getPlanId(), plan);
 	}
 	
@@ -87,4 +101,5 @@ public class Account {
 		accDetails = "Account No: " + this.acctNo + "\n";
 		return accDetails;
 	}
+	
 }

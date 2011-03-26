@@ -1,17 +1,49 @@
 package sg.edu.nus.iss.billsys.mgr;
+import sg.edu.nus.iss.billsys.*;
+
+/*Modified by Wen Jing @ Mar 26
+ * 
+ * 
+ */
 
 import java.util.*;
+
+import sg.edu.nus.iss.billsys.dao.CustomerDao;
 import sg.edu.nus.iss.billsys.vo.*;
 
 public class AccountMgr {
+	private CustomerDao custDao;
+	
+	
+	public AccountMgr(){
+		custDao = new CustomerDao();
+	}
 
-	/**
-	 * save the customer and the account object
-	 * @param customer
-	 * @return
-	 */
-	public Customer create(Customer customer){
-		return null; //TODO
+	public Customer createCustomer(Customer customer){
+		custDao.addCustomer(customer);
+		return customer;
+	}
+	
+	public Customer createCustomer(String name, String nric, String tel, String address1, String address2, String address3, String interest){
+		if(nric == null || nric == ""){
+			return null;
+		}
+		Customer newCust = new Customer(name, address1, address2, address3, tel, interest, nric);
+		Calendar today = Calendar.getInstance();
+		Date aDate = today.getTime();
+		String lastDigit = nric.substring(1, nric.length()-1);
+		int nextAccount = Integer.parseInt(lastDigit);
+		Account account = new Account(aDate, nextAccount);
+		account.setDateCreated(aDate);
+		newCust.setAcct(account);
+		custDao.addCustomer(newCust);
+		return newCust;
+	}
+	
+	public boolean deleteCustomer(String acctId){
+		Calendar today = Calendar.getInstance();
+		Date aDate = today.getTime();
+		return custDao.deleteCust(acctId, aDate);
 	}
 	
 	/**
@@ -21,19 +53,24 @@ public class AccountMgr {
 	 * @return
 	 * @client BillMgr
 	 */
+	
 	public Customer getCustomerDetailsById(String nric){
-		return null; //TODO
+		return custDao.getCustomerByNric(nric);
 	}
 	
-	//return empty list should be returned if NULL
+	public Customer getCustomerDetailsByAccountId(String acctId){
+		return custDao.getCustomerByAcctId(acctId);
+	}
+	
 	public ArrayList<Customer> getAllCustomers(){
-		return new ArrayList<Customer>(); //TODO
+		return custDao.getAllCustomers();
+
 	}
 	
-	/**
-	 * update acct balance
-	 * @client BillMgr
-	 */
+	public ArrayList<Customer> getAllActiveCustomers(){
+		return custDao.getAllActiveCustomers();
+	}
+
 	public void update(Account acct){
 		//TODO
 	}
