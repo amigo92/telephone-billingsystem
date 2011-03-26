@@ -15,7 +15,7 @@ public class Account {
 	private Date balanceUpdateDate;
 	private int paymentTerms;
 	
-	private HashMap<String,SubscriptionPlan> plans;
+//	private HashMap<String,SubscriptionPlan> plans;
 
 	public Account(Date today, int nextAcct){
 		this.paymentTerms = 21;
@@ -43,7 +43,7 @@ public class Account {
 		this.acctNo = acctNo;
 	}
 	
-	public void addPlan(SubscriptionPlan plan) {
+/*	public void addPlan(SubscriptionPlan plan) {
 		plans.put(plan.getPlanId(), plan);
 	}
 	
@@ -61,7 +61,7 @@ public class Account {
 			this.plans.put(plan.getPlanId(), plan);
 		}
 	}
-
+*/
 	public int getBalance() {
 		return balance;
 	}
