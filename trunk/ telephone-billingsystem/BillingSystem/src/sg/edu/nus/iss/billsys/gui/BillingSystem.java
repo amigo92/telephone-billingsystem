@@ -3,6 +3,7 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.*;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -43,13 +44,12 @@ public class BillingSystem extends JFrame {
 	}
 	
 	private static void displayMenuBar(){
-		frame.setJMenuBar(new BillingMenu()); //TODO
-//		if(MgrFactory.getUserMgr().getCurrentAuthUserId() != null){
-//			frame.setJMenuBar(new BillingMenu());
-//		}
-//		else{
-//			frame.setJMenuBar(null);
-//		}
+		if(MgrFactory.getUserMgr().getCurrentAuthUserId() != null){
+			frame.setJMenuBar(new BillingMenu());
+		}
+		else{
+			frame.setJMenuBar(null);
+		}
 	}
 	
 	public static void updateContentPane(JPanel newPanel){
