@@ -25,8 +25,9 @@ public class AccountMgr {
 		return null; //TODO
 	}
 	
+	//return empty list should be returned if NULL
 	public ArrayList<Customer> getAllCustomers(){
-		return null; //TODO
+		return new ArrayList<Customer>(); //TODO
 	}
 	
 	/**
