@@ -25,8 +25,13 @@ import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionMgr {
 
-	private static SubscriptionPlanDao subPlanDao = new SubscriptionPlanDao();
-	private static FeatureRateDao featureRateDao = new FeatureRateDao();
+	private SubscriptionPlanDao subPlanDao;
+	private FeatureRateDao featureRateDao;
+	
+	public SubscriptionMgr() throws BillingSystemException {
+		subPlanDao = new SubscriptionPlanDao();
+		featureRateDao = new FeatureRateDao();
+	}
 		
 	public int getSubscriptionCharge(FeatureType featureType){
 		return featureRateDao.getPricebyFeatureCode(featureType.getFeatureCd()).getPrice();
