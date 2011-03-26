@@ -117,8 +117,12 @@ public class BillingReportView extends JPanel {
         }
         return bp;
     }  
-    private JComboBox createMonthComboBox () {  
+  
     	
+ private JComboBox createMonthComboBox () {  
+    	
+    	Calendar ca1 = Calendar.getInstance();
+        int iMonth=ca1.get(Calendar.MONTH);
     	String[] months = {"1","2","3","4","5","6","7","8","9","10","11","12"};
 	    JComboBox box = new JComboBox(months);
 	    
@@ -128,11 +132,11 @@ public class BillingReportView extends JPanel {
 	    		   int selectedMonth = cb.getSelectedIndex() +1;
 	            }
 	    });
-	    box.setSelectedIndex(0);
+	    box.setSelectedIndex(iMonth);
 	    add(box, BorderLayout.PAGE_START);
 	    return box;
     }
-    private JComboBox createYearComboBox () {  
+ private JComboBox createYearComboBox () {  
     	
     	Calendar ca1 = Calendar.getInstance();
         int iYear=ca1.get(Calendar.YEAR);
@@ -155,4 +159,5 @@ public class BillingReportView extends JPanel {
 	    add(box, BorderLayout.PAGE_START);
 	    return box;
     }
+
 }
