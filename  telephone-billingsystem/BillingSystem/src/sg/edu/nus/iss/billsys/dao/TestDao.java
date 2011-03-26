@@ -13,11 +13,7 @@ import sg.edu.nus.iss.billsys.constant.PlanType;
 
 
 public class TestDao extends GenericDao{
-	@Override
-	protected boolean validateData(String[][] data) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	@Override
 	protected void saveObjectData() {
 		// TODO Auto-generated method stub
@@ -29,6 +25,9 @@ public class TestDao extends GenericDao{
 		
 	}
 	public static void main(String[] args) {
+		
+		try{
+		
 		TestDao td=new TestDao();
 		
 		td.print("td.getCallHistoryData()",td.getCallHistoryData());
@@ -70,12 +69,17 @@ public class TestDao extends GenericDao{
 		SubscriptionPlanDao subplandao=new SubscriptionPlanDao();
 		subplandao.saveObjectData();
 		
+		System.out.println(String.valueOf(true));
 		
 		System.out.println(subplandao.getAccountbyAccountNo("acc_no1"));
 		
 		System.out.println(PlanType.DigitalVoice.getPlanCd());
 		System.out.println(PlanType.CableTv.getPlanCd());
 		System.out.println(PlanType.MobileVoice.getPlanCd());
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
