@@ -60,6 +60,10 @@ public class BillingSystem extends JFrame {
         frame.setVisible(true);
 	}
 	
+	public static void setMsg(String msg){
+		JOptionPane.showMessageDialog(frame, msg);
+	}
+	
 	public void start() {
 		startSubscriptonWindow();
 	}
