@@ -21,15 +21,17 @@ public enum FeatureType {
 	AddChannel(FeatureCode.ADD_CHANNEL, "Additional Channel", true, false),
 	
 	//call txn type
-	LocalCall(FeatureCode.LOCAL_CALL, "Local Calls", false, true), 		
-	IDDCall(FeatureCode.IDD_CALL, "IDD Calls", true, true), 	
+	DigiLocalCall(FeatureCode.DIGI_LOCAL_CALL, "Local Calls", false, true), 		
+	MobileLocalCall(FeatureCode.MOBILE_LOCAL_CALL, "Local Calls", false, true), 		
+	DigiIDDCall(FeatureCode.DIGI_IDD_CALL, "IDD Calls", true, true), 	
+	MobileIDDCall(FeatureCode.MOBILE_IDD_CALL, "IDD Calls", true, true), 	
 	RoamingCall(FeatureCode.ROAMING_CALL, "Roaming Calls", true, true);
 
 	
 	public enum FeatureCode {
 		LINE, MOBILE, STD_CHANNEL,
-		LOCAL_CALL, IDD_CALL, ROAMING_CALL,
-		DIGI_IDD, MOBILE_IDD, CALL_TRANSFER, DATA_SERVICES, ROAMING, ADD_CHANNEL
+		DIGI_IDD, MOBILE_IDD, CALL_TRANSFER, DATA_SERVICES, ROAMING, ADD_CHANNEL,
+		DIGI_LOCAL_CALL, MOBILE_LOCAL_CALL, DIGI_IDD_CALL, MOBILE_IDD_CALL, ROAMING_CALL,
 	}
 	
 	public final FeatureCode featureCode;

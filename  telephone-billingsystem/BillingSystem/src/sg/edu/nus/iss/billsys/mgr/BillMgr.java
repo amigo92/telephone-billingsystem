@@ -207,7 +207,9 @@ public class BillMgr {
 		}
 		
 		if(total_duration != 0){
-			int usage_per_number = total_duration * new CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
+			//int usage_per_number = total_duration * new CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
+			int usage_per_number = total_duration * new FeatureRateDao().getPricebyFeatureCode(ct.getFeatureCd()).getPrice();
+			//CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
 			
 			return bill.new Entry(ct.name, usage_per_number);
 		}
