@@ -17,7 +17,7 @@ public class DigitalVoicePlanTest extends TestCase {
 	String planId1;
 	String acctNo1;
 	String assignedTelNo1;
-	String basicFeatureId;
+	String basicFeatureId1;
 	Date dateCommenced1;
 	Date dateTerminated1;
 	DigitalVoicePlan digiPlan1;
@@ -27,10 +27,10 @@ public class DigitalVoicePlanTest extends TestCase {
 		planId1 = SubscriptionPlanDao.generateSequence();
 		acctNo1 = "SA-1234567";
 		assignedTelNo1 = "66667777";
-		basicFeatureId = SubscriptionPlanDao.generateSequence();
+		basicFeatureId1 = SubscriptionPlanDao.generateSequence();
 		dateCommenced1 = TimeUtils.parseDate("2011-03-29 00:00:00");
 		dateTerminated1 = null;
-		digiPlan1 = new DigitalVoicePlan(planId1, acctNo1, assignedTelNo1, basicFeatureId, dateCommenced1, dateTerminated1);
+		digiPlan1 = new DigitalVoicePlan(planId1, acctNo1, assignedTelNo1, basicFeatureId1, dateCommenced1, dateTerminated1);
 	}
 
 	@After
@@ -56,6 +56,11 @@ public class DigitalVoicePlanTest extends TestCase {
 	public void testGetAssignedTelNo() {
 		assertEquals(assignedTelNo1,digiPlan1.getAssignedTelNo());
 	}
+	
+	@Test
+	public void testGetBasicFeature() {
+		assertEquals(basicFeatureId1,digiPlan1.getBasicFeature().getFeatureId());
+	}
 
 	@Test
 	public void testGetDateCommenced() {
@@ -64,6 +69,11 @@ public class DigitalVoicePlanTest extends TestCase {
 
 	@Test
 	public void testGetDateTerminated() {
+		assertEquals(dateTerminated1,digiPlan1.getDateTerminated());
+	}
+
+	@Test
+	public void testAddOptionalFeature() {
 		assertEquals(dateTerminated1,digiPlan1.getDateTerminated());
 	}
 }
