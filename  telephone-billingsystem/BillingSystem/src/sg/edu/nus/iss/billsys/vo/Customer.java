@@ -1,4 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
+
+import java.util.*;
+
 /**
  * 
  * @author: Wen Jing
@@ -16,6 +19,21 @@ public class Customer implements Cloneable {
 	private boolean isDeleted;
 	private String nric;
 	private Account acct;
+	
+	public Customer(){
+		super();
+	}
+	
+	public Customer(String name, String address1, String address2, String address3, String contactTel, String interest, String nric){
+		this.name = name;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.address3 = address3;
+		this.contactTel = contactTel;
+		this.interest = interest;
+		this.nric = nric;
+		this.acct = new Account();
+	}
 	
 	public Account getAcct() {
 		return acct;
@@ -57,6 +75,11 @@ public class Customer implements Cloneable {
 		this.interest = interest;
 	}
 
+
+	public boolean getIsDeleted() {
+		return this.isDeleted;
+	}
+
 	public String getContactTel() {
 		return contactTel;
 	}
@@ -66,11 +89,17 @@ public class Customer implements Cloneable {
 	}
 
 	public boolean isDeleted() {
+
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	public void setIsDeleted(boolean isDeleted, Date today){
+		this.isDeleted = isDeleted;
+		this.acct.setDateDeleted(today);
 	}
 
 	public String getName() {
@@ -93,6 +122,9 @@ public class Customer implements Cloneable {
         return super.clone();
 	}
 	
+	public String getAccountId(){
+		return this.acct.getAcctNo();
+	}
 	public String getAddress(){
 		return this.address1 + "\n" + this.address2 + "\n" + this.address3 + "\n";
 	}
