@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import sg.edu.nus.iss.billsys.constant.UserRole;
 import sg.edu.nus.iss.billsys.vo.User;
 /**
  * 
@@ -25,7 +26,7 @@ public class UserDao extends GenericDao{
 	    		
 	    	usr.setUsername(data[i][0]);
 	    	usr.setPassword(data[i][1]);
-	    	//usr.setRole(data[i][2]);
+	    	usr.setRole(getRoleByCode(data[i][2]));
 	    	
 	    	listUser.add(usr);	
 	    }
@@ -46,7 +47,7 @@ public class UserDao extends GenericDao{
 			
 			data[cnt][0]=element.getUsername();
 			data[cnt][1]=element.getPassword();
-			//data[cnt][2]=element.getRole();
+			data[cnt][2]=String.valueOf(element.getRole().ordinal());
 			
 			cnt++;				
 		}
@@ -57,6 +58,20 @@ public class UserDao extends GenericDao{
 	 this.objectDataMapping(getUserData());
 	}
 	
+	private UserRole getRoleByCode(String code){
+		
+		UserRole[] temp=UserRole.values();
+		UserRole role=null;
+			
+			for (int i = 0; i < temp.length; i++) {
+				if(String.valueOf(temp[i].ordinal()).equals(code))
+					role=temp[i];
+					
+			}
+			return role;
+		
+		
+	}
 	
 	public User getUserByUsername(String username){
 		for(User user : listUser){

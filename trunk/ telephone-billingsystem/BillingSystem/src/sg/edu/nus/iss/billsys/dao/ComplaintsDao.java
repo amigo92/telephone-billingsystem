@@ -4,6 +4,8 @@ package sg.edu.nus.iss.billsys.dao;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
+import sg.edu.nus.iss.billsys.constant.FeatureType;
+import sg.edu.nus.iss.billsys.constant.UserRole;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.*;
 
@@ -35,7 +37,7 @@ public class ComplaintsDao extends GenericDao {
 				data[cnt][0]=element.getAccNo();
 				data[cnt][1]=element.getComplaint_id();
 				data[cnt][2]=element.getComplaint_Details();				
-				//data[cnt][3]= element.getStatus();
+				data[cnt][3]=String.valueOf(element.getStatus().ordinal());
 				data[cnt][4]=TimeUtils.dateToString(element.getComplaintDate());
 				
 				cnt++;				
@@ -48,6 +50,21 @@ public class ComplaintsDao extends GenericDao {
 	protected boolean validateData(String[][] data) {
 		// TO be Implemented later , to check the correctness of the data file.
 		return false;
+	}
+	
+	private ComplaintStatus getComplaintStatusByCode(String code){
+			
+		ComplaintStatus[] temp=ComplaintStatus.values();
+		ComplaintStatus status=null;
+			
+			for (int i = 0; i < temp.length; i++) {
+				if(String.valueOf(temp[i].ordinal()).equals(code))
+					status=temp[i];
+					
+			}
+			return status;
+		
+		
 	}
 	
 	@Override
@@ -64,7 +81,7 @@ public class ComplaintsDao extends GenericDao {
 			comp.setComplaint_Details(data[i][2]);
 			comp.setComplaint_id(data[i][1]);
 			comp.setComplaintDate(TimeUtils.parseDate(data[i][4]));
-			//comp.setStatus(data[i][3]);
+			comp.setStatus(getComplaintStatusByCode(data[i][3]));
 	    		    	
 			listComplaints.add(comp);	
 	    }
