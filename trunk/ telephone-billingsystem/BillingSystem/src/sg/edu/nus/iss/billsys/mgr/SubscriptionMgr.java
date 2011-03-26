@@ -95,16 +95,41 @@ public class SubscriptionMgr {
     	if (acct == null) {
     		throw new BillingSystemException("Invalid account number.");
     	}
-    	String planId = subPlanDao.generateSequence();
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
-    		acct.addPlan(new DigitalVoicePlan(planId,accountNo,assignedTelNo,dateCommenced,dateTerminated));
+    		acct.addPlan(
+    			new DigitalVoicePlan(
+    				SubscriptionPlanDao.generateSequence(),
+    				accountNo,
+    				assignedTelNo,
+    				SubscriptionPlanDao.generateSequence(),
+    				dateCommenced,
+    				dateTerminated
+    			)
+    		);
     		break;
     	case MOBILE_VOICE:
-    		acct.addPlan(new MobileVoicePlan(planId,accountNo,assignedTelNo,dateCommenced,dateTerminated));
+    		acct.addPlan(
+    			new MobileVoicePlan(
+        			SubscriptionPlanDao.generateSequence(),
+    				accountNo,
+    				assignedTelNo,
+    				SubscriptionPlanDao.generateSequence(),
+    				dateCommenced,
+    				dateTerminated
+    			)
+    		);
     		break;
     	case CABLE_TV:
-    		acct.addPlan(new CableTvPlan(planId,accountNo,dateCommenced,dateTerminated));
+    		acct.addPlan(
+    			new CableTvPlan(
+        			SubscriptionPlanDao.generateSequence(),
+    				accountNo,
+    				SubscriptionPlanDao.generateSequence(),
+    				dateCommenced,
+    				dateTerminated
+    			)
+    		);
     		break;
     	default:
     		throw new BillingSystemException("Unknown plan type!");
@@ -140,7 +165,14 @@ public class SubscriptionMgr {
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
     	}
-    	plan.addOptionalFeature(new Feature(featureType, dateCommenced, dateTerminated));
+    	plan.addOptionalFeature(
+    		new Feature(
+    			SubscriptionPlanDao.generateSequence(),
+    			featureType,
+    			dateCommenced,
+    			dateTerminated
+    		)
+    	);
     }
     
     //TODO

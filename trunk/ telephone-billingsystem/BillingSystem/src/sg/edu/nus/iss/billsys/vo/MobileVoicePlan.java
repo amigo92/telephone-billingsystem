@@ -3,6 +3,7 @@ package sg.edu.nus.iss.billsys.vo;
 import java.util.Date;
 
 import sg.edu.nus.iss.billsys.constant.*;
+import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 
 /**
@@ -14,8 +15,22 @@ public class MobileVoicePlan extends VoicePlan {
 	
 	private static final long serialVersionUID = 7648993467677690245L;
 	
-	public MobileVoicePlan(String planId, String acctNo, String assignedTelNo, Date dateCommenced, Date dateTerminated) {
-		super(planId, acctNo, assignedTelNo, new Feature(FeatureType.Mobile, dateCommenced, dateTerminated));
+	public MobileVoicePlan(String planId, String acctNo, String assignedTelNo) {
+		super(planId, acctNo, assignedTelNo, null);
+	}
+	
+	public MobileVoicePlan(String planId, String acctNo, String assignedTelNo, String basicFeatureId, Date dateCommenced, Date dateTerminated) {
+		super(
+			planId,
+			acctNo,
+			assignedTelNo,
+			new Feature(
+				basicFeatureId,
+				FeatureType.Mobile,
+				dateCommenced,
+				dateTerminated
+			)
+		);
 	}
 
 	@Override

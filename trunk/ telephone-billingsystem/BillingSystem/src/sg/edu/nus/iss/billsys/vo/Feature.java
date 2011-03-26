@@ -13,11 +13,12 @@ public class Feature {
 	private Date dateCommenced;
 	private Date dateTerminated;
 
-	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateTerminated) {
-		this(aFeatureType, dateCommenced, dateTerminated, null);
+	public Feature(String id, FeatureType aFeatureType, Date dateCommenced, Date dateTerminated) {
+		this(id,aFeatureType, dateCommenced, dateTerminated, null);
 	}
 
-	public Feature(FeatureType aFeatureType, Date dateCommenced, Date dateTerminated, String name) {
+	public Feature(String id, FeatureType aFeatureType, Date dateCommenced, Date dateTerminated, String name) {
+		this.featureId = id;
 		this.aFeatureType = aFeatureType;
 		this.dateCommenced = dateCommenced;
 		this.dateTerminated = dateTerminated;
@@ -62,9 +63,5 @@ public class Feature {
 
 	public String getFeatureId() {
 		return featureId;
-	}
-
-	public void setFeatureId(String featureId) {
-		this.featureId = featureId;
 	}
 }
