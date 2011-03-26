@@ -27,7 +27,7 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
  */
 public class SubscriptionPlanDao extends GenericDao{
 	
-	private List<Account> accList=new ArrayList<Account>();
+	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
 	
 	@Override
 	protected void objectDataMapping(String[][] data) {
@@ -73,19 +73,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	    }
 		BillingSystemLogger.logInfo("groupPlansByAccNo.size()"+groupPlansByAccNo.size());
 		
-		Iterator it = groupPlansByAccNo.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pairs = (Map.Entry)it.next();
-	        
-	        Account acct=new Account();
-	        acct.setAcctNo((String)pairs.getKey());
-	        acct.setPlans((ArrayList<SubscriptionPlan>)pairs.getValue());
-	        accList.add(acct);
-	        
-	    }
-		
-		
-		this.accList=accList;
+		this.subscriptionMap=groupPlansByAccNo;
 		
 		
 		
@@ -94,7 +82,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	public Account getAccountbyAccountNo(String accNo){
 		Account tempAccount=null;
 		
-		for (Iterator iter = accList.iterator(); iter.hasNext();) {
+		/*for (Iterator iter = accList.iterator(); iter.hasNext();) {
 			Account element = (Account) iter.next();
 			if(element.getAcctNo().equals(accNo)){
 				
@@ -103,7 +91,7 @@ public class SubscriptionPlanDao extends GenericDao{
 				
 			}
 			
-		}
+		}*/
 		return tempAccount;
 	}
 	
@@ -264,14 +252,18 @@ public class SubscriptionPlanDao extends GenericDao{
 		int featureCount=0;
 		List<SubscriptionPlan> tempSubPlanList=new ArrayList<SubscriptionPlan>();
 		Map<String,List<Feature>> tempFeatureMap=new HashMap<String,List<Feature>>();
-			
-		for (Iterator iter = accList.iterator(); iter.hasNext();) {
-			Account element = (Account) iter.next();
-			if(element.getPlans()!=null && element.getPlans().size()>0){
-				tempSubPlanList.addAll(element.getPlans());
-			}
-				
-		}
+		
+		Iterator it = subscriptionMap.entrySet().iterator();
+	    while (it.hasNext()) {
+	    	
+	    	 Map.Entry pairs = (Map.Entry)it.next();
+		     String accNo=(String)pairs.getKey();
+		     List<SubscriptionPlan> tempList=(ArrayList<SubscriptionPlan>)pairs.getValue();
+		     if(tempList!=null && tempList.size()>0){
+					tempSubPlanList.addAll(tempList);
+				}
+	    	
+	    }
 		
 		String planData[][]=new String[tempSubPlanList.size()][4];
 		
@@ -302,7 +294,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		String featureData[][]=new String[featureCount][5];
 		cnt=0;	
 		
-		 Iterator it = tempFeatureMap.entrySet().iterator();
+		 it = tempFeatureMap.entrySet().iterator();
 		    while (it.hasNext()) {
 		        Map.Entry pairs = (Map.Entry)it.next();
 		        String planId=(String)pairs.getKey();

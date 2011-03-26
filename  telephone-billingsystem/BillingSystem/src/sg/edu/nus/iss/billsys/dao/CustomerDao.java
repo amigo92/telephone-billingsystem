@@ -80,6 +80,23 @@ public class CustomerDao extends GenericDao{
 	 this.objectDataMapping(getCustomerData());
 	}
 	
+	public Customer getCustomerByNric(String nric) {
+		Customer cust=null;
+		
+		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
+			Customer element = (Customer) iter.next();
+			if(element.getNric().equals(nric)){
+				cust=element;
+				break;
+			}
+				
+			
+		}
+		
+		return cust;
+		
+	}
+	
 	@Override
 	protected boolean validateData(String[][] data) {
 		// TODO Auto-generated method stub
