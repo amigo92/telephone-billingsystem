@@ -40,6 +40,10 @@ public class TextBill extends Bill {
 		}
 	}
 	
+	public TextBill() {
+		this(80,66);
+	}
+	
 	public TextBill(int pageColumn, int pageRow) {
 		this.pageColumn = pageColumn;
 		this.pageRow = pageRow;
