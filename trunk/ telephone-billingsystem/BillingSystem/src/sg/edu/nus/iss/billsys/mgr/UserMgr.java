@@ -25,10 +25,10 @@ public class UserMgr {
 		currentUser = null;
 	}
 	
-	/*public void setCurrentAuthUserId(String authUserId)
+	public static String getCurrentAuthUserRole()
 	{		
-		currentLoginUserId = authUserId;
-	}*/
+		return currentUser != null ? currentUser.getRole() : null;
+	}
 	
 	public String getCurrentAuthUserId()
 	{
