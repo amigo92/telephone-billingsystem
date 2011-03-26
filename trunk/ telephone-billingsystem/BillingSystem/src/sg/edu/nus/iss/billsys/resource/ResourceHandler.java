@@ -30,7 +30,7 @@ public class ResourceHandler {
 			 errors = ResourceBundle.getBundle("error", defaultLocale);
 					
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 	}
