@@ -3,12 +3,13 @@ package sg.edu.nus.iss.billsys.dao;
 
 import java.util.*;
 
+import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.*;
 
 /**
  * 
- * @author Veera
+ * @author Veera, Yu Chui Chi
  *
  */
 public class ComplaintsDao extends GenericDao {
@@ -24,15 +25,17 @@ public class ComplaintsDao extends GenericDao {
 		int cnt=0;
 		
 		String data[][]=new String[listComplaints.size()][5];
-			
-		for (Iterator iter = listComplaints.iterator(); iter.hasNext();) {
+		String temp;
+		ComplaintStatus status;
+		
+		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) {
 		
 			CustComplaint element = (CustComplaint) iter.next();			
 				
 				data[cnt][0]=element.getAccNo();
 				data[cnt][1]=element.getComplaint_id();
-				data[cnt][2]=element.getComplaint_Details();
-				data[cnt][3]=element.getStatus();
+				data[cnt][2]=element.getComplaint_Details();				
+				data[cnt][3]= element.getStatus();
 				data[cnt][4]=TimeUtils.dateToString(element.getComplaintDate());
 				
 				cnt++;				
@@ -43,7 +46,7 @@ public class ComplaintsDao extends GenericDao {
 	
 	@Override
 	protected boolean validateData(String[][] data) {
-		// TO be Impleted later , to check the correctness of the data file.
+		// TO be Implemented later , to check the correctness of the data file.
 		return false;
 	}
 	
@@ -74,6 +77,78 @@ public class ComplaintsDao extends GenericDao {
 		}
 		
 	}
-
 	
+	/**
+	 * 
+	 * @param accNo
+	 * @return the list of complaints for this account
+	 */
+	public List<CustComplaint> getComplaintList(String accNo)
+	{			
+		List<CustComplaint> returnList = new ArrayList<CustComplaint>();		
+		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) 
+		{
+			CustComplaint element = (CustComplaint) iter.next();
+						
+			if(element.getAccNo().equals(accNo)){
+				returnList.add(element);
+			}
+		}
+		
+		return returnList;
+	}	
+	
+	/**
+	 * 
+	 * @param complaintId the complaint Id to search for
+	 * @return the complaint
+	 */
+	public CustComplaint getComplaint(String complaintId)
+	{
+		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) 
+		{
+			CustComplaint element = (CustComplaint) iter.next();
+						
+			if(element.getComplaint_id().equals(complaintId)){
+				return element;
+			}
+		}
+		
+		return null; // complaint not found	
+	}
+	
+	/**
+	 * 
+	 * @param obj the Customer Complaints to be added
+	 * @return the newly created Complaint id
+	 */
+	public String addComplaint(CustComplaint obj)
+	{
+		String newId = Integer.toString(listComplaints.size());
+		obj.setComplaint_id(newId);
+		listComplaints.add(obj);
+		this.saveObjectData();
+		return newId;
+	}
+	
+	/**
+	 * 
+	 * @param obj the customer Complaint object to be updated
+	 * @return true for success, false for fail
+	 */
+	public int updateComplaint(CustComplaint obj) 
+	{
+		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) 
+		{
+			CustComplaint element = (CustComplaint) iter.next();
+						
+			if(element.getComplaint_id().equals(obj.getComplaint_id())){
+				element = obj;
+				this.saveObjectData();
+				return 1; //success
+			}
+		}
+		
+		return 0; // fail		
+	}
 }
