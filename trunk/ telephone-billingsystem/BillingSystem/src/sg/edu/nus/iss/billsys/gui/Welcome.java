@@ -10,7 +10,7 @@ public class Welcome extends JPanel {
 	public Welcome(){
 		super();
 		
-		JLabel msg = new JLabel("Welcome back, " + MgrFactory.getUserMgr().getCurrentAuthUserId() + "!");
+		JLabel msg = new JLabel("Welcome back, " + MgrFactory.getUserMgr().getAuthUserName() + "!");
 		add(msg);
 	}
 }
