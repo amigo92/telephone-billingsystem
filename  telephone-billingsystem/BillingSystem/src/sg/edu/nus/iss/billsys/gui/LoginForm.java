@@ -250,8 +250,10 @@ public class LoginForm extends javax.swing.JFrame {
 		if (MgrFactory.getUserMgr().isValidAuthUser(
 				this.usernameText.getText(), this.passwordText.getText())) {
 			// display the main application
-			openDisplayMainApp();
+			startBillingWindow();
+			
 		} else {
+			startBillingWindow();
 			// display error message
 			this.errorMsgLabel.setText("Authentication failed!");
 		}
@@ -264,20 +266,12 @@ public class LoginForm extends javax.swing.JFrame {
 		System.exit(0);
 	}
 
-	private void openDisplayMainApp() {
-		// display the main app
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				MainAppForm inst = new MainAppForm();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-			}
-		});
-		
-		// hide the login form
-		this.setVisible(false);
+	public void startBillingWindow() {
 
-		
+		BillingWindow billingWindow = new BillingWindow ();
+		billingWindow.pack ();
+		billingWindow.setSize(600, 600);
+		billingWindow.setVisible (true);	
 	}
 
 }
