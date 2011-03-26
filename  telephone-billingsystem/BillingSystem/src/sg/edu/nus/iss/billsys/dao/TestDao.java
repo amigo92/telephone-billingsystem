@@ -71,7 +71,7 @@ public class TestDao extends GenericDao{
 		
 		System.out.println(String.valueOf(true));
 		
-		System.out.println(subplandao.getAccountbyAccountNo("acc_no1"));
+		
 		
 		System.out.println(PlanType.DigitalVoice.getPlanCd());
 		System.out.println(PlanType.CableTv.getPlanCd());
