@@ -19,9 +19,8 @@ import javax.swing.*;
 public class BillingSystem extends JFrame {
 	
 	private static BillingSystem frame;
+	private static HashMap<String, Object> sessionScope;	//to store user define session variables
 	
-	private  BillingWindow billingWindow;
-
 	public BillingSystem () {
 		super();
 	}	
@@ -31,6 +30,8 @@ public class BillingSystem extends JFrame {
 
 			@Override
 			public void run() {
+				sessionScope = new HashMap<String, Object>();
+				
 				frame = new BillingSystem();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setExtendedState(Frame.MAXIMIZED_BOTH); 
@@ -42,14 +43,9 @@ public class BillingSystem extends JFrame {
 		
 		EventQueue.invokeLater(runner);
 	}
-	
-	private static void displayMenuBar(){
-		if(MgrFactory.getUserMgr().getCurrentAuthUserId() != null){
-			frame.setJMenuBar(new BillingMenu());
-		}
-		else{
-			frame.setJMenuBar(null);
-		}
+
+	public static HashMap<String, Object> getSessionScope() {
+		return sessionScope;
 	}
 	
 	public static void updateContentPane(JPanel newPanel){
@@ -64,24 +60,32 @@ public class BillingSystem extends JFrame {
 		JOptionPane.showMessageDialog(frame, msg);
 	}
 	
-	
-	
-	public void start() {
-		startSubscriptonWindow();
-	}
-	public void startSubscriptonWindow() {
-		billingWindow = new BillingWindow (this);
-		billingWindow.pack ();
-		billingWindow.setSize(600, 600);
-		billingWindow.setVisible (true);	
+	private static void displayMenuBar(){
+		if(MgrFactory.getUserMgr().getCurrentAuthUserId() != null){
+			frame.setJMenuBar(new BillingMenu());
+		}
+		else{
+			frame.setJMenuBar(null);
+		}
 	}
 	
-    public BillingWindow getSubscriptionWindow() {
-	        return billingWindow;
-	    }
-
-	public void shutdown () {
-	       System.exit(0);
-	}
+	
+//	public void start() {
+//		startSubscriptonWindow();
+//	}
+//	public void startSubscriptonWindow() {
+//		billingWindow = new BillingWindow (this);
+//		billingWindow.pack ();
+//		billingWindow.setSize(600, 600);
+//		billingWindow.setVisible (true);	
+//	}
+//	
+//    public BillingWindow getSubscriptionWindow() {
+//	        return billingWindow;
+//	    }
+//
+//	public void shutdown () {
+//	       System.exit(0);
+//	}
 
 }
