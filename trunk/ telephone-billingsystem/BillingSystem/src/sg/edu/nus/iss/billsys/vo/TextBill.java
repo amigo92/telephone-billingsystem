@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.Iterator;
 
 import sg.edu.nus.iss.billsys.tools.FinanceUtils;
-import sg.edu.nus.iss.billsys.vo.Bill.DetailCharges;
-import sg.edu.nus.iss.billsys.vo.Bill.Entry;
-import sg.edu.nus.iss.billsys.vo.Bill.SummaryCharges;
 
 /**
  * 
@@ -16,7 +13,7 @@ import sg.edu.nus.iss.billsys.vo.Bill.SummaryCharges;
  *
  */
 
-public class TextBill {
+public class TextBill extends Bill {
 
 	private static final long serialVersionUID = -6635386157246128910L;
 	private static final char SPACE = ' ';
@@ -27,7 +24,6 @@ public class TextBill {
 	
 	private int pageColumn;
 	private int pageRow;
-	private Bill bill;
 	
 	private class TextItem {
 		StringBuffer text;
@@ -44,10 +40,9 @@ public class TextBill {
 		}
 	}
 	
-	public TextBill(int pageColumn, int pageRow, Bill bill) {
+	public TextBill(int pageColumn, int pageRow) {
 		this.pageColumn = pageColumn;
 		this.pageRow = pageRow;
-		this.bill = bill;
 	}
 	
 	private int fillItems(ArrayList<TextItem> items, int length, boolean center) {
@@ -90,7 +85,7 @@ public class TextBill {
 	}
 
 	private ArrayList<TextItem> printCompanyInfo() {
-		CompanyProfile profile = bill.getCompanyProfile();
+		CompanyProfile profile = getCompanyProfile();
 		if (profile == null)
 			return null;
 		ArrayList<TextItem> companyInfoL = new ArrayList<TextItem>();
@@ -155,7 +150,7 @@ public class TextBill {
 	}
 	
 	private ArrayList<TextItem> printCustomerInfo() {
-		Customer cust = bill.getaCustomer();
+		Customer cust = getaCustomer();
 		ArrayList<TextItem> custInfo = new ArrayList<TextItem>();
 
 		String s = cust.getName();
@@ -182,21 +177,21 @@ public class TextBill {
 	private ArrayList<TextItem> printBillInfo() {
 		ArrayList<TextItem> billInfo = new ArrayList<TextItem>();
 
-		String s = bill.getAcctNo();
+		String s = getAcctNo();
 		if (s != null && s.length() > 0) {
 			TextItem item = new TextItem(SPACE);
 			item.text.append("Account No: ");
 			item.text.append(s);
 			billInfo.add(item);
 		}
-		s = bill.getBillDate();
+		s = getBillDate();
 		if (s != null && s.length() > 0) {
 			TextItem item = new TextItem(SPACE);
 			item.text.append("Bill date: ");
 			item.text.append(s);
 			billInfo.add(item);
 		}
-		s = bill.getDueDate();
+		s = getDueDate();
 		if (s != null && s.length() > 0) {
 			TextItem item = new TextItem(SPACE);
 			item.text.append("Due Date: ");
@@ -213,11 +208,11 @@ public class TextBill {
 		ArrayList<TextItem> billHdrR = new ArrayList<TextItem>();
 
 		String alias = null;
-		CompanyProfile profile = bill.getCompanyProfile();
+		CompanyProfile profile = getCompanyProfile();
 		if (profile != null) {
 			alias = profile.getAlias();
 		}
-		String s = bill.getAcctNo();
+		String s = getAcctNo();
 		if (s != null && s.length() > 0) {
 			billHdrL.add(new TextItem(alias,SPACE));
 			TextItem item = new TextItem(SPACE);
@@ -225,7 +220,7 @@ public class TextBill {
 			item.text.append(s);
 			billHdrR.add(item);
 		}
-		s = bill.getBillDate();
+		s = getBillDate();
 		if (s != null && s.length() > 0) {
 			billHdrL.add(new TextItem(SPACE));
 			TextItem item = new TextItem(SPACE);
@@ -250,7 +245,7 @@ public class TextBill {
 		balanceInfoL.add(new TextItem(SPACE));
 		balanceInfoR.add(new TextItem(SPACE));
 
-		String s = FinanceUtils.formatCentToDollar(bill.getPreviousBalance());		
+		String s = FinanceUtils.formatCentToDollar(getPreviousBalance());		
 		balanceInfoL.add(new TextItem("Previous Balance",DOT));
 		TextItem item = new TextItem(SPACE);
 		item.text.append(DOT);
@@ -258,7 +253,7 @@ public class TextBill {
 		item.text.append(s);
 		balanceInfoR.add(item);
 
-		s = FinanceUtils.formatCentToDollar(bill.getTotalPaymentMade());
+		s = FinanceUtils.formatCentToDollar(getTotalPaymentMade());
 		balanceInfoL.add(new TextItem("Payments",DOT));
 		item = new TextItem(SPACE);
 		item.text.append(HYPHEN);
@@ -269,8 +264,8 @@ public class TextBill {
 		balanceInfoL.add(new TextItem(SPACE));
 		balanceInfoR.add(new TextItem(SPACE));
 
-		s = FinanceUtils.formatCentToDollar(bill.getCurrChargesDue());		
-		balanceInfoL.add(new TextItem("Current Charges Due on "+bill.getDueDate(),DOT));
+		s = FinanceUtils.formatCentToDollar(getCurrChargesDue());		
+		balanceInfoL.add(new TextItem("Current Charges Due on "+getDueDate(),DOT));
 		item = new TextItem(SPACE);
 		item.text.append(DOT);
 		item.text.append(DOLLAR);
@@ -280,7 +275,7 @@ public class TextBill {
 		balanceInfoL.add(new TextItem(SPACE));
 		balanceInfoR.add(new TextItem(SPACE));
 
-		s = FinanceUtils.formatCentToDollar(bill.getTotalCurrCharges());
+		s = FinanceUtils.formatCentToDollar(getTotalCurrCharges());
 		balanceInfoL.add(new TextItem("Please pay",DOT));
 		item = new TextItem(SPACE);
 		item.text.append(DOT);
@@ -324,7 +319,7 @@ public class TextBill {
 
 		int count = 0;
 		TextItem totalPayment = null;
-		ArrayList<Entry> list = bill.getPaymentReceived();
+		ArrayList<Entry> list = getPaymentReceived();
 		for (Entry e : list) {
 			count++;
 			L1.add(new TextItem("Payment received",SPACE));
@@ -333,12 +328,12 @@ public class TextBill {
 			R2.add(totalPayment = new TextItem(SPACE));
 		}
 		if (count == 1 && totalPayment != null) {
-			totalPayment.text.append(FinanceUtils.formatCentToDollar(bill.getTotalPaymentMade()));
+			totalPayment.text.append(FinanceUtils.formatCentToDollar(getTotalPaymentMade()));
 		} else {
 			L1.add(new TextItem(SPACE));
 			L2.add(new TextItem(SPACE));
 			R1.add(new TextItem(SPACE));
-			R2.add(new TextItem(FinanceUtils.formatCentToDollar(bill.getTotalPaymentMade()),SPACE));
+			R2.add(new TextItem(FinanceUtils.formatCentToDollar(getTotalPaymentMade()),SPACE));
 		}
 		
 		L1.add(new TextItem(SPACE));
@@ -361,7 +356,7 @@ public class TextBill {
 		R1.add(new TextItem(HYPHEN));
 		R2.add(new TextItem(HYPHEN));
 		
-		ArrayList<SummaryCharges> charges = bill.getSummaryChargesList();
+		ArrayList<SummaryCharges> charges = getSummaryChargesList();
 		for (SummaryCharges sc : charges) {			
 			L1.add(new TextItem(SPACE));
 			L2.add(new TextItem(SPACE));
@@ -395,12 +390,12 @@ public class TextBill {
 		L1.add(new TextItem("Total GST",SPACE));
 		L2.add(new TextItem(SPACE));
 		R1.add(new TextItem(SPACE));
-		R2.add(new TextItem(FinanceUtils.formatCentToDollar(bill.getTotalGST()),SPACE));
+		R2.add(new TextItem(FinanceUtils.formatCentToDollar(getTotalGST()),SPACE));
 		
 		L1.add(new TextItem("Total Current Charges",SPACE));
 		L2.add(new TextItem(SPACE));
 		R1.add(new TextItem(SPACE));
-		R2.add(new TextItem(FinanceUtils.formatCentToDollar(bill.getTotalCurrCharges()),SPACE));
+		R2.add(new TextItem(FinanceUtils.formatCentToDollar(getTotalCurrCharges()),SPACE));
 
 		L1.add(new TextItem(SPACE));
 		L2.add(new TextItem(SPACE));
@@ -439,7 +434,7 @@ public class TextBill {
 		R1.add(new TextItem("Amount (S$)",SPACE));
 		R2.add(new TextItem("Total (S$)",SPACE));
 		
-		ArrayList<DetailCharges> charges = bill.getDetailChargesList();
+		ArrayList<DetailCharges> charges = getDetailChargesList();
 		for (DetailCharges dc : charges) {
 			L1.add(new TextItem(dc.getDesc(),SPACE));
 			L2.add(new TextItem(SPACE));
@@ -448,7 +443,7 @@ public class TextBill {
 					
 			ArrayList<Entry> entries = dc.getEntries();
 			for (Entry e : entries) {			
-				L1.add(new TextItem(e.getDesc(),SPACE));
+				L1.add(new TextItem("   "+e.getDesc(),SPACE));
 				L2.add(new TextItem(SPACE));
 				R1.add(new TextItem((e.getAmt() == null) ? "" : FinanceUtils.formatCentToDollar(e.getAmt()),SPACE));
 				R2.add(new TextItem(SPACE));
@@ -468,12 +463,12 @@ public class TextBill {
 		L1.add(new TextItem("Total GST",SPACE));
 		L2.add(new TextItem(SPACE));
 		R1.add(new TextItem(SPACE));
-		R2.add(new TextItem(FinanceUtils.formatCentToDollar(bill.getTotalGST()),SPACE));
+		R2.add(new TextItem(FinanceUtils.formatCentToDollar(getTotalGST()),SPACE));
 		
 		L1.add(new TextItem("Total Current Charges",SPACE));
 		L2.add(new TextItem(SPACE));
 		R1.add(new TextItem(SPACE));
-		R2.add(new TextItem(FinanceUtils.formatCentToDollar(bill.getTotalCurrCharges()),SPACE));
+		R2.add(new TextItem(FinanceUtils.formatCentToDollar(getTotalCurrCharges()),SPACE));
 
 		L1.add(new TextItem(SPACE));
 		L2.add(new TextItem(SPACE));
@@ -583,7 +578,7 @@ public class TextBill {
 		cust.setAddress2("Clemence Avenue 1");
 		cust.setAddress3("Singapore 356908");
 		
-		Bill bill = new Bill();
+		TextBill bill = new TextBill(80,65);
 		bill.setaCompanyProfile(profile);
 		bill.setaCustomer(cust);
 		bill.setAcctNo("SA-2010-02-10");
@@ -649,6 +644,6 @@ public class TextBill {
 		dc.addEntry(bill.new Entry("Add. Channel changes ($5x4)",2000));
 		bill.addDetailChargesList(dc);
 		
-		System.out.println(new TextBill(80,65,bill));
+		System.out.println(bill);
 	}
 }

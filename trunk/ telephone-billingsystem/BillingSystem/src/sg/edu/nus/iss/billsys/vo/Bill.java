@@ -281,8 +281,4 @@ public class Bill implements Serializable{
 			return amt;
 		}
 	}
-
-	public String toString(){
-		return new TextBill(80,70,this).toString();
-	}
 }
