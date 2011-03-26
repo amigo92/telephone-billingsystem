@@ -63,7 +63,7 @@ public class Login extends JPanel {
 			thisLayout
 					.setVerticalGroup(thisLayout
 							.createSequentialGroup()
-							.addContainerGap(27, 27)
+							.addContainerGap(200, 200)
 							.addGroup(
 									thisLayout
 											.createParallelGroup(
@@ -115,7 +115,7 @@ public class Login extends JPanel {
 			thisLayout
 					.setHorizontalGroup(thisLayout
 							.createSequentialGroup()
-							.addContainerGap(19, 19)
+							.addContainerGap(500, 500)
 							.addGroup(
 									thisLayout
 											.createParallelGroup()
@@ -165,7 +165,7 @@ public class Login extends JPanel {
 															.addGap(0,
 																	0,
 																	Short.MAX_VALUE)))
-							.addContainerGap(35, 35)
+							.addContainerGap(500, 500)
 							)
 							;
 
