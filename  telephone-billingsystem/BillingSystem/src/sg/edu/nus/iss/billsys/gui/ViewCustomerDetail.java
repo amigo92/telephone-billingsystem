@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewCustomerDetail {
 
@@ -50,125 +52,133 @@ public class ViewCustomerDetail {
 	private void initialize() {
 		final JFrame frame = new JFrame("GridBagLayout");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new GridBagLayout());
+		frame.getContentPane().setLayout(new GridBagLayout());
 		
 		//Customer Name
 		JLabel customerNameLabel=new JLabel("Customer Name *");		
 		GridBagConstraints gbc = new GridBagConstraints(0, 0,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(customerNameLabel, gbc);
+		frame.getContentPane().add(customerNameLabel, gbc);
 		
 		JLabel customerNameText = new JLabel();
 		gbc = new GridBagConstraints(1, 0,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(customerNameText, gbc);
+		frame.getContentPane().add(customerNameText, gbc);
 		
 		JButton searchButton = new JButton("Search");
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//SearchCustomerWindow SearchCust = new SearchCustomerWindow();
+				
+				//SearchCust.setVisible(true);
+
+			}
+		});
 		gbc = new GridBagConstraints(2, 0,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(searchButton, gbc);
+		frame.getContentPane().add(searchButton, gbc);
 		
 		
 		//NRC
 		JLabel nrcLabel=new JLabel("NRC *");		
 		gbc = new GridBagConstraints(0, 1,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(nrcLabel, gbc);
+		frame.getContentPane().add(nrcLabel, gbc);
 		
 		JLabel nrcText = new JLabel();
 		gbc = new GridBagConstraints(1, 1,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(nrcText, gbc);
+		frame.getContentPane().add(nrcText, gbc);
 		//------------------------------
 		
 		//NRC
 		JLabel dobLabel=new JLabel("Date of Birth *");		
 		gbc = new GridBagConstraints(0, 2,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(dobLabel, gbc);
+		frame.getContentPane().add(dobLabel, gbc);
 		
 		JLabel dobText = new JLabel();
 		gbc = new GridBagConstraints(1, 2,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(dobText, gbc);
+		frame.getContentPane().add(dobText, gbc);
 		//------------------------------
 		
 		//NRC
 		JLabel genderLabel=new JLabel("Gender *");		
 		gbc = new GridBagConstraints(0, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(genderLabel, gbc);
+		frame.getContentPane().add(genderLabel, gbc);
 		
 		JRadioButton genderMaleLabel=new JRadioButton("Male");		
 		gbc = new GridBagConstraints(1, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(genderMaleLabel, gbc);
+		frame.getContentPane().add(genderMaleLabel, gbc);
 		
 		JRadioButton genderFemaleLabel=new JRadioButton("Female");		
 		gbc = new GridBagConstraints(2, 3,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(genderFemaleLabel, gbc);
+		frame.getContentPane().add(genderFemaleLabel, gbc);
 		//------------------------------
 		
 		//NRC
 		JLabel address1Label=new JLabel("Address 1 *");		
 		gbc = new GridBagConstraints(0, 4,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address1Label, gbc);
+		frame.getContentPane().add(address1Label, gbc);
 		
 		JLabel address1Text = new JLabel();
 		gbc = new GridBagConstraints(1, 4,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address1Text, gbc);
+		frame.getContentPane().add(address1Text, gbc);
 		//------------------------------
 		
 		//Address 2
 		JLabel address2Label=new JLabel("Address 2");		
 		gbc = new GridBagConstraints(0, 5,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address2Label, gbc);
+		frame.getContentPane().add(address2Label, gbc);
 		
 		JLabel address2Text = new JLabel();
 		gbc = new GridBagConstraints(1, 5,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address2Text, gbc);
+		frame.getContentPane().add(address2Text, gbc);
 		//------------------------------
 		
 		//Address 3
 		JLabel address3Label=new JLabel("Address 3");		
 		gbc = new GridBagConstraints(0, 6,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address3Label, gbc);
+		frame.getContentPane().add(address3Label, gbc);
 		
 		JLabel address3Text = new JLabel();
 		gbc = new GridBagConstraints(1, 6,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(address3Text, gbc);
+		frame.getContentPane().add(address3Text, gbc);
 		//------------------------------
 		
 		//Account Information Details------------------------------
 		JLabel AccInfoLabel = new JLabel("Account Information Detail");
 		gbc = new GridBagConstraints(0, 7,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(AccInfoLabel, gbc);
+		frame.getContentPane().add(AccInfoLabel, gbc);
 		
 		//Account No
 		JLabel accountNoLabel=new JLabel("Account No");		
 		gbc = new GridBagConstraints(0, 8,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(accountNoLabel, gbc);
+		frame.getContentPane().add(accountNoLabel, gbc);
 		
 		JLabel accountNoText = new JLabel();
 		gbc = new GridBagConstraints(1, 8,
 		2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(accountNoText, gbc);
+		frame.getContentPane().add(accountNoText, gbc);
 		//------------------------------
 		
 		//Subscription Information Details------------------------------
 		JLabel subInfoLabel = new JLabel("Subscription Information Detail");
 		gbc = new GridBagConstraints(0, 9,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(subInfoLabel, gbc);
+		frame.getContentPane().add(subInfoLabel, gbc);
 		
 		//Grid
 		Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
@@ -179,7 +189,7 @@ public class ViewCustomerDetail {
  	   gbc = new GridBagConstraints(0, 11,
  				3, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
  	   
- 	  frame.add(scrollPane, gbc);
+ 	  frame.getContentPane().add(scrollPane, gbc);
  	  
  	   
 		
@@ -188,7 +198,7 @@ public class ViewCustomerDetail {
 		JButton submitButton=new JButton("OK");		
 		gbc = new GridBagConstraints(2, 13,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
-		frame.add(submitButton, gbc);
+		frame.getContentPane().add(submitButton, gbc);
 		
 		//------------------------------
 		
