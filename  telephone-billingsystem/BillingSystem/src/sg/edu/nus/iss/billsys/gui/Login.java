@@ -34,10 +34,10 @@ public class Login extends JPanel {
 	
 	private void iniFields(){
 		lblName = new JLabel("User ID:");
-		txtName = new JTextField("Veera1", 20);	//TODO
+		txtName = new JTextField("Veera", 20);	//TODO
 		
 		lblPwd = new JLabel("Password:");
-		txtPwd = new JPasswordField("pass1", 20);	//TODO
+		txtPwd = new JPasswordField("password$1", 20);	//TODO
 
 		btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
