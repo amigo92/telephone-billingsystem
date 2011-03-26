@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.dao;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,8 +10,10 @@ import java.util.UUID;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
+import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
@@ -21,17 +24,22 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
 
 /**
  * 
- * @author Veera, Lem Kian Hao (Stephen)
+ * @author Veera
  *
  */
 public class SubscriptionPlanDao extends GenericDao{
 	
+	private static final int SUBSCRIPTION_COL_LENGTH=4;
+	private static final int FEATURE_COL_LENGTH=5;
+	
 	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
 	
 	@Override
-	protected void objectDataMapping(String[][] data) {
+	protected void objectDataMapping(String[][] data) throws BillingSystemException{
 		
 		String[][] featureData =getFeatureData();		
+		
+		if(validateData(data,"Susbscription Plan",SUBSCRIPTION_COL_LENGTH) && validateData(featureData, "Features", FEATURE_COL_LENGTH)){
 		
 		Map<String,List <SubscriptionPlan>> groupPlansByAccNo=new HashMap<String, List <SubscriptionPlan> >();
 		Map<String,List<Feature> > groupfeatureByPlanId=new HashMap<String, List<Feature> >();
@@ -72,7 +80,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 		this.subscriptionMap=groupPlansByAccNo;
 		
-		
+		}
 		
 	}
 	
@@ -89,21 +97,19 @@ public class SubscriptionPlanDao extends GenericDao{
 		return tempFeatureType;
 	}
 	
-	private Feature initialiseFeature(String data[][],int index){
+	private Feature initialiseFeature(String data[][],int index) throws BillingSystemException{
 		Feature feature=null;
-		try{
-			
+		try{			
 			feature = new Feature(data[index][0],getFeatureTypeByCode(data[index][2]),TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
-			
 			}
-			catch(Exception ex){
-				throw new RuntimeException(ex);
+			catch(ParseException ex){
+				throw new BillingSystemException("Parsing Exception occured on the Date Commenced :"+data[index][3]+" and Date Terminated :"+data[index][4]+" for Feature");
 			}
 			return feature;
 		
 	}
 	
-	private SubscriptionPlan initialisePlan(String data[][],int index,Map<String,List<Feature>> groupfeatureByPlanId){
+	private SubscriptionPlan initialisePlan(String data[][],int index,Map<String,List<Feature>> groupfeatureByPlanId) throws BillingSystemException{
 		
 		
 		SubscriptionPlan plan =null;	
@@ -123,7 +129,7 @@ public class SubscriptionPlanDao extends GenericDao{
 					BillingSystemLogger.logInfo("Digital Voice - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
-						try{
+						
 						Feature element = (Feature) iter.next();
 						BillingSystemLogger.logInfo("Digital Voice - element.getFeatureType()"+element.getFeatureType());
 						if(element.getFeatureType().equals(FeatureType.Line)){
@@ -133,9 +139,7 @@ public class SubscriptionPlanDao extends GenericDao{
 							BillingSystemLogger.logInfo("Digital Voice - Optional element.getFeatureType()"+element.getFeatureType());
 							plan.addOptionalFeature(element);
 						}
-						}catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 					}
 					
 				}
@@ -156,16 +160,14 @@ public class SubscriptionPlanDao extends GenericDao{
 					BillingSystemLogger.logInfo("Mobile Voice - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
-						try{
+						
 						Feature element = (Feature) iter.next();
 						if(element.getFeatureType().equals(FeatureType.Mobile)){
 							plan.setBasicFeature(element);
 						}else{						
 							plan.addOptionalFeature(element);
 						}
-						}catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 					}
 					
 				}
@@ -184,16 +186,14 @@ public class SubscriptionPlanDao extends GenericDao{
 					BillingSystemLogger.logInfo("Cable TV - featureList.size()"+featureList.size());
 					
 					for (Iterator iter = featureList.iterator(); iter.hasNext();) {
-						try{
+						
 						Feature element = (Feature) iter.next();
 						if(element.getFeatureType().equals(FeatureType.StdChannels)){
 							plan.setBasicFeature(element);
 						}else{						
 							plan.addOptionalFeature(element);
 						}
-						}catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 					}
 					
 				}
@@ -204,21 +204,18 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 	}
 	
-	private void groupPlansByAccNo(Map<String,List<SubscriptionPlan> > map,String data[][],int index,Map<String,List<Feature>> groupfeatureByPlanId){
-		try{	
+	private void groupPlansByAccNo(Map<String,List<SubscriptionPlan> > map,String data[][],int index,Map<String,List<Feature>> groupfeatureByPlanId) throws BillingSystemException{
+			
 					
 			List <SubscriptionPlan> tempList=new ArrayList<SubscriptionPlan>();				
 			tempList.add(initialisePlan(data, index,groupfeatureByPlanId));			
 			
 			map.put(data[index][1], tempList);
-		}
-		catch(Exception ex){
-			throw new RuntimeException(ex);
-		}
+		
 			
 		}
 	
-	private void groupFeatureByPlanId(Map<String,List<Feature> > map,String data[][],int index){
+	private void groupFeatureByPlanId(Map<String,List<Feature> > map,String data[][],int index) throws BillingSystemException{
 	
 		List <Feature> tempList=new ArrayList<Feature>();				
 		tempList.add(initialiseFeature(data, index));			
@@ -228,7 +225,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() {
+	protected void saveObjectData() throws BillingSystemException{
 		int cnt=0;	
 		int featureCount=0;
 		List<SubscriptionPlan> tempSubPlanList=new ArrayList<SubscriptionPlan>();
@@ -246,7 +243,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	    	
 	    }
 		
-		String planData[][]=new String[tempSubPlanList.size()][4];
+		String planData[][]=new String[tempSubPlanList.size()][SUBSCRIPTION_COL_LENGTH];
 		
 		for (Iterator iter = tempSubPlanList.iterator(); iter.hasNext();) {
 			List<Feature> tempFeatureList=new ArrayList<Feature>();			
@@ -272,7 +269,7 @@ public class SubscriptionPlanDao extends GenericDao{
 					
 		}
 		
-		String featureData[][]=new String[featureCount][5];
+		String featureData[][]=new String[featureCount][FEATURE_COL_LENGTH];
 		cnt=0;	
 		
 		 it = tempFeatureMap.entrySet().iterator();
@@ -297,19 +294,14 @@ public class SubscriptionPlanDao extends GenericDao{
 		        
 		    }
 		
-		
+		if(validateData(planData,"Susbscription Plan",SUBSCRIPTION_COL_LENGTH) && validateData(featureData, "Features", FEATURE_COL_LENGTH)){
 			saveSubscriptionPlanData(planData);
 			saveFeatureData(featureData);
+		}
 		
 	}
-	
-	@Override
-	protected boolean validateData(String[][] data) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public SubscriptionPlanDao() {
+		
+	public SubscriptionPlanDao() throws BillingSystemException{
 		this.objectDataMapping(getSubscriptionPlanData());
 	}
 	
@@ -318,7 +310,7 @@ public class SubscriptionPlanDao extends GenericDao{
 		return UUID.randomUUID().toString();
 		
 	}
-		
+	
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
 		return subscriptionMap.get(acctNo);
 	}
@@ -345,7 +337,9 @@ public class SubscriptionPlanDao extends GenericDao{
 		list.add(plan);
 	}
 	
-	public void save() {
+	public void save() throws BillingSystemException{
 		saveObjectData();
 	}
+	
+
 }
