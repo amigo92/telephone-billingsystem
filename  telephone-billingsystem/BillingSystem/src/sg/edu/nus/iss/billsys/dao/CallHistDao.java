@@ -1,8 +1,10 @@
 package sg.edu.nus.iss.billsys.dao;
 
 
+import java.text.ParseException;
 import java.util.*;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.*;
 
@@ -13,50 +15,49 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class CallHistDao extends GenericDao {
 	
+	private static final int COL_LENGTH=6;
 	private List<CallHist> listCallHx=new ArrayList<CallHist>();
 	
-	public CallHistDao() {
+	public CallHistDao() throws BillingSystemException{
 		this.objectDataMapping(getCallHistoryData());
 	}
 	
 	@Override
-	protected void saveObjectData() {
+	protected void saveObjectData() throws BillingSystemException{
 		// This method will not be implemented , since there is no save use case for this data,only read operation is required on the call history
 		
 	}
 	
 	@Override
-	protected boolean validateData(String[][] data) {
-		// TO be Impleted later , to check the correctness of the data file.
-		return false;
-	}
-	
-	@Override
-	protected void objectDataMapping(String[][] data) {
-		try{
-		List<CallHist> listCallHx=new ArrayList<CallHist>();
+	protected void objectDataMapping(String[][] data) throws BillingSystemException{
 		
-		for(int i=0;i<data.length;i++){
-	    	
-			CallHist callHx=new CallHist();
-	    		
-			callHx.setAcctNo(data[i][4]);
-			callHx.setCallDuration(Integer.parseInt(data[i][3]));
-			callHx.setCallTxnTypeCd(Integer.parseInt(data[i][0]));
-			callHx.setTelNo(data[i][1]);
-			callHx.setTimeOfCall(TimeUtils.parseDate(data[i][2]));
-			callHx.setNumberCalled(data[i][5]);
-	    	
-	    	listCallHx.add(callHx);	
-	    }
+		if(validateData(data,"Call History",COL_LENGTH)){
+					
+				List<CallHist> listCallHx=new ArrayList<CallHist>();
+				
+				for(int i=0;i<data.length;i++){
+			    	
+					CallHist callHx=new CallHist();
+			    		
+					callHx.setAcctNo(data[i][4]);
+					callHx.setCallDuration(Integer.parseInt(data[i][3]));
+					callHx.setCallTxnTypeCd(Integer.parseInt(data[i][0]));
+					callHx.setTelNo(data[i][1]);
+					
+					try{
+					callHx.setTimeOfCall(TimeUtils.parseDate(data[i][2]));
+					}catch (ParseException e) {
+						throw new BillingSystemException("Exception while pasring the 'time of call' data in Call History , Please check the data :"+data[i][2]);
+					}
+					callHx.setNumberCalled(data[i][5]);
+			    	
+			    	listCallHx.add(callHx);	
+			    }
+				
+				
+				this.listCallHx=listCallHx;
 		
-		
-		this.listCallHx=listCallHx;
 		}
-		catch(Exception ex){
-			throw new RuntimeException(ex);
-		}
-		
 	}
 
 	/**
