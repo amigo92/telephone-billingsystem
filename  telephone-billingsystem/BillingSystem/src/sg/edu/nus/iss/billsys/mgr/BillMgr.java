@@ -76,7 +76,7 @@ public class BillMgr {
 		aBillDao.save();
 	}
 	
-	private Bill generate(BillPeriod billPeriod, String nric){
+	private Bill generate(BillPeriod billPeriod, String nric) throws BillingSystemException{
 		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(nric);
 		Account acct = customer.getAcct();
 		
@@ -117,7 +117,7 @@ public class BillMgr {
 		return bill;
 	}
 	
-	private void processCallBasedPlan(Bill bill, BillPeriod billPeriod, VoicePlan plan){
+	private void processCallBasedPlan(Bill bill, BillPeriod billPeriod, VoicePlan plan) throws BillingSystemException{
 
 		DetailCharges detail = bill.new DetailCharges();
 		
@@ -179,7 +179,7 @@ public class BillMgr {
 		bill.addDetailChargesList(detail);
 	}
 	
-	private int getTotalUsage(BillPeriod billPeriod, Bill bill, DetailCharges detail, VoicePlan plan){
+	private int getTotalUsage(BillPeriod billPeriod, Bill bill, DetailCharges detail, VoicePlan plan) throws BillingSystemException{
 		detail.addEntry(bill.new Entry("Usage Charges", null));
 		
 		ArrayList<CallHist> calls = new CallHistDao().getCallHistByBillDateAcctNo(billPeriod, plan.getAcctNo());
@@ -198,7 +198,7 @@ public class BillMgr {
 		return total_use_charges;
 	}
 
-	private Entry calculateUsageCharges(ArrayList<CallHist> calls, Bill bill, FeatureType ct, VoicePlan plan){		
+	private Entry calculateUsageCharges(ArrayList<CallHist> calls, Bill bill, FeatureType ct, VoicePlan plan) throws BillingSystemException{		
 		int total_duration = 0;
 		for(CallHist ch : calls){
 			if(ch.getTelNo().equals(plan.getAssignedTelNo()) && ch.getCallTxnTypeCd() == ct.getFeatureCd()){
@@ -207,10 +207,8 @@ public class BillMgr {
 		}
 		
 		if(total_duration != 0){
-			//int usage_per_number = total_duration * new CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
 			int usage_per_number = total_duration * new FeatureRateDao().getPricebyFeatureCode(ct.getFeatureCd()).getPrice();
-			//CallRateDao().getRate(plan.getPlanType().getPlanCd(), ct.getFeatureCd());
-			
+
 			return bill.new Entry(ct.name, usage_per_number);
 		}
 		else{
