@@ -18,7 +18,7 @@ public class BillingWindow extends JFrame {
 
     private WindowListener windowListener = new WindowAdapter () {
         public void windowClosing (WindowEvent e) {
-            manager.shutdown ();
+//            manager.shutdown (); //TODO
         }
     };
 
