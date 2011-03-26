@@ -1,3 +1,4 @@
+package sg.edu.nus.iss.billsys.vo;
 import java.util.Date;
 
 import junit.framework.TestCase;
