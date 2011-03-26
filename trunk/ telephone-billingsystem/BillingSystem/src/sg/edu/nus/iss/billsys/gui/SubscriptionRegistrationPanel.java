@@ -28,7 +28,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	
 	private BillingWindow        window;
 	private JTextField           customerID;
-	private List<PlanType>       listOfPlanType;
+	private PlanType[]       listOfPlanType;
 	private SubscriptionMgr      manager;
 	//private JComboBox planTypeBox;
 	private String[] planNames;
@@ -175,10 +175,10 @@ public class SubscriptionRegistrationPanel extends JPanel {
     private JComboBox createComboBox () {  	
 	    listOfPlanType = manager.getAllPlanType();
 	   		
-	    planNames = new String[listOfPlanType.size()];
+	    planNames = new String[listOfPlanType.length];
 	    		
-	    for (int i = 0 ; i <listOfPlanType.size(); i ++ ) {
-	    	planNames[i] = listOfPlanType.get(i).name;
+	    for (int i = 0 ; i <listOfPlanType.length; i ++ ) {
+	    	planNames[i] = listOfPlanType[i].name;
 	    } 
 	    
 	    JComboBox planTypeBox = new JComboBox(planNames);
@@ -186,7 +186,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    planTypeBox.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		   planType = listOfPlanType.get(cb.getSelectedIndex());
+	    		   planType = listOfPlanType[cb.getSelectedIndex()];
 	    		  // customerID.setText(planTypeName);
 	    		  // SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planTypeName); 
 	    		  // SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planTypeName); 
