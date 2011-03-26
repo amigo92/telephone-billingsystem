@@ -94,7 +94,7 @@ public class BillMgr {
 		}
 		bill.setTotalPaymentMade(paymentAmt);
 
-		for(SubscriptionPlan plan : acct.getPlans()){
+		for(SubscriptionPlan plan : MgrFactory.getSubscriptionMgr().getAccountSubscriptions(acct.getAcctNo())){
 			if(billPeriod.isOverlapped(plan.getDateCommenced(), plan.getDateTerminated())){
 				if(plan instanceof VoicePlan){
 					processCallBasedPlan(bill, billPeriod, (VoicePlan)plan);

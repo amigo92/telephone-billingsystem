@@ -11,7 +11,6 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
-import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
@@ -22,7 +21,7 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
 
 /**
  * 
- * @author Veera
+ * @author Veera, Lem Kian Hao (Stephen)
  *
  */
 public class SubscriptionPlanDao extends GenericDao{
@@ -31,8 +30,6 @@ public class SubscriptionPlanDao extends GenericDao{
 	
 	@Override
 	protected void objectDataMapping(String[][] data) {
-		
-		List<Account> accList=new ArrayList<Account>();
 		
 		String[][] featureData =getFeatureData();		
 		
@@ -77,22 +74,6 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 		
 		
-	}
-	
-	public Account getAccountbyAccountNo(String accNo){
-		Account tempAccount=null;
-		
-		/*for (Iterator iter = accList.iterator(); iter.hasNext();) {
-			Account element = (Account) iter.next();
-			if(element.getAcctNo().equals(accNo)){
-				
-				tempAccount=element;
-				break;
-				
-			}
-			
-		}*/
-		return tempAccount;
 	}
 	
 	private FeatureType getFeatureTypeByCode(String featureCode){
@@ -337,6 +318,34 @@ public class SubscriptionPlanDao extends GenericDao{
 		return UUID.randomUUID().toString();
 		
 	}
+		
+	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
+		return subscriptionMap.get(acctNo);
+	}
 	
-
+	public SubscriptionPlan getAccountSubscription(String acctNo, String planId) {
+		List<SubscriptionPlan> list = subscriptionMap.get(acctNo);
+		if (list == null) {
+			return null;
+		}
+		for (SubscriptionPlan plan : list) {
+			if (planId.equals(plan.getPlanId())) {
+				return plan;
+			}
+		}
+		return null;
+	}
+	
+	public void addAccountSubscriptions(String acctNo, SubscriptionPlan plan) {
+		List<SubscriptionPlan> list = subscriptionMap.get(acctNo);
+		if (list == null) {
+			list = new ArrayList<SubscriptionPlan>(); 
+			subscriptionMap.put(acctNo, list);
+		}
+		list.add(plan);
+	}
+	
+	public void save() {
+		saveObjectData();
+	}
 }
