@@ -40,6 +40,7 @@ public class Login extends JPanel {
 					}
 					else{
 						BillingSystem.updateContentPane(new Login());
+						BillingSystem.setMsg("Invalid input for username or password!");
 					}
 				}
 	        }
