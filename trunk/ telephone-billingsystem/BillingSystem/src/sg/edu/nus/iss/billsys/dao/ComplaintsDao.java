@@ -1,11 +1,11 @@
 package sg.edu.nus.iss.billsys.dao;
 
 
+import java.text.ParseException;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
-import sg.edu.nus.iss.billsys.constant.FeatureType;
-import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.*;
 
@@ -16,18 +16,19 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class ComplaintsDao extends GenericDao {
 	
+	private static final int COL_LENGTH=5;
 	private List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
 	
-	public ComplaintsDao() {
+	public ComplaintsDao() throws BillingSystemException{
 		this.objectDataMapping(getComplaintsData());
 	}
 	
 	@Override
-	protected void saveObjectData() {
+	protected void saveObjectData() throws BillingSystemException{
 		int cnt=0;
 		
-		String data[][]=new String[listComplaints.size()][5];	
-		
+		String data[][]=new String[listComplaints.size()][COL_LENGTH];
+
 		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) {
 		
 			CustComplaint element = (CustComplaint) iter.next();			
@@ -40,14 +41,10 @@ public class ComplaintsDao extends GenericDao {
 				
 				cnt++;				
 			}
+		if(validateData(data,"Complaints",COL_LENGTH)){
 			saveComplaintsData(data);
+		}
 		
-	}
-	
-	@Override
-	protected boolean validateData(String[][] data) {
-		// TO be Implemented later , to check the correctness of the data file.
-		return false;
 	}
 	
 	private ComplaintStatus getComplaintStatusByCode(String code){
@@ -66,10 +63,10 @@ public class ComplaintsDao extends GenericDao {
 	}
 	
 	@Override
-	protected void objectDataMapping(String[][] data) {
-		try{
-		
-			List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
+	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+				
+		if(validateData(data,"Complaints",COL_LENGTH)){
+		List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
 		
 		for(int i=0;i<data.length;i++){
 	    	
@@ -78,7 +75,11 @@ public class ComplaintsDao extends GenericDao {
 			comp.setAccNo(data[i][0]);
 			comp.setComplaint_Details(data[i][2]);
 			comp.setComplaint_id(data[i][1]);
+			try{
 			comp.setComplaintDate(TimeUtils.parseDate(data[i][4]));
+			}catch (ParseException e) {
+				throw new BillingSystemException("Exception while pasring the 'complaint' data in Complaints , Please check the data :"+data[i][4]);
+			}
 			comp.setStatus(getComplaintStatusByCode(data[i][3]));
 	    		    	
 			listComplaints.add(comp);	
@@ -86,11 +87,8 @@ public class ComplaintsDao extends GenericDao {
 		
 		
 		this.listComplaints=listComplaints;
-		}
-		catch(Exception ex){
-			throw new RuntimeException(ex);
-		}
 		
+		}
 	}
 	
 	/**
@@ -137,9 +135,9 @@ public class ComplaintsDao extends GenericDao {
 	 * @param obj the Customer Complaints to be added
 	 * @return the newly created Complaint id
 	 */
-	public String addComplaint(CustComplaint obj)
+	public String addComplaint(CustComplaint obj) throws BillingSystemException
 	{
-		String newId = Integer.toString(listComplaints.size() + 1);
+		String newId = Integer.toString(listComplaints.size()+1);
 		obj.setComplaint_id(newId);
 		listComplaints.add(obj);
 		this.saveObjectData();
@@ -151,7 +149,7 @@ public class ComplaintsDao extends GenericDao {
 	 * @param obj the customer Complaint object to be updated
 	 * @return true for success, false for fail
 	 */
-	public int updateComplaint(CustComplaint obj) 
+	public int updateComplaint(CustComplaint obj)  throws BillingSystemException
 	{
 		for (Iterator<CustComplaint> iter = listComplaints.iterator(); iter.hasNext();) 
 		{
