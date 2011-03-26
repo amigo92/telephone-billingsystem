@@ -53,7 +53,7 @@ public class BillingMenu extends JMenuBar {
 	        menu.setMnemonic(KeyEvent.VK_A);
 	        add(menu);   
 
-	        menuItem = new JMenuItem("View Bill");
+	        menuItem = new JMenuItem("Search Bill");
 	        menuItem.setMnemonic(KeyEvent.VK_D);
 	        menuItem.addActionListener (new ActionListener () {
 			     public void actionPerformed (ActionEvent e) {
