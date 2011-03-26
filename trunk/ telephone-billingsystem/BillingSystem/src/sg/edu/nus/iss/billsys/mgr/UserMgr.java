@@ -25,25 +25,14 @@ public class UserMgr {
 		currentUser = null;
 	}
 	
-	public static String getCurrentAuthUserRole()
+	public UserRole getAuthUserRole()
 	{		
 		return currentUser != null ? currentUser.getRole() : null;
 	}
 	
-	public String getCurrentAuthUserId()
+	public String getAuthUserName()
 	{
-		if(currentUser!=null)
-			return currentUser.getUsername();
-		else
-			return null;
-	}
-	
-	public String getAuthUserRole(String authUserId)
-	{		
-		if(currentUser!=null)
-			return currentUser.getRole();
-		else
-			return null;		
+		return currentUser != null ? currentUser.getUsername() : null;
 	}
 	
 	public boolean isValidAuthUser(String userId, String pwd)
@@ -67,7 +56,7 @@ public class UserMgr {
 		currentUser = null;
 	}
 	
-	public Boolean changePassword(String pwd)
+	/*public Boolean changePassword(String pwd)
 	{
 		Boolean success = false;
 		
@@ -85,7 +74,7 @@ public class UserMgr {
 		}
 		
 		return success;
-	}
+	}*/
 	
 	
 }

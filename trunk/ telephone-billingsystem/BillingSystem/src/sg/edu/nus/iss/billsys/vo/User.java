@@ -1,10 +1,12 @@
 package sg.edu.nus.iss.billsys.vo;
 
+import sg.edu.nus.iss.billsys.constant.UserRole;
+
 public class User {
 	
 	private String username;
 	private String password;
-	private String role;
+	private UserRole role;
 	
 	public String getPassword() {
 		return password;
@@ -18,10 +20,10 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getRole() {
+	public UserRole getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 	
