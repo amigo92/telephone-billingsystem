@@ -30,7 +30,7 @@ public class CustomerStatusWindow {
 			public void run() {
 				try {
 					CustomerStatusWindow window = new CustomerStatusWindow();
-					window.frame.setVisible(true);
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

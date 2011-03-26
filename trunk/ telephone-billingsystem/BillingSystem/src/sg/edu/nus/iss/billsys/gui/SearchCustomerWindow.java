@@ -33,7 +33,7 @@ public class SearchCustomerWindow {
 			public void run() {
 				try {
 					SearchCustomerWindow window = new SearchCustomerWindow();
-					window.frame.setVisible(true);
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -97,12 +97,17 @@ public class SearchCustomerWindow {
 		
 		//Result Grid
 		Object rowData[][] = { { "Row1-Column1", "Row1-Column2", "Row1-Column3" },
-		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" } };
-		 Object columnNames[] = { "Column One", "Column Two", "Column Three" };
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" },
+		        { "Row2-Column1", "Row2-Column2", "Row2-Column3" }};
+		 Object columnNames[] = { "Customer ID", "Customer Name", "NRC" };
 		 JTable table = new JTable(rowData, columnNames);
  	    JScrollPane scrollPane = new JScrollPane(table);
  	   gbc = new GridBagConstraints(0, 4,
- 				3, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
+ 				3, 6, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
  	   
  	   frame.getContentPane().add(scrollPane, gbc);
  	  
@@ -112,12 +117,12 @@ public class SearchCustomerWindow {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		gbc = new GridBagConstraints(1, 5,
+		gbc = new GridBagConstraints(1, 10,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
 		frame.getContentPane().add(submitButton, gbc);
 		
 		JButton cancelButton = new JButton("Cancel");
-		gbc = new GridBagConstraints(2, 5,
+		gbc = new GridBagConstraints(2, 10,
 		1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, insets, 0, 0);
 		frame.getContentPane().add(cancelButton, gbc);
 		//------------------------------
