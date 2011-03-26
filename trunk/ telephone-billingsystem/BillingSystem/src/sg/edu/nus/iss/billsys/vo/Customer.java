@@ -7,19 +7,16 @@ package sg.edu.nus.iss.billsys.vo;
  */
 public class Customer implements Cloneable {
 
-	
 	private String name;
 	private String address1;
 	private String address2;
 	private String address3;
-	private String contact_tel;
+	private String contactTel;
 	private String interest;
 	private String isDeleted;
 	private String nric;
-	
-	
 	private Account acct;
-
+	
 	public Account getAcct() {
 		return acct;
 	}
@@ -53,11 +50,11 @@ public class Customer implements Cloneable {
 	}
 
 	public String getContact_tel() {
-		return contact_tel;
+		return contactTel;
 	}
 
 	public void setContact_tel(String contact_tel) {
-		this.contact_tel = contact_tel;
+		this.contactTel = contact_tel;
 	}
 
 	public String getInterest() {
@@ -104,12 +101,15 @@ public class Customer implements Cloneable {
 		String custDetails = null;
 		custDetails = "Name: " + this.name + "; NRIC: " + this.nric + ";\n";
 		custDetails += "Address: " + this.getAddress();
-		custDetails += "Contact: " + this.contact_tel + "\n";
+		custDetails += "Contact: " + this.contactTel + "\n";
 		custDetails += "Interest: " + this.interest + "\n";
 		if(this.isDeleted == "Y"){
 			custDetails += "This customer has been deleted.";
 		}
 		return custDetails;
 	}
-
+	
+	public String getAccIdByCust(){
+		return this.acct.getAcctNo();
+	}
 }
