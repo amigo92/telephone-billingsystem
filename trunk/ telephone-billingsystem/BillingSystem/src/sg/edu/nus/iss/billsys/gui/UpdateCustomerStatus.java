@@ -201,13 +201,12 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
 		
-		SearchCustomer SearchCust = new SearchCustomer(window);
-		JPanel contentPanepanel = new JPanel(new BorderLayout());
-		contentPanepanel.revalidate();
-		contentPanepanel = SearchCust;
-		window.setContentPane(contentPanepanel);
-        
-        
+//		SearchCustomer SearchCust = new SearchCustomer(window);
+//		JPanel contentPanepanel = new JPanel(new BorderLayout());
+//		contentPanepanel.revalidate();
+//		contentPanepanel = SearchCust;
+//		window.setContentPane(contentPanepanel);        
+	
         
 	//	 BillingSystem.updateContentPane(new SearchCustomer()); 
 	}
