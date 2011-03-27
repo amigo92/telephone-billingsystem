@@ -41,6 +41,8 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
 	private HashMap<String,ArrayList<JComboBox>> featureBoxList;
+	
+	private JComboBox planBox;
 
 	
     public SubscriptionRegistrationPanel (BillingWindow window) {
@@ -51,12 +53,15 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		    setLayout (new BorderLayout());
 		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		    
+		    planBox= new JComboBox();
+		    
 		    add ("North", createFormPanel());      
 
-		    featurePanel = registerFeaturePanel();
-		    add ("Center", featurePanel);     
+		    featurePanel = new JPanel();
+		    add ("South", featurePanel);     
 		    
 		    customerID.setText("S8481361F");
+		    
     	}
         catch(Exception e){
         	System.out.println(e.getMessage());
@@ -79,9 +84,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
         public void actionPerformed (ActionEvent e) {
         	try{	
 	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-	    		JOptionPane.showMessageDialog(window, accountNo);
 
-	    	    //accountNo = "SA-2011-03-25-8481364";        	
         		featurePanel.revalidate();
         		featurePanel = registerFeaturePanel();
         		add ("Center", featurePanel);
@@ -103,6 +106,53 @@ public class SubscriptionRegistrationPanel extends JPanel {
      
         return bp;
     }
+
+    private JPanel registerSubscriptionPlanPanel () {
+    	JPanel p = new JPanel (new GridLayout (0,2));
+    
+    	p.add(createComboBox());
+	    JButton b = new JButton ("Register new Plan");
+         b.addActionListener (new ActionListener () {
+             public void actionPerformed (ActionEvent e) {
+            	SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planType, accountNo);
+                d.pack();
+                d.setVisible (true);
+             }
+         });
+         
+         p.add(b);
+
+        JPanel bp = new JPanel ();
+        bp.setLayout (new BorderLayout());
+        bp.add ("North", new JLabel ("Register New Subscription Plan:   "));
+        bp.add ("Center", p);
+      
+        return bp;
+    }
+    
+    private JComboBox createComboBox () {  	
+	    listOfPlanType = manager.getAllPlanType();
+	   		
+	    planNames = new String[listOfPlanType.length];
+	    		
+	    for (int i = 0 ; i <listOfPlanType.length; i ++ ) {
+	    	planNames[i] = listOfPlanType[i].name;
+	    } 
+	    
+	    JComboBox planTypeBox = new JComboBox(planNames);
+	    
+	    planTypeBox.addActionListener(new ActionListener (){
+	    	public void actionPerformed (ActionEvent e) {
+	    		   JComboBox cb = (JComboBox)e.getSource();
+	    		   planType = listOfPlanType[cb.getSelectedIndex()];
+	            }
+	    });
+	 
+	    planTypeBox.setSelectedIndex(0);
+	    add(planTypeBox, BorderLayout.PAGE_START);
+	    return planTypeBox;
+    }
+    
     
     private JPanel registerFeaturePanel () {
 		JPanel p = new JPanel ();
@@ -173,70 +223,20 @@ public class SubscriptionRegistrationPanel extends JPanel {
         return bp;
     }
 
-    private JPanel registerSubscriptionPlanPanel () {
-    	JPanel p = new JPanel (new GridLayout (0,2));
-    
-    	p.add(createComboBox());
-	    JButton b = new JButton ("Register");
-         b.addActionListener (new ActionListener () {
-             public void actionPerformed (ActionEvent e) {
-            	SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planType, accountNo);
-                d.pack();
-                d.setVisible (true);
-             }
-         });
-         
-         p.add(b);
-
-        JPanel bp = new JPanel ();
-        bp.setLayout (new BorderLayout());
-        bp.add ("North", new JLabel ("Register New Subscription Plan:   "));
-        bp.add ("Center", p);
-      
-        return bp;
-    }
-    
-    private JComboBox createComboBox () {  	
-	    listOfPlanType = manager.getAllPlanType();
-	   		
-	    planNames = new String[listOfPlanType.length];
-	    		
-	    for (int i = 0 ; i <listOfPlanType.length; i ++ ) {
-	    	planNames[i] = listOfPlanType[i].name;
-	    } 
-	    
-	    JComboBox planTypeBox = new JComboBox(planNames);
-	    
-	    planTypeBox.addActionListener(new ActionListener (){
-	    	public void actionPerformed (ActionEvent e) {
-	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		   planType = listOfPlanType[cb.getSelectedIndex()];
-	    		  // customerID.setText(planTypeName);
-	    		  // SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planTypeName); 
-	    		  // SubscriptionPlanAddDialog d = new SubscriptionPlanAddDialog (window, planTypeName); 
-	              // d.pack();
-	              // d.setVisible (true);
-	            }
-	    });
-	 
-	    planTypeBox.setSelectedIndex(0);
-	    add(planTypeBox, BorderLayout.PAGE_START);
-	    return planTypeBox;
-    }
    
-    private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {  	
-    	JComboBox planBox = new JComboBox();		
+    private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {
+    	if (planBox ==null)
+    		planBox = new JComboBox();		
 	    String[] planDescs = new String[subscribedPlans.size()];
 	    for (int i = 0 ; i <subscribedPlans.size(); i ++ ) {
 	    	planDescs[i] = subscribedPlans.get(i).getPlanDescription();
+	    	planBox.addItem(planDescs[i]);
 	    } 
-	    
-	    planBox = new JComboBox(planDescs);
-	    
+
 	    planBox.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
-	    		   JComboBox cb = (JComboBox)e.getSource();
-	    			   selectedPlanIndex = cb.getSelectedIndex() ;
+    		 		JComboBox cb = (JComboBox)e.getSource();
+    		 		selectedPlanIndex = cb.getSelectedIndex() ;
 	            }
 	    });
 	 

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -63,6 +64,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		
 		add ("Center", createFormPanel());
         add ("South",  createButtonPanel());
+
         
         fromField.setText(BillingUtil.getCurrentDateStr());
 		untilField.setText(BillingUtil.getNextYearStr());
@@ -83,9 +85,8 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
 		untilField = new JTextField (20);
 		p.add (untilField);
-		
-		JPanel bp = new JPanel (new BorderLayout());
-      	bp.add ("North", p);
+      	
+		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		  
 		return p;
 	}
@@ -114,7 +115,6 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 			    featureBox.addActionListener(new ActionListener (){
 			    	public void actionPerformed (ActionEvent e) {
 			    		   JComboBox cb = (JComboBox)e.getSource();
-			    			   JOptionPane.showMessageDialog(window, "feature","",0);
 			    			   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
 			            }
 			    });

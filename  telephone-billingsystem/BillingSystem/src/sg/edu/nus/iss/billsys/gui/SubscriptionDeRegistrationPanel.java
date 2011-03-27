@@ -9,6 +9,7 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiConfirmDialog;
+import sg.edu.nus.iss.billsys.util.BillingUtil;
 import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
@@ -35,6 +36,7 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	private PlanType planType;
 	private String accountNo;
 	private JPanel deRegisterPanel;
+	private List<Feature> features;
 	
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
 		this.window = window;
@@ -46,10 +48,12 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	    add ("North", createFormPanel());      
 
 	    deRegisterPanel = deRegisterPanel();
-	    add ("Center", deRegisterPanel);    
+	    add ("South", deRegisterPanel);
+	    
+
+	    
+	    customerID.setText("S8481361F");
     }
-
-
     private JPanel createFormPanel () {
     	JPanel p = new JPanel (new GridLayout (0,2));
         customerID = new JTextField (1);
@@ -58,15 +62,13 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
- 	    	   // accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-        		accountNo = "SA-2011-03-25-8481364";
+ 	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
         		deRegisterPanel.revalidate();
             	deRegisterPanel = deRegisterPanel();
          	    add ("Center", deRegisterPanel); 
         	}
 	    	catch(Exception ex){
-	    		JOptionPane.showMessageDialog(window, ex.getMessage());
-        		
+	    		JOptionPane.showMessageDialog(window, ex.getMessage());	
 	    	} 	
     	}
         });
@@ -103,18 +105,21 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, null);
 		    		                d.pack();
 		    		                d.setVisible (true);
-		    		    			//JOptionPane.showMessageDialog(window, plan.getPlanDescription());	 
 		    			     }
 					    });
 		   			    p.add(b);
 		   			    
-		   			    List<Feature> features = plan.getOptionalFeatures();	
-						for(Feature feature: features){			
+		   			    features = plan.getOptionalFeatures();	
+		   			    
+		   			    
+						for(final Feature feature: features){			
 							p.add ( new JLabel ("       " + feature.getName()));
 						    JButton b2 = new JButton ("De-Register");
 			   			    b2.addActionListener (new ActionListener () {
 			    			     public void actionPerformed (ActionEvent e) {
-			    			    	 
+			    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, feature);
+			    			    	 	d.pack();
+				    		            d.setVisible (true);
 			    			     }
 						    });
 				   			p.add(b2);
