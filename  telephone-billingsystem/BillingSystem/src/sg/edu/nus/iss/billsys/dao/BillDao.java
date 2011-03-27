@@ -75,7 +75,7 @@ public class BillDao {
 	}
 	
 	public void add(BillPeriod billPeriod, ArrayList<Bill> bills){
-		aBillStore.getMap().put(billPeriod, bills);
+		aBillStore.getMap().put(billPeriod, bills != null ? bills : new ArrayList<Bill>());
 	}
 	
 	public void purge(){
