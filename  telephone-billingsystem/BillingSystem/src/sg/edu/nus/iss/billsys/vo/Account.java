@@ -11,16 +11,10 @@ import java.util.*;
 public class Account extends VirtualObject{
 	
 	private String acctNo;
-	private int balance;
-	private Date balanceUpdateDate;
-	private int paymentTerms;
 	private Date dateCreated;
 	private Date dateDeleted;
 
 	public Account(Date today, int nextAcct){
-		this.paymentTerms = 21;
-		this.balance = 0;
-		this.balanceUpdateDate = null;
 		this.acctNo = this.genAcctNo(today, nextAcct);
 	}
 	public Account() {
@@ -54,26 +48,6 @@ public class Account extends VirtualObject{
 	}
 	public void setDateDeleted(Date dateDeleted) {
 		this.dateDeleted = dateDeleted;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-	
-	public void updatePayment(int amountPaid){
-		this.balance -= amountPaid;
-	}
-
-	public Date getBalanceUpdateDate() {
-		return balanceUpdateDate;
-	}
-
-	public void setBalanceUpdateDate(Date balanceUpdateDate) {
-		this.balanceUpdateDate = balanceUpdateDate;
 	}
 
 	public String showAccount(){
