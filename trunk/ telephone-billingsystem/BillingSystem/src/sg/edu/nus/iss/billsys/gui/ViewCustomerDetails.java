@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 
@@ -24,7 +26,9 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.vo.Customer;
+import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class ViewCustomerDetails extends javax.swing.JPanel {
 
@@ -58,10 +62,11 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private QueryTableModel qtm;
 	private static final long serialVersionUID = 1L;
 	
-	private String strCustomerID;
-	Customer cust= new Customer();
-	AccountMgr accountMgr= new AccountMgr();
-	
+	private String strNRC;
+	private Customer cust= new Customer();
+	private AccountMgr accountMgr= new AccountMgr();
+	private SubscriptionMgr subMgr ;//= new SubscriptionMgr();
+	private List<SubscriptionPlan> listSubPlan = new ArrayList<SubscriptionPlan>() ;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -76,15 +81,15 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		initGUI();
 	}
 	
-	public ViewCustomerDetails(String strCustomerID) {
+	public ViewCustomerDetails(String strNRC) {
 		super();
 		initGUI();
 	}
 	
-	public ViewCustomerDetails(BillingWindow window,String strCustomerID) {
+	public ViewCustomerDetails(BillingWindow window,String strNRC) {
 		super();
 		initGUI();
-		this.strCustomerID=strCustomerID;
+		this.strNRC=strNRC;
 		this.GetCustomerDetails();
 		ObjectsToControls();
 	}
@@ -253,7 +258,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	private void SearchCustButtonActionPerformed(ActionEvent evt) {
-		BillingSystem.updateContentPane(new SearchCustomer(window));
+	//	BillingSystem.updateContentPane(new SearchCustomer(window));
 	}
 	
 	private void ObjectsToControls(){
@@ -263,16 +268,14 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		Custaddress1Label.setText(cust.getAddress1()) ;
 		Custaddress2Label.setText(cust.getAddress2()) ;
 		Custaddress3Label.setText(cust.getAddress3()) ;
-		CustTeleLabel.setText(cust.getContact_tel());
+		CustTeleLabel.setText(cust.getContactTel());
 		CustInterestLabel.setText(cust.getInterest());
-		accountNoLabel.setText(cust.getAcct().getAcctNo()) ;
-		
-	
+		accountNoLabel.setText(cust.getAccIdByCust()) ;		
+		//qtm.updateTable(listSubPlan);
 	}
 	
 	private void GetCustomerDetails(){
-		//cust= accountMgr.getCustomerDetailsByCustomerId(strCustomerID);
-		
-		
+		cust= accountMgr.getCustomerDetailsById(strNRC);			
+		listSubPlan=subMgr.getAccountSubscriptions(cust.getAccIdByCust());
 	}
 }
