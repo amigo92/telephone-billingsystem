@@ -24,7 +24,7 @@ public class SubscriptionIntroPanel extends JPanel {
     public SubscriptionIntroPanel (BillingWindow window) {
  
     	this.window = window;
-        manager = MgrFactory.getSubscriptionMgr();
+        manager = window.getSubscriptionMgr();
         setLayout (new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         

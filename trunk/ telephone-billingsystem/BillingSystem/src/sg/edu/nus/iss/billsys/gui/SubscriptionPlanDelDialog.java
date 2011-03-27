@@ -40,10 +40,8 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
     
 	   
 	public SubscriptionPlanDelDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription,  FeatureType featureType) {
-
-		
 		super(window,  "De-Register");
-		manager = MgrFactory.getSubscriptionMgr();
+		manager = window.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;

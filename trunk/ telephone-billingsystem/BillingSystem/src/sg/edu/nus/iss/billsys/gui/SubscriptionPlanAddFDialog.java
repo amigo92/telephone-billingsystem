@@ -54,7 +54,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 	public SubscriptionPlanAddFDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription) {
 		super(window, "Register New Feature for : " + subscription.getPlanDescription());
         
-		manager = MgrFactory.getSubscriptionMgr();
+		manager = window.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;
