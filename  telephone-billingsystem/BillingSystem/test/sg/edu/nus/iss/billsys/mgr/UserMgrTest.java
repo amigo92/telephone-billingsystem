@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+
 /**
  * 
  */
@@ -14,11 +17,20 @@ import org.junit.Test;
  */
 public class UserMgrTest {
 
+	String userId;
+	String password;
+	UserMgr manager;
+	UserRole role;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		//this is valid password 
+		userId = "Chuichi";
+		password = "password$1";
+		role = UserRole.AGENT;
 	}
 
 	/**
@@ -26,7 +38,14 @@ public class UserMgrTest {
 	 */
 	@Test
 	public void testUserMgr() {
-		fail("Not yet implemented");
+		try
+		{
+			manager = new UserMgr();
+		}
+		catch(BillingSystemException e)
+		{
+			System.out.println(e.getMessagebyException());
+		}
 	}
 
 	/**
@@ -34,7 +53,23 @@ public class UserMgrTest {
 	 */
 	@Test
 	public void testGetAuthUserRole() {
-		fail("Not yet implemented");
+		try
+		{
+			manager = new UserMgr();
+			manager.isValidAuthUser(userId, password);
+			if(manager.getAuthUserRole().equals(role)==false)
+				fail("Unable to get the user role for user 1");
+			
+			UserMgr manager2 = new UserMgr();
+			manager2.isValidAuthUser("Veera", "password$1");
+			if(manager.getAuthUserRole().equals(UserRole.ADMIN)==false)
+				fail("Unable to get the user role for user 2");
+		}
+		catch(BillingSystemException e)
+		{
+			System.out.println(e.getMessagebyException());
+		}
+		
 	}
 
 	/**
@@ -42,7 +77,17 @@ public class UserMgrTest {
 	 */
 	@Test
 	public void testGetAuthUserName() {
-		fail("Not yet implemented");
+		try
+		{
+			manager = new UserMgr();
+			manager.isValidAuthUser(userId, password);
+			if(manager.getAuthUserName().equals(userId)==false)
+				fail("Unable to get the user name");
+		}
+		catch(BillingSystemException e)
+		{
+			System.out.println(e.getMessagebyException());
+		}
 	}
 
 	/**
@@ -50,15 +95,51 @@ public class UserMgrTest {
 	 */
 	@Test
 	public void testIsValidAuthUser() {
-		fail("Not yet implemented");
+		
+		try
+		{
+			manager = new UserMgr();
+			
+			// valid password		
+			if(manager.isValidAuthUser(userId, password)!= true)
+				fail("Unable to authenticate userId: " + userId);
+			
+			//test invalid password
+			String invalidPwd = "thisIsInvalid"; 
+			if(manager.isValidAuthUser(userId, invalidPwd)!= false)
+				fail("Invalid password should fails authentication");
+		}	
+		catch(BillingSystemException e)
+		{
+			System.out.println(e.getMessagebyException());
+		}
 	}
 
 	/**
 	 * Test method for {@link sg.edu.nus.iss.billsys.mgr.UserMgr#logout()}.
+	 * @throws  
 	 */
 	@Test
-	public void testLogout() {
-		fail("Not yet implemented");
+	public void testLogout(){
+		
+		try
+		{
+			manager = new UserMgr();
+			
+			//ensure it can login
+			if(manager.isValidAuthUser(userId, password)!=true)
+				fail("Unable to authenticate userId: " + userId);				
+			
+			//logout now
+			manager.logout();
+			
+			if(manager.getAuthUserName()!=null)
+				fail("Unable to logout");		
+		}
+		catch(BillingSystemException e)
+		{
+			System.out.println(e.getMessagebyException());
+		}
 	}
 
 }
