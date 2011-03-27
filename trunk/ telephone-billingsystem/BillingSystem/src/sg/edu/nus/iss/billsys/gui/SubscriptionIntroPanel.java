@@ -51,11 +51,18 @@ public class SubscriptionIntroPanel extends JPanel {
 	    	p.add(new JLabel(""));
 	    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);
     	
-	    	for (FeatureType featureType : optionalFeatureTypes ){	    		
-	    		p.add(new JLabel("     " + featureType.name));
-		    	p.add(new JLabel(""));
-		    	p.add(new JLabel(""));
-		    	//p.add(new JLabel("     " + manager.getSubscriptionCharge(featureType)));	
+	    	for (FeatureType featureType : optionalFeatureTypes ){	
+	    		
+	    		if(featureType.usageCharge)
+	    		{
+	    			p.add(new JLabel("     " + featureType.name));
+			    	p.add(new JLabel(""));
+			    	p.add(new JLabel("     " + manager.getSubscriptionCharge(featureType)));				    	
+	    		}else {
+		    		p.add(new JLabel("     " + featureType.name));
+			    	p.add(new JLabel("     " + manager.getSubscriptionCharge(featureType)));	
+			    	p.add(new JLabel(""));
+	    		}	
 	    	} 	
     	}
     	
