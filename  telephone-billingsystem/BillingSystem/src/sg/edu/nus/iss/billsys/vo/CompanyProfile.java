@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 /**
  * 
@@ -70,5 +71,18 @@ public class CompanyProfile implements Serializable{
 		this.email = email;
 	}
 	
-	
+	public String toString(){
+		String  details = this.getClass().getSimpleName() + "(";
+		for (Field f : this.getClass().getDeclaredFields()){
+			f.setAccessible(true);
+			try {
+				 details += "[" + f.getName() + "=" + f.get(this) + "]";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		details += ")";
+		return details;
+	}
 }
