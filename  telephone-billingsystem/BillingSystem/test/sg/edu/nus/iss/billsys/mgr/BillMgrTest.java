@@ -58,7 +58,7 @@ public class BillMgrTest {
 	public void testListMarchBills() throws BillingSystemException{
 		ArrayList<Bill> bills = MgrFactory.getBillMgr().getBills(new BillPeriod(2011, 3));
 		for(Bill bill : bills){
-			System.out.println(bill.printRawData());
+			System.out.println(bill);
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class BillMgrTest {
 	public void testListAprilBills() throws BillingSystemException{
 		ArrayList<Bill> bills = MgrFactory.getBillMgr().getBills(new BillPeriod(2011, 4));
 		for(Bill bill : bills){
-			System.out.println(bill.printRawData());
+			System.out.println(bill);
 		}
 	}
 }
