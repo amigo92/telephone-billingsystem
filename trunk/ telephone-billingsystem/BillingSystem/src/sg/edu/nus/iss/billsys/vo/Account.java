@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.vo;
  * Mar 24 2011
  *
  */
+import java.lang.reflect.Field;
 import java.text.*;
 import java.util.*;
 
@@ -16,8 +17,6 @@ public class Account {
 	private int paymentTerms;
 	private Date dateCreated;
 	private Date dateDeleted;
-	
-//	private HashMap<String,SubscriptionPlan> plans;
 
 	public Account(Date today, int nextAcct){
 		this.paymentTerms = 21;
@@ -57,25 +56,7 @@ public class Account {
 	public void setDateDeleted(Date dateDeleted) {
 		this.dateDeleted = dateDeleted;
 	}
-	/*	public void addPlan(SubscriptionPlan plan) {
-		plans.put(plan.getPlanId(), plan);
-	}
-	
-	public SubscriptionPlan getPlan(String planId) {
-		return plans.get(planId);
-	}
 
-	public Collection<SubscriptionPlan> getPlans() {
-		return plans.values();
-	}
-
-	public void setPlans(List<SubscriptionPlan> plans) {
-		this.plans=new HashMap<String,SubscriptionPlan>();
-		for (SubscriptionPlan plan : plans) {
-			this.plans.put(plan.getPlanId(), plan);
-		}
-	}
-*/
 	public int getBalance() {
 		return balance;
 	}
@@ -97,9 +78,26 @@ public class Account {
 	}
 
 	public String showAccount(){
-		String accDetails = null;
-		accDetails = "Account No: " + this.acctNo + "\n";
-		return accDetails;
+		return this.toString();
+	}
+	
+	/**
+	 * To print out all the declared fields
+	 * @author Xu Guoneng
+	 */
+	public String toString(){
+		String  details = this.getClass().getSimpleName() + "(";
+		for (Field f : this.getClass().getDeclaredFields()){
+			f.setAccessible(true);
+			try {
+				 details += "[" + f.getName() + "=" + f.get(this) + "]";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		details += ")";
+		return details;
 	}
 	
 }
