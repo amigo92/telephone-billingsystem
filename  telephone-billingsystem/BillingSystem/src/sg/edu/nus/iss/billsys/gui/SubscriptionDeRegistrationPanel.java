@@ -38,7 +38,11 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
 		this.window = window;
-	    manager = MgrFactory.getSubscriptionMgr();
+	    try {
+			manager = MgrFactory.getSubscriptionMgr();
+		} catch (BillingSystemException e) {
+			
+		}
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	    
