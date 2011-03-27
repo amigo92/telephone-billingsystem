@@ -27,13 +27,14 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BillingWindow        window;
+	
 	private JTextField           customerID;
 	private List<PlanType>       listOfPlanType;
 	private SubscriptionMgr      manager;
 	private String[] planNames;
 	private PlanType planType;
 	private String accountNo;
-	private JPanel featurePanel;
+	private JPanel deRegisterPanel;
 	
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
 		this.window = window;
@@ -43,34 +44,31 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	    
 	    add ("North", createFormPanel());      
 
-	    featurePanel = deRegisterFeaturePanel();
-	    add ("Center", featurePanel);    
+	    deRegisterPanel = deRegisterPanel();
+	    add ("Center", deRegisterPanel);    
     }
-    
+
+
     private JPanel createFormPanel () {
     	JPanel p = new JPanel (new GridLayout (0,2));
-    
         customerID = new JTextField (1);
         p.add(customerID);
-
         JButton b = new JButton ("Get Subscription Information");
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
  	    	   // accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
         		accountNo = "SA-2011-03-25-8481364";
-        		featurePanel.revalidate();
-        		featurePanel = deRegisterFeaturePanel();
-        		add ("Center", featurePanel);
-        		
+        		deRegisterPanel.revalidate();
+            	deRegisterPanel = deRegisterPanel();
+         	    add ("Center", deRegisterPanel); 
         	}
-	    	catch(Exception ex)
-	    	{
-	    		JOptionPane.showMessageDialog(window, ex.getMessage() + ex.getLocalizedMessage());
+	    	catch(Exception ex){
+	    		JOptionPane.showMessageDialog(window, ex.getMessage());
+        		
 	    	} 	
     	}
         });
-        
         p.add (b);
 
         JPanel bp = new JPanel ();
@@ -81,12 +79,12 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
         return bp;
     }
     
-    private JPanel deRegisterFeaturePanel () {
+    private JPanel deRegisterPanel () {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		
-    	p.add (new JLabel ("Existing Subscripiton Information:"));
-    	p.add(new JLabel(""));
+    	p.add (new JLabel ("Existing Subscripiton Information         :             "));
+    	p.add(new JLabel("                    "));
 		try
 		{
 			if(accountNo != null){
@@ -95,20 +93,23 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 				
 				if(subscribedPlans != null)
 				{
-					 for (SubscriptionPlan plan : subscribedPlans)
+					 for (final SubscriptionPlan plan : subscribedPlans)
 					 {
 						p.add ( new JLabel (plan.getPlanDescription()));	
 					 	JButton b = new JButton ("De-Register");
 		   			    b.addActionListener (new ActionListener () {
-		    			     public void actionPerformed (ActionEvent e) {
-		    			    	 
+		    			     public void actionPerformed (ActionEvent e) {		    			    	 	
+		    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, null);
+		    		                d.pack();
+		    		                d.setVisible (true);
+		    		    			//JOptionPane.showMessageDialog(window, plan.getPlanDescription());	 
 		    			     }
 					    });
 		   			    p.add(b);
 		   			    
 		   			    List<Feature> features = plan.getOptionalFeatures();	
 						for(Feature feature: features){			
-							p.add ( new JLabel ("    " + feature.getName()));
+							p.add ( new JLabel ("       " + feature.getName()));
 						    JButton b2 = new JButton ("De-Register");
 			   			    b2.addActionListener (new ActionListener () {
 			    			     public void actionPerformed (ActionEvent e) {
@@ -121,18 +122,19 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 				}
 			}
 		}catch(Exception ex){
-			JOptionPane.showMessageDialog(window, ex.getMessage());
+			JOptionPane.showMessageDialog(window, ex.getMessage(),"" ,2);
 		}
     
     	JPanel bp = new JPanel ();
         FlowLayout flowLayout = new FlowLayout();
+        new FlowLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
-        bp.setLayout (flowLayout);
+        bp.setLayout( flowLayout);
+
 
         if(accountNo != null){
         	bp.add (p);
         }
-     
         return bp;
     }
 }
