@@ -5,8 +5,10 @@ package sg.edu.nus.iss.billsys.gui;
  */
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,39 +18,39 @@ import javax.swing.JTextField;
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.constant.PlanType.PlanCode;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
-
-
+import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
 	
-    protected SubscriptionMgr manager;
-    
-    private JTextField assignedNumberField;
-    private JLabel assignedNumberLabel;
-    
-    private JTextField fromField;
+    protected SubscriptionMgr manager;    
     private JTextField untilField;
-    
     private BillingWindow window;
     private String accountNo;
+    private String planId;
+    private FeatureType featureType;
+    private Date dateTerminated;
+    private SubscriptionDeRegistrationPanel parent;
+    private JLabel titleLabel;
+    
+    
 	   
-	public SubscriptionPlanDelDialog(BillingWindow window, PlanType planType, String accountNo) {
-		super(window,  "Register new Subscription Plan :"  + planType.name);
+	public SubscriptionPlanDelDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription,  FeatureType featureType) {
+
+		
+		super(window,  "De-Register");
 		manager = MgrFactory.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;
+		this.planId = subscription.getPlanId();
+		this.featureType = featureType;
 		
-		
-		if(planType.planCode == PlanCode.CABLE_TV ){
-			assignedNumberField.setVisible(false);
-			assignedNumberLabel.setVisible(false);
-		}
-		
+		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
 
 	@Override
@@ -57,27 +59,43 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
-		  
-		p.add (assignedNumberLabel = new JLabel ("Assigned Phone Number"));
-		assignedNumberField = new JTextField (8);
-		p.add (assignedNumberField);
-		p.add (new JLabel ("Start Date (d-MMM-yyyy)"));
-		fromField = new JTextField (20);
-		p.add (fromField);
+		titleLabel = new JLabel("");
+		p.add (titleLabel);
+		p.add(new JLabel(""));
+		
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
 		untilField = new JTextField (20);
 		p.add (untilField);
-		  
+		
+		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		return p;
+		
 	}
 
 	@Override
-	protected boolean performOkAction() {
-		JOptionPane.showMessageDialog(window, "empty","",0);
+	protected boolean performOkAction(){
+//		JOptionPane.showMessageDialog(window, "0","",0); error
+//		JOptionPane.showMessageDialog(window, "1","",1); information
+//		JOptionPane.showMessageDialog(window, "2","",2); warning
+//		JOptionPane.showMessageDialog(window, "3","",3); question
 
-		// manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, dateCommenced, dateTerminated)
-
-		return false;
+		try
+		{
+//			if(featureType == null)
+//				manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
+//			else
+//				manager.deregisterFeature(accountNo, planId, featureType, dateTerminated);
+			
+			//parent.refresh();
+			window.refreshSubscriptionDeRegistrationPanel();
+			return true;
+			
+		}catch(Exception ex){
+			JOptionPane.showMessageDialog(window, ex.getMessage(),"",0);	
+			//parent.refresh();
+			return false;
+		}
+		
 	}
 
 }
