@@ -199,7 +199,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	}
 	
 	private void bindToTable(){
-		System.out.println("lasjdalksf");
+
 		ArrayList< String[]> newlist = new ArrayList<String[]>();
 		newlist.add(new String[] { "Head1", "Head2", "Head3" });
 		newlist.add(new String[] { "a", "b", "c" });
@@ -226,7 +226,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	         //int column = target.getSelectedColumn(); 
 	         String strCustomerID=target.getModel().getValueAt(row, 0).toString();
 	        System.out.println(target.getModel().getValueAt(row, 0));
-	        BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerID) ); 
+	      //  BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerID) ); 
 	}
 
 }
