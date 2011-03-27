@@ -70,7 +70,7 @@ public class BillPeriod implements Serializable{
 	}
 	
 	public BillPeriod getNextBillPeriod(){
-		return new BillPeriod(year, month+1);
+		return new BillPeriod(year, month+2);
 	}
 	
 	/**
