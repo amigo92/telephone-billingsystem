@@ -4,12 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 
 /**
 * @author Win Kyi Tin 
 */
 
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
@@ -49,6 +55,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private JPanel ViewCustPanelCenter;
 	private JLabel ViewCustTitleLabel;
 	private JPanel ViewCustTitlePanel;
+	private QueryTableModel qtm;
 	private static final long serialVersionUID = 1L;
 	
 	private String strCustomerID;
@@ -229,7 +236,15 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				{
 					SubscriptionPanel = new JPanel();
 					ViewCustPanelCenter.add(SubscriptionPanel);
-					SubscriptionPanel.setBounds(3, 433, 645, 304);
+					SubscriptionPanel.setBounds(3, 433, 645, 304);	
+						
+				}
+				
+				{
+					qtm = new QueryTableModel();
+					JTable table = new JTable(qtm);				
+					JScrollPane scrollpane = new JScrollPane(table);
+					SubscriptionPanel.add(scrollpane, BorderLayout.CENTER);
 				}
 			}
 		} catch (Exception e) {
