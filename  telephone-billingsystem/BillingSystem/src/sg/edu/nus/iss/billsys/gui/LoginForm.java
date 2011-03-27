@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.GroupLayout;
@@ -13,6 +15,9 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 import javax.swing.SwingUtilities;
 
+import sg.edu.nus.iss.billsys.constant.SessionKeys;
+import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 
@@ -35,19 +40,6 @@ public class LoginForm extends javax.swing.JFrame {
 	private JTextField usernameText;
 	private JButton loginButton;
 
-	/**
-	 * Auto-generated main method to display this JFrame
-	 */
-	public static void main(String[] args) {
-		// SwingUtilities.invokeLater(new Runnable() {
-		// public void run() {
-		// LoginForm inst = new LoginForm();
-		// inst.setLocationRelativeTo(null);
-		// inst.setVisible(true);
-		// }
-		// });
-	}
-
 	public LoginForm() {
 		super();
 		initGUI();
@@ -63,19 +55,27 @@ public class LoginForm extends javax.swing.JFrame {
 			{
 				cancelButton = new JButton();
 				cancelButton.setText("Cancel");
-				cancelButton.addMouseListener(new MouseAdapter() {
-					public void mouseClicked(MouseEvent evt) {
-						cancelButtonMouseClicked(evt);
+				cancelButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						cancelButtonActionPerformed(arg0);
+						
 					}
+					
 				});
 			}
 			{
 				loginButton = new JButton();
 				loginButton.setText("Login");
-				loginButton.addMouseListener(new MouseAdapter() {
-					public void mouseClicked(MouseEvent evt) {
-						loginButtonMouseClicked(evt);
+				loginButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						loginButtonActionPerformed(arg0);
+						
 					}
+					
 				});
 			}
 			{
@@ -232,8 +232,14 @@ public class LoginForm extends javax.swing.JFrame {
 		}
 	}
 
-	private void loginButtonMouseClicked(MouseEvent evt) {
-		System.out.println("loginButton.mouseClicked, event=" + evt);
+	protected void cancelButtonActionPerformed(ActionEvent arg0) {
+		System.out.println("cancelButton.actionPerformed, arg0=" + arg0);
+		// exit application
+		System.exit(0);
+	}
+
+	protected void loginButtonActionPerformed(ActionEvent arg0) {
+		System.out.println("loginButton.actionPerformed, arg0=" + arg0);
 
 		System.out.println(this.usernameText.getText());
 		System.out.println(this.passwordText.getText());
@@ -247,23 +253,29 @@ public class LoginForm extends javax.swing.JFrame {
 		}
 
 		// do user authentication
-		if (MgrFactory.getUserMgr().isValidAuthUser(
-				this.usernameText.getText(), this.passwordText.getText())) {
-			// display the main application
-			startBillingWindow();
-			
-		} else {
-			startBillingWindow();
-			// display error message
-			this.errorMsgLabel.setText("Authentication failed!");
-		}
+//		try {
+//			if (MgrFactory.getUserMgr().isValidAuthUser(
+//					this.usernameText.getText(), this.passwordText.getText())) {
+				
+				// get the user role and save in the session
+//				UserRole role = MgrFactory.getUserMgr().getAuthUserRole();
+				SessionMgr.map.put(SessionKeys.USER_ROLE, UserRole.AGENT);
+				
+				// display the main application
+				startBillingWindow();
+				
+				this.setVisible(false);
+				this.dispose();
+				
+//			} else {
+				// display error message
+//				this.errorMsgLabel.setText("Authentication failed!");
+//			}
+//		} catch (BillingSystemException e) {
+//			// display error message
+//			this.errorMsgLabel.setText("Not able to login, internal error occurred!");
+//		}
 
-	}
-
-	private void cancelButtonMouseClicked(MouseEvent evt) {
-		System.out.println("cancelButton.mouseClicked, event=" + evt);
-		// exit application
-		System.exit(0);
 	}
 
 	public void startBillingWindow() {
