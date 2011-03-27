@@ -4,6 +4,9 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.*;
 import sg.edu.nus.iss.billsys.constant.SessionKeys;
 import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,8 +20,8 @@ public class BillingWindow extends JFrame {
 	private BillingSystem     manager;
     private JPanel contentPane;
     private BillingWindow window;
-    private String role;
-
+    private SubscriptionMgr subscriptionMgr;
+    
     private WindowListener windowListener = new WindowAdapter () {
         public void windowClosing (WindowEvent e) {
             System.exit(0);
@@ -119,9 +122,9 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					setSubscriptionMgr();
 					SubscriptionIntroPanel currentPanel = new SubscriptionIntroPanel(
 							window);
-
 					contentPane.revalidate();
 					contentPane = currentPanel;
 					window.setContentPane(contentPane);
@@ -132,6 +135,8 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					setSubscriptionMgr();
+
 					SubscriptionRegistrationPanel currentPanel = new SubscriptionRegistrationPanel(
 							window);
 
@@ -145,7 +150,7 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					setSubscriptionMgr();
 					SubscriptionDeRegistrationPanel currentPanel = new SubscriptionDeRegistrationPanel(
 							window);
 
@@ -217,5 +222,17 @@ public class BillingWindow extends JFrame {
 
         return menuBar;
     }
+
+	public void setSubscriptionMgr() {
+		try {
+			this.subscriptionMgr = MgrFactory.getSubscriptionMgr();
+		} catch (BillingSystemException e) {
+			JOptionPane.showMessageDialog(window, e.getMessage(),"" ,0);
+		}
+	}
+
+	public SubscriptionMgr getSubscriptionMgr() {
+		return subscriptionMgr;
+	}
 
 }
