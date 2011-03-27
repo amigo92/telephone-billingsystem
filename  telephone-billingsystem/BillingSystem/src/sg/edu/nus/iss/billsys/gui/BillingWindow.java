@@ -2,6 +2,8 @@ package sg.edu.nus.iss.billsys.gui;
 
 
 import sg.edu.nus.iss.billsys.*;
+import sg.edu.nus.iss.billsys.constant.SessionKeys;
+import sg.edu.nus.iss.billsys.constant.UserRole;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -37,7 +39,7 @@ public class BillingWindow extends JFrame {
     }
     
     public BillingWindow () {
-        super ("Billing System > Subscription");
+        super ("Billing System");
        
         //role = manager.getRole();
         window = this;
@@ -53,64 +55,120 @@ public class BillingWindow extends JFrame {
         JMenuItem menuItem;
         JMenu menu;
         menuBar = new JMenuBar();
+        
+        boolean isAdmin = false;
+        UserRole role = (UserRole) SessionMgr.map.get(SessionKeys.USER_ROLE); 
 
-        menu = new JMenu("Account  ");
+        if (role != null && role.toString().equalsIgnoreCase(UserRole.ADMIN.toString())) {
+        	isAdmin = true;
+        }
+        
+        if (isAdmin) {
+			menu = new JMenu("Account  ");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			menuItem = new JMenuItem("item1");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+				}
+			});
+			menu.add(menuItem);
+			menu.addSeparator();
+		}
+        
+		if (isAdmin) {
+			menu = new JMenu("Billing  ");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			menuItem = new JMenuItem("View Billing Report");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BillingReportView currentPanel = new BillingReportView(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menuItem = new JMenuItem("Generate Billing Report");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BillingReportGenerator currentPanel = new BillingReportGenerator(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menu.addSeparator();
+		}
+		
+		if (isAdmin) {
+			menu = new JMenu("Subscription  ");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			menuItem = new JMenuItem("Introduction");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SubscriptionIntroPanel currentPanel = new SubscriptionIntroPanel(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menuItem = new JMenuItem("Register");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SubscriptionRegistrationPanel currentPanel = new SubscriptionRegistrationPanel(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menuItem = new JMenuItem("De-Register");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					SubscriptionDeRegistrationPanel currentPanel = new SubscriptionDeRegistrationPanel(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+
+				}
+			});
+			menu.add(menuItem);
+			menu.addSeparator();
+		}
+		
+		// Complaint
+        menu = new JMenu("Complaint  ");
         menu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(menu);   
 
-        menuItem = new JMenuItem("item1");
+        menuItem = new JMenuItem("Log Complaint");
         menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener (new ActionListener () {
 		     public void actionPerformed (ActionEvent e) {
-		    	 
-		     }
-	    });
-        menu.add(menuItem);
-        
-        menu.addSeparator();
-        
-        menu = new JMenu("Billing  ");
-        menu.setMnemonic(KeyEvent.VK_A);
-        menuBar.add(menu);   
-
-        menuItem = new JMenuItem("View Billing Report");
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        menuItem.addActionListener (new ActionListener () {
-		     public void actionPerformed (ActionEvent e) {
-		    	   BillingReportView currentPanel = new BillingReportView (window);
-		           
-		           contentPane.revalidate();
-		           contentPane = currentPanel;
-		           window.setContentPane(contentPane);         	 
-		     }
-	    });
-        menu.add(menuItem);
-
-	        menuItem = new JMenuItem("Generate Billing Report");
-	        menuItem.setMnemonic(KeyEvent.VK_D);
-	        menuItem.addActionListener (new ActionListener () {
-			     public void actionPerformed (ActionEvent e) {
-			    	   BillingReportGenerator currentPanel = new BillingReportGenerator (window);
-			           
-			           contentPane.revalidate();
-			           contentPane = currentPanel;
-			           window.setContentPane(contentPane);  	 
-			     }
-		    });
-	        menu.add(menuItem);
-        
-        
-        menu.addSeparator();
-        
-        menu = new JMenu("Subscription  ");
-        menu.setMnemonic(KeyEvent.VK_A);
-        menuBar.add(menu);   
-
-        menuItem = new JMenuItem("Introduction");
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        menuItem.addActionListener (new ActionListener () {
-		     public void actionPerformed (ActionEvent e) {
-			       SubscriptionIntroPanel currentPanel = new SubscriptionIntroPanel (window);
+			       LogComplaintPanel currentPanel = new LogComplaintPanel (window);
 		           
 		           contentPane.revalidate();
 		           contentPane = currentPanel;
@@ -119,11 +177,11 @@ public class BillingWindow extends JFrame {
 	    });
         menu.add(menuItem);
         
-        menuItem = new JMenuItem("Register");
+        menuItem = new JMenuItem("Update Complaint");
         menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener (new ActionListener () {
 		     public void actionPerformed (ActionEvent e) {
-		    	   SubscriptionRegistrationPanel currentPanel = new SubscriptionRegistrationPanel (window);
+		    	   UpdateComplaintPanel currentPanel = new UpdateComplaintPanel (window);
 		           
 		           contentPane.revalidate();
 		           contentPane = currentPanel;
@@ -131,21 +189,30 @@ public class BillingWindow extends JFrame {
 		     }
 	    });
         menu.add(menuItem);
-        
-        menuItem = new JMenuItem("De-Register");
-        menuItem.setMnemonic(KeyEvent.VK_D);
-        menuItem.addActionListener (new ActionListener () {
-		     public void actionPerformed (ActionEvent e) {
-		    	   SubscriptionDeRegistrationPanel currentPanel = new SubscriptionDeRegistrationPanel (window);
-		           
-		           contentPane.revalidate();
-		           contentPane = currentPanel;
-		           window.setContentPane(contentPane);     
-		    	 
-		     }
-	    });
-        menu.add(menuItem);
+        menu.addSeparator();
 
+		// Logout
+        menu = new JMenu("Logout  ");
+        menu.setMnemonic(KeyEvent.VK_A);
+        menuBar.add(menu);   
+
+        menuItem = new JMenuItem("Logout");
+        menuItem.setMnemonic(KeyEvent.VK_D);
+        menuItem.addActionListener (new ActionListener () {
+		     public void actionPerformed (ActionEvent e) {
+		    	 // clear the session
+		    	 SessionMgr.map.clear();
+		    	
+		    	 // open the login form
+		 		LoginForm loginForm = new LoginForm();
+				loginForm.setVisible (true);
+				
+				//	close the billing window
+				BillingWindow.this.setVisible(false);
+				BillingWindow.this.dispose();
+		     }
+	    });
+        menu.add(menuItem);
         menu.addSeparator();
 
         return menuBar;
