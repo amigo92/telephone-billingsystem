@@ -5,11 +5,10 @@ package sg.edu.nus.iss.billsys.vo;
  * Mar 24 2011
  *
  */
-import java.lang.reflect.Field;
 import java.text.*;
 import java.util.*;
 
-public class Account {
+public class Account extends VirtualObject{
 	
 	private String acctNo;
 	private int balance;
@@ -79,25 +78,6 @@ public class Account {
 
 	public String showAccount(){
 		return this.toString();
-	}
-	
-	/**
-	 * To print out all the declared fields
-	 * @author Xu Guoneng
-	 */
-	public String toString(){
-		String  details = this.getClass().getSimpleName() + "(";
-		for (Field f : this.getClass().getDeclaredFields()){
-			f.setAccessible(true);
-			try {
-				 details += "[" + f.getName() + "=" + f.get(this) + "]";
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		details += ")";
-		return details;
 	}
 	
 }
