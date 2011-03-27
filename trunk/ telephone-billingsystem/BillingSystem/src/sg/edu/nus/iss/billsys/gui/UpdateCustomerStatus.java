@@ -39,7 +39,9 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	private JLabel custNricLabel;
 	private JLabel updateCustStatusLabel;
 	private ButtonGroup bgroup;
-
+	private Customer cust;
+	
+	private String strCustomerID;
 	private BillingWindow  window;
 	private static final long serialVersionUID = 1L;
 	
@@ -185,28 +187,38 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	}
 	
 	private void submitButtonActionPerformed(ActionEvent evt) {
-		Customer cust= new Customer();
+		 cust= new Customer();
 		controlsToObject(cust);
 		AccountMgr accountMgr= new AccountMgr();
 //		cust = accountMgr.update(cust);
-//		
-//		if (cust.getAcct().equals(null) ){
-//			JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
-//		}
+		Boolean bReturn=accountMgr.deleteCustomer(strCustomerID);
+		
+		if (bReturn ){
+			JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
+		}
 			
 	}
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
-		 BillingSystem.updateContentPane(new SearchCustomer()); 
+		
+		SearchCustomer SearchCust = new SearchCustomer(window);
+		JPanel contentPanepanel = new JPanel(new BorderLayout());
+		contentPanepanel.revalidate();
+		contentPanepanel = SearchCust;
+		window.setContentPane(contentPanepanel);
+        
+        
+        
+	//	 BillingSystem.updateContentPane(new SearchCustomer()); 
 	}
 
 	private void controlsToObject(Customer cust){
 	
 		if (rdActivitation.isSelected()) {
-			cust.setIsDeleted("false");
+			cust.setIsDeleted(false);
 		}
 		if (rdDeactivitation.isSelected()) {
-			cust.setIsDeleted( "true");
+			cust.setIsDeleted(true);
 		}
 	
 	}
