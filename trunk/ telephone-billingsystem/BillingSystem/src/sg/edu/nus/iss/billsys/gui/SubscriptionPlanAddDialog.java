@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -72,7 +73,8 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
 		untilField = new JTextField (20);
 		p.add (untilField);
-		  
+		
+		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		return p;
 	}
 

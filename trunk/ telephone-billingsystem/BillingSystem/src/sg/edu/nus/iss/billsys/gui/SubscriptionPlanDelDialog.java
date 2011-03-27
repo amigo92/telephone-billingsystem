@@ -22,6 +22,8 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
+import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
@@ -36,17 +38,19 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
     private Date dateTerminated;
     private SubscriptionDeRegistrationPanel parent;
     private JLabel titleLabel;
-    
-    
-	   
-	public SubscriptionPlanDelDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription,  FeatureType featureType) {
+   
+	public SubscriptionPlanDelDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription,  Feature feature) {
 		super(window,  "De-Register");
 		manager = window.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;
 		this.planId = subscription.getPlanId();
-		this.featureType = featureType;
+		if( feature != null)
+			this.featureType = feature.getFeatureType();
+		
+		untilField.setText(BillingUtil.getCurrentDateStr());
+
 		
 		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
@@ -79,18 +83,15 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 
 		try
 		{
-//			if(featureType == null)
-//				manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
-//			else
-//				manager.deregisterFeature(accountNo, planId, featureType, dateTerminated);
-			
-			//parent.refresh();
-			window.refreshSubscriptionDeRegistrationPanel();
+			if(featureType == null)
+				manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
+			else
+				manager.deregisterFeature(accountNo, planId, featureType, dateTerminated);
+		
 			return true;
 			
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"",0);	
-			//parent.refresh();
 			return false;
 		}
 		
