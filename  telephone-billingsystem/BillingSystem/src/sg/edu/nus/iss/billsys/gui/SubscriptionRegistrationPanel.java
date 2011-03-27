@@ -205,7 +205,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 							sp.add(new JLabel(strDateInfo));
 						}			
 					}
-					
+
 					scrollPane.getViewport().add( sp );
 					
 					//p.add(scrollPane);

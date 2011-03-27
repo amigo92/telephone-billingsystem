@@ -97,6 +97,8 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		untilField = new JTextField (20);
 		p.add (untilField);
 		
+		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		
 		return p;
 	}
 	protected JPanel createFeaturePanel() {
