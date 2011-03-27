@@ -20,8 +20,17 @@ public class BillingSystem  {
 	}
 	public void start() {
 		
-		login();
-		//startBillingWindow();
+		//login();
+		startBillingWindow();
+	}
+	
+	
+	public void startBillingWindow() {
+
+		BillingWindow billingWindow = new BillingWindow ();
+		billingWindow.pack ();
+		billingWindow.setSize(600, 600);
+		billingWindow.setVisible (true);	
 	}
     public void login() {
     	loginForm = new LoginForm();
