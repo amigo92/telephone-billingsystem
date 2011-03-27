@@ -78,6 +78,11 @@ public class BillDao {
 		aBillStore.getMap().put(billPeriod, bills);
 	}
 	
+	public void purge(){
+		aBillStore = new BillStore();
+		save();
+	}
+	
 	public static void save(){
 		FileOutputStream fos = null;
 		try{
@@ -125,6 +130,7 @@ public class BillDao {
 		HashMap<BillPeriod, ArrayList<Bill>> getMap(){
 			return map;
 		}
+
 	}
 
 }
