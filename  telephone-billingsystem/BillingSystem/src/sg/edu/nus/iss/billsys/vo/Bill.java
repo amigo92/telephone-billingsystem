@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.*;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 
@@ -178,7 +179,7 @@ public class Bill implements Serializable{
 	}
 
 
-	public class SummaryCharges implements Serializable{
+	public class SummaryCharges extends VirtualObject implements Serializable{
 
 		private static final long serialVersionUID = 7027261213227363033L;
 		
@@ -219,7 +220,7 @@ public class Bill implements Serializable{
 		}
 	}
 	
-	public class DetailCharges implements Serializable{
+	public class DetailCharges extends VirtualObject implements Serializable{
 
 		private static final long serialVersionUID = -247095117835378059L;
 		
@@ -261,7 +262,7 @@ public class Bill implements Serializable{
 		
 	}
 	
-	public class Entry implements Serializable{
+	public class Entry extends VirtualObject implements Serializable{
 
 		private static final long serialVersionUID = 6300446223978632204L;
 		
@@ -280,5 +281,20 @@ public class Bill implements Serializable{
 		public Integer getAmt() {
 			return amt;
 		}
+	}
+	
+	public String printRawData(){	
+		String  details = Bill.class.getSimpleName() + "(";
+		for (Field f : Bill.class.getDeclaredFields()){
+			f.setAccessible(true);
+			try {
+				 details += "\n[" + f.getName() + "=" + f.get(this) + "]";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		details += "\n)\n\n====================================================================\n\n\n";
+		return details;
 	}
 }
