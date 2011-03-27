@@ -41,7 +41,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	   
 	public SubscriptionPlanAddDialog(BillingWindow window, PlanType planType, String accountNo) {
 		super(window,  "Register new Subscription Plan :"  + planType.name);
-		manager = MgrFactory.getSubscriptionMgr();
+		manager = window.getSubscriptionMgr();
 		
 		this.window = window;
 		this.accountNo = accountNo;
