@@ -58,7 +58,9 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 	}
 	
 	public String getDueDate(){
-		return TimeUtils.formatDate(TimeUtils.addDays(getEndTime(), 15));
+		Calendar cal = (Calendar)endCal.clone();
+		cal.add(Calendar.DATE, 15);
+		return TimeUtils.formatDate(cal.getTime());
 	}
 	
 	public String getBillDate(){
