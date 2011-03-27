@@ -279,7 +279,7 @@ public class TextBill extends Bill {
 		balanceInfoL.add(new TextItem(SPACE));
 		balanceInfoR.add(new TextItem(SPACE));
 
-		s = FinanceUtils.formatCentToDollar(getTotalCurrCharges());
+		s = FinanceUtils.formatCentToDollar(getCurrChargesDue());
 		balanceInfoL.add(new TextItem("Please pay",DOT));
 		item = new TextItem(SPACE);
 		item.text.append(DOT);
