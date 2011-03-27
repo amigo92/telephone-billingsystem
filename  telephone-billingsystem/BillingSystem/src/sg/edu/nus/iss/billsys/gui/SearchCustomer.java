@@ -49,6 +49,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private QueryTableModel qtm;
 	private BillingWindow  window;
 	private static final long serialVersionUID = 1L;
+	private ArrayList< String[]> newlist = new ArrayList<String[]>();
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -185,14 +186,18 @@ public class SearchCustomer extends javax.swing.JPanel {
 				bNRIC= true;
 			}
 			
-			if (bNRIC){
+			newlist.add(new String[] { "Customer Name", "Customer NRIC"});
+			
+			if (!bNRIC){
 				//customer= accountMgr.getCustomerDetailsByName(SearchTextBox.getText() );
 			}
 			else {
 				cust= accountMgr.getCustomerDetailsById(SearchTextBox.getText() );
-			}
-			
-			this.bindToTable();
+				newlist.add(new String[] { cust.getName(), cust.getNric() });
+			}				
+		
+			qtm.updateTable(newlist);
+			clearErrorMsgData();
 		}
 		
 		
@@ -200,20 +205,20 @@ public class SearchCustomer extends javax.swing.JPanel {
 	
 	private void bindToTable(){
 
-		ArrayList< String[]> newlist = new ArrayList<String[]>();
-		newlist.add(new String[] { "Head1", "Head2", "Head3" });
-		newlist.add(new String[] { "a", "b", "c" });
-		newlist.add(new String[] { "a", "ab", "ac" });
+//		ArrayList< String[]> newlist = new ArrayList<String[]>();
+//		newlist.add(new String[] { "Customer Name", "Customer NRIC"});
+//		newlist.add(new String[] { "a", "b", "c" });
+//		newlist.add(new String[] { "a", "ab", "ac" });
 		
 		//table.setModel(qtm);
-		qtm.updateTable(newlist);
+	//	qtm.updateTable(newlist);
 	}
 	
 	private boolean validateControls(){
-		boolean bReturn= false;
+		boolean bReturn= true;
 		if (StringUtil.isNullOrEmpty(this.SearchTextBox.getText())){			
 			errorMsgSearchLabel.setVisible(true);
-			bReturn= true;
+			bReturn= false;
 		}	
 		return bReturn;
 	}
@@ -225,9 +230,13 @@ public class SearchCustomer extends javax.swing.JPanel {
 	         int row = target.getSelectedRow();
 	         //int column = target.getSelectedColumn(); 
 	         String strCustomerID=target.getModel().getValueAt(row, 0).toString();
-	        System.out.println(target.getModel().getValueAt(row, 0));
 	      //  BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerID) ); 
 	}
-
+		
 }
+	
+	private void clearErrorMsgData(){
+		errorMsgSearchLabel.setVisible(false);
+
+	}
 }
