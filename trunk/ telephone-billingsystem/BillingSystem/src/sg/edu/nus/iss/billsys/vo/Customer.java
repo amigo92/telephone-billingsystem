@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.vo;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,8 +9,10 @@ import java.util.*;
  * Mar 24 2011
  *
  */
-public class Customer implements Cloneable {
+public class Customer implements Cloneable, Serializable {
 
+	private static final long serialVersionUID = 6206122414964453622L;
+	
 	private String name;
 	private String address1;
 	private String address2;
@@ -18,7 +21,7 @@ public class Customer implements Cloneable {
 	private String interest;
 	private boolean isDeleted;
 	private String nric;
-	private Account acct;
+	private transient Account acct;
 	
 	public Customer(){
 		super();
