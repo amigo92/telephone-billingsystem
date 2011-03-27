@@ -58,7 +58,7 @@ public class BillDao {
 	
 	public boolean isBillReady(BillPeriod billPeriod){
 		BillPeriod currBp = aBillStore.getCurrBillPeriod();
-		return billPeriod.getSatrtTime().before(currBp.getSatrtTime());
+		return billPeriod.getStartTime().before(currBp.getStartTime());
 	}
 	
 	public void setCurrBillPeriod(BillPeriod currBillPeriod){

@@ -33,7 +33,7 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 		endCal.add(Calendar.SECOND, -1);
 	}
 	
-	public Date getSatrtTime(){
+	public Date getStartTime(){
 		return startCal.getTime();
 	}
 	
@@ -42,14 +42,14 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 	}
 	
 	public boolean isInRange(Date date){
-		return (!date.before(getSatrtTime())) && (!date.after(getEndTime()));
+		return (!date.before(getStartTime())) && (!date.after(getEndTime()));
 	}
 	
 	public boolean isOverlapped(Date sDate, Date eDate){
 		if(isInRange(sDate) || isInRange(eDate)){
 			return true;
 		}
-		else if(sDate.before(getSatrtTime()) && eDate.after(getEndTime())){
+		else if(sDate.before(getStartTime()) && eDate.after(getEndTime())){
 			return true;
 		}
 		else{
@@ -85,7 +85,7 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 	public boolean equals(Object obj){
 		if(obj instanceof BillPeriod){
 			BillPeriod bp = (BillPeriod)obj;
-			return this.getSatrtTime().equals(bp.getSatrtTime());
+			return this.getStartTime().equals(bp.getStartTime());
 		}
 		
 		return false;
@@ -100,27 +100,27 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 
 	@Override
 	public int compareTo(BillPeriod bp) {
-		return getSatrtTime().compareTo(bp.getSatrtTime());
+		return getStartTime().compareTo(bp.getStartTime());
 	}
 	
 //	public static void main(String[] args){
 //		BillPeriod p = new BillPeriod(2011, 3);
-//		System.out.println(p.getSatrtTime());
+//		System.out.println(p.getStartTime());
 //		System.out.println(p.getEndTime());
 //		System.out.println(p.getBillDate());
 	
 //	System.out.println(new BillPeriod(2011, 12).getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getStartTime());
 //	System.out.println(new BillPeriod(2011, 12).getEndTime());
 //	System.out.println("..............");
 //	
 //	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getStartTime());
 //	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getEndTime());
 //	System.out.println("..............");
 //	
 //	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getStartTime());
 //	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getEndTime());
 //	}
 }
