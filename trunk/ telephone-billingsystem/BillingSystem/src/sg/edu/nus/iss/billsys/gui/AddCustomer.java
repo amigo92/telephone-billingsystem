@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
@@ -181,7 +182,12 @@ public class AddCustomer extends JPanel {
 					SubmitButton.setBounds(292, 404, 96, 23);
 					SubmitButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							SubmitButtonActionPerformed(evt);
+							try {
+								SubmitButtonActionPerformed(evt);
+							} catch (BillingSystemException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					});
 				}
@@ -203,12 +209,12 @@ public class AddCustomer extends JPanel {
 		}
 	}
 	
-	private void SubmitButtonActionPerformed(ActionEvent evt) {
+	private void SubmitButtonActionPerformed(ActionEvent evt) throws BillingSystemException {
 		if (validateControls()) {
 			Customer cust= new Customer();
-			controlsToObject(cust);
+			//controlsToObject(cust);
 			AccountMgr accountMgr= new AccountMgr();
-			cust = accountMgr.create(cust);
+			cust = accountMgr.createCustomer(CustNameText.getText(), nricText.getText(), contactTelText.getText(), address1Text.getText(), address2Text.getText(), address3Text.getText(), InterestText.getText());					
 			
 			if (cust.getAcct().equals(null) ){
 				JOptionPane.showMessageDialog(null,"Customer Information is saving successfully." , "Billing System", 1);
@@ -221,16 +227,16 @@ public class AddCustomer extends JPanel {
 		
 	}
 	
-	private void controlsToObject(Customer cust){
-		cust.setName(CustNameText.getText());
-		cust.setNric(nricText.getText());
-		cust.setContact_tel(contactTelText.getText());
-		cust.setAddress1(address1Text.getText());
-		cust.setAddress2(address2Text.getText());
-		cust.setAddress3(address3Text.getText());
-		cust.setInterest(InterestText.getText());
-		
-	}
+//	private void controlsToObject(Customer cust){
+//		cust.setName(CustNameText.getText());
+//		cust.setNric(nricText.getText());
+//		cust.setContactTel(contactTelText.getText());
+//		cust.setAddress1(address1Text.getText());
+//		cust.setAddress2(address2Text.getText());
+//		cust.setAddress3(address3Text.getText());
+//		cust.setInterest(InterestText.getText());
+//		
+//	}
 	
 	private boolean validateControls(){
 		boolean bReturn= false;
