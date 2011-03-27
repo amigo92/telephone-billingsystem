@@ -55,6 +55,8 @@ public class BillingReportView extends JPanel {
 
 		    reportPanel = createReportPanel();
 		    add ("Center", reportPanel);
+		    
+		    customerID.setText("S8481361F");
         
     	}
         catch(Exception e){
@@ -83,8 +85,7 @@ public class BillingReportView extends JPanel {
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
-	    	    //accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText());
-        		//accountNo = "acc_no1";
+	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAccountId();
         		reportPanel.revalidate();
         		reportPanel = createReportPanel();
         		add ("Center", reportPanel);
@@ -96,13 +97,6 @@ public class BillingReportView extends JPanel {
     	}
         });
         
-//        FlowLayout flowLayout = new FlowLayout();
-//        flowLayout.setAlignment(FlowLayout.LEFT);
-//        JPanel btp = new JPanel(flowLayout);
-//        b.setSize(25, 25);
-//        btp.add(b);
-//        p.add (btp);
-        
         p.add(b);
 
         JPanel bp = new JPanel ();
@@ -113,15 +107,12 @@ public class BillingReportView extends JPanel {
     private JPanel createReportPanel () {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 1));
-		   
-		if(accountNo != null){
-		  }
 		
+
+   	
 		BillPeriod billPeriod = new BillPeriod(selectedMonth,selectedYear);
 		
-		//manager.
-		//manager.getAllGeneratedBillPeriods();
-		
+	
 		
 		//Bill bill =	manager.getBill(billPeriod, "SA-2011-03-25-8481361");
 	

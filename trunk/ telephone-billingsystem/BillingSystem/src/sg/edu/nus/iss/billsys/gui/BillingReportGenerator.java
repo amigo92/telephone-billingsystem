@@ -6,10 +6,12 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.*;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.mgr.BillMgr;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiConfirmDialog;
 import sg.edu.nus.iss.billsys.vo.Account;
+import sg.edu.nus.iss.billsys.vo.BillPeriod;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
@@ -29,7 +31,7 @@ public class BillingReportGenerator extends JPanel {
 	private BillingWindow        window;
 	private JTextField           customerID;
 	private List<PlanType>       listOfPlanType;
-	private SubscriptionMgr      manager;
+	private BillMgr manager;
 	private String[] planNames;
 	private PlanType planType;
 	private String accountNo;
@@ -39,6 +41,7 @@ public class BillingReportGenerator extends JPanel {
     	try
     	{
 			this.window = window;
+		    manager = MgrFactory.getBillMgr();
 		    setLayout (new BorderLayout());
 		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		    
@@ -70,8 +73,6 @@ public class BillingReportGenerator extends JPanel {
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
-	    	   // accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-        		accountNo = "acc_no1";
         	
         	}
 	    	catch(Exception ex)
@@ -82,6 +83,20 @@ public class BillingReportGenerator extends JPanel {
         });
         
         p.add (b);
+        
+        
+		p.add(new JLabel("Generated Bill Period:"));
+		p.add(new JLabel(""));
+		p.add(new JLabel(""));
+		
+		BillPeriod[] billPeriods = manager.getAllGeneratedBillPeriods();
+
+		for(BillPeriod bill:billPeriods ){
+			p.add(new JLabel(bill.getBillDate()));
+			p.add(new JLabel(""));
+			p.add(new JLabel(""));
+		}
+       
        
        
         JPanel bp = new JPanel ();
