@@ -42,9 +42,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private List<SubscriptionPlan> subscribedPlans;
 	private HashMap<String,ArrayList<JComboBox>> featureBoxList;
 	
-	private JComboBox planBox;
-
-	
     public SubscriptionRegistrationPanel (BillingWindow window) {
     	try
     	{
@@ -52,9 +49,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		    manager = MgrFactory.getSubscriptionMgr();
 		    setLayout (new BorderLayout());
 		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		    
-		    planBox= new JComboBox();
-		    
+		    		    
 		    add ("North", createFormPanel());      
 
 		    featurePanel = new JPanel();
@@ -119,7 +114,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
                 d.setVisible (true);
              }
          });
-         
          p.add(b);
 
         JPanel bp = new JPanel ();
@@ -155,6 +149,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
     
     
     private JPanel registerFeaturePanel () {
+    	
+		JScrollPane scrollPane = new JScrollPane();
+
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		
@@ -187,26 +184,31 @@ public class SubscriptionRegistrationPanel extends JPanel {
 					p.add(createRegisteredSubComboBox(subscribedPlans));
 					p.add(b);
 
+					JPanel sp = new JPanel (new GridLayout (0, 2));
 					
-					p.add ( new JLabel ("Existing Subscription:"));
-					p.add(new JLabel(""));
+					sp.add ( new JLabel ("Existing Subscription:"));
+					sp.add(new JLabel(""));
 					
 					for(SubscriptionPlan plan: subscribedPlans){
 						String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
 											+ "  -  " + BillingUtil.getDateTimeStr(plan.getDateTerminated());
 			
-						p.add ( new JLabel (plan.getPlanDescription()));						
-						p.add(new JLabel(strDateInfo));
+						sp.add ( new JLabel (plan.getPlanDescription()));						
+						sp.add(new JLabel(strDateInfo));
 						
 						List<Feature> features = plan.getOptionalFeatures();	
 						for(Feature feature: features){
 							strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
 							+ "  -  " + BillingUtil.getDateTimeStr(feature.getDateTerminated());
 
-							p.add ( new JLabel ("        " + feature.getName()));
-							p.add(new JLabel(strDateInfo));
+							sp.add ( new JLabel ("        " + feature.getName()));
+							sp.add(new JLabel(strDateInfo));
 						}			
 					}
+					
+					scrollPane.getViewport().add( sp );
+					
+					//p.add(scrollPane);
 
 				}
 			}catch(Exception ex) {			
@@ -218,15 +220,16 @@ public class SubscriptionRegistrationPanel extends JPanel {
  
         if(accountNo != null){
         	bp.add ("North", p);
-        }
+        	bp.add ("Center", scrollPane);
+         }
      
         return bp;
     }
 
    
     private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {
-    	if (planBox ==null)
-    		planBox = new JComboBox();		
+    	JComboBox	planBox = new JComboBox();	
+    	
 	    String[] planDescs = new String[subscribedPlans.size()];
 	    for (int i = 0 ; i <subscribedPlans.size(); i ++ ) {
 	    	planDescs[i] = subscribedPlans.get(i).getPlanDescription();

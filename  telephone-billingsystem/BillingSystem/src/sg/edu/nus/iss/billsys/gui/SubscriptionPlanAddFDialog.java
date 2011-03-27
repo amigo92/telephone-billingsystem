@@ -62,12 +62,23 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		this.planId = subscription.getPlanId();
 		this.subscription = subscription;
 		
-		add ("Center", createFormPanel());
-        add ("South",  createButtonPanel());
+		unregisteredFeatures = getUnRegisterFeature( );
 
-        
-        fromField.setText(BillingUtil.getCurrentDateStr());
-		untilField.setText(BillingUtil.getNextYearStr());
+		if(unregisteredFeatures == null || unregisteredFeatures.size() == 0){
+			JPanel p = new JPanel ();
+			p.setLayout (new GridLayout (0, 2));
+			p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+			p.add (new JLabel("All featuers has been registered!"));
+
+			add ("Center", p);
+		}
+		else {
+			add ("Center", createFormPanel());
+			fromField.setText(BillingUtil.getCurrentDateStr());
+			untilField.setText(BillingUtil.getNextYearStr());
+		}
+        add ("South",  createButtonPanel()); 
 	}
 
 	protected JPanel createFormPanel() {
@@ -85,16 +96,13 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
 		untilField = new JTextField (20);
 		p.add (untilField);
-      	
-		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		  
+		
 		return p;
 	}
 	protected JPanel createFeaturePanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 1));
-    	List<Feature> features = subscription.getOptionalFeatures();	
-		unregisteredFeatures = getUnRegisterFeature(features, manager.getPlanOptionalFeatures(subscription.getPlanType()));
+    	
 		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0 ){
 			p.add(createFeatureComboBox(unregisteredFeatures));		
 		}		
@@ -102,7 +110,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 	}
 	
 	 private JComboBox createFeatureComboBox (List<FeatureType> features) {  	
-	    	JComboBox featureBox = new JComboBox();		
+	    	    JComboBox featureBox = new JComboBox();		
 	    	
 		    	if(features != null){
 			    String[] featuresNames = new String[features.size()];
@@ -125,40 +133,47 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 	    }
 
 	protected boolean performOkAction() {
+		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0)
+		{
+			Date fromDate;
+			try {
+				fromDate = BillingUtil.getDateTime(fromField.getText());
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
+				 return false;
+			}
+			Date utilDate;
+			try {
+				utilDate = BillingUtil.getDateTime(untilField.getText());
+			} catch (ParseException e1) {
+				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
+				 return false;
+			}
 		
-		Date fromDate;
-		try {
-			fromDate = BillingUtil.getDateTime(fromField.getText());
-		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
-			 return false;
-		}
-		Date utilDate;
-		try {
-			utilDate = BillingUtil.getDateTime(untilField.getText());
-		} catch (ParseException e1) {
-			JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
-			 return false;
-		}
-	
-		try {
-			manager.registerNewFeature(accountNo, planId, selectedFeatureType, fromDate, utilDate);
-		} catch (BillingSystemException e) {
-			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);
-			return false;
+			try {
+				manager.registerNewFeature(accountNo, planId, selectedFeatureType, fromDate, utilDate);
+				//window.refreshSubscriptionRegistrationPanel();
+			} catch (BillingSystemException e) {
+				JOptionPane.showMessageDialog(window, e.getMessage(),"",0);
+				return false;
+			}
 		}
 
 		return true;
+		
 	}
 	
-    private List<FeatureType> getUnRegisterFeature (List<Feature> regFeatures, List<FeatureType> allFeatureTypes) {
+    private List<FeatureType> getUnRegisterFeature () {
+    	List<FeatureType> allFeatureTypes = manager.getPlanOptionalFeatures(subscription.getPlanType());
+    	List<Feature> regFeatures = subscription.getOptionalFeatures();
+
     	List<FeatureType> unRegisteredFestures = (List<FeatureType>) allFeatureTypes;
     	
     	if(regFeatures == null || regFeatures.size() == 0 ){
     		return allFeatureTypes;
     	}else{
 	    	 for(Feature e: regFeatures){
-	    		 unRegisteredFestures.remove(e);
+	    		 unRegisteredFestures.remove(e.getFeatureType());
     		 }
 	    	return unRegisteredFestures;
     	}
