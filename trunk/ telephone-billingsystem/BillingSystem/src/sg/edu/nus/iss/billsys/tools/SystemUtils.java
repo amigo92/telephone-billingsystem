@@ -13,6 +13,7 @@ public class SystemUtils {
 		CompanyProfile profile = new CompanyProfile();
 		
 		//TODO
+		profile.setAlias("One#");
 		profile.setCompanyName("One# Pte Ltd");
 		profile.setStreet("41 Uni Lane");
 		profile.setUnit("#02-003");
