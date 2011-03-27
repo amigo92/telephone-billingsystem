@@ -26,7 +26,9 @@ public class BillMgr {
 	public BillPeriod[] getAllGeneratedBillPeriods(){
 		Set<BillPeriod> set = aBillDao.getAllGeneratedBillPeriods();
 		BillPeriod[] bps = new BillPeriod[set.size()];
-		return set.toArray(bps);
+		BillPeriod[] arr = set.toArray(bps);
+		Arrays.sort(arr);
+		return arr;
 	}
 	
 	/**
@@ -49,6 +51,14 @@ public class BillMgr {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Empty the BillStore
+	 * @client GUI
+	 */
+	public void purge(){
+		aBillDao.purge();
 	}
 	
 	/**
@@ -81,7 +91,7 @@ public class BillMgr {
 		Account acct = customer.getAcct();
 		
 		Bill bill = new Bill();
-		bill.setPreviousBalance(acct.getBalance());
+		bill.setPreviousBalance(getPreviousBalance(billPeriod, acct.getAcctNo()));
 		bill.setBillDate(billPeriod.getBillDate());
 		bill.setDueDate(billPeriod.getDueDate());
 		bill.setaCustomer(customer);
@@ -109,10 +119,6 @@ public class BillMgr {
 		bill.setTotalGST(FinanceUtils.calGST(chargesBefGST));
 		bill.setTotalCurrCharges(chargesBefGST + bill.getTotalGST());
 		bill.setCurrChargesDue(bill.getPreviousBalance() - bill.getTotalPaymentMade() + bill.getTotalCurrCharges());
-		
-		acct.setBalance(bill.getCurrChargesDue());
-		acct.setBalanceUpdateDate(billPeriod.getEndTime());
-		MgrFactory.getAccountMgr().update(acct);
 		
 		return bill;
 	}
@@ -236,6 +242,11 @@ public class BillMgr {
 		}
 		
 		return callTxnTypes;
+	}
+	
+	private int getPreviousBalance(BillPeriod currBillPeriod, String acctNo){
+		Bill bill = getBill(currBillPeriod.getPrevBillPeriod(), acctNo);
+		return bill != null ? bill.getCurrChargesDue() : 0;
 	}
 
 }
