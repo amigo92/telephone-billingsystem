@@ -89,7 +89,7 @@ public class BillMgr {
 	private Bill generate(BillPeriod billPeriod, Customer customer) throws BillingSystemException{;
 		Account acct = customer.getAcct();
 		
-		Bill bill = new Bill();
+		Bill bill = new TextBill();
 		bill.setPreviousBalance(getPreviousBalance(billPeriod, acct.getAcctNo()));
 		bill.setBillDate(billPeriod.getBillDate());
 		bill.setDueDate(billPeriod.getDueDate());
