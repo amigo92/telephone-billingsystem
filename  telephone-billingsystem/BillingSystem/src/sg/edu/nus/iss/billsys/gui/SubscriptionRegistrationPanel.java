@@ -98,52 +98,67 @@ public class SubscriptionRegistrationPanel extends JPanel {
     private JPanel registerFeaturePanel () {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
+		
+		p.add(new JLabel ("Existing Subscripiton Information:"));
+		p.add(new JLabel(""));
 		   
+		accountNo = "SA-2011-03-25-8481364";
 		if(accountNo != null){
-			p.add (new JLabel ("test1"));
-			JTextField  surnameField = new JTextField (20);
-			p.add (surnameField);
-			p.add (new JLabel ("test2"));
-			JTextField firstField = new JTextField (20);
-			p.add (firstField);
-			p.add (new JLabel ("test3"));
-			JTextField  secondField = new JTextField (20);
-			p.add (secondField);	 
-			
-			/*
-			List<SubscriptionPlan> subscribedPlans = manager.getAccountSubscriptions(accountNo);	
-			for(SubscriptionPlan plan: subscribedPlans){
 
-				p.add ( new JLabel (plan.getPlanDescription()));
-				List<Feature> unregisteredFeatures = manager.getUnregisteredFeatures(accountNo, "PlanId");
-				List<Feature> features = plan.getOptionalFeatures();	
-				for(Feature feature: features){
-					
-					p.add ( new JLabel (feature.getName()));
-				}	
+			try{
+				List<SubscriptionPlan> subscribedPlans = manager.getAccountSubscriptions(accountNo);	
 				
-				if(unregisteredFeatures != null && unregisteredFeatures.size() > 0 ){
-	   				
-					p.add(createFeatureComboBox("",unregisteredFeatures));
+				if(subscribedPlans !=null)
+				{
 					
-					JButton b = new JButton ("Register new feature: ");
-	   				
-	   			    b.addActionListener (new ActionListener () {
-	    			     public void actionPerformed (ActionEvent e) {
-	    			    	 
-	    			     }
-				    });
+					for(SubscriptionPlan plan: subscribedPlans){
+			
+						p.add ( new JLabel (plan.getPlanDescription()));
+						p.add(new JLabel(""));
+
+						List<Feature> unregisteredFeatures = manager.getDeregisteredFeatures(accountNo, "PlanId");
+						List<Feature> features = plan.getOptionalFeatures();	
+						for(Feature feature: features){
+							
+							p.add ( new JLabel (feature.getName()));
+							p.add(new JLabel(""));
+
+						}	
+						
+						if(unregisteredFeatures != null && unregisteredFeatures.size() > 0 ){
+			   				
+							p.add(createFeatureComboBox(plan.getPlanId(),unregisteredFeatures));
+							
+							JButton b = new JButton ("Register new feature: ");
+			   				
+			   			    b.addActionListener (new ActionListener () {
+			    			     public void actionPerformed (ActionEvent e) {
+			    			    	 
+			    			     }
+						    });
+			   			    p.add(b);
+						}
+					}
 				}
-			}		
-	 */ 
+			}catch(Exception ex) {
+				
+	    		JOptionPane.showMessageDialog(window, ex.getMessage());
+
+			}
+	 
 		}
-    
+		
     	JPanel bp = new JPanel ();
-        bp.setLayout (new FlowLayout());
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setAlignment(FlowLayout.LEFT);
+        bp.setLayout (flowLayout);
+    
+
         
         if(accountNo != null){
-        	bp.add ("North", new JLabel ("Existing Subscripiton Information:"));
-        	bp.add ("Center", p);
+        	//bp.add ("North", new JLabel ("Existing Subscripiton Information:"));
+        	//bp.add ("Center", p);
+        	bp.add(p);
         }
      
         return bp;
