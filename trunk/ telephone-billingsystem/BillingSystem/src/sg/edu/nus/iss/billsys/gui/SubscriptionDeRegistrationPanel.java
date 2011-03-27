@@ -48,10 +48,9 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	    add ("North", createFormPanel());      
 
 	    deRegisterPanel = deRegisterPanel();
+	    
 	    add ("South", deRegisterPanel);
-	    
-
-	    
+	      
 	    customerID.setText("S8481361F");
     }
     private JPanel createFormPanel () {
@@ -73,7 +72,7 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     	}
         });
         p.add (b);
-
+  
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
         bp.add ("North", new JLabel ("Customer ID:   "));
@@ -83,6 +82,7 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     }
     
     private JPanel deRegisterPanel () {
+    	
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		
@@ -130,16 +130,20 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"" ,0);
 		}
-    
+		
+
+		
     	JPanel bp = new JPanel ();
         FlowLayout flowLayout = new FlowLayout();
         new FlowLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
         bp.setLayout( flowLayout);
 
+        JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().add( p );
 
         if(accountNo != null){
-        	bp.add (p);
+        	bp.add (scrollPane);
         }
         return bp;
     }
