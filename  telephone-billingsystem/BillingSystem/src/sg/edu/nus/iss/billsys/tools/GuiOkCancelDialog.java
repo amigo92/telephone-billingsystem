@@ -10,6 +10,7 @@ public abstract class GuiOkCancelDialog extends JDialog {
 
     public GuiOkCancelDialog (JFrame parent, String title) {
         super (parent, title);
+        
         add ("Center", createFormPanel());
         add ("South",  createButtonPanel());
     }
