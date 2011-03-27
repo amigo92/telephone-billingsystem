@@ -10,12 +10,9 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
  * @author Xu Guoneng
  *
  */
-public class BillPeriod implements Serializable{
+public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 
 	private static final long serialVersionUID = -7707485868822025708L;
-	
-	private int year;
-	private int month;
 	
 	private Calendar startCal;
 	private Calendar endCal;
@@ -26,13 +23,12 @@ public class BillPeriod implements Serializable{
 	 * @param month e.g. Jan 1, Feb 2....Dec 12
 	 */
 	public BillPeriod(int year, int month){
-		this.year = year;
-		this.month = month - 1; //Calendar month starts with 0
-		
 		startCal = Calendar.getInstance();
-		startCal.set(year, this.month, 1, 0, 0, 0);
+		startCal.clear();
+		startCal.set(year, month - 1, 1, 0, 0, 0); //Calendar month starts with 0
 		
 		endCal = Calendar.getInstance();
+		endCal.clear();
 		endCal.set(year, month, 1, 0, 0, 0);
 		endCal.add(Calendar.SECOND, -1);
 	}
@@ -70,20 +66,24 @@ public class BillPeriod implements Serializable{
 	}
 	
 	public BillPeriod getNextBillPeriod(){
-		return new BillPeriod(year, month+2);
+		Calendar cal = (Calendar)endCal.clone();
+		cal.add(Calendar.MONTH, 1);
+		return new BillPeriod(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1);
 	}
 	
 	public BillPeriod getPrevBillPeriod(){
-		return new BillPeriod(year, month);
+		Calendar cal = (Calendar)startCal.clone();
+		cal.add(Calendar.MONTH, -1);
+		return new BillPeriod(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1);
 	}
-	
+
 	/**
 	 * @override
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof BillPeriod){
 			BillPeriod bp = (BillPeriod)obj;
-			return year == bp.year && month == bp.month;
+			return this.getSatrtTime().equals(bp.getSatrtTime());
 		}
 		
 		return false;
@@ -93,7 +93,12 @@ public class BillPeriod implements Serializable{
 	 * @override
 	 */
 	public int hashCode(){
-		return Integer.parseInt("" + month + year);
+		return startCal.hashCode();
+	}
+
+	@Override
+	public int compareTo(BillPeriod bp) {
+		return getSatrtTime().compareTo(bp.getSatrtTime());
 	}
 	
 //	public static void main(String[] args){
@@ -101,5 +106,19 @@ public class BillPeriod implements Serializable{
 //		System.out.println(p.getSatrtTime());
 //		System.out.println(p.getEndTime());
 //		System.out.println(p.getBillDate());
+	
+//	System.out.println(new BillPeriod(2011, 12).getBillDate());
+//	System.out.println(new BillPeriod(2011, 12).getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getEndTime());
+//	System.out.println("..............");
+//	
+//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getBillDate());
+//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getEndTime());
+//	System.out.println("..............");
+//	
+//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getBillDate());
+//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getSatrtTime());
+//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getEndTime());
 //	}
 }
