@@ -6,13 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import javax.swing.WindowConstants;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,7 +22,7 @@ import javax.swing.JTextField;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
-
+import sg.edu.nus.iss.billsys.tools.*;
 
 /**
 * @author Win Kyi Tin 
@@ -162,8 +159,8 @@ public class SearchCustomer extends javax.swing.JPanel {
 				{
 				qtm = new QueryTableModel();
 				JTable table = new JTable(qtm);				
-				//JScrollPane scrollpane = new JScrollPane(table);
-				pTable.add(table, BorderLayout.CENTER);
+				JScrollPane scrollpane = new JScrollPane(table);
+				pTable.add(scrollpane, BorderLayout.CENTER);
 				table.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						tableHeaderMouseClicked(evt);
@@ -232,42 +229,5 @@ public class SearchCustomer extends javax.swing.JPanel {
 	        BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerID) ); 
 	}
 
-}
-
-
-class QueryTableModel extends AbstractTableModel {
-	List<String[]> table; // will hold String[] objects . . .
-	int colCount;
-	String[] headers;
-	String currentURL;
-
-	public QueryTableModel() {
-		table = new ArrayList<String[]>();
-	}
-
-	public String getColumnName(int i) {
-		System.out.println(i);
-		return headers[i];
-	}
-
-	public int getColumnCount() {
-		return colCount;
-	}
-
-	public int getRowCount() {
-		return table.size();
-	}
-
-	public Object getValueAt(int row, int col) {
-		return ((String[]) table.get(row))[col];
-	}
-
-	public void updateTable(List<String[]> newlist) {
-		colCount = newlist.get(0).length;
-		headers = newlist.get(0);
-		newlist.remove(0);
-		table = newlist;
-		fireTableChanged(null); // notify everyone that we have a new table.
-	}
 }
 }
