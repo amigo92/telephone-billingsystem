@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
 
 /**
@@ -37,7 +38,11 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testComplaintMgr() {
-		manager = new ComplaintMgr();
+		try {
+			manager = new ComplaintMgr();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessagebyException());
+		}
 	}
 
 	/**
@@ -45,13 +50,23 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testCreateComplaintByAccount() {
-		manager = new ComplaintMgr();
-		acctNo = "SA-2011-03-25-8481364";
-		description = "Unable to see the tv channel that I have subscribed!";
-		complaintId = manager.createComplaintByAccount(acctNo, description);
-		
-		if(complaintId==0)
-			fail("Unable to create complaint by account");
+		try
+		{
+			manager = new ComplaintMgr();
+			acctNo = "SA-2011-03-25-8481364";
+			description = "Unable to see the tv channel that I have subscribed!";
+			complaintId = manager.createComplaintByAccount(acctNo, description);
+			
+			if(complaintId==0)
+				fail("Unable to create complaint by account");
+		}
+		catch (BillingSystemException e) 
+		{			
+			System.out.println(e.getMessagebyException());
+		}
+		catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 	/**
@@ -59,12 +74,19 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testCreateComplaintByCustomerId() {
-		manager = new ComplaintMgr();
-		nric = "S8481361F";
-		description = "I am being over-charged!!";
-		complaintId = manager.createComplaintByCustomerId(nric, description);
-		if(complaintId==0)
-			fail("Unable to create complaint by customer id");
+		try
+		{
+			manager = new ComplaintMgr();
+			nric = "S8481361F";
+			description = "I am being over-charged!!";
+			complaintId = manager.createComplaintByCustomerId(nric, description);
+			if(complaintId==0)
+				fail("Unable to create complaint by customer id");
+		}
+		catch (BillingSystemException e) 
+		{			
+			System.out.println(e.getMessagebyException());
+		}		
 	}
 
 	/**
@@ -72,23 +94,30 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testGetComplaintByAccount() {
-		manager = new ComplaintMgr();
-		acctNo = "SA-2011-03-25-8481364";
-		List<CustComplaint> complaints = manager.getComplaintByAccount(acctNo);
-		System.out.println("Get Complaints for account:" + acctNo);
-		System.out.println("############################################");
-		for(CustComplaint complaint : complaints)
+		try
 		{
-			System.out.println("Complaint Id: " + complaint.getComplaint_id());
-			System.out.println("Account No: " + complaint.getAccNo());
-			System.out.println("Complaint Date: " + complaint.getComplaintDate());
-			System.out.println("Complaint Details: " + complaint.getComplaint_Details());
-			System.out.println("Complaint Status: " + complaint.getStatus().toString());
+			manager = new ComplaintMgr();
+			acctNo = "SA-2011-03-25-8481364";
+			List<CustComplaint> complaints = manager.getComplaintByAccount(acctNo);
+			System.out.println("Get Complaints for account:" + acctNo);
 			System.out.println("############################################");
+			for(CustComplaint complaint : complaints)
+			{
+				System.out.println("Complaint Id: " + complaint.getComplaint_id());
+				System.out.println("Account No: " + complaint.getAccNo());
+				System.out.println("Complaint Date: " + complaint.getComplaintDate());
+				System.out.println("Complaint Details: " + complaint.getComplaint_Details());
+				System.out.println("Complaint Status: " + complaint.getStatus().toString());
+				System.out.println("############################################");
+			}
+			
+			if(complaints.isEmpty())
+				fail("Unable to get list of complaints by account number: " + acctNo);
 		}
-		
-		if(complaints.isEmpty())
-			fail("Unable to get list of complaints by account number: " + acctNo);
+		catch (BillingSystemException e) 
+		{			
+			System.out.println(e.getMessagebyException());
+		}		
 	}
 
 	/**
@@ -96,23 +125,30 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testGetComplaintByCustomerId() {
-		manager = new ComplaintMgr();
-		nric = "S8481362F";
-		List<CustComplaint> complaints = manager.getComplaintByCustomerId(nric);
-		System.out.println("Get Complaints for customer id:" + nric);
-		System.out.println("############################################");
-		for(CustComplaint complaint : complaints)
+		try
 		{
-			System.out.println("Complaint Id: " + complaint.getComplaint_id());
-			System.out.println("Account No: " + complaint.getAccNo());
-			System.out.println("Complaint Date: " + complaint.getComplaintDate());
-			System.out.println("Complaint Details: " + complaint.getComplaint_Details());
-			System.out.println("Complaint Status: " + complaint.getStatus().toString());
-			System.out.println("############################################");		
+			manager = new ComplaintMgr();
+			nric = "S8481362F";
+			List<CustComplaint> complaints = manager.getComplaintByCustomerId(nric);
+			System.out.println("Get Complaints for customer id:" + nric);
+			System.out.println("############################################");
+			for(CustComplaint complaint : complaints)
+			{
+				System.out.println("Complaint Id: " + complaint.getComplaint_id());
+				System.out.println("Account No: " + complaint.getAccNo());
+				System.out.println("Complaint Date: " + complaint.getComplaintDate());
+				System.out.println("Complaint Details: " + complaint.getComplaint_Details());
+				System.out.println("Complaint Status: " + complaint.getStatus().toString());
+				System.out.println("############################################");		
+			}
+			
+			if(complaints.isEmpty())
+				fail("Unable to get list of complaints by customer id:" + nric);
 		}
-		
-		if(complaints.isEmpty())
-			fail("Unable to get list of complaints by customer id:" + nric);
+		catch (BillingSystemException e) 
+		{			
+			System.out.println(e.getMessagebyException());
+		}		
 	}
 
 	/**
@@ -120,38 +156,53 @@ public class ComplaintMgrTest {
 	 */
 	@Test
 	public void testUpdateComplaint() {
-		manager = new ComplaintMgr();
 		
-		acctNo = "SA-2011-03-25-8481364";
-		List<CustComplaint> complaints;
-		CustComplaint complaint;
-		
-		// get the complaint to update
-		complaints = manager.getComplaintByAccount(acctNo);
-		complaint = complaints.get(0);
-				
-		System.out.println("Update Status to Pending");
-		System.out.println("**********************************************");
-		manager.updateComplaint(Long.parseLong(complaint.getComplaint_id()), ComplaintStatus.PENDING);
-		
-		complaints = manager.getComplaintByAccount(acctNo);
-		complaint = complaints.get(0);
-		System.out.println("Complaint Id: " + complaint.getComplaint_id());
-		System.out.println("Complaint Status: " + complaint.getStatus().toString());
-		if(complaint.getStatus() != ComplaintStatus.PENDING)
-			fail("Complaint Status not updated to Pending");
-		
-		System.out.println("**********************************************");
-		System.out.println("Update Status to Completed");
-		System.out.println("**********************************************");
-		manager.updateComplaint(Long.parseLong(complaint.getComplaint_id()), ComplaintStatus.COMPLETED);
-		
-		complaints = manager.getComplaintByAccount(acctNo);
-		complaint = complaints.get(0);
-		System.out.println("Complaint Id: " + complaint.getComplaint_id());
-		System.out.println("Complaint Status: " + complaint.getStatus().toString());
-		if(complaint.getStatus() != ComplaintStatus.COMPLETED)
-			fail("Complaint Status not updated to Completed");		
+		try 
+		{
+			manager = new ComplaintMgr();
+			
+			acctNo = "SA-2011-03-25-8481364";
+			List<CustComplaint> complaints;
+			CustComplaint complaint;
+			
+			// get the complaint to update
+			complaints = manager.getComplaintByAccount(acctNo);
+			complaint = complaints.get(0);
+					
+			System.out.println("Update Status to Pending");
+			System.out.println("**********************************************");
+			manager.updateComplaint(Long.parseLong(complaint.getComplaint_id()), ComplaintStatus.PENDING);
+			
+			complaints = manager.getComplaintByAccount(acctNo);
+			complaint = complaints.get(0);
+			System.out.println("Complaint Id: " + complaint.getComplaint_id());
+			System.out.println("Complaint Status: " + complaint.getStatus().toString());
+			if(complaint.getStatus() != ComplaintStatus.PENDING)
+				fail("Complaint Status not updated to Pending");
+			
+			System.out.println("**********************************************");
+			System.out.println("Update Status to Completed");
+			System.out.println("**********************************************");
+			
+				manager.updateComplaint(Long.parseLong(complaint.getComplaint_id()), ComplaintStatus.COMPLETED);
+			
+			
+			complaints = manager.getComplaintByAccount(acctNo);
+			complaint = complaints.get(0);
+			System.out.println("Complaint Id: " + complaint.getComplaint_id());
+			System.out.println("Complaint Status: " + complaint.getStatus().toString());
+			if(complaint.getStatus() != ComplaintStatus.COMPLETED)
+				fail("Complaint Status not updated to Completed");		
+			
+			
+		} 
+		catch (BillingSystemException e) 
+		{			
+			System.out.println(e.getMessagebyException());
+		}
+		catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
 
 }

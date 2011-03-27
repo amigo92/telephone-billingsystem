@@ -1,13 +1,10 @@
 package sg.edu.nus.iss.billsys.mgr;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.constant.*;
-import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
@@ -23,7 +20,7 @@ public class ComplaintMgr {
 	
 	private ComplaintsDao dao;
 	
-	public ComplaintMgr()
+	public ComplaintMgr() throws BillingSystemException
 	{
 		dao = new ComplaintsDao();
 	}
@@ -34,7 +31,7 @@ public class ComplaintMgr {
 	 * @param description
 	 * @return the newly created Complaint id
 	 */
-	public long createComplaintByAccount(String acctNo, String description)
+	public long createComplaintByAccount(String acctNo, String description)throws BillingSystemException
 	{
 		try
 		{
@@ -48,7 +45,12 @@ public class ComplaintMgr {
 			newComplaint.setStatus(ComplaintStatus.PENDING);
 			
 			//successful
-			return Long.parseLong(dao.addComplaint(newComplaint)); 
+			String complaintId = dao.addComplaint(newComplaint);
+			return Long.parseLong(complaintId); 
+		}
+		catch(BillingSystemException e)
+		{
+			throw e;
 		}
 		catch(Exception e)
 		{
@@ -58,7 +60,7 @@ public class ComplaintMgr {
 		}
 	}
 	
-	public long createComplaintByCustomerId(String custId, String description)
+	public long createComplaintByCustomerId(String custId, String description) throws BillingSystemException
 	{
 		String acctNo = getAcctNoByCustId(custId);
 		if(acctNo=="")
@@ -83,8 +85,9 @@ public class ComplaintMgr {
 	 * @param complaintId
 	 * @param status either "Pending" or "Completed"
 	 * @return 1 for success, 0 for fail
+	 * @throws BillingSystemException 
 	 */
-	public int updateComplaint(long complaintId, ComplaintStatus status)
+	public int updateComplaint(long complaintId, ComplaintStatus status) throws BillingSystemException
 	{
 		int success = 0;
 		//use system date to be the update Date	

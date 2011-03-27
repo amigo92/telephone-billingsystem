@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.billsys.mgr;
 
 import sg.edu.nus.iss.billsys.constant.*;
-import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
@@ -20,7 +19,7 @@ public class UserMgr {
 	/*
 	 * Default Constructor
 	 */
-	public UserMgr(){
+	public UserMgr() throws BillingSystemException{
 		dao = new UserDao();
 		currentUser = null;
 	}
@@ -52,7 +51,7 @@ public class UserMgr {
 	/**
 	 * Call after the user signs off
 	 */
-	public static void logout(){
+	public void logout(){
 		currentUser = null;
 	}
 	
