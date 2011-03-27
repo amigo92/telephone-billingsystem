@@ -96,7 +96,7 @@ public class AddCustomer extends JPanel {
 					errorMsgCustName.setOpaque(true);
 					errorMsgCustName.setForeground(new java.awt.Color(255, 0, 0));
 					errorMsgCustName.setVisible(false);
-					errorMsgCustName.setBounds(422, 8, 257, 16);
+					errorMsgCustName.setBounds(422, 8, 259, 16);
 				}
 				{
 					nricLabel = new JLabel();
@@ -214,9 +214,10 @@ public class AddCustomer extends JPanel {
 			Customer cust= new Customer();
 			//controlsToObject(cust);
 			AccountMgr accountMgr= new AccountMgr();
+			
 			cust = accountMgr.createCustomer(CustNameText.getText(), nricText.getText(), contactTelText.getText(), address1Text.getText(), address2Text.getText(), address3Text.getText(), InterestText.getText());					
 			
-			if (cust.getAcct().equals(null) ){
+			if (cust.getAccIdByCust().equals(null) ){
 				JOptionPane.showMessageDialog(null,"Customer Information is saving successfully." , "Billing System", 1);
 			}
 				
@@ -224,7 +225,16 @@ public class AddCustomer extends JPanel {
 	}
 	
 	private void CancelButtonActionPerformed(ActionEvent evt) {
+		CustNameText.setText(null);
+		nricText.setText(null);
+		contactTelText.setText(null);
+		address1Text.setText(null);
+		address2Text.setText(null);
+		address3Text.setText(null);
+		InterestText.setText(null);
 		
+		errorMsgCustName.setText(null);
+		errorMsgNRIC.setText(null);
 	}
 	
 //	private void controlsToObject(Customer cust){
@@ -239,20 +249,19 @@ public class AddCustomer extends JPanel {
 //	}
 	
 	private boolean validateControls(){
-		boolean bReturn= false;
+		boolean bReturn= true;
 		if (StringUtil.isNullOrEmpty(this.CustNameText.getText())){
 			// display error message
 			errorMsgCustName.setVisible(true);
-			bReturn= true;
+			bReturn=   false;	
 		}
 		
 		if (StringUtil.isNullOrEmpty(this.nricText.getText())){
 			// display error message
 			errorMsgNRIC.setVisible(true);
-			bReturn= true;
+			bReturn=    false;	
 		}	
-		
-		
+
 		return bReturn;
 	}
 	
