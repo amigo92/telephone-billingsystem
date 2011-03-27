@@ -73,6 +73,10 @@ public class BillPeriod implements Serializable{
 		return new BillPeriod(year, month+2);
 	}
 	
+	public BillPeriod getPrevBillPeriod(){
+		return new BillPeriod(year, month);
+	}
+	
 	/**
 	 * @override
 	 */
