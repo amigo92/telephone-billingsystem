@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -10,7 +9,7 @@ import java.util.*;
  * Mar 24 2011
  *
  */
-public class Customer implements Cloneable, Serializable {
+public class Customer extends VirtualObject implements Cloneable, Serializable{
 
 	private static final long serialVersionUID = 6206122414964453622L;
 	
@@ -131,21 +130,6 @@ public class Customer implements Cloneable, Serializable {
 	}
 	public String getAddress(){
 		return this.address1 + "\n" + this.address2 + "\n" + this.address3 + "\n";
-	}
-	
-	public String toString(){
-		String  details = this.getClass().getSimpleName() + "(";
-		for (Field f : this.getClass().getDeclaredFields()){
-			f.setAccessible(true);
-			try {
-				 details += "[" + f.getName() + "=" + f.get(this) + "]";
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		details += ")";
-		return details;
 	}
 	
 	public String getAccIdByCust(){
