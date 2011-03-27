@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 public class VirtualObject {
 
 	/**
-	 * To print out all the declared fields
+	 * To print out all the declared fields, excluding those from super class
 	 * @author Xu Guoneng
 	 */
 	public String toString(){
