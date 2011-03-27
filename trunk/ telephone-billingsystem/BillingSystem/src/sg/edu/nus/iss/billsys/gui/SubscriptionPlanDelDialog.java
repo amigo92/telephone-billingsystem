@@ -54,10 +54,8 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 		
 		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
-
-	@Override
 	
-	
+	@Override	
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
@@ -71,7 +69,6 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 		
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		return p;
-		
 	}
 
 	@Override
@@ -94,7 +91,5 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"",0);	
 			return false;
 		}
-		
 	}
-
 }
