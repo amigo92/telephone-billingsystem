@@ -90,6 +90,7 @@ public class BillMgr {
 		Account acct = customer.getAcct();
 		
 		Bill bill = new TextBill();
+		bill.setaCompanyProfile(SystemUtils.getCompanyProfile());
 		bill.setPreviousBalance(getPreviousBalance(billPeriod, acct.getAcctNo()));
 		bill.setBillDate(billPeriod.getBillDate());
 		bill.setDueDate(billPeriod.getDueDate());
