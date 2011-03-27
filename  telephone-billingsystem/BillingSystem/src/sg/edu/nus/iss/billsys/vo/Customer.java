@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -132,16 +133,19 @@ public class Customer implements Cloneable, Serializable {
 		return this.address1 + "\n" + this.address2 + "\n" + this.address3 + "\n";
 	}
 	
-	public String showCustomer(){
-		String custDetails = null;
-		custDetails = "Name: " + this.name + "; NRIC: " + this.nric + ";\n";
-		custDetails += "Address: " + this.getAddress();
-		custDetails += "Contact: " + this.contactTel + "\n";
-		custDetails += "Interest: " + this.interest + "\n";
-		if(this.isDeleted){
-			custDetails += "This customer has been deleted.";
+	public String toString(){
+		String  details = this.getClass().getSimpleName() + "(";
+		for (Field f : this.getClass().getDeclaredFields()){
+			f.setAccessible(true);
+			try {
+				 details += "[" + f.getName() + "=" + f.get(this) + "]";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return custDetails;
+		
+		details += ")";
+		return details;
 	}
 	
 	public String getAccIdByCust(){
