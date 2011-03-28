@@ -157,7 +157,7 @@ public class BillMgr {
 		bill.addSummaryCharges(sum);
 	}
 	
-	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, CableTvPlan cableTvPlan){
+	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, CableTvPlan cableTvPlan) throws BillingSystemException {
 		Feature basicFeature = cableTvPlan.getBasicFeature();
 		
 		int basicCharges = basicFeature.getSubscriptionCharges();
