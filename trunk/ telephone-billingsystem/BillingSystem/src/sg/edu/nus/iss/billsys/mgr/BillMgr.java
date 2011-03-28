@@ -130,6 +130,10 @@ public class BillMgr {
 			}
 		}
 		
+		if(bill.getPaymentReceived().size() == 0 && bill.getSummaryChargesList().size() == 0){
+			return null;
+		}
+		
 		int chargesBefGST = calculateTotalCurrChargesBeforeGST(bill.getSummaryChargesList());
 		bill.setTotalGST(FinanceUtils.calGST(chargesBefGST));
 		bill.setTotalCurrCharges(chargesBefGST + bill.getTotalGST());
