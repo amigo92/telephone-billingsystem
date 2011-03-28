@@ -3,6 +3,7 @@ package sg.edu.nus.iss.billsys.mgr;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.*;
@@ -77,5 +78,14 @@ public class BillMgrTest {
 		for(Bill bill : bills){
 			System.out.println(bill);
 		}
+	}
+	
+	@Test
+	public void testWriteMarchBills() throws BillingSystemException, IOException{
+		BillPeriod bp = new BillPeriod(2011, 3);
+		
+		ArrayList<Bill> bills = MgrFactory.getBillMgr().getBills(bp);
+		MgrFactory.getBillMgr().writeBills("data/", bp, bills);
+		
 	}
 }
