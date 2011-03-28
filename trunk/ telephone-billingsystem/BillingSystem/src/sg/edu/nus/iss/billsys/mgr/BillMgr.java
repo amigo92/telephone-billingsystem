@@ -130,16 +130,20 @@ public class BillMgr {
 			}
 		}
 		
-		if(bill.getPaymentReceived().size() == 0 && bill.getSummaryChargesList().size() == 0){
-			return null;
-		}
+		
 		
 		int chargesBefGST = calculateTotalCurrChargesBeforeGST(bill.getSummaryChargesList());
 		bill.setTotalGST(FinanceUtils.calGST(chargesBefGST));
 		bill.setTotalCurrCharges(chargesBefGST + bill.getTotalGST());
 		bill.setCurrChargesDue(bill.getPreviousBalance() - bill.getTotalPaymentMade() + bill.getTotalCurrCharges());
 		
-		return bill;
+		if(bill.getPaymentReceived().size() == 0 && bill.getSummaryChargesList().size() == 0
+				&& bill.getCurrChargesDue() == 0){	//empty bill
+				return null;
+		}
+		else{
+			return bill;
+		}
 	}
 	
 	private void processCallBasedPlan(Bill bill, BillPeriod billPeriod, VoicePlan plan) throws BillingSystemException{
