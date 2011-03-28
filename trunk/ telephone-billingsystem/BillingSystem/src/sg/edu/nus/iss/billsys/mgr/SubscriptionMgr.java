@@ -139,6 +139,27 @@ public class SubscriptionMgr {
 		subPlanDao.save();
     }
     
+    public List<Feature> getRegisteredFeatures(String acctNo, String planId) {
+       	if (acctNo == null) {
+    		return null;
+    	}
+    	if (planId == null) {
+    		return null;
+    	}
+    	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
+    	if (plan == null) {
+    		return null;
+    	}
+    	ArrayList<Feature> list = new ArrayList<Feature>();
+    	List<Feature> features = plan.getOptionalFeatures();
+    	for (Feature f : features) {
+    		if (!f.isTerminated()) {
+    			list.add(f);
+    		}
+    	}
+    	return list;
+    }
+   
     public List<Feature> getDeregisteredFeatures(String acctNo, String planId) {
        	if (acctNo == null) {
     		return null;
@@ -160,15 +181,15 @@ public class SubscriptionMgr {
     	return list;
     }
     
-    public void deregisterFeature(String acctNo, String planId, FeatureType featureType, Date dateTerminated) throws BillingSystemException {
+    public void deregisterFeature(String acctNo, String planId, String featureId, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
     	if (planId == null) {
     		throw new BillingSystemException("Plan id cannot be null.");
     	}
-    	if (featureType == null) {
-    		throw new BillingSystemException("Feature type cannot be null.");
+    	if (featureId == null) {
+    		throw new BillingSystemException("Feature id cannot be null.");
     	}
     	if (dateTerminated == null) {
     		throw new BillingSystemException("Date commenced cannot be null.");
@@ -177,9 +198,9 @@ public class SubscriptionMgr {
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
     	}
-    	Feature feature = plan.getOptionalFeatureByType(featureType);
+    	Feature feature = plan.getOptionalFeatureById(featureId);
     	if (feature == null) {
-    		throw new BillingSystemException("Invalid feature type or feature is not registered.");
+    		throw new BillingSystemException("Invalid feature id.");
     	}
     	feature.setDateTerminated(dateTerminated);
 		subPlanDao.save();
