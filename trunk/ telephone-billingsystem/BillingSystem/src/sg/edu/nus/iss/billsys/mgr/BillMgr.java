@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.mgr;
 
+import java.io.*;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.constant.*;
@@ -59,6 +60,20 @@ public class BillMgr {
 	 */
 	public void purge(){
 		aBillDao.purge();
+	}
+	
+	public void writeBills(String filePath, BillPeriod billPeriod, ArrayList<Bill> bills) throws IOException{
+		new File(filePath).mkdirs();
+		File file = new File(filePath, "bills_" + billPeriod.toString() + ".txt");
+		BufferedWriter out = new BufferedWriter(new FileWriter(file));
+		
+		String contents = "";
+		for(Bill bill : bills){
+			contents += bill.toString() 
+					 + "\n\n\n\n================================================================================\n\n\n\n";
+		}
+		out.write(contents);
+		out.close();
 	}
 	
 	/**
