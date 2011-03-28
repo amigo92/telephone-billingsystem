@@ -85,7 +85,7 @@ public class BillMgrTest {
 		BillPeriod bp = new BillPeriod(2011, 3);
 		
 		ArrayList<Bill> bills = MgrFactory.getBillMgr().getBills(bp);
-		MgrFactory.getBillMgr().writeBills("data/", bp, bills);
+		MgrFactory.getBillMgr().writeBills("bill/", bp, bills);
 		
 	}
 }
