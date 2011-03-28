@@ -39,7 +39,7 @@ public class MgrFactory {
 		return aComplaintMgr;
 	}
 	
-	public static SubscriptionMgr getSubscriptionMgr() throws BillingSystemException{
+	public static SubscriptionMgr getSubscriptionMgr() throws BillingSystemException {
 		if(aSubscriptionMgr == null){
 			aSubscriptionMgr = new SubscriptionMgr();
 		}
