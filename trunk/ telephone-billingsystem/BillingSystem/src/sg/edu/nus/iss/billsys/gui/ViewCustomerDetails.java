@@ -36,10 +36,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private BillingWindow  window;
 	private JLabel jLabel4;
 	private JLabel CustAccontNoLabel;
-	private JPanel SubscriptionPanel;
-	private JLabel SubscriptionTitleLabel;
 	private JLabel accountNoLabel;
-	private JSeparator jSeparator2;
 	private JSeparator jSeparator1;
 	private JLabel accountTitleLabel;
 	private JLabel CustInterestLabel;
@@ -59,14 +56,14 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private JPanel ViewCustPanelCenter;
 	private JLabel ViewCustTitleLabel;
 	private JPanel ViewCustTitlePanel;
-	private QueryTableModel qtm;
+	//private QueryTableModel qtm;
 	private static final long serialVersionUID = 1L;
 	
 	private String strNRC;
 	private Customer cust= new Customer();
 	private AccountMgr accountMgr= new AccountMgr();
 	private SubscriptionMgr subMgr ;//= new SubscriptionMgr();
-	private List<SubscriptionPlan> listSubPlan = new ArrayList<SubscriptionPlan>() ;
+	//private List<SubscriptionPlan> listSubPlan = new ArrayList<SubscriptionPlan>() ;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -98,7 +95,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			this.setPreferredSize(new java.awt.Dimension(655, 829));
+			this.setPreferredSize(new Dimension(655, 467));
 			{
 				ViewCustTitlePanel = new JPanel();
 				this.add(ViewCustTitlePanel, BorderLayout.NORTH);
@@ -216,11 +213,6 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					jSeparator1.setBounds(3, 319, 650, 10);
 				}
 				{
-					jSeparator2 = new JSeparator();
-					ViewCustPanelCenter.add(jSeparator2);
-					jSeparator2.setBounds(0, 395, 655, 10);
-				}
-				{
 					accountNoLabel = new JLabel();
 					ViewCustPanelCenter.add(accountNoLabel);
 					accountNoLabel.setText("Account No :");
@@ -231,26 +223,19 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					ViewCustPanelCenter.add(CustAccontNoLabel);
 					CustAccontNoLabel.setBounds(164, 367, 272, 10);
 				}
-				{
-					SubscriptionTitleLabel = new JLabel();
-					ViewCustPanelCenter.add(SubscriptionTitleLabel);
-					SubscriptionTitleLabel.setText("Subscription Information");
-					SubscriptionTitleLabel.setBounds(3, 411, 285, 16);
-					SubscriptionTitleLabel.setFont(new java.awt.Font("Segoe UI",1,14));
-				}
-				{
-					SubscriptionPanel = new JPanel();
-					ViewCustPanelCenter.add(SubscriptionPanel);
-					SubscriptionPanel.setBounds(3, 433, 645, 304);	
-						
-				}
 				
-				{
-					qtm = new QueryTableModel();
-					JTable table = new JTable(qtm);				
-					JScrollPane scrollpane = new JScrollPane(table);
-					SubscriptionPanel.add(scrollpane, BorderLayout.CENTER);
-				}
+				JButton btnSubscriptionInformation = new JButton("Subscription Information");
+				btnSubscriptionInformation.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						// call 
+					}
+				});
+				btnSubscriptionInformation.setBounds(347, 410, 180, 23);
+				ViewCustPanelCenter.add(btnSubscriptionInformation);
+				
+//				{
+//					qtm = new QueryTableModel();
+//				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
