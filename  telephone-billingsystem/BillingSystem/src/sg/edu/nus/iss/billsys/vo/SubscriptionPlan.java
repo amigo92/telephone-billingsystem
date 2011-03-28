@@ -66,8 +66,8 @@ public abstract class SubscriptionPlan implements Serializable {
 			if (ft.featureCode == feature.getFeatureType().featureCode) {
 				for (Feature f : optionalFeatures) {
 					if (f.getFeatureType() == feature.getFeatureType()) {
-						if (!f.isTerminated()) {
-							throw new BillingSystemException("");
+						if (!f.getFeatureType().allowMultiple && !f.isTerminated()) {
+							throw new BillingSystemException("Feature ["+feature.getFeatureType().toString()+"] already exists and is active.");
 						}
 					}
 				}
@@ -82,9 +82,9 @@ public abstract class SubscriptionPlan implements Serializable {
 		return optionalFeatures;
 	}
 	
-	public Feature getOptionalFeatureByType(FeatureType type){
+	public Feature getOptionalFeatureById(String featureId) {
 		for(Feature curr : optionalFeatures){
-			if(curr.getFeatureType().equals(type)){
+			if(curr.getFeatureId().equals(featureId)){
 				return curr;
 			}
 		}

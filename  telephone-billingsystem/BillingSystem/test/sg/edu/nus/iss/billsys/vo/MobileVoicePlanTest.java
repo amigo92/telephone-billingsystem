@@ -20,7 +20,7 @@ import sg.edu.nus.iss.billsys.vo.Feature;
  * @author Lem Kian Hoa (Stephen)
  */
 
-public class DigitalVoicePlanTest extends TestCase {
+public class MobileVoicePlanTest extends TestCase {
 
 	String planId1;
 	String acctNo1;
@@ -28,17 +28,17 @@ public class DigitalVoicePlanTest extends TestCase {
 	String basicFeatureId1;
 	Date dateCommenced1;
 	Date dateTerminated1;
-	DigitalVoicePlan plan1;
+	MobileVoicePlan plan1;
 	
 	@Before
 	public void setUp() throws Exception {
 		planId1 = SubscriptionPlanDao.generateSequence();
-		acctNo1 = "SA-1234567";
-		assignedTelNo1 = "66667777";
+		acctNo1 = "SM-1234567";
+		assignedTelNo1 = "91111111";
 		basicFeatureId1 = SubscriptionPlanDao.generateSequence();
 		dateCommenced1 = TimeUtils.parseDate("2011-01-01 00:00:00");
 		dateTerminated1 = null;
-		plan1 = new DigitalVoicePlan(planId1, acctNo1, assignedTelNo1, basicFeatureId1, dateCommenced1, dateTerminated1);
+		plan1 = new MobileVoicePlan(planId1, acctNo1, assignedTelNo1, basicFeatureId1, dateCommenced1, dateTerminated1);
 	}
 
 	@After
@@ -52,7 +52,7 @@ public class DigitalVoicePlanTest extends TestCase {
 	
 	@Test
 	public void testGetPlanType() {
-		assertEquals(PlanType.DigitalVoice,plan1.getPlanType());
+		assertEquals(PlanType.MobileVoice,plan1.getPlanType());
 	}
 	
 	@Test
@@ -89,12 +89,11 @@ public class DigitalVoicePlanTest extends TestCase {
 
 	@Test
 	public void testAddOptionalFeature() {
-		String fidIDD = null;
+		String fidIDD = SubscriptionPlanDao.generateSequence();
 		try {
-			fidIDD = SubscriptionPlanDao.generateSequence();
 			Feature f = new Feature(
 				fidIDD,
-				FeatureType.DigiIDD,
+				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
@@ -104,18 +103,73 @@ public class DigitalVoicePlanTest extends TestCase {
 		} catch (ParseException e) {
 			fail();
 		}
-		String fidCallTransfer = null;
+		String fidData = SubscriptionPlanDao.generateSequence();
 		try {
-			fidCallTransfer = SubscriptionPlanDao.generateSequence();
 			Feature f = new Feature(
-				fidCallTransfer,
-				FeatureType.CallTransfer,
+				fidData,
+				FeatureType.DataService,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
 			plan1.addOptionalFeature(f);
 		} catch (BillingSystemException bsExp) {
 			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		String fidRoaming = SubscriptionPlanDao.generateSequence();
+		try {
+			Feature f = new Feature(
+				fidRoaming,
+				FeatureType.Roaming,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			Feature f = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+			bsExp.printStackTrace();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			Feature f = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.CallTransfer,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+			bsExp.printStackTrace();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			Feature f = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.AddChannel,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+			fail();
+		} catch (BillingSystemException bsExp) {
+			bsExp.printStackTrace();
 		} catch (ParseException e) {
 			fail();
 		}
@@ -162,53 +216,11 @@ public class DigitalVoicePlanTest extends TestCase {
 			fail();
 		}
 		try {
-			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
-				FeatureType.AddChannel,
-				TimeUtils.parseDate("2011-01-01 00:00:00"),
-				null
-			);
-			plan1.addOptionalFeature(f);
-			fail();
-		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
-		} catch (ParseException e) {
-			fail();
-		}
-		try {
-			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
-				FeatureType.DigiIDD,
-				TimeUtils.parseDate("2011-01-01 00:00:00"),
-				null
-			);
-			plan1.addOptionalFeature(f);
-			fail();
-		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
-		} catch (ParseException e) {
-			fail();
-		}
-		try {
-			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
-				FeatureType.CallTransfer,
-				TimeUtils.parseDate("2011-01-01 00:00:00"),
-				null
-			);
-			plan1.addOptionalFeature(f);
-			fail();
-		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
-		} catch (ParseException e) {
-			fail();
-		}
-		try {
 			Feature f = plan1.getOptionalFeatureById(fidIDD);
 			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
 			f = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.DigiIDD,
+				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-03-01 00:00:00"),
 				null
 			);
@@ -219,11 +231,26 @@ public class DigitalVoicePlanTest extends TestCase {
 			fail();
 		}
 		try {
-			Feature f = plan1.getOptionalFeatureById(fidCallTransfer);
+			Feature f = plan1.getOptionalFeatureById(fidData);
 			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
 			f = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.CallTransfer,
+				FeatureType.DataService,
+				TimeUtils.parseDate("2011-03-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			Feature f = plan1.getOptionalFeatureById(fidRoaming);
+			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
+			f = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.Roaming,
 				TimeUtils.parseDate("2011-03-01 00:00:00"),
 				null
 			);
@@ -243,7 +270,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		try {
 			f = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.DigiIDD,
+				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
@@ -253,14 +280,14 @@ public class DigitalVoicePlanTest extends TestCase {
 		} catch (ParseException e) {
 			fail();
 		}
-		
 		list = plan1.getOptionalFeatures();
 		assertSame(1,list.size());
 		assertEquals(f,list.get(0));
+		
 		try {
 			f = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.CallTransfer,
+				FeatureType.DataService,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
@@ -273,15 +300,32 @@ public class DigitalVoicePlanTest extends TestCase {
 		list = plan1.getOptionalFeatures();
 		assertSame(2,list.size());
 		assertEquals(f,list.get(1));
+		
+		try {
+			f = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.Roaming,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		list = plan1.getOptionalFeatures();
+		assertSame(3,list.size());
+		assertEquals(f,list.get(2));
 	}
 
 	@Test
-	public void testGetOptionalFeatureById() {
+	public void testGetOptionalFeatureByType() {
 		Feature f2 = null;
 		try {
 			f2 = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.DigiIDD,
+				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
@@ -299,7 +343,25 @@ public class DigitalVoicePlanTest extends TestCase {
 		try {
 			f2 = new Feature(
 				SubscriptionPlanDao.generateSequence(),
-				FeatureType.CallTransfer,
+				FeatureType.DataService,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			plan1.addOptionalFeature(f2);
+		} catch (BillingSystemException bsExp) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		f1 = plan1.getOptionalFeatureById(f2.getFeatureId());
+		assertNotNull(f1);
+		assertEquals(f1,f2);
+
+		f2 = null;
+		try {
+			f2 = new Feature(
+				SubscriptionPlanDao.generateSequence(),
+				FeatureType.Roaming,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
 			);
