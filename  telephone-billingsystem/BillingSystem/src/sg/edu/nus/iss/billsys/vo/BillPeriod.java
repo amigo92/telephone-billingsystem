@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
@@ -103,24 +104,8 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 		return getStartTime().compareTo(bp.getStartTime());
 	}
 	
-//	public static void main(String[] args){
-//		BillPeriod p = new BillPeriod(2011, 3);
-//		System.out.println(p.getStartTime());
-//		System.out.println(p.getEndTime());
-//		System.out.println(p.getBillDate());
-	
-//	System.out.println(new BillPeriod(2011, 12).getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getStartTime());
-//	System.out.println(new BillPeriod(2011, 12).getEndTime());
-//	System.out.println("..............");
-//	
-//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getStartTime());
-//	System.out.println(new BillPeriod(2011, 12).getNextBillPeriod().getEndTime());
-//	System.out.println("..............");
-//	
-//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getBillDate());
-//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getStartTime());
-//	System.out.println(new BillPeriod(2011, 12).getPrevBillPeriod().getEndTime());
-//	}
+	public String toString(){
+		return startCal.get(Calendar.YEAR) + new DecimalFormat("00").format(startCal.get(Calendar.MONTH) + 1);
+	}
+
 }
