@@ -15,6 +15,9 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
 
+/*
+ * @author Lem Kian Hoa (Stephen)
+ */
 
 public class DigitalVoicePlanTest extends TestCase {
 
