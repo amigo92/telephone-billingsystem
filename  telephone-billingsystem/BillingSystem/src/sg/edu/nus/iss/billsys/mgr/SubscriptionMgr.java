@@ -281,7 +281,7 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Plan id cannot be null.");
     	}
     	if (dateTerminated == null) {
-    		throw new BillingSystemException("Date commenced cannot be null.");
+    		throw new BillingSystemException("Date terminated cannot be null.");
     	}
     	if (!validateAccount(acctNo)) {
     		throw new BillingSystemException("The account is invalid/terminated.");
