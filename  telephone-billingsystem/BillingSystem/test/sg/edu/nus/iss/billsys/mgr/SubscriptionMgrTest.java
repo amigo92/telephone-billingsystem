@@ -368,7 +368,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), digiPlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -384,7 +384,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), digiPlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -458,7 +458,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), mobilePlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -474,7 +474,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.DataService,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), mobilePlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -490,7 +490,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.Roaming,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), mobilePlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -593,7 +593,7 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
-			);
+			).getFeatureId();
 			Feature feature = subMgr.getAccountSubscriptionFeature(cust.getAccountId(), cableTvPlan.getPlanId(), fid);
 			assertNotNull(feature);
 			assertEquals(fid,feature.getFeatureId());
@@ -606,26 +606,112 @@ public class SubscriptionMgrTest extends TestCase {
 	
 	@Test
 	public void testDeregisterFeature() {
-		List<SubscriptionPlan> list = subMgr.getAccountSubscriptions(cust.getAccountId());
-		assertNotNull(list);
-		assertTrue(list.size() > 0);
-		for (SubscriptionPlan plan : list) {
-			List<Feature> features = subMgr.getRegisteredFeatures(cust.getAccountId(), plan.getPlanId());
-			assertNotNull(features);
-			if (features.size() == 0) {
-				continue;
-			}
-			try {
-				subMgr.deregisterFeature(
-					cust.getAccountId(),
-					plan.getPlanId(),
-					features.get(0).getFeatureId(),
-					null
-				);
-				fail();
-			} catch (BillingSystemException e) {
-				System.out.println(e.getMessage());
-			}
+		// DigitalVoice
+		SubscriptionPlan digiPlan = null;
+		try {
+			digiPlan = subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"61234567",
+				PlanType.DigitalVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
 		}
+		Feature digiIDD = null;
+		Feature callTransfer = null;
+		try {
+			digiIDD = subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+			callTransfer = subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.CallTransfer,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		assertFalse(digiIDD.isTerminated());
+		assertFalse(callTransfer.isTerminated());
+		try {
+			subMgr.deregisterFeature(
+				null,
+				digiPlan.getPlanId(),
+				digiIDD.getFeatureId(),
+				new Date()
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				null,
+				digiIDD.getFeatureId(),
+				new Date()
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				null,
+				new Date()
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				digiIDD.getFeatureId(),
+				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				digiIDD.getFeatureId(),
+				new Date()
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		}
+		assertTrue(digiIDD.isTerminated());
+		assertFalse(callTransfer.isTerminated());
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				callTransfer.getFeatureId(),
+				new Date()
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		}
+		assertTrue(digiIDD.isTerminated());
+		assertTrue(callTransfer.isTerminated());
 	}
 }

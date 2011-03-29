@@ -130,7 +130,7 @@ public class SubscriptionMgr {
      * To register new optional feature of the plan.
      * @return feature id
      */
-    public String registerNewFeature(String acctNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
+    public Feature registerNewFeature(String acctNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -154,16 +154,15 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Invalid plan id.");
     	}
     	String fid = SubscriptionPlanDao.generateSequence();
-    	plan.addOptionalFeature(
-    		new Feature(
-    			fid,
-    			featureType,
-    			dateCommenced,
-    			dateTerminated
-    		)
-    	);
+    	Feature feature = new Feature(
+			SubscriptionPlanDao.generateSequence(),
+			featureType,
+			dateCommenced,
+			dateTerminated
+		);
+    	plan.addOptionalFeature(feature);
 		subPlanDao.saveObjectData();
-		return fid;
+		return feature;
     }
 
     /*
