@@ -37,6 +37,9 @@ public class BillingReportGenerator extends JPanel {
 	private String accountNo;
 	private JPanel featurePanel;
 	
+	private int selectedMonth =1 ;
+	private int selectedYear = 2011;
+	
     public BillingReportGenerator (BillingWindow window) {
     	try
     	{
@@ -73,11 +76,12 @@ public class BillingReportGenerator extends JPanel {
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
-        	
+        			BillPeriod p =manager.getNextBillPeriod();
+        			manager.generate(p);
         	}
 	    	catch(Exception ex)
 	    	{
-	    		JOptionPane.showMessageDialog(window, ex.getMessage());
+	    		JOptionPane.showMessageDialog(window, ex.getStackTrace());
 	    	} 	
     	}
         });
@@ -116,7 +120,7 @@ public class BillingReportGenerator extends JPanel {
 	    box.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		   int selectedMonth = cb.getSelectedIndex() +1;
+	    		   selectedMonth = cb.getSelectedIndex() +1;
 	            }
 	    });
 	    box.setSelectedIndex(iMonth);
@@ -139,7 +143,7 @@ public class BillingReportGenerator extends JPanel {
 	    box.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		    int selectedYear = Integer.parseInt(cb.getSelectedItem().toString());
+	    		   selectedYear = Integer.parseInt(cb.getSelectedItem().toString());
 	            }
 	    });
 	    box.setSelectedIndex(0);
