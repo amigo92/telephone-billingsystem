@@ -52,11 +52,11 @@ public class BillingReportView extends JPanel {
 		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		    
 		    add ("North", createFormPanel());      
+		    customerID.setText("S8481362F");
 
 		    reportPanel = createReportPanel();
 		    add ("Center", reportPanel);
 		    
-		    customerID.setText("S8481362F");
         
     	}
         catch(Exception e){
@@ -86,7 +86,11 @@ public class BillingReportView extends JPanel {
         public void actionPerformed (ActionEvent e) {
         	try{	
 	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAccountId();
-        		reportPanel.revalidate();
+	    		//JOptionPane.showMessageDialog(window, accountNo);
+	    		
+	    		System.out.println(accountNo);
+
+	    	    reportPanel.revalidate();
         		reportPanel = createReportPanel();
         		add ("Center", reportPanel);
         	}
@@ -107,14 +111,12 @@ public class BillingReportView extends JPanel {
     private JPanel createReportPanel () {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 1));
-		
 
-   	
 		BillPeriod billPeriod = new BillPeriod(3,2011);
 		Bill bill;
 		try
 		{
-			bill =	manager.getBill(billPeriod, accountNo);
+			bill =	manager.getBill(billPeriod, "SA-2011-03-25-8481362");
 			
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"Wrong at get bill",0);	
