@@ -255,10 +255,13 @@ public class SubscriptionPlanDao extends GenericDao{
 			
 			planData[cnt][0]=element.getPlanId();
 			planData[cnt][1]=element.getAcctNo();
+			planData[cnt][2]="";
 			planData[cnt][3]=String.valueOf(element.getPlanType().getPlanCd());
 			if(element instanceof VoicePlan){
 				VoicePlan vplan=(VoicePlan)element;
-				planData[cnt][2]=vplan.getAssignedTelNo() == null ? "" : vplan.getAssignedTelNo();
+				if(vplan.getAssignedTelNo() != null){
+					planData[cnt][2]=vplan.getAssignedTelNo();
+				}
 			}
 			tempFeatureList.add(element.getBasicFeature());
 			featureCount+=1;

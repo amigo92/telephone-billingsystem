@@ -166,17 +166,17 @@ public class SubscriptionMgr {
      * @return list of Feature objects
      */
     public List<Feature> getRegisteredFeatures(String acctNo, String planId) {
+    	ArrayList<Feature> list = new ArrayList<Feature>();
        	if (acctNo == null) {
-    		return null;
+    		return list;
     	}
     	if (planId == null) {
-    		return null;
+    		return list;
     	}
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
     	if (plan == null) {
-    		return null;
+    		return list;
     	}
-    	ArrayList<Feature> list = new ArrayList<Feature>();
     	List<Feature> features = plan.getOptionalFeatures();
     	for (Feature f : features) {
     		if (!f.isTerminated()) {
@@ -191,17 +191,17 @@ public class SubscriptionMgr {
      * @return list of Feature objects
      */
    public List<Feature> getDeregisteredFeatures(String acctNo, String planId) {
+    	ArrayList<Feature> list = new ArrayList<Feature>();
        	if (acctNo == null) {
-    		return null;
+    		return list;
     	}
     	if (planId == null) {
-    		return null;
+    		return list;
     	}
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
     	if (plan == null) {
-    		return null;
+    		return list;
     	}
-    	ArrayList<Feature> list = new ArrayList<Feature>();
     	List<Feature> features = plan.getOptionalFeatures();
     	for (Feature f : features) {
     		if (f.isTerminated()) {
@@ -263,6 +263,10 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Invalid plan id.");
     	}
     	plan.setDateTerminated(dateTerminated);
+    	List<Feature> regFeatures = getRegisteredFeatures(acctNo, planId);
+    	for (Feature f : regFeatures) {
+    		f.setDateTerminated(dateTerminated);
+    	}
 		subPlanDao.save();
     }
     
