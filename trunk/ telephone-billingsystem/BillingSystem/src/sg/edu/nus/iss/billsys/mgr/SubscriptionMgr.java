@@ -61,6 +61,14 @@ public class SubscriptionMgr {
     public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
     	return subPlanDao.getAccountSubscriptions(acctNo);
     }
+
+    /*
+     * To get subscription plan of the account by plan id.
+     * @return SubscriptionPlan object
+     */
+    public SubscriptionPlan getAccountSubscription(String acctNo, String planId) {
+    	return subPlanDao.getAccountSubscription(acctNo, planId);
+    }
     
     /*
      * To register new subscription plan into the account.
@@ -159,7 +167,7 @@ public class SubscriptionMgr {
     	);
 		subPlanDao.save();
 		return fid;
-    }   
+    }
 
     /*
      * To get all registered (active) features of the plan.
@@ -184,6 +192,30 @@ public class SubscriptionMgr {
     		}
     	}
     	return list;
+    }
+
+    /*
+     * To get feature of the plan.
+     * @return list of Feature object
+     */
+    public Feature getAccountSubscriptionFeature(String acctNo, String planId, String featureId) {
+        if (acctNo == null) {
+    		return null;
+    	}
+    	if (planId == null) {
+    		return null;
+    	}
+    	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
+    	if (plan == null) {
+    		return null;
+    	}
+    	List<Feature> features = plan.getOptionalFeatures();
+    	for (Feature f : features) {
+    		if (f.getFeatureId().equals(featureId)) {
+    			return f;
+    		}
+    	}
+    	return null;
     }
 
     /*
