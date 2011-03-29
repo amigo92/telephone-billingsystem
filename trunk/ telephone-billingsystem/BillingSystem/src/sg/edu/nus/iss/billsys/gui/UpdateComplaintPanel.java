@@ -233,32 +233,32 @@ public class UpdateComplaintPanel extends JPanel {
 			customerIdType = nricRadioButton.getActionCommand();
 		}
 
-//		if ("accountNo".equalsIgnoreCase(customerIdType)) {
-//			try {
-//				complaints = MgrFactory.getComplaintMgr()
-//						.getComplaintByAccount(
-//								customerIdTextField.getText().trim());
-//			} catch (BillingSystemException e) {
-//				e.printStackTrace();
-//				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
-//				return;
-//			}
-//		} else if ("nric".equalsIgnoreCase(customerIdType)) {
-//			try {
-//				complaints = MgrFactory.getComplaintMgr()
-//						.getComplaintByCustomerId(
-//								customerIdTextField.getText().trim());
-//			} catch (BillingSystemException e) {
-//				e.printStackTrace();
-//				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
-//				return;
-//			}
-//		}
+		if ("accountNo".equalsIgnoreCase(customerIdType)) {
+			try {
+				complaints = MgrFactory.getComplaintMgr()
+						.getComplaintByAccount(
+								customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				e.printStackTrace();
+				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
+				return;
+			}
+		} else if ("nric".equalsIgnoreCase(customerIdType)) {
+			try {
+				complaints = MgrFactory.getComplaintMgr()
+						.getComplaintByCustomerId(
+								customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				e.printStackTrace();
+				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
+				return;
+			}
+		}
 
 		// if (complaints != null && complaints.size() > 0) {
 		// populate the table
 		TableModel complaintTableModel = new DefaultTableModel(
-				getTableTestData(complaints), getColumnNames());
+				getTableData(complaints), getColumnNames());
 		complaintTable.setModel(complaintTableModel);
 		// }
 	}

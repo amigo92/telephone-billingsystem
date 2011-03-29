@@ -258,8 +258,8 @@ public class LoginForm extends javax.swing.JFrame {
 					this.usernameText.getText(), this.passwordText.getText())) {
 				
 				// get the user role and save in the session
-//				UserRole role = MgrFactory.getUserMgr().getAuthUserRole();
-				SessionMgr.map.put(SessionKeys.USER_ROLE, UserRole.ADMIN);
+				UserRole role = MgrFactory.getUserMgr().getAuthUserRole();
+				SessionMgr.map.put(SessionKeys.USER_ROLE, role);
 				
 				// display the main application
 				startBillingWindow();
