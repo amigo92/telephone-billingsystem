@@ -46,7 +46,7 @@ public class BillMgr {
 	
 	public Bill getBill(BillPeriod billPeriod, String accNo){
 		for(Bill bill : getBills(billPeriod)){
-			if(bill.getaCustomer().getAcct().getAcctNo().equals(accNo)){
+			if(bill.getAcctNo().equals(accNo)){
 				return bill;
 			}
 		}
