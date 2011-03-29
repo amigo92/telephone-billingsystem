@@ -112,26 +112,28 @@ public class BillingReportView extends JPanel {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 1));
 
-		BillPeriod billPeriod = new BillPeriod(3,2011);
-		Bill bill;
+		BillPeriod billPeriod = new BillPeriod(2011, 3);
+		Bill bill = null;
 		try
 		{
 			bill =	manager.getBill(billPeriod, "SA-2011-03-25-8481362");
+			System.out.println(bill);
 			
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"Wrong at get bill",0);	
 
 		}
+		
 		JTextArea textBill;
 		
-//		if(bill != null) 
-//		{
-//			textBill = new JTextArea (bill.toString()); 
-//		}else {
-//			textBill = new JTextArea ("Not Available");
-//		}
+		if(bill != null) 
+		{
+			textBill = new JTextArea (bill.toString()); 
+		}else {
+			textBill = new JTextArea ("Not Available");
+		}
 		
-		textBill = new JTextArea ("Not Available");
+//		textBill = new JTextArea ("Not Available");
 		textBill.setEditable(false);
 		Font font = new Font("Verdana", Font.PLAIN, 12);
 		textBill.setFont(font);
