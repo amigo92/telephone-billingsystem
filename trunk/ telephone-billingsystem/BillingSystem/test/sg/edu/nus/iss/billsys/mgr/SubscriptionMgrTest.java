@@ -606,7 +606,6 @@ public class SubscriptionMgrTest extends TestCase {
 	
 	@Test
 	public void testDeregisterFeature() {
-		// DigitalVoice
 		SubscriptionPlan digiPlan = null;
 		try {
 			digiPlan = subMgr.registerNewSubscriptionPlan(
@@ -643,6 +642,9 @@ public class SubscriptionMgrTest extends TestCase {
 		} catch (ParseException e) {
 			fail();
 		}
+		List<Feature> list = subMgr.getDeregisteredFeatures(cust.getAccountId(),digiPlan.getPlanId());
+		assertNotNull(list);
+		assertEquals(0,list.size());
 		assertFalse(digiIDD.isTerminated());
 		assertFalse(callTransfer.isTerminated());
 		try {
@@ -699,6 +701,9 @@ public class SubscriptionMgrTest extends TestCase {
 		} catch (BillingSystemException e) {
 			fail();
 		}
+		list = subMgr.getDeregisteredFeatures(cust.getAccountId(),digiPlan.getPlanId());
+		assertNotNull(list);
+		assertEquals(1,list.size());
 		assertTrue(digiIDD.isTerminated());
 		assertFalse(callTransfer.isTerminated());
 		try {
@@ -711,6 +716,100 @@ public class SubscriptionMgrTest extends TestCase {
 		} catch (BillingSystemException e) {
 			fail();
 		}
+		list = subMgr.getDeregisteredFeatures(cust.getAccountId(),digiPlan.getPlanId());
+		assertNotNull(list);
+		assertEquals(2,list.size());
+		assertTrue(digiIDD.isTerminated());
+		assertTrue(callTransfer.isTerminated());
+	}
+	
+	@Test
+	public void testDeregisterSubscriptionPlan() {
+		SubscriptionPlan digiPlan = null;
+		try {
+			digiPlan = subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"61234567",
+				PlanType.DigitalVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		Feature digiIDD = null;
+		Feature callTransfer = null;
+		try {
+			digiIDD = subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+			callTransfer = subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.CallTransfer,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		List<Feature> list = subMgr.getDeregisteredFeatures(cust.getAccountId(),digiPlan.getPlanId());
+		assertNotNull(list);
+		assertEquals(0,list.size());
+		assertFalse(digiPlan.getBasicFeature().isTerminated());
+		assertFalse(digiIDD.isTerminated());
+		assertFalse(callTransfer.isTerminated());
+		try {
+			subMgr.deregisterSubscriptionPlan(
+				null,
+				digiPlan.getPlanId(),
+				new Date()
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterSubscriptionPlan(
+				cust.getAccountId(),
+				null,
+				new Date()
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterSubscriptionPlan(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterSubscriptionPlan(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				new Date()
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		}
+		list = subMgr.getDeregisteredFeatures(cust.getAccountId(),digiPlan.getPlanId());
+		assertNotNull(list);
+		assertEquals(2,list.size());
+		assertTrue(digiPlan.getBasicFeature().isTerminated());
 		assertTrue(digiIDD.isTerminated());
 		assertTrue(callTransfer.isTerminated());
 	}
