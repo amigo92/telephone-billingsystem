@@ -125,7 +125,7 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Unknown plan type!");
     	}
 		subPlanDao.addAccountSubscriptions(acctNo, plan);
-		subPlanDao.save();
+		subPlanDao.saveObjectData();
 		return plan;
     }
 
@@ -165,7 +165,7 @@ public class SubscriptionMgr {
     			dateTerminated
     		)
     	);
-		subPlanDao.save();
+		subPlanDao.saveObjectData();
 		return fid;
     }
 
@@ -271,7 +271,7 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Invalid feature id.");
     	}
     	feature.setDateTerminated(dateTerminated);
-		subPlanDao.save();
+		subPlanDao.saveObjectData();
     }
 
     /*
@@ -299,7 +299,7 @@ public class SubscriptionMgr {
     	for (Feature f : regFeatures) {
     		f.setDateTerminated(dateTerminated);
     	}
-		subPlanDao.save();
+		subPlanDao.saveObjectData();
     }
     
     private boolean validateAccount(String acctNo) throws BillingSystemException {
