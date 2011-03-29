@@ -253,13 +253,13 @@ public class LoginForm extends javax.swing.JFrame {
 		}
 
 		// do user authentication
-//		try {
-//			if (MgrFactory.getUserMgr().isValidAuthUser(
-//					this.usernameText.getText(), this.passwordText.getText())) {
+		try {
+			if (MgrFactory.getUserMgr().isValidAuthUser(
+					this.usernameText.getText(), this.passwordText.getText())) {
 				
 				// get the user role and save in the session
 //				UserRole role = MgrFactory.getUserMgr().getAuthUserRole();
-				SessionMgr.map.put(SessionKeys.USER_ROLE, UserRole.AGENT);
+				SessionMgr.map.put(SessionKeys.USER_ROLE, UserRole.ADMIN);
 				
 				// display the main application
 				startBillingWindow();
@@ -267,15 +267,14 @@ public class LoginForm extends javax.swing.JFrame {
 				this.setVisible(false);
 				this.dispose();
 				
-//			} else {
-				// display error message
-//				this.errorMsgLabel.setText("Authentication failed!");
-//			}
-//		} catch (BillingSystemException e) {
+			} else {
+//				 display error message
+				this.errorMsgLabel.setText("Authentication failed!");
+			}
+		} catch (BillingSystemException e) {
 //			// display error message
-//			this.errorMsgLabel.setText("Not able to login, internal error occurred!");
-//		}
-
+			this.errorMsgLabel.setText("Not able to login, internal error occurred!");
+		}
 	}
 
 	public void startBillingWindow() {
