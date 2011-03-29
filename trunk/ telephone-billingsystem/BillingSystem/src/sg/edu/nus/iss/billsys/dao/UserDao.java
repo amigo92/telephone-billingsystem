@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.billsys.dao;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import sg.edu.nus.iss.billsys.constant.UserRole;
@@ -18,7 +17,7 @@ public class UserDao extends GenericDao{
 	private List<User> listUser=new ArrayList<User>();
 	
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 		if(validateData(data,"Authorised User",COL_LENGTH)){
 		List<User> listUser=new ArrayList<User>();
 		
@@ -39,8 +38,9 @@ public class UserDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
-	int cnt=0;
+	public final void saveObjectData() throws BillingSystemException{
+//		Veera : This is a method to give a idea of the dao design implementation and not used for any usecase.
+	/*	int cnt=0;
 	
 	String data[][]=new String[listUser.size()][COL_LENGTH];
 		
@@ -56,7 +56,7 @@ public class UserDao extends GenericDao{
 		}
 	if(validateData(data,"Authorised User",COL_LENGTH)){
 		saveUserData(data);
-	}
+	}*/
 	}	
 	
 	public UserDao() throws BillingSystemException{
@@ -78,14 +78,20 @@ public class UserDao extends GenericDao{
 		
 	}
 	
-	public User getUserByUsername(String username){
+	public User getUserByUsername(String username) throws BillingSystemException{
+		User temp=null;
+		
+		if(username==null && username.length()==0){
+			throw new BillingSystemException("Username argument is null");
+		}
+		
 		for(User user : listUser){
 			if(user.getUsername().equals(username)){
-				return user;
+				temp= user;
 			}
 		}
 		
-		return null;
+		return temp;
 	}
 	
 	/// chuichi: changed the return type to Boolean to tell whether the password is updated 

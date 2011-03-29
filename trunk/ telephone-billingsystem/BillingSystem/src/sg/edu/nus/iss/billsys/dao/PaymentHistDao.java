@@ -17,12 +17,12 @@ public class PaymentHistDao extends GenericDao {
 	private List<PaymentHist> listPaymentHx=new ArrayList<PaymentHist>();
 
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
+	protected final void saveObjectData() throws BillingSystemException{
 //		 This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 		
 	}
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 		if(validateData(data,"Payment History",COL_LENGTH)){
 			List<PaymentHist> listPaymentHx=new ArrayList<PaymentHist>();
 			

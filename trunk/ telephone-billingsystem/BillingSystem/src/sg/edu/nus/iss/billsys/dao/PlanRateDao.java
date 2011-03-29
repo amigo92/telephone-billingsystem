@@ -19,7 +19,7 @@ public class PlanRateDao extends GenericDao{
 	
 	
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 	
 		if(validateData(data,"Plan Rate",COL_LENGTH)){
 			
@@ -42,7 +42,7 @@ public class PlanRateDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
+	protected final void saveObjectData() throws BillingSystemException{
 	//This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 	}	
 	
@@ -50,9 +50,13 @@ public class PlanRateDao extends GenericDao{
 	 this.objectDataMapping(getPlanRatesData());
 	}
 	
-	public Rate getPricebyPlanType(String plan_type){
+	public Rate getPricebyPlanType(String plan_type) throws BillingSystemException{
 		
 		Rate tempRate=null;
+		
+		if(plan_type==null && plan_type.length()==0){
+			throw new BillingSystemException("plan type argument is null");
+		}
 		
 		for (Iterator iter = listPlanRates.iterator(); iter.hasNext();) {
 			Rate element = (Rate) iter.next();

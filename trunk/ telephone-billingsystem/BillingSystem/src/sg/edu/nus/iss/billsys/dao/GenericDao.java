@@ -299,10 +299,6 @@ public abstract class GenericDao {
 	 * the Data object which represents the Data file on to the Data file.
 	 */
 	
-	protected boolean saveCallHistoryData(String[][] data){
-		callHistoryData=data;
-		return storeDataByArray(CALL_HISTORY_DATA_FILE, callHistoryData);
-	}	
 	protected boolean saveCustomerData(String[][] data){
 		customerData=data;
 		return storeDataByArray(CUSTOMER_DATA_FILE, customerData);
@@ -311,25 +307,9 @@ public abstract class GenericDao {
 		featureData=data;
 		return storeDataByArray(FEATURE_DATA_FILE, featureData);
 	}
-	protected boolean saveFeatureRateData(String[][] data){
-		featureRatesData=data;
-		return storeDataByArray(FEATURE_RATES_DATA_FILE, featureRatesData);
-	}
-	protected boolean savePaymentHistoryData(String[][] data){
-		paymentHistoryData=data;
-		return storeDataByArray(PAYMENT_HISTORY_DATA_FILE, paymentHistoryData);
-	}
-	protected boolean savePlanRatesData(String[][] data){
-		planRatesData=data;
-		return storeDataByArray(PLANRATES_DATA_FILE, planRatesData);
-	}
 	protected boolean saveSubscriptionPlanData(String[][] data){
 		subscriptionPlanData=data;
 		return storeDataByArray(SUBSCRIPTION_PLAN_DATA_FILE, subscriptionPlanData);
-	}
-	protected boolean saveUserData(String[][] data){
-		userData=data;
-		return storeDataByArray(USER_DATA_FILE, userData);
 	}
 	protected boolean saveComplaintsData(String[][] data){
 		complaintData=data;

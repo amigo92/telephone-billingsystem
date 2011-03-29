@@ -24,7 +24,7 @@ public class ComplaintsDao extends GenericDao {
 	}
 	
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
+	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;
 		
 		String data[][]=new String[listComplaints.size()][COL_LENGTH];
@@ -42,7 +42,7 @@ public class ComplaintsDao extends GenericDao {
 				cnt++;				
 			}
 		if(validateData(data,"Complaints",COL_LENGTH)){
-			saveComplaintsData(data);
+			if(!saveComplaintsData(data))throw new BillingSystemException("Saving to File Operation Failed for ComplaintsData");
 		}
 		
 	}
@@ -63,7 +63,7 @@ public class ComplaintsDao extends GenericDao {
 	}
 	
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 				
 		if(validateData(data,"Complaints",COL_LENGTH)){
 		List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();

@@ -18,7 +18,7 @@ public class FeatureRateDao extends GenericDao{
 	
 	
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 		if(validateData(data,"Feature Rate",COL_LENGTH)){
 		try{
 			List<Rate> listFeatureRates=new ArrayList<Rate>();
@@ -43,7 +43,7 @@ public class FeatureRateDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
+	protected final void saveObjectData() throws BillingSystemException{
 	//This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 	}	
 	
