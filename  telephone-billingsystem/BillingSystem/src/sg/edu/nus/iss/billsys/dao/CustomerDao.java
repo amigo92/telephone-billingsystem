@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import sg.edu.nus.iss.billsys.constant.FeatureType;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
@@ -20,7 +20,7 @@ public class CustomerDao extends GenericDao{
 	private List<Customer> listCustomer=new ArrayList<Customer>();
 	
 	@Override
-	protected void objectDataMapping(String[][] data) {
+	protected final void objectDataMapping(String[][] data) {
 		
 		List<Customer> listCustomer=new ArrayList<Customer>();
 		
@@ -52,7 +52,7 @@ public class CustomerDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() {
+	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;
 		
 		String data[][]=new String[listCustomer.size()][9];
@@ -74,7 +74,7 @@ public class CustomerDao extends GenericDao{
 				
 				cnt++;				
 			}
-		saveCustomerData(data);
+		if(!saveCustomerData(data))throw new BillingSystemException("Saving to File Operation Failed for CustomerData");
 		
 	}
 	
