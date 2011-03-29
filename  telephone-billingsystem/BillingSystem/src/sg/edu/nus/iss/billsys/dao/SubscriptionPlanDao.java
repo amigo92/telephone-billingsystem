@@ -14,7 +14,6 @@ import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
-import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
@@ -64,14 +63,10 @@ public class SubscriptionPlanDao extends GenericDao{
 			
 			if(groupPlansByAccNo!=null && !groupPlansByAccNo.isEmpty() && groupPlansByAccNo.get(accNo)!=null){
 					List <SubscriptionPlan> tempList=(List<SubscriptionPlan>)groupPlansByAccNo.get(accNo);
-					try{							
-						BillingSystemLogger.logInfo("tempList.size()"+tempList.size());					
-						tempList.add(initialisePlan(data, i ,groupfeatureByPlanId));			
-						groupPlansByAccNo.put(accNo, tempList);						
-						}
-					catch(Exception ex){
-						throw new RuntimeException(ex);
-					}
+					BillingSystemLogger.logInfo("tempList.size()"+tempList.size());					
+					tempList.add(initialisePlan(data, i ,groupfeatureByPlanId));			
+					groupPlansByAccNo.put(accNo, tempList);						
+						
 				
 			}else {				
 				groupPlansByAccNo(groupPlansByAccNo, data, i ,groupfeatureByPlanId);
