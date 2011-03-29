@@ -153,7 +153,6 @@ public class SubscriptionMgr {
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
     	}
-    	String fid = SubscriptionPlanDao.generateSequence();
     	Feature feature = new Feature(
 			SubscriptionPlanDao.generateSequence(),
 			featureType,
