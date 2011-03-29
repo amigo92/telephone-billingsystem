@@ -261,6 +261,6 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private void GetCustomerDetails(){
 		cust= accountMgr.getCustomerDetailsById(strNRC);			
-		listSubPlan=subMgr.getAccountSubscriptions(cust.getAccIdByCust());
+//		listSubPlan=subMgr.getAccountSubscriptions(cust.getAccIdByCust());
 	}
 }
