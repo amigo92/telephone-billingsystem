@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
+import sg.edu.nus.iss.billsys.vo.Customer;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -159,6 +160,7 @@ public class LogComplaintPanel extends JPanel {
 		System.out.println("logButton.mouseClicked, event=" + arg0);
 		String customerIdType = null;
 		long returnValue = 0;
+		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
 			errorMessageLabel.setText("Invalid/ Empty Customer Id!");
@@ -174,9 +176,25 @@ public class LogComplaintPanel extends JPanel {
 
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
+			
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(customerIdType);
+			
+			if (customer == null) {
+				errorMessageLabel.setText("Invalid Account #!");
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			}
 		}
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
+
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerIdType);
+			
+			if (customer == null) {
+				errorMessageLabel.setText("Invalid NRIC!");
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			}
 		}
 
 		System.out.println("customerId:" + customerIdTextField.getText());
