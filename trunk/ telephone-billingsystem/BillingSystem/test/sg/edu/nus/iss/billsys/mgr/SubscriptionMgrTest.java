@@ -53,7 +53,6 @@ public class SubscriptionMgrTest extends TestCase {
 			);
 			fail();
 		} catch (BillingSystemException e) {
-			e.printStackTrace();
 		} catch (ParseException e) {
 			fail();
 		}
@@ -67,7 +66,6 @@ public class SubscriptionMgrTest extends TestCase {
 			);
 			fail();
 		} catch (BillingSystemException e) {
-			e.printStackTrace();
 		}
 		try {
 			subMgr.registerNewSubscriptionPlan(
@@ -79,10 +77,86 @@ public class SubscriptionMgrTest extends TestCase {
 			);
 			fail();
 		} catch (BillingSystemException e) {
-			e.printStackTrace();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"61234567",
+				PlanType.DigitalVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"91234567",
+				PlanType.MobileVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				null,
+				PlanType.CableTv,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"61234567",
+				PlanType.DigitalVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				TimeUtils.parseDate("2013-02-01 00:00:00")
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"91234567",
+				PlanType.MobileVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				TimeUtils.parseDate("2013-02-01 00:00:00")
+			);
+		} catch (BillingSystemException e) {
+			fail();
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				null,
+				PlanType.CableTv,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				TimeUtils.parseDate("2013-02-01 00:00:00")
+			);
+		} catch (BillingSystemException e) {
+			fail();
 		} catch (ParseException e) {
 			fail();
 		}
 	}
-
 }

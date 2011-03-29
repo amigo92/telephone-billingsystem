@@ -2,6 +2,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -99,8 +100,10 @@ public class SubscriptionPlanDao extends GenericDao{
 	
 	private Feature initialiseFeature(String data[][],int index) throws BillingSystemException{
 		Feature feature=null;
-		try{			
-			feature = new Feature(data[index][0],getFeatureTypeByCode(data[index][2]),TimeUtils.parseDate(data[index][3]),TimeUtils.parseDate(data[index][4]));
+		try{
+			Date commenced = (data[index][3] == null) ? null : TimeUtils.parseDate(data[index][3]);
+			Date terminated = (data[index][4] == null) ? null : TimeUtils.parseDate(data[index][4]);
+			feature = new Feature(data[index][0],getFeatureTypeByCode(data[index][2]),commenced,terminated);
 			}
 			catch(ParseException ex){
 				throw new BillingSystemException("Parsing Exception occured on the Date Commenced :"+data[index][3]+" and Date Terminated :"+data[index][4]+" for Feature");
@@ -253,9 +256,9 @@ public class SubscriptionPlanDao extends GenericDao{
 			planData[cnt][0]=element.getPlanId();
 			planData[cnt][1]=element.getAcctNo();
 			planData[cnt][3]=String.valueOf(element.getPlanType().getPlanCd());
-			if(element.getPlanType().getPlanCd()!=2){
+			if(element instanceof VoicePlan){
 				VoicePlan vplan=(VoicePlan)element;
-				planData[cnt][2]=vplan.getAssignedTelNo();
+				planData[cnt][2]=vplan.getAssignedTelNo() == null ? "" : vplan.getAssignedTelNo();
 			}
 			tempFeatureList.add(element.getBasicFeature());
 			featureCount+=1;
@@ -284,8 +287,8 @@ public class SubscriptionPlanDao extends GenericDao{
 					featureData[cnt][0]=element.getFeatureId();
 					featureData[cnt][1]=planId;
 					featureData[cnt][2]=String.valueOf(element.getFeatureType().getFeatureCd());
-					featureData[cnt][3]=TimeUtils.dateToString(element.getDateCommenced());
-					featureData[cnt][4]=TimeUtils.dateToString(element.getDateTerminated());
+					featureData[cnt][3]=element.getDateCommenced() == null ? "" : TimeUtils.dateToString(element.getDateCommenced());
+					featureData[cnt][4]=element.getDateTerminated() == null ? "" : TimeUtils.dateToString(element.getDateTerminated());
 							
 					cnt++;	
 							
