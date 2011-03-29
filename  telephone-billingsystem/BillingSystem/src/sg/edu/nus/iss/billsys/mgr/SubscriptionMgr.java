@@ -82,7 +82,7 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
     	if (dateTerminated != null && dateCommenced.after(dateTerminated)) {
-    		throw new BillingSystemException("Date commenced cannot be later than date terminated.");
+    		throw new BillingSystemException("Date terminated cannot be later than date terminated.");
     	}
     	if (!validateAccount(acctNo)) {
     		throw new BillingSystemException("The account is invalid/terminated.");
@@ -144,7 +144,7 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
     	if (dateTerminated != null && dateCommenced.after(dateTerminated)) {
-    		throw new BillingSystemException("Date commenced cannot be later than date terminated.");
+    		throw new BillingSystemException("Date terminated cannot be later than date terminated.");
     	}
     	if (!validateAccount(acctNo)) {
     		throw new BillingSystemException("The account is invalid/terminated.");
