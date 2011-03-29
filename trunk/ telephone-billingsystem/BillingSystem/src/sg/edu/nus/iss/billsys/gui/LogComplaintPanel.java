@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
@@ -100,9 +101,9 @@ public class LogComplaintPanel extends JPanel {
 			statusLabel.setText("Status:");
 			statusPanel.add(statusLabel);
 
-			ComboBoxModel stautsComboBoxModel = new DefaultComboBoxModel(
-					GUIConstants.COMPLAINT_STATUS_VALUES);
+			ComboBoxModel stautsComboBoxModel = new DefaultComboBoxModel(StringUtil.getComplaintStatus());
 			statusComboBox = new JComboBox();
+			statusComboBox.setSelectedItem(ComplaintStatus.PENDING.toString());
 			statusComboBox.setModel(stautsComboBoxModel);
 			statusComboBox.setEnabled(false);
 
@@ -177,7 +178,7 @@ public class LogComplaintPanel extends JPanel {
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
 			
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(customerIdType);
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(customerIdTextField.getText().trim());
 			
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid Account #!");
@@ -188,7 +189,7 @@ public class LogComplaintPanel extends JPanel {
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
 
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerIdType);
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerIdTextField.getText().trim());
 			
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid NRIC!");
