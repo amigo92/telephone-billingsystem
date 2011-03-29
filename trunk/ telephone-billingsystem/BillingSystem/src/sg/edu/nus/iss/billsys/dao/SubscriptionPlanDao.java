@@ -36,7 +36,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
 	
 	@Override
-	public final void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 		
 		String[][] featureData =getFeatureData();		
 		
