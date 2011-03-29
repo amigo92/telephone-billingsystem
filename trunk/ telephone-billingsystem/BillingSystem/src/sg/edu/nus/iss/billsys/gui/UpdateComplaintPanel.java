@@ -30,6 +30,7 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
+import sg.edu.nus.iss.billsys.vo.Customer;
 
 public class UpdateComplaintPanel extends JPanel {
 	private BillingWindow window;
@@ -159,6 +160,7 @@ public class UpdateComplaintPanel extends JPanel {
 
 			complaintIdTextField = new JTextField();
 			statusPanel.add(complaintIdTextField);
+			complaintIdTextField.setEnabled(false);
 
 			statusLabel = new JLabel();
 			statusLabel.setText("Status:");
@@ -168,7 +170,7 @@ public class UpdateComplaintPanel extends JPanel {
 					GUIConstants.COMPLAINT_STATUS_VALUES);
 			statusComboBox = new JComboBox();
 			statusComboBox.setModel(stautsComboBoxModel);
-			statusComboBox.setEnabled(false);
+			statusComboBox.setEnabled(true);
 
 			statusPanel.add(statusComboBox);
 
@@ -179,6 +181,7 @@ public class UpdateComplaintPanel extends JPanel {
 			this.add(complaintLabel);
 
 			complaintTextArea = new JTextArea();
+			complaintTextArea.setEnabled(false);
 			this.add(complaintTextArea);
 
 			errorMessageLabel = new JLabel();
@@ -217,6 +220,7 @@ public class UpdateComplaintPanel extends JPanel {
 	private void getComplaintsButtonActionPerformed(ActionEvent evt) {
 		System.out.println("getComplaintsButtonActionPerformed, event=" + evt);
 		List<CustComplaint> complaints = null;
+		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(this.customerIdTextField.getText())) {
 			errorMessageLabel.setText("Invalid/ Empty customer Id!");
@@ -228,9 +232,23 @@ public class UpdateComplaintPanel extends JPanel {
 
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(customerIdType);
+			
+			if (customer == null) {
+				errorMessageLabel.setText("Invalid Account #!");
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			}
 		}
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
+			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerIdType);
+			
+			if (customer == null) {
+				errorMessageLabel.setText("Invalid NRIC!");
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			}
 		}
 
 		if ("accountNo".equalsIgnoreCase(customerIdType)) {
@@ -255,12 +273,12 @@ public class UpdateComplaintPanel extends JPanel {
 			}
 		}
 
-		// if (complaints != null && complaints.size() > 0) {
-		// populate the table
-		TableModel complaintTableModel = new DefaultTableModel(
-				getTableData(complaints), getColumnNames());
-		complaintTable.setModel(complaintTableModel);
-		// }
+		 if (complaints != null && complaints.size() > 0) {
+			// populate the table
+			TableModel complaintTableModel = new DefaultTableModel(
+					getTableData(complaints), getColumnNames());
+			complaintTable.setModel(complaintTableModel);
+		 }
 	}
 
 	private GridLayout formatGridLayout(GridLayout layout) {
@@ -349,7 +367,7 @@ public class UpdateComplaintPanel extends JPanel {
 			data[rowNum][0] = complaint.getComplaint_id();
 			data[rowNum][1] = complaint.getComplaintDate().toString();
 			data[rowNum][2] = complaint.getComplaint_Details();
-			// data[rowNum][3] = complaint.getStatus();
+			data[rowNum][3] = complaint.getStatus().toString();
 			rowNum++;
 		}
 		return data;
