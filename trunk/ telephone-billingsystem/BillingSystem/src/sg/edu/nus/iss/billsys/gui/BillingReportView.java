@@ -56,7 +56,7 @@ public class BillingReportView extends JPanel {
 		    reportPanel = createReportPanel();
 		    add ("Center", reportPanel);
 		    
-		    customerID.setText("S8481361F");
+		    customerID.setText("S8481362F");
         
     	}
         catch(Exception e){
@@ -110,29 +110,30 @@ public class BillingReportView extends JPanel {
 		
 
    	
-		BillPeriod billPeriod = new BillPeriod(selectedMonth,selectedYear);
+		BillPeriod billPeriod = new BillPeriod(3,2011);
+		Bill bill;
+		try
+		{
+			bill =	manager.getBill(billPeriod, accountNo);
+			
+		}catch(Exception ex){
+			JOptionPane.showMessageDialog(window, ex.getMessage(),"Wrong at get bill",0);	
+
+		}
+		JTextArea textBill;
 		
-	
+//		if(bill != null) 
+//		{
+//			textBill = new JTextArea (bill.toString()); 
+//		}else {
+//			textBill = new JTextArea ("Not Available");
+//		}
 		
-		//Bill bill =	manager.getBill(billPeriod, "SA-2011-03-25-8481361");
-	
-    
-    
-  
-//        if(bill != null){
-//        	bp.add ("North", new JLabel ("Billing Report:"));
-//        	bp.add ("Center", new JLabel (bill.toString()));
-//        }
-    	
-		JTextArea textBill = new JTextArea (testBill());
+		textBill = new JTextArea ("Not Available");
 		textBill.setEditable(false);
-		
 		Font font = new Font("Verdana", Font.PLAIN, 12);
 		textBill.setFont(font);
-		//textBill.setForeground(Color.BLUE);
-
 		textBill.setBackground(Color.lightGray);
-       
         JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().add( textBill );
 		
