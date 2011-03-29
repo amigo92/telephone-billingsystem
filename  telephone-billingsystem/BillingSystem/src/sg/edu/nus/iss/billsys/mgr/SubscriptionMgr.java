@@ -1,16 +1,13 @@
 package sg.edu.nus.iss.billsys.mgr;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
-import sg.edu.nus.iss.billsys.constant.PlanType.PlanCode;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
