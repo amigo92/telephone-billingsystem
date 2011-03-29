@@ -1,4 +1,5 @@
 package sg.edu.nus.iss.billsys.vo;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
