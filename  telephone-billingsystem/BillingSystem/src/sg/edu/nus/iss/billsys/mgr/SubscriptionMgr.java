@@ -12,6 +12,7 @@ import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
+import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.MobileVoicePlan;
@@ -43,21 +44,29 @@ public class SubscriptionMgr {
 	
 	public FeatureType getPlanBasicFeatures(PlanType planType) {
 		return planType.basicFeature;
-	}
-	
+	}	
+
 	public List<FeatureType> getPlanOptionalFeatures(PlanType planType) {
 		ArrayList<FeatureType> list = new ArrayList<FeatureType>();
 		for (FeatureType featureType : planType.optionalFeatures) {
 			list.add(featureType);
 		}
 		return list;
-	}
-	
+	}	
+
+    /*
+     * To get all subscription plans of the account.
+     * @return list of SubscriptionPlan objects
+     */
     public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
     	return subPlanDao.getAccountSubscriptions(acctNo);
     }
     
-    public void registerNewSubscriptionPlan(String acctNo, String assignedTelNo, PlanType planType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
+    /*
+     * To register new subscription plan into the account.
+     * @return SubscriptionPlan object
+     */
+    public SubscriptionPlan registerNewSubscriptionPlan(String acctNo, String assignedTelNo, PlanType planType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -69,6 +78,9 @@ public class SubscriptionMgr {
     	}
     	if (dateTerminated != null && dateCommenced.after(dateTerminated)) {
     		throw new BillingSystemException("Date commenced cannot be later than date terminated.");
+    	}
+    	if (!validateAccount(acctNo)) {
+    		throw new BillingSystemException("The account is invalid/terminated.");
     	}
     	SubscriptionPlan plan = null;
     	switch (planType.planCode) {
@@ -106,9 +118,14 @@ public class SubscriptionMgr {
     	}
 		subPlanDao.addAccountSubscriptions(acctNo, plan);
 		subPlanDao.save();
+		return plan;
     }
-    
-    public void registerNewFeature(String acctNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
+
+    /*
+     * To register new optional feature of the plan.
+     * @return feature id
+     */
+    public String registerNewFeature(String acctNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -124,21 +141,30 @@ public class SubscriptionMgr {
     	if (dateTerminated != null && dateCommenced.after(dateTerminated)) {
     		throw new BillingSystemException("Date commenced cannot be later than date terminated.");
     	}
+    	if (!validateAccount(acctNo)) {
+    		throw new BillingSystemException("The account is invalid/terminated.");
+    	}
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo,planId);
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
     	}
+    	String fid = SubscriptionPlanDao.generateSequence();
     	plan.addOptionalFeature(
     		new Feature(
-    			SubscriptionPlanDao.generateSequence(),
+    			fid,
     			featureType,
     			dateCommenced,
     			dateTerminated
     		)
     	);
 		subPlanDao.save();
-    }
-    
+		return fid;
+    }   
+
+    /*
+     * To get all registered (active) features of the plan.
+     * @return list of Feature objects
+     */
     public List<Feature> getRegisteredFeatures(String acctNo, String planId) {
        	if (acctNo == null) {
     		return null;
@@ -159,8 +185,12 @@ public class SubscriptionMgr {
     	}
     	return list;
     }
-   
-    public List<Feature> getDeregisteredFeatures(String acctNo, String planId) {
+
+    /*
+     * To get all deregistered (terminated) features of the plan.
+     * @return list of Feature objects
+     */
+   public List<Feature> getDeregisteredFeatures(String acctNo, String planId) {
        	if (acctNo == null) {
     		return null;
     	}
@@ -180,7 +210,10 @@ public class SubscriptionMgr {
     	}
     	return list;
     }
-    
+
+   /*
+    * To deregister (terminate) feature of the plan.
+    */
     public void deregisterFeature(String acctNo, String planId, String featureId, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
@@ -194,6 +227,9 @@ public class SubscriptionMgr {
     	if (dateTerminated == null) {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
+    	if (!validateAccount(acctNo)) {
+    		throw new BillingSystemException("The account is invalid/terminated.");
+    	}
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
@@ -205,7 +241,10 @@ public class SubscriptionMgr {
     	feature.setDateTerminated(dateTerminated);
 		subPlanDao.save();
     }
-    
+
+    /*
+     * To deregister (terminate) the plan.
+     */
     public void deregisterSubscriptionPlan(String acctNo, String planId, Date dateTerminated) throws BillingSystemException {
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
@@ -216,11 +255,22 @@ public class SubscriptionMgr {
     	if (dateTerminated == null) {
     		throw new BillingSystemException("Date commenced cannot be null.");
     	}
+    	if (!validateAccount(acctNo)) {
+    		throw new BillingSystemException("The account is invalid/terminated.");
+    	}
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
     	}
     	plan.setDateTerminated(dateTerminated);
 		subPlanDao.save();
+    }
+    
+    private boolean validateAccount(String acctNo) throws BillingSystemException {
+    	Customer cust = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctNo);
+    	if (cust == null) {
+    		return false;
+    	}
+    	return !cust.isDeleted();
     }
 }
