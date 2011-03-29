@@ -34,7 +34,7 @@ public class UserMgr {
 		return currentUser != null ? currentUser.getUsername() : null;
 	}
 	
-	public boolean isValidAuthUser(String userId, String pwd)
+	public boolean isValidAuthUser(String userId, String pwd) throws BillingSystemException
 	{	
 		if(userId != null && pwd != null){
 			User user = dao.getUserByUsername(userId);
