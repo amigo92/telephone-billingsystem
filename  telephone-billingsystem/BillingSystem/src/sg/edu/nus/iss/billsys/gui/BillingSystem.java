@@ -20,8 +20,8 @@ public class BillingSystem  {
 	}
 	public void start() {
 		
-		//login();
-		startBillingWindow();
+		login();
+//		startBillingWindow();
 	}
 	
 	
