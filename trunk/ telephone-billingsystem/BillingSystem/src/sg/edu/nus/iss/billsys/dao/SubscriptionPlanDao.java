@@ -36,7 +36,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
 	
 	@Override
-	protected void objectDataMapping(String[][] data) throws BillingSystemException{
+	public final void objectDataMapping(String[][] data) throws BillingSystemException{
 		
 		String[][] featureData =getFeatureData();		
 		
@@ -228,7 +228,7 @@ public class SubscriptionPlanDao extends GenericDao{
 	}
 	
 	@Override
-	protected void saveObjectData() throws BillingSystemException{
+	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;	
 		int featureCount=0;
 		List<SubscriptionPlan> tempSubPlanList=new ArrayList<SubscriptionPlan>();
@@ -301,8 +301,8 @@ public class SubscriptionPlanDao extends GenericDao{
 		    }
 		
 		if(validateData(planData,"Susbscription Plan",SUBSCRIPTION_COL_LENGTH) && validateData(featureData, "Features", FEATURE_COL_LENGTH)){
-			saveSubscriptionPlanData(planData);
-			saveFeatureData(featureData);
+			if(!saveSubscriptionPlanData(planData))throw new BillingSystemException("Saving to File Operation Failed for SubscriptionPlanData");
+			if(!saveFeatureData(featureData))throw new BillingSystemException("Saving to File Operation Failed for FeatureData");
 		}
 		
 	}
@@ -341,10 +341,6 @@ public class SubscriptionPlanDao extends GenericDao{
 			subscriptionMap.put(acctNo, list);
 		}
 		list.add(plan);
-	}
-	
-	public void save() throws BillingSystemException{
-		saveObjectData();
 	}
 	
 
