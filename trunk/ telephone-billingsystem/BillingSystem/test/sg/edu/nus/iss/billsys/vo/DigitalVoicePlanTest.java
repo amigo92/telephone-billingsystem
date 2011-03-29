@@ -81,7 +81,6 @@ public class DigitalVoicePlanTest extends TestCase {
 		try {
 			dateTerminated1 = TimeUtils.parseDate("2012-01-01 00:00:00");
 		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		plan1.setDateTerminated(dateTerminated1);
 		assertEquals(dateTerminated1,plan1.getDateTerminated());
@@ -129,7 +128,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
@@ -143,7 +142,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
@@ -157,7 +156,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
@@ -171,7 +170,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
@@ -185,7 +184,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
@@ -199,7 +198,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			plan1.addOptionalFeature(f);
 			fail();
 		} catch (BillingSystemException bsExp) {
-			bsExp.printStackTrace();
+			System.out.println(bsExp.getMessage());
 		} catch (ParseException e) {
 			fail();
 		}
