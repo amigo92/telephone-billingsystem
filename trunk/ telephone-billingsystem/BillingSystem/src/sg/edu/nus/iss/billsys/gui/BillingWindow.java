@@ -21,6 +21,7 @@ public class BillingWindow extends JFrame {
     private JPanel contentPane;
     private BillingWindow window;
     private SubscriptionMgr subscriptionMgr;
+    private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
     
     private WindowListener windowListener = new WindowAdapter () {
         public void windowClosing (WindowEvent e) {
@@ -70,65 +71,18 @@ public class BillingWindow extends JFrame {
 			menu = new JMenu("Account  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
-			menuItem = new JMenuItem("Customer Registration");
+			menuItem = new JMenuItem("item1");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					AddCustomer currentPanel = new AddCustomer(window);
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
+
 				}
 			});
 			menu.add(menuItem);
 			menu.addSeparator();
-			
-			
-			menuItem = new JMenuItem("Update Customer Status");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					UpdateCustomerStatus currentPanel = new UpdateCustomerStatus(window);
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
-			
-			
-			menuItem = new JMenuItem("View Customer Details");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					ViewCustomerDetails currentPanel = new ViewCustomerDetails(window);
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
-			
-			menuItem = new JMenuItem("Search Customer");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					SearchCustomer currentPanel = new SearchCustomer(window);
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			
 		}
         
-		if (isAdmin) {
+		
 			menu = new JMenu("Billing  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
@@ -159,9 +113,8 @@ public class BillingWindow extends JFrame {
 			});
 			menu.add(menuItem);
 			menu.addSeparator();
-		}
-		
-		if (isAdmin) {
+
+	
 			menu = new JMenu("Subscription  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
@@ -209,7 +162,7 @@ public class BillingWindow extends JFrame {
 			});
 			menu.add(menuItem);
 			menu.addSeparator();
-		}
+		
 		
 		// Complaint
         menu = new JMenu("Complaint  ");
@@ -280,6 +233,15 @@ public class BillingWindow extends JFrame {
 
 	public SubscriptionMgr getSubscriptionMgr() {
 		return subscriptionMgr;
+	}
+	
+	public void refreshSubRegPanel(String accountNo){
+		subscriptionRegistrationPanel = new SubscriptionRegistrationPanel(
+				window, accountNo);
+
+		contentPane.revalidate();
+		contentPane = subscriptionRegistrationPanel;
+		window.setContentPane(contentPane);
 	}
 
 }
