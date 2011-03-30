@@ -71,8 +71,15 @@ public class AccountMgr {
 		return custDao.getCustomerByName(custName);
 	}
 	
-	public Customer reactiveCustomer(String accId, Date today){
-		return custDao.reactiveCustomer(accId, today);
+	public boolean reactiveCustomer(String accId, Date today) throws BillingSystemException{
+		Customer cust = custDao.reactiveCustomer(accId, today);
+		if(cust != null){
+			custDao.saveObjectData();
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public ArrayList<Customer> getAllCustomers(){
