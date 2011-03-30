@@ -22,6 +22,7 @@ public class BillingWindow extends JFrame {
     private BillingWindow window;
     private SubscriptionMgr subscriptionMgr;
     private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
+    private SubscriptionDeRegistrationPanel subscriptionDeRegistrationPanel;
     
     private WindowListener windowListener = new WindowAdapter () {
         public void windowClosing (WindowEvent e) {
@@ -151,11 +152,11 @@ public class BillingWindow extends JFrame {
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setSubscriptionMgr();
-					SubscriptionDeRegistrationPanel currentPanel = new SubscriptionDeRegistrationPanel(
+					subscriptionDeRegistrationPanel = new SubscriptionDeRegistrationPanel(
 							window);
 
 					contentPane.revalidate();
-					contentPane = currentPanel;
+					contentPane = subscriptionDeRegistrationPanel;
 					window.setContentPane(contentPane);
 
 				}
@@ -237,6 +238,15 @@ public class BillingWindow extends JFrame {
 	
 	public void refreshSubRegPanel(String accountNo){
 		subscriptionRegistrationPanel = new SubscriptionRegistrationPanel(
+				window, accountNo);
+
+		contentPane.revalidate();
+		contentPane = subscriptionRegistrationPanel;
+		window.setContentPane(contentPane);
+	}
+	
+	public void refreshSubDeRegPanel(String accountNo){
+		subscriptionDeRegistrationPanel = new SubscriptionDeRegistrationPanel(
 				window, accountNo);
 
 		contentPane.revalidate();
