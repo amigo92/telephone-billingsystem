@@ -25,6 +25,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.tools.*;
+import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.vo.Customer;
@@ -63,6 +64,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private Customer cust= new Customer();
 	private AccountMgr accountMgr= new AccountMgr();
 	private SubscriptionMgr subMgr ;//= new SubscriptionMgr();
+	private JLabel errorMsgSearchLabel;
+	private JLabel errorMsgNRICLabel;
+	
 	//private List<SubscriptionPlan> listSubPlan = new ArrayList<SubscriptionPlan>() ;
 	
 	public static void main(String[] args) {
@@ -90,6 +94,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		this.GetCustomerDetails();
 		ObjectsToControls();
 	}
+	
+	public ViewCustomerDetails(BillingWindow window) {
+		super();
+		initGUI();				
+	}
+	
 	
 	private void initGUI() {
 		try {
@@ -126,8 +136,8 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				{
 					SearchCustButton = new JButton();
 					ViewCustPanelCenter.add(SearchCustButton);
-					SearchCustButton.setText("Search Customer");
-					SearchCustButton.setBounds(374, 16, 162, 23);
+					SearchCustButton.setText("Search");
+					SearchCustButton.setBounds(371, 16, 82, 23);
 					SearchCustButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							SearchCustButtonActionPerformed(evt);
@@ -171,34 +181,34 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					address3Label.setBounds(12, 196, 152, 40);
 				}
 				{
-					CustNameLabel = new JLabel();
+					CustNameLabel = new JLabel( );
 					ViewCustPanelCenter.add(CustNameLabel);
-					CustNameLabel.setBounds(170, 59, 216, 16);
+					CustNameLabel.setBounds(170, 54, 216, 16);
 				}
 				{
-					Custaddress1Label = new JLabel();
+					Custaddress1Label = new JLabel( );
 					ViewCustPanelCenter.add(Custaddress1Label);
-					Custaddress1Label.setBounds(170, 87, 192, 46);
+					Custaddress1Label.setBounds(170, 82, 192, 46);
 				}
 				{
-					Custaddress2Label = new JLabel();
+					Custaddress2Label = new JLabel( );
 					ViewCustPanelCenter.add(Custaddress2Label);
-					Custaddress2Label.setBounds(170, 149, 238, 41);
+					Custaddress2Label.setBounds(170, 137, 238, 41);
 				}
 				{
-					Custaddress3Label = new JLabel();
+					Custaddress3Label = new JLabel( );
 					ViewCustPanelCenter.add(Custaddress3Label);
-					Custaddress3Label.setBounds(170, 208, 216, 45);
+					Custaddress3Label.setBounds(170, 194, 216, 45);
 				}
 				{
-					CustTeleLabel = new JLabel();
+					CustTeleLabel = new JLabel( );
 					ViewCustPanelCenter.add(CustTeleLabel);
-					CustTeleLabel.setBounds(161, 250, 180, 16);
+					CustTeleLabel.setBounds(170, 249, 180, 16);
 				}
 				{
-					CustInterestLabel = new JLabel();
+					CustInterestLabel = new JLabel( );
 					ViewCustPanelCenter.add(CustInterestLabel);
-					CustInterestLabel.setBounds(164, 293, 175, 16);
+					CustInterestLabel.setBounds(170, 295, 175, 16);
 				}
 				{
 					accountTitleLabel = new JLabel();
@@ -216,12 +226,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					accountNoLabel = new JLabel();
 					ViewCustPanelCenter.add(accountNoLabel);
 					accountNoLabel.setText("Account No :");
-					accountNoLabel.setBounds(12, 367, 140, 16);
+					accountNoLabel.setBounds(12, 364, 140, 16);
 				}
 				{
-					CustAccontNoLabel = new JLabel();
+					CustAccontNoLabel = new JLabel( );
 					ViewCustPanelCenter.add(CustAccontNoLabel);
-					CustAccontNoLabel.setBounds(164, 367, 272, 10);
+					CustAccontNoLabel.setBounds(170, 367, 272, 10);
+					
 				}
 				
 				JButton btnSubscriptionInformation = new JButton("Subscription Information");
@@ -232,6 +243,28 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				});
 				btnSubscriptionInformation.setBounds(347, 410, 180, 23);
 				ViewCustPanelCenter.add(btnSubscriptionInformation);
+				{
+					errorMsgSearchLabel = new JLabel("*No match record founds.");
+					errorMsgSearchLabel.setBounds(463, 20, 146, 14);
+
+
+					errorMsgSearchLabel.setOpaque(true);
+					errorMsgSearchLabel.setForeground(new java.awt.Color(255, 0, 0));
+					errorMsgSearchLabel.setVisible(false);
+					ViewCustPanelCenter.add(errorMsgSearchLabel);
+					
+					
+					errorMsgNRICLabel = new JLabel("*Please enter NRIC.");
+					errorMsgNRICLabel.setBounds(475, 20, 170, 14);
+
+
+					errorMsgNRICLabel.setOpaque(true);
+					errorMsgNRICLabel.setForeground(new java.awt.Color(255, 0, 0));
+					errorMsgNRICLabel.setVisible(false);
+					ViewCustPanelCenter.add(errorMsgSearchLabel);
+					
+					
+				}
 				
 //				{
 //					qtm = new QueryTableModel();
@@ -243,7 +276,26 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	private void SearchCustButtonActionPerformed(ActionEvent evt) {
-	//	BillingSystem.updateContentPane(new SearchCustomer(window));
+		accountMgr= new AccountMgr();
+		clearErrorMsgData();
+		System.out.println("a");
+		if (validateControl()){					
+			
+		cust= accountMgr.getCustomerDetailsById(nricText.getText() );			
+	
+		if (cust!=null){
+	
+			ObjectsToControls();
+		}
+		else {
+			ClearData();
+			errorMsgSearchLabel.setVisible(true);
+		}
+	}
+		else {
+			
+			errorMsgNRICLabel.setVisible(true);
+		}
 	}
 	
 	private void ObjectsToControls(){
@@ -255,12 +307,37 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		Custaddress3Label.setText(cust.getAddress3()) ;
 		CustTeleLabel.setText(cust.getContactTel());
 		CustInterestLabel.setText(cust.getInterest());
-		accountNoLabel.setText(cust.getAccIdByCust()) ;		
+		CustAccontNoLabel.setText(cust.getAccIdByCust()) ;		
 		//qtm.updateTable(listSubPlan);
+	}
+	
+	private void ClearData(){
+		CustNameLabel.setText(null) ;
+		nricText.setText(null) ;
+		Custaddress1Label.setText(null) ;
+		Custaddress2Label.setText(null) ;
+		Custaddress3Label.setText(null) ;
+		CustTeleLabel.setText(null);
+		CustInterestLabel.setText(null);
+		CustAccontNoLabel.setText(null) ;	
 	}
 	
 	private void GetCustomerDetails(){
 		cust= accountMgr.getCustomerDetailsById(strNRC);			
 //		listSubPlan=subMgr.getAccountSubscriptions(cust.getAccIdByCust());
+	}
+	
+	private boolean validateControl(){
+		boolean bReturn= true;
+		if (StringUtil.isNullOrEmpty(this.nricText.getText())){			
+			errorMsgSearchLabel.setVisible(true);
+			bReturn= false;
+		}	
+		return bReturn;
+	}
+	
+	private void clearErrorMsgData(){
+		errorMsgSearchLabel.setVisible(false);		
+		errorMsgNRICLabel.setVisible(false);
 	}
 }
