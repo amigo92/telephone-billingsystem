@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.gui;
 import java.awt.BorderLayout;
+import java.awt.Container;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -239,6 +240,36 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				btnSubscriptionInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						// call 
+						System.out.println("aa");
+//						setVisible(false);
+//						//window.BillingWindow1(cust) ;					
+//						System.out.println("ba");
+//						SearchCustomer sC= new SearchCustomer(window);
+//						JPanel j= new JPanel() ;
+//						j.revalidate();
+//						j= sC;
+//						Container c= window.getContentPane();
+//						Container.add(j);
+//						
+//						BillingSystem bs= new BillingSystem();
+//						bs.startBillingWindow1(cust);
+						
+//						window.setContentPane(window.getContentPane());
+//						JPanel j= new JPanel() ;
+//						j.revalidate();
+//						j= sC;
+//						window.setContentPane(j);
+						
+					//	sC.setVisible(true);
+						
+						
+//						AddCustomer currentPanel = new AddCustomer(window);
+//						contentPane.revalidate();
+//						contentPane = currentPanel;
+//						window.setContentPane(contentPane);
+//						
+						//SearchCustomer sC= new SearchCustomer(window.getContentPane()); 
+						//window.add(sC);
 					}
 				});
 				btnSubscriptionInformation.setBounds(347, 410, 180, 23);
