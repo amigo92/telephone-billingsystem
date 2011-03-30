@@ -22,6 +22,8 @@ import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import java.awt.Font;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
 * @author Win Kyi Tin 
@@ -237,7 +239,9 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					System.out.println(cust.getAccIdByCust());
 					Boolean bReturn= false;
 					if (rdActivitation.isSelected()){
-						bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+						Calendar today = Calendar.getInstance();
+						Date todayDate = today.getTime();
+						bReturn=accountMgr.reactiveCustomer(cust.getAccIdByCust(), todayDate);
 					}
 					else if (rdDeactivitation.isSelected()){
 						bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
