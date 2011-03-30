@@ -6,4 +6,5 @@
 "Chuichi","password$1","1"
 "Wenjing","password$1","1"
 "Win","password$1","1"
-"Huazen","password$1","1"
+"hz1","password$1","1"
+"hz2","hz","0"
