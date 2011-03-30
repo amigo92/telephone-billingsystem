@@ -108,6 +108,13 @@ public class SearchCustomer extends javax.swing.JPanel {
 				}
 				{
 					CustNameRadioButton = new JRadioButton();
+					CustNameRadioButton.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							SearchTextBox.setText(null);
+							 clearErrorMsgData();
+						}
+					});
 					SearchCustPantelCenter.add(CustNameRadioButton);
 					CustNameRadioButton.setText("Customer Name");
 					CustNameRadioButton.setBounds(105, 35, 146, 20);
@@ -118,6 +125,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 					NRICRadioButton.addMouseListener(new MouseAdapter() {						
 						public void mouseClicked(MouseEvent arg0) {
 							SearchTextBox.setText(null);
+							 clearErrorMsgData();
 						}
 					});
 					SearchCustPantelCenter.add(NRICRadioButton);
