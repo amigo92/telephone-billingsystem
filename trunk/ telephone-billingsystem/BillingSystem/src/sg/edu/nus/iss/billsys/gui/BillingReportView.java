@@ -10,6 +10,7 @@ import sg.edu.nus.iss.billsys.mgr.BillMgr;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiConfirmDialog;
+import sg.edu.nus.iss.billsys.util.BillingUtil;
 import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.Bill;
 import sg.edu.nus.iss.billsys.vo.BillPeriod;
@@ -24,6 +25,7 @@ import sg.edu.nus.iss.billsys.vo.Bill.SummaryCharges;
 
 
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 import java.awt.*;
@@ -42,6 +44,7 @@ public class BillingReportView extends JPanel {
 	private int selectedMonth =1 ;
 	private int selectedYear = 2011;
 	private BillMgr manager;
+	private BillPeriod selectedBillPeriod;
 	
     public BillingReportView (BillingWindow window) {
     	try
@@ -54,7 +57,7 @@ public class BillingReportView extends JPanel {
 		    add ("North", createFormPanel());      
 		    customerID.setText("S8481362F");
 
-		    reportPanel = createReportPanel();
+		    reportPanel = new JPanel();
 		    add ("Center", reportPanel);
 		    
         
@@ -71,13 +74,13 @@ public class BillingReportView extends JPanel {
         p.add(customerID);
         p.add(new JLabel (""));
         
-        p.add(new JLabel ("Month  :   "));
-        p.add(createMonthComboBox());
+        p.add(new JLabel ("Plese select Bill Period  :   "));
+        p.add(createBillPeriodComboBox ());
         p.add(new JLabel (""));
         
-        p.add(new JLabel ("Year  :   "));
-        p.add(createYearComboBox());
-        p.add(new JLabel (""));
+//        p.add(new JLabel ("Year  :   "));
+//        p.add(createYearComboBox());
+//        p.add(new JLabel (""));
   
         p.add(new JLabel (""));
         p.add(new JLabel (""));
@@ -85,10 +88,7 @@ public class BillingReportView extends JPanel {
         b.addActionListener (new ActionListener () {
         public void actionPerformed (ActionEvent e) {
         	try{	
-	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAccountId();
-	    		//JOptionPane.showMessageDialog(window, accountNo);
-	    		
-	    		System.out.println(accountNo);
+	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAccountId();	    		
 
 	    	    reportPanel.revalidate();
         		reportPanel = createReportPanel();
@@ -112,15 +112,14 @@ public class BillingReportView extends JPanel {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 1));
 
-		BillPeriod billPeriod = new BillPeriod(2011, 3);
 		Bill bill = null;
 		try
 		{
-			bill =	manager.getBill(billPeriod, "SA-2011-03-25-8481362");
-			System.out.println(bill);
+			selectedBillPeriod = new BillPeriod(2011,3);
+			bill =	manager.getBill(selectedBillPeriod, accountNo);
 			
 		}catch(Exception ex){
-			JOptionPane.showMessageDialog(window, ex.getMessage(),"Wrong at get bill",0);	
+			JOptionPane.showMessageDialog(window, selectedBillPeriod.getBillDate() ,"Wrong at get bill",0);	
 
 		}
 		
@@ -133,7 +132,6 @@ public class BillingReportView extends JPanel {
 			textBill = new JTextArea ("Not Available");
 		}
 		
-//		textBill = new JTextArea ("Not Available");
 		textBill.setEditable(false);
 		Font font = new Font("Verdana", Font.PLAIN, 12);
 		textBill.setFont(font);
@@ -148,48 +146,75 @@ public class BillingReportView extends JPanel {
         return bp;
     }  
   
-    	
- private JComboBox createMonthComboBox () {  
-    	
-    	Calendar ca1 = Calendar.getInstance();
-        int iMonth=ca1.get(Calendar.MONTH);
-    	String[] months = {"1","2","3","4","5","6","7","8","9","10","11","12"};
-	    JComboBox box = new JComboBox(months);
-	    
-	    box.addActionListener(new ActionListener (){
-	    	public void actionPerformed (ActionEvent e) {
-	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		   int selectedMonth = cb.getSelectedIndex() +1;
-	            }
-	    });
-	    box.setSelectedIndex(iMonth);
-	    add(box, BorderLayout.PAGE_START);
-	    return box;
-    }
- private JComboBox createYearComboBox () {  
-    	
-    	Calendar ca1 = Calendar.getInstance();
-        int iYear=ca1.get(Calendar.YEAR);
-        int years = iYear - 2011 + 1;
+  private JComboBox createBillPeriodComboBox () {  
+	
+	JComboBox box = new JComboBox();
 
-    	String[] months = new String[years];
-    	for(int i = 0 ; i < years ; i++)
-    	{
-    		months[i] =  Integer.toString(iYear - i);
-    	}
-    	JComboBox box = new JComboBox(months);
-	    
-	    box.addActionListener(new ActionListener (){
-	    	public void actionPerformed (ActionEvent e) {
-	    		   JComboBox cb = (JComboBox)e.getSource();
-	    		    int selectedYear = Integer.parseInt(cb.getSelectedItem().toString());
-	            }
-	    });
-	    box.setSelectedIndex(0);
-	    add(box, BorderLayout.PAGE_START);
-	    return box;
-    }
- 
+	BillPeriod[] billPeriods = manager.getAllGeneratedBillPeriods();
+
+	for(BillPeriod bill:billPeriods ){
+		box.addItem(bill.getBillDate());
+	}
+    
+    box.addActionListener(new ActionListener (){
+    	public void actionPerformed (ActionEvent e) {
+    		   JComboBox cb = (JComboBox)e.getSource();
+    		   String strBillPeriod=(String)cb.getSelectedItem();
+    		   try {
+    			   
+				Date dateBillPeriod = BillingUtil.getDateTime(strBillPeriod);
+			//	selectedBillPeriod = new BillPeriod(dateBillPeriod.getYear(),dateBillPeriod.getMonth());
+				
+    		   } catch (ParseException e1) {
+					JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);	
+    		   }
+            }
+    });
+    box.setSelectedIndex(0);
+    add(box, BorderLayout.PAGE_START);
+    return box;
+}	
+// private JComboBox createMonthComboBox () {  
+//    	
+//    	Calendar ca1 = Calendar.getInstance();
+//        int iMonth=ca1.get(Calendar.MONTH);
+//    	String[] months = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+//	    JComboBox box = new JComboBox(months);
+//	    
+//	    box.addActionListener(new ActionListener (){
+//	    	public void actionPerformed (ActionEvent e) {
+//	    		   JComboBox cb = (JComboBox)e.getSource();
+//	    		   int selectedMonth = cb.getSelectedIndex() +1;
+//	            }
+//	    });
+//	    box.setSelectedIndex(iMonth);
+//	    add(box, BorderLayout.PAGE_START);
+//	    return box;
+//    }
+// private JComboBox createYearComboBox () {  
+//    	
+//    	Calendar ca1 = Calendar.getInstance();
+//        int iYear=ca1.get(Calendar.YEAR);
+//        int years = iYear - 2011 + 1;
+//
+//    	String[] months = new String[years];
+//    	for(int i = 0 ; i < years ; i++)
+//    	{
+//    		months[i] =  Integer.toString(iYear - i);
+//    	}
+//    	JComboBox box = new JComboBox(months);
+//	    
+//	    box.addActionListener(new ActionListener (){
+//	    	public void actionPerformed (ActionEvent e) {
+//	    		   JComboBox cb = (JComboBox)e.getSource();
+//	    		    int selectedYear = Integer.parseInt(cb.getSelectedItem().toString());
+//	            }
+//	    });
+//	    box.setSelectedIndex(0);
+//	    add(box, BorderLayout.PAGE_START);
+//	    return box;
+//    }
+// 
  public String testBill() {
 		CompanyProfile profile = new CompanyProfile();
 		profile.setAlias("One#");
