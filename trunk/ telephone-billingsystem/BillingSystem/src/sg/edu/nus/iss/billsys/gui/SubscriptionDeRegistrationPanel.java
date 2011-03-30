@@ -3,20 +3,13 @@ package sg.edu.nus.iss.billsys.gui;
  * @author Ma Huazhen
  *
  */
-import sg.edu.nus.iss.billsys.*;
-import sg.edu.nus.iss.billsys.constant.PlanType;
-import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
-import sg.edu.nus.iss.billsys.tools.GuiConfirmDialog;
-import sg.edu.nus.iss.billsys.util.BillingUtil;
-import sg.edu.nus.iss.billsys.vo.Account;
+
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
-
-
-import java.util.*;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,16 +23,20 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	private BillingWindow        window;
 	
 	private JTextField           customerID;
-	private List<PlanType>       listOfPlanType;
 	private SubscriptionMgr      manager;
-	private String[] planNames;
-	private PlanType planType;
 	private String accountNo;
 	private JPanel deRegisterPanel;
 	private List<Feature> features;
 	
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
-		this.window = window;
+    	 initialize(window);	
+    }
+    public SubscriptionDeRegistrationPanel (BillingWindow window, String accountNo) { 	
+   	 	initialize(window);	
+    	this.accountNo = accountNo;
+    }
+    public void initialize(BillingWindow window){
+    	this.window = window;
 		manager = window.getSubscriptionMgr();
 	
 	    setLayout (new BorderLayout());
