@@ -90,6 +90,7 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 			else
 				manager.deregisterFeature(accountNo, planId, featureId, dateTerminated);
 		
+			window.refreshSubDeRegPanel(accountNo);
 			return true;
 			
 		}catch(Exception ex){

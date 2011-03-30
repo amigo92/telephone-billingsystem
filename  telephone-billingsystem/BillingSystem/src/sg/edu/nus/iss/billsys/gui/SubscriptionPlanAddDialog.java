@@ -84,23 +84,33 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	protected boolean performOkAction() {
 		String assignedTelNo = assignedNumberField.getText();
 		
-		Date dateCommenced;
+		if(assignedTelNo.trim().equals("")  ){
+			JOptionPane.showMessageDialog(window, "Phone Number must be 8 digits","",0);
+			return false;
+		}
+		
+		Date fromtDate;
 		try {
-			dateCommenced = BillingUtil.getDateTime(fromField.getText());
+			fromtDate = BillingUtil.getDateTime(fromField.getText());
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
 		}
-		Date dateTerminated;
+		Date utilDate;
 		try {
-			dateTerminated = BillingUtil.getDateTime(untilField.getText());
+			utilDate = BillingUtil.getDateTime(untilField.getText());
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
 		}
-
+		
+		if(fromtDate.before(utilDate)){
+			JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
+			return false;
+		}
+	
 		try {
-			manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, dateCommenced, dateTerminated);
+			manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, fromtDate, utilDate);
 			window.refreshSubRegPanel(accountNo);
 		} catch (BillingSystemException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	

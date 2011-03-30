@@ -43,12 +43,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private List<SubscriptionPlan> subscribedPlans;
     
     public SubscriptionRegistrationPanel (BillingWindow window) {
-    	try{
     		 initialize(window);
-    	}
-        catch(Exception e){
-        	JOptionPane.showMessageDialog(window, e.getMessage(), "", 0);
-        }
     }
     public SubscriptionRegistrationPanel (BillingWindow window, String accountNo) {
     		this.accountNo = accountNo;
