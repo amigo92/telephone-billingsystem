@@ -161,7 +161,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 						public void actionPerformed(ActionEvent evt) {
 							try {
 						
-								submitButtonActionPerformed(evt);
+								     submitButtonActionPerformed(evt);
 							
 							} catch (Exception e) {
 							    // Print out the exception that occurred
@@ -263,7 +263,8 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			cust= accountMgr.getCustomerDetailsById(nrcText.getText() );			
 		
 			if (cust!=null){
-		
+				customerNameLabel.setText(cust.getName());
+				
 			if (cust.isDeleted()){
 						rdActivitation.setSelected(false);
 						rdDeactivitation.setSelected(true);
@@ -293,7 +294,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 		if (rdDeactivitation.isSelected()) {
 			cust.setIsDeleted(true);
 		}
-		customerNameLabel.setText(cust.getName());
+		
 	
 	}
 	
