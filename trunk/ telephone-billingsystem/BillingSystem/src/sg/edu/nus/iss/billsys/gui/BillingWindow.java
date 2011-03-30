@@ -103,7 +103,11 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					
+					ViewCustomerDetails currentPanel = new ViewCustomerDetails(window);
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
 				}
 			});
 			menu.add(menuItem);
