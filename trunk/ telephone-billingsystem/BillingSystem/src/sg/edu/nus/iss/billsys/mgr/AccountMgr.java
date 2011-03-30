@@ -41,6 +41,7 @@ public class AccountMgr {
 		account.setDateCreated(aDate);
 		newCust.setAcct(account);
 		custDao.addCustomer(newCust);
+		custDao.saveObjectData();
 		return newCust;
 	}
 	
