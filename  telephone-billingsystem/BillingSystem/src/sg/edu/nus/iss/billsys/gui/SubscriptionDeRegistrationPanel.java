@@ -41,7 +41,10 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-	    deRegisterPanel = new JPanel(new BorderLayout());   
+	    deRegisterPanel = new JPanel(new BorderLayout());  
+	    if(accountNo != null){
+	    	deRegisterPanel.add("North", deRegisterScrollPanel());
+	    }
 
 	    add ("North", createFormPanel());      
 	    add ("Center", deRegisterPanel);
@@ -79,14 +82,15 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     
     private JScrollPane deRegisterScrollPanel () {
 		JPanel p = new JPanel ();
-		p.setLayout (new GridLayout (0, 2));
 		
-    	p.add (new JLabel ("Existing Subscripiton Information         :             "));
-    	p.add(new JLabel("                    "));
 		try
 		{
-			if(accountNo != null){
-	 			
+	    	if(accountNo != null){
+	    		p.setLayout (new GridLayout (0, 2));
+
+	    		p.add (new JLabel ("Existing Subscripiton Information         :             "));
+		    	p.add(new JLabel("                    "));
+
 				List<SubscriptionPlan> subscribedPlans = manager.getAccountSubscriptions(accountNo);
 				
 				if(subscribedPlans != null)

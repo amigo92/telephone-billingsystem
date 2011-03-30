@@ -231,9 +231,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
    
     private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {
-    	JComboBox	planBox = new JComboBox();	
+    	JComboBox	planBox = new JComboBox();
     	
-	    String[] planDescs = new String[subscribedPlans.size()];
+    	final String[] planDescs = new String[subscribedPlans.size()];
 	    for (int i = subscribedPlans.size()-1 ; i >=0 ; i -- ) {
 	    	planDescs[i] = subscribedPlans.get(i).getPlanDescription();
 	    	planBox.addItem(planDescs[i]);
@@ -242,7 +242,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    planBox.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
     		 		JComboBox cb = (JComboBox)e.getSource();
-    		 		selectedPlanIndex = cb.getSelectedIndex() ;
+    		 		selectedPlanIndex = planDescs.length - cb.getSelectedIndex()-1 ;
 	            }
 	    });
 	 
