@@ -135,4 +135,10 @@ public class Customer extends VirtualObject implements Cloneable, Serializable{
 	public String getAccIdByCust(){
 		return this.acct.getAcctNo();
 	}
+	
+	public void reactiveCustomer(Date today){
+		this.isDeleted = false;
+		this.acct.setDateCreated(today);
+		this.acct.setDateDeleted(null);
+	}
 }
