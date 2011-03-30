@@ -44,17 +44,19 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-	    
-	    add ("North", createFormPanel());      
+	    deRegisterPanel = new JPanel(new BorderLayout());   
 
-	    deRegisterPanel = deRegisterPanel();
-	    
-	    add ("South", deRegisterPanel);
+	    add ("North", createFormPanel());      
+	    add ("Center", deRegisterPanel);
 	      
-	    customerID.setText("S8481361F");
+	    customerID.setText("S8481362F");
     }
     private JPanel createFormPanel () {
     	JPanel p = new JPanel (new GridLayout (0,2));
+    	
+        p.add ( new JLabel ("Customer ID:   "));
+        p.add ( new JLabel (""));
+
         customerID = new JTextField (1);
         p.add(customerID);
         JButton b = new JButton ("Get Subscription Information");
@@ -63,8 +65,7 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
         	try{	
  	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
         		deRegisterPanel.revalidate();
-            	deRegisterPanel = deRegisterPanel();
-         	    add ("Center", deRegisterPanel); 
+            	deRegisterPanel.add("North", deRegisterScrollPanel());
         	}
 	    	catch(Exception ex){
 	    		JOptionPane.showMessageDialog(window, ex.getMessage());	
@@ -75,14 +76,11 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
   
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
-        bp.add ("North", new JLabel ("Customer ID:   "));
-        bp.add ("Center", p);    
-     
+        bp.add ("North", p);     
         return bp;
     }
     
-    private JPanel deRegisterPanel () {
-    	
+    private JScrollPane deRegisterScrollPanel () {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		
@@ -130,22 +128,11 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"" ,0);
 		}
-		
-
-		
-    	JPanel bp = new JPanel ();
-        FlowLayout flowLayout = new FlowLayout();
-        new FlowLayout();
-        flowLayout.setAlignment(FlowLayout.LEFT);
-        bp.setLayout( flowLayout);
 
         JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getViewport().add( p );
-
-        if(accountNo != null){
-        	bp.add (scrollPane);
-        }
-        return bp;
+       
+        return scrollPane;
     }
 }
     
