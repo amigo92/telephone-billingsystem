@@ -4,12 +4,14 @@ package sg.edu.nus.iss.billsys.gui;
  *
  */
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,7 +32,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	
     protected SubscriptionMgr manager;
     
-    private JTextField assignedNumberField;
+    private JFormattedTextField assignedNumberField;
     private JLabel assignedNumberLabel;
     
     private JTextField fromField;
@@ -58,14 +60,14 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	}
 
 	@Override
-	
-	
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		  
 		p.add (assignedNumberLabel = new JLabel ("Assigned Phone Number"));
-		assignedNumberField = new JTextField (8);
+		//assignedNumberField = new JTextField (8);
+		assignedNumberField = new JFormattedTextField(BillingUtil.createFormatter(window, "########"));
+
 		p.add (assignedNumberField);
 		p.add (new JLabel ("Start Date (d-MMM-yyyy)"));
 		fromField = new JTextField (20);
@@ -93,13 +95,13 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		try {
 			dateTerminated = BillingUtil.getDateTime(untilField.getText());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
 		}
 
 		try {
 			manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, dateCommenced, dateTerminated);
+			window.refreshSubRegPanel(accountNo);
 		} catch (BillingSystemException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;

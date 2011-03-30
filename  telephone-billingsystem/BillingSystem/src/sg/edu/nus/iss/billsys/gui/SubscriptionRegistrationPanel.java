@@ -23,6 +23,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 
 public class SubscriptionRegistrationPanel extends JPanel {
 
@@ -40,32 +41,33 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private JComboBox featureBox;
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
-	private HashMap<String,ArrayList<JComboBox>> featureBoxList;
-	
+    
     public SubscriptionRegistrationPanel (BillingWindow window) {
-    	try
-    	{
-			this.window = window;
-		    manager = MgrFactory.getSubscriptionMgr();
-		    setLayout (new BorderLayout());
-		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		    		    
-		    add ("North", createFormPanel());      
-
-		    featurePanel = new JPanel();
-		    add ("South", featurePanel);     
-		    
-		    customerID.setText("S8481361F");
-		    
+    	try{
+    		 initialize(window);
     	}
         catch(Exception e){
-        	System.out.println(e.getMessage());
+        	JOptionPane.showMessageDialog(window, e.getMessage(), "", 0);
         }
     }
+    public SubscriptionRegistrationPanel (BillingWindow window, String accountNo) {
+    		this.accountNo = accountNo;
+    		initialize(window);
+    }
+    
+    private void initialize(BillingWindow window){
+		this.window = window;
+	    manager = window.getSubscriptionMgr();
+	    setLayout (new BorderLayout());
+	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+	   
+	    featurePanel = new JPanel(new BorderLayout());  // registerFeaturePanel();
 
-    public void refresh () {
-    	JOptionPane.showMessageDialog(window, "refresh");
+	    add ("North", createFormPanel());      
+	    add ("Center", featurePanel);   
+		featurePanel.add ("North", registerFeaturePanel());
 
+	    customerID.setText("S8481362F");    
     }
 
     private JPanel createFormPanel () {
@@ -76,20 +78,19 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
         JButton b = new JButton ("Validate & Get Subscription Information");
         b.addActionListener (new ActionListener () {
-        public void actionPerformed (ActionEvent e) {
-        	try{	
-	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-
-        		featurePanel.revalidate();
-        		featurePanel = registerFeaturePanel();
-        		add ("Center", featurePanel);
-        	}
-	    	catch(Exception ex)
-	    	{
-	    		JOptionPane.showMessageDialog(window, ex.getMessage());
-	    	} 	
-    	}
-        });
+	        public void actionPerformed (ActionEvent e) {
+	        	try{	
+		    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
+	
+	        		featurePanel.revalidate();
+	        		featurePanel.add ("North", registerFeaturePanel());
+	        	}
+		    	catch(Exception ex)
+		    	{
+		    		JOptionPane.showMessageDialog(window, ex.getMessage());
+		    	} 	
+	    		}
+	        });
         
         p.add (b);
 
@@ -146,6 +147,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    add(planTypeBox, BorderLayout.PAGE_START);
 	    return planTypeBox;
     }
+    
+
+
     
     
     private JPanel registerFeaturePanel () {
@@ -230,7 +234,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
     	JComboBox	planBox = new JComboBox();	
     	
 	    String[] planDescs = new String[subscribedPlans.size()];
-	    for (int i = 0 ; i <subscribedPlans.size(); i ++ ) {
+	    for (int i = subscribedPlans.size()-1 ; i >=0 ; i -- ) {
 	    	planDescs[i] = subscribedPlans.get(i).getPlanDescription();
 	    	planBox.addItem(planDescs[i]);
 	    } 

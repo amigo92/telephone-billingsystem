@@ -154,7 +154,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		
 			try {
 				manager.registerNewFeature(accountNo, planId, selectedFeatureType, fromDate, utilDate);
-				//window.refreshSubscriptionRegistrationPanel();
+				window.refreshSubRegPanel(accountNo);
 			} catch (BillingSystemException e) {
 				JOptionPane.showMessageDialog(window, e.getMessage(),"",0);
 				return false;
@@ -175,7 +175,8 @@ public class SubscriptionPlanAddFDialog extends JDialog {
     		return allFeatureTypes;
     	}else{
 	    	 for(Feature e: regFeatures){
-	    		 unRegisteredFestures.remove(e.getFeatureType());
+	    		 if(!e.getFeatureType().allowMultiple)
+	    			 unRegisteredFestures.remove(e.getFeatureType());
     		 }
 	    	return unRegisteredFestures;
     	}
