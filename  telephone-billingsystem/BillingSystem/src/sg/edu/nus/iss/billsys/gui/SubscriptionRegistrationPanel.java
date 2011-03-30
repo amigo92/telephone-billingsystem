@@ -208,7 +208,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
 					scrollPane.getViewport().add( sp );
 					
-					//p.add(scrollPane);
 
 				}
 			}catch(Exception ex) {			
