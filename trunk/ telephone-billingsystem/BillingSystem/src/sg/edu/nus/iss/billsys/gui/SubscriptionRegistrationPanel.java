@@ -190,7 +190,12 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
 					JPanel sp = new JPanel (new GridLayout (0, 2));
 					
-					sp.add ( new JLabel ("Existing Subscription:"));
+					JLabel titleLabel = new JLabel ("Existing Subscription Information:");
+//					Font font = new Font("Verdana", Font.BOLD, 12);
+//					titleLabel.setFont(font);
+//					titleLabel.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
+//					
+					sp.add ( titleLabel);
 					sp.add(new JLabel(""));
 					
 					for(SubscriptionPlan plan: subscribedPlans){
