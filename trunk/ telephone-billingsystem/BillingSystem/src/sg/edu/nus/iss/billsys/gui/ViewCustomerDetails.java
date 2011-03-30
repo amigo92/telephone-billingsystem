@@ -251,9 +251,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					errorMsgSearchLabel.setOpaque(true);
 					errorMsgSearchLabel.setForeground(new java.awt.Color(255, 0, 0));
 					errorMsgSearchLabel.setVisible(false);
-					ViewCustPanelCenter.add(errorMsgSearchLabel);
-					
-					
+					ViewCustPanelCenter.add(errorMsgSearchLabel);	
+				}
+				{
 					errorMsgNRICLabel = new JLabel("*Please enter NRIC.");
 					errorMsgNRICLabel.setBounds(475, 20, 170, 14);
 
@@ -261,9 +261,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					errorMsgNRICLabel.setOpaque(true);
 					errorMsgNRICLabel.setForeground(new java.awt.Color(255, 0, 0));
 					errorMsgNRICLabel.setVisible(false);
-					ViewCustPanelCenter.add(errorMsgSearchLabel);
-					
-					
+					ViewCustPanelCenter.add(errorMsgNRICLabel);
 				}
 				
 //				{
@@ -288,18 +286,23 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			ObjectsToControls();
 		}
 		else {
-			ClearData();
+			
+			System.out.println("2");
 			errorMsgSearchLabel.setVisible(true);
+			errorMsgNRICLabel.setVisible(false);
+			ClearData();
 		}
 	}
-		else {
-			
+		else {		
+			System.out.println("1");
 			errorMsgNRICLabel.setVisible(true);
+			errorMsgSearchLabel.setVisible(false);
+			
+			ClearData();
 		}
 	}
 	
-	private void ObjectsToControls(){
-		
+	private void ObjectsToControls(){		
 		CustNameLabel.setText(cust.getName()) ;
 		nricText.setText(cust.getNric()) ;
 		Custaddress1Label.setText(cust.getAddress1()) ;
@@ -313,7 +316,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private void ClearData(){
 		CustNameLabel.setText(null) ;
-		nricText.setText(null) ;
+		//nricText.setText(null) ;
 		Custaddress1Label.setText(null) ;
 		Custaddress2Label.setText(null) ;
 		Custaddress3Label.setText(null) ;
@@ -333,6 +336,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			errorMsgSearchLabel.setVisible(true);
 			bReturn= false;
 		}	
+		System.out.println(bReturn);
 		return bReturn;
 	}
 	
