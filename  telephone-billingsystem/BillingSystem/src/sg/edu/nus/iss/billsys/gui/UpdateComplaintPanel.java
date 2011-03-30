@@ -29,6 +29,7 @@ import javax.swing.table.TableModel;
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.util.NumberUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
 import sg.edu.nus.iss.billsys.vo.Customer;
@@ -292,24 +293,24 @@ public class UpdateComplaintPanel extends JPanel {
 		String customerIdType = null;
 		long returnValue = 0;
 
-		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
-			errorMessageLabel.setText("Invalid/ Empty Customer Id!");
-			errorMessageLabel.setForeground(Color.RED);
-			return;
-		}
+//		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
+//			errorMessageLabel.setText("Invalid/ Empty Customer Id!");
+//			errorMessageLabel.setForeground(Color.RED);
+//			return;
+//		}
+//
+//		if (StringUtil.isNullOrEmpty(complaintTextArea.getText())) {
+//			errorMessageLabel.setText("Invalid/ Empty Complaint!");
+//			errorMessageLabel.setForeground(Color.RED);
+//			return;
+//		}
 
-		if (StringUtil.isNullOrEmpty(complaintTextArea.getText())) {
-			errorMessageLabel.setText("Invalid/ Empty Complaint!");
-			errorMessageLabel.setForeground(Color.RED);
-			return;
-		}
-
-		if (accountNoRadioButton.isSelected()) {
-			customerIdType = accountNoRadioButton.getActionCommand();
-		}
-		if (nricRadioButton.isSelected()) {
-			customerIdType = nricRadioButton.getActionCommand();
-		}
+//		if (accountNoRadioButton.isSelected()) {
+//			customerIdType = accountNoRadioButton.getActionCommand();
+//		}
+//		if (nricRadioButton.isSelected()) {
+//			customerIdType = nricRadioButton.getActionCommand();
+//		}
 
 		System.out.println("customerId:" + customerIdTextField.getText());
 		System.out.println("Complaint:" + complaintTextArea.getText());
@@ -317,35 +318,57 @@ public class UpdateComplaintPanel extends JPanel {
 		System.out.println("Status:"
 				+ statusComboBox.getSelectedItem().toString());
 
-		if ("nric".equalsIgnoreCase(customerIdType)) {
+		ComplaintStatus status = null;
+		
+		if (ComplaintStatus.COMPLETED.toString().equalsIgnoreCase(statusComboBox.getSelectedItem().toString())) {
+			status = ComplaintStatus.COMPLETED;
+		} else if (ComplaintStatus.PENDING.toString().equalsIgnoreCase(statusComboBox.getSelectedItem().toString())) {
+			status = ComplaintStatus.PENDING;
+		} 
+		
+		
+		
+		if (NumberUtil.isLong(complaintIdTextField.getText().trim())) {
 			try {
-				returnValue = MgrFactory.getComplaintMgr()
-						.createComplaintByCustomerId(
-								customerIdTextField.getText().trim(),
-								complaintTextArea.getText().trim());
-			} catch (BillingSystemException e) {
+				returnValue = MgrFactory.getComplaintMgr().updateComplaint(
+						Long.parseLong(complaintIdTextField.getText().trim()), status);
+			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		} else if ("accountNo".equalsIgnoreCase(customerIdType)) {
-			try {
-				returnValue = MgrFactory.getComplaintMgr()
-						.createComplaintByAccount(
-								customerIdTextField.getText().trim(),
-								complaintTextArea.getText().trim());
 			} catch (BillingSystemException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+//		if ("nric".equalsIgnoreCase(customerIdType)) {
+//			try {
+//				returnValue = MgrFactory.getComplaintMgr()
+//						.createComplaintByCustomerId(
+//								customerIdTextField.getText().trim(),
+//								complaintTextArea.getText().trim());
+//			} catch (BillingSystemException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} else if ("accountNo".equalsIgnoreCase(customerIdType)) {
+//			try {
+//				returnValue = MgrFactory.getComplaintMgr()
+//						.createComplaintByAccount(
+//								customerIdTextField.getText().trim(),
+//								complaintTextArea.getText().trim());
+//			} catch (BillingSystemException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 
 		// set error message
 		if (returnValue > 0) {
-			errorMessageLabel.setText("Successfully created the complaint.");
+			errorMessageLabel.setText("Successfully updated the complaint.");
 			errorMessageLabel.setForeground(Color.BLUE);
 		} else {
 			errorMessageLabel
-					.setText("Internal error occurred during the complaint creation!.");
+					.setText("Internal error occurred during the complaint updation!.");
 			errorMessageLabel.setForeground(Color.RED);
 		}
 	}
