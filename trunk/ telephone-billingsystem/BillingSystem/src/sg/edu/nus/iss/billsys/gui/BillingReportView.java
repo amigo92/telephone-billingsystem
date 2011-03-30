@@ -163,7 +163,7 @@ public class BillingReportView extends JPanel {
     		   try {
     			   
 				Date dateBillPeriod = BillingUtil.getDateTime(strBillPeriod);
-			//	selectedBillPeriod = new BillPeriod(dateBillPeriod.getYear(),dateBillPeriod.getMonth());
+			    //selectedBillPeriod = new BillPeriod(dateBillPeriod.getYear(),dateBillPeriod.getMonth());
 				
     		   } catch (ParseException e1) {
 					JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);	
