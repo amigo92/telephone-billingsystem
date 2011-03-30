@@ -53,5 +53,4 @@ public class Account extends VirtualObject{
 	public String showAccount(){
 		return this.toString();
 	}
-	
 }
