@@ -120,6 +120,19 @@ public class CustomerDao extends GenericDao{
 		return cust;
 	}
 	
+	public Customer reactiveCustomer(String acctId, Date today){
+		Customer cust = null;
+		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
+			Customer element = (Customer) iter.next();
+			if(element.getAcct().getAcctNo().equals(acctId)){
+				cust=element;
+				cust.reactiveCustomer(today);
+				break;
+			}			
+		}
+		return cust;
+	}
+	
 	public void addCustomer(Customer customer){
 		if(customer == null){
 			return;
