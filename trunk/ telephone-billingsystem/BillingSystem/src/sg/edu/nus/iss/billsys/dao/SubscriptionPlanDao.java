@@ -24,7 +24,7 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
 
 /**
  * 
- * @author Veera
+ * @author Veera, Lem Kian Hao (Stephen)
  *
  */
 public class SubscriptionPlanDao extends GenericDao{
@@ -313,11 +313,17 @@ public class SubscriptionPlanDao extends GenericDao{
 	}
 	
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
+		if (acctNo == null || acctNo.length() == 0) {
+			return null;
+		}
 		return subscriptionMap.get(acctNo);
 	}
 	
 	public SubscriptionPlan getAccountSubscription(String acctNo, String planId) {
-		List<SubscriptionPlan> list = subscriptionMap.get(acctNo);
+		if (planId == null || planId.length() == 0) {
+			return null;
+		}
+		List<SubscriptionPlan> list = getAccountSubscriptions(acctNo);
 		if (list == null) {
 			return null;
 		}
@@ -329,13 +335,20 @@ public class SubscriptionPlanDao extends GenericDao{
 		return null;
 	}
 	
-	public void addAccountSubscriptions(String acctNo, SubscriptionPlan plan) {
+	public boolean addAccountSubscription(String acctNo, SubscriptionPlan plan) {
+		if (acctNo == null || acctNo.length() == 0) {
+			return false;
+		}
+		if (plan == null) {
+			return false;
+		}
 		List<SubscriptionPlan> list = subscriptionMap.get(acctNo);
 		if (list == null) {
 			list = new ArrayList<SubscriptionPlan>(); 
 			subscriptionMap.put(acctNo, list);
 		}
 		list.add(plan);
+		return true;
 	}
 	
 

@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -12,9 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
+import sg.edu.nus.iss.billsys.vo.CableTvPlan;
+import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
+import sg.edu.nus.iss.billsys.vo.MobileVoicePlan;
+import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 /**
- * @author Veera
+ * @author Veera, Lem Kian Hao (Stephen)
  *
  */
 public class SubscriptionPlanDaoTest {
@@ -71,7 +76,31 @@ public class SubscriptionPlanDaoTest {
 	 */
 	@Test
 	public void testGetAccountSubscriptions() {
-		fail("Not yet implemented");
+		List<SubscriptionPlan> list = subPlanDao.getAccountSubscriptions(null);
+		assertNull(list);
+		list = subPlanDao.getAccountSubscriptions("MyAcctNo");
+		assertNull(list);
+		DigitalVoicePlan digiPlan = new DigitalVoicePlan("DigiPlanId","MyAcctNo","DigiPhoneNo");
+		MobileVoicePlan mobilePlan = new MobileVoicePlan("MobilePlanId","MyAcctNo","MobilePhoneNo");
+		CableTvPlan cablePlan = new CableTvPlan("CablePlanId","MyAcctNo");
+		
+		assertTrue(subPlanDao.addAccountSubscription("MyAcctNo",digiPlan));
+		list = subPlanDao.getAccountSubscriptions("MyAcctNo");
+		assertNotNull(list);
+		assertEquals(1,list.size());
+		assertEquals(digiPlan,list.get(0));
+		
+		assertTrue(subPlanDao.addAccountSubscription("MyAcctNo",mobilePlan));
+		list = subPlanDao.getAccountSubscriptions("MyAcctNo");
+		assertNotNull(list);
+		assertEquals(2,list.size());
+		assertEquals(mobilePlan,list.get(1));
+		
+		assertTrue(subPlanDao.addAccountSubscription("MyAcctNo",cablePlan));
+		list = subPlanDao.getAccountSubscriptions("MyAcctNo");
+		assertNotNull(list);
+		assertEquals(3,list.size());		
+		assertEquals(cablePlan,list.get(2));
 	}
 
 	/**
@@ -79,7 +108,13 @@ public class SubscriptionPlanDaoTest {
 	 */
 	@Test
 	public void testGetAccountSubscription() {
-		fail("Not yet implemented");
+		DigitalVoicePlan plan = new DigitalVoicePlan("PlanId","AcctNo","PhoneNo");
+		assertTrue(subPlanDao.addAccountSubscription("AcctNo",plan));
+		assertNull(subPlanDao.getAccountSubscription(null, plan.getPlanId()));
+		assertNull(subPlanDao.getAccountSubscription("AcctNo", null));
+		SubscriptionPlan subPlan = subPlanDao.getAccountSubscription("AcctNo", plan.getPlanId());
+		assertNotNull(subPlan);
+		assertEquals(plan.getPlanId(),subPlan.getPlanId());
 	}
 
 	/**
@@ -87,7 +122,10 @@ public class SubscriptionPlanDaoTest {
 	 */
 	@Test
 	public void testAddAccountSubscriptions() {
-		fail("Not yet implemented");
+		DigitalVoicePlan plan = new DigitalVoicePlan("PlanId","AcctNo","PhoneNo");
+		assertFalse(subPlanDao.addAccountSubscription(null,plan));
+		assertFalse(subPlanDao.addAccountSubscription("AcctNo",null));
+		assertTrue(subPlanDao.addAccountSubscription("AcctNo",plan));
 	}
 
 }
