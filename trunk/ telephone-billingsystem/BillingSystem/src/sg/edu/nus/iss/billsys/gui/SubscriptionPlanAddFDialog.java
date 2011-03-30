@@ -168,18 +168,17 @@ public class SubscriptionPlanAddFDialog extends JDialog {
     private List<FeatureType> getUnRegisterFeature () {
     	List<FeatureType> allFeatureTypes = manager.getPlanOptionalFeatures(subscription.getPlanType());
     	List<Feature> regFeatures = subscription.getOptionalFeatures();
-    	
+
+    	List<FeatureType> unRegisteredFestures = (List<FeatureType>) allFeatureTypes;
+  	
     	if(regFeatures == null || regFeatures.size() == 0 ){
     		return allFeatureTypes;
     	}else{
 	    	 for(Feature e: regFeatures){
-	    		 if(!e.getFeatureType().allowMultiple)
-	    			 allFeatureTypes.remove(e.getFeatureType());
-					
-	    		 JOptionPane.showMessageDialog(window,e.getFeatureType().allowMultiple,"",0);
-
+	    		if(!e.getFeatureType().allowMultiple)
+	    			 unRegisteredFestures.remove(e.getFeatureType());
     		 }
-	    	return allFeatureTypes;
+	    	return unRegisteredFestures;
     	}
     }
 	

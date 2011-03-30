@@ -84,7 +84,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	protected boolean performOkAction() {
 		String assignedTelNo = assignedNumberField.getText();
 		
-		if(assignedTelNo.trim().equals("")  ){
+		if(planType.planCode != PlanCode.CABLE_TV && assignedTelNo.trim().equals("")  ){
 			JOptionPane.showMessageDialog(window, "Phone Number must be 8 digits","",0);
 			return false;
 		}

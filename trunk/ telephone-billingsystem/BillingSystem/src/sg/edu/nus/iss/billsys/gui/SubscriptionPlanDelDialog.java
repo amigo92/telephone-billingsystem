@@ -37,7 +37,6 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
     private FeatureType featureType;
     private String featureId;
     private Date dateTerminated;
-    private SubscriptionDeRegistrationPanel parent;
     private JLabel titleLabel;
    
 	public SubscriptionPlanDelDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription,  Feature feature) {
@@ -50,10 +49,8 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 		if( feature != null) {
 			this.featureType = feature.getFeatureType();
 			this.featureId = feature.getFeatureId();
-		}
-		
+		}		
 		untilField.setText(BillingUtil.getCurrentDateStr());
-
 		
 		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
