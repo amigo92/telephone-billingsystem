@@ -277,7 +277,12 @@ public class SearchCustomer extends javax.swing.JPanel {
 	         int row = target.getSelectedRow();
 	         //int column = target.getSelectedColumn(); 
 	         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
-	      //  BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerNRC) ); 
+	      //  BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerNRC) );
+//	         ViewCustomerDetails currentPanel = new ViewCustomerDetails(window);
+//	           
+//	           contentPane.revalidate();
+//	           contentPane = currentPanel;
+//	           window.setContentPane(contentPane);    
 	}
 		
 }
