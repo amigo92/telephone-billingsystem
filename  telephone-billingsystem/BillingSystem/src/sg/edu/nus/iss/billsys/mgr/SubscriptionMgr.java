@@ -121,7 +121,9 @@ public class SubscriptionMgr {
     	default:
     		throw new BillingSystemException("Unknown plan type!");
     	}
-		subPlanDao.addAccountSubscriptions(acctNo, plan);
+		if (!subPlanDao.addAccountSubscription(acctNo, plan)) {
+			throw new BillingSystemException("Failed to add subscription plan into doa.");
+		}
 		subPlanDao.saveObjectData();
 		return plan;
     }
