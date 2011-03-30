@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import javax.swing.ButtonGroup;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
@@ -50,6 +52,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private BillingWindow  window;
 	private static final long serialVersionUID = 1L;
 	private ArrayList< String[]> newlist = new ArrayList<String[]>();
+	private String errorMsg=null;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -112,6 +115,11 @@ public class SearchCustomer extends javax.swing.JPanel {
 				}
 				{
 					NRICRadioButton = new JRadioButton();
+					NRICRadioButton.addMouseListener(new MouseAdapter() {						
+						public void mouseClicked(MouseEvent arg0) {
+							SearchTextBox.setText(null);
+						}
+					});
 					SearchCustPantelCenter.add(NRICRadioButton);
 					NRICRadioButton.setText("NRIC");
 					NRICRadioButton.setBounds(274, 35, 137, 20);
@@ -135,7 +143,14 @@ public class SearchCustomer extends javax.swing.JPanel {
 					SearchButton.setBounds(448, 89, 81, 23);
 					SearchButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
+							try
+							{
 							SearchButtonActionPerformed(evt);
+							
+							} catch (Exception e) {
+							    // Print out the exception that occurred
+								errorMsg=new BillingSystemException(e).getMessagebyException();
+							}
 						}
 					});
 				}
@@ -158,6 +173,12 @@ public class SearchCustomer extends javax.swing.JPanel {
 
 				}
 				{
+					 ButtonGroup group = new ButtonGroup();
+					 group.add(CustNameRadioButton);
+					 group.add(NRICRadioButton);
+					 
+				}
+				{
 				qtm = new QueryTableModel();
 				JTable table = new JTable(qtm);				
 				JScrollPane scrollpane = new JScrollPane(table);
@@ -175,29 +196,47 @@ public class SearchCustomer extends javax.swing.JPanel {
 	}
 	
 	private void SearchButtonActionPerformed(ActionEvent evt) {
-		cust= new Customer();
+		newlist= new ArrayList<String[]>(); 
+		
 		accountMgr= new AccountMgr();
 		boolean bNRIC= true;
-		if (validateControls()){
+		
+	
+		
+		if (validateControls()){		
+			
 			if (CustNameRadioButton.isSelected()) {
 				bNRIC= false;
 			}
 			if (NRICRadioButton.isSelected()) {
 				bNRIC= true;
 			}
-			
+		
 			newlist.add(new String[] { "Customer Name", "Customer NRIC"});
 			
 			if (!bNRIC){
+				//still waiting wen jing code for this method
 				//customer= accountMgr.getCustomerDetailsByName(SearchTextBox.getText() );
 			}
-			else {
+			else {				
+			
 				cust= accountMgr.getCustomerDetailsById(SearchTextBox.getText() );
-				newlist.add(new String[] { cust.getName(), cust.getNric() });
+			
+				if (cust!= null){
+				
+					newlist.add(new String[] { cust.getName(), cust.getNric() });
+					clearErrorMsgData();
+					qtm.updateTable(newlist);
+				}
+				else 
+				{					
+					errorMsgSearchLabel.setText("No match record founds." );
+					errorMsgSearchLabel.setVisible(true);
+				}
 			}				
 		
-			qtm.updateTable(newlist);
-			clearErrorMsgData();
+			
+			
 		}
 		
 		
