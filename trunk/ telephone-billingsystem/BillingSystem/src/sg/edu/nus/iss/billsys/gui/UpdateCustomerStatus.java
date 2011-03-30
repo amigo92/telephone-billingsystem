@@ -17,8 +17,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
+import java.awt.Font;
 
 /**
 * @author Win Kyi Tin 
@@ -40,12 +43,19 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	private JLabel updateCustStatusLabel;
 	private ButtonGroup bgroup;
 	private Customer cust;
-	
+	private String errorMsg=null;
 	private String strCustomerID;
 	private BillingWindow  window;
+	private AccountMgr   accountMgr;
 	private static final long serialVersionUID = 1L;
+	private JLabel errorMsgNRICLabel;
+	private JLabel errorMsgSearchLabel;
+
+		
 	
-	
+
+
+		
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -116,14 +126,14 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					UpdateCustStatusCenter.add(rdActivitation);
 					rdActivitation.setText("Activiation");
 					rdActivitation.setBounds(192, 117, 133, 20);
-					rdActivitation.setSelected(true);
+					//rdActivitation.setSelected(true);
 				}
 				{
 					rdDeactivitation = new JRadioButton();
 					UpdateCustStatusCenter.add(rdDeactivitation);
 					rdDeactivitation.setText("Deactivitation");
 					rdDeactivitation.setBounds(330, 117, 122, 20);
-					rdDeactivitation.setSelected(false);
+					//rdDeactivitation.setSelected(false);
 				}
 				{
 					bgroup = new ButtonGroup();
@@ -140,7 +150,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 				{
 					jSeparator1 = new JSeparator();
 					UpdateCustStatusCenter.add(jSeparator1);
-					jSeparator1.setBounds(0, 171, 507, 10);
+					jSeparator1.setBounds(10, 171, 507, 10);
 				}
 				{
 					submitButton = new JButton();
@@ -149,7 +159,14 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					submitButton.setBounds(290, 194, 79, 23);
 					submitButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
-							submitButtonActionPerformed(evt);
+							try {
+						
+								submitButtonActionPerformed(evt);
+							
+							} catch (Exception e) {
+							    // Print out the exception that occurred
+								errorMsg=new BillingSystemException(e).getMessagebyException();
+							}
 						}
 					});
 				}
@@ -175,7 +192,28 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					UpdateCustStatusCenter.add(customerNameLabel);
 					customerNameLabel.setBounds(192, 73, 265, 25);
 				}
+				{
+					errorMsgNRICLabel = new JLabel("*Please enter NRIC.");
+					errorMsgNRICLabel.setBounds(27, 146, 153, 14);
+
+
+					errorMsgNRICLabel.setOpaque(true);
+					errorMsgNRICLabel.setForeground(new java.awt.Color(255, 0, 0));
+					errorMsgNRICLabel.setVisible(false);
+					UpdateCustStatusCenter.add(errorMsgNRICLabel);
+					
+				}
+				{
+					errorMsgSearchLabel = new JLabel("*No match record found.");
+					errorMsgSearchLabel.setBounds(27, 146, 205, 14);
+					errorMsgSearchLabel.setOpaque(true);
+					errorMsgSearchLabel.setForeground(new java.awt.Color(255, 0, 0));
+					errorMsgSearchLabel.setVisible(false);
+					UpdateCustStatusCenter.add(errorMsgSearchLabel);
+				}
+			
 			}
+					
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -184,31 +222,72 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	private void cancelButtonActionPerformed(ActionEvent evt) {
 		System.out.println("cancelButton.actionPerformed, event="+evt);
 		//TODO add your code for cancelButton.actionPerformed
+		this.setVisible(false);
 	}
 	
 	private void submitButtonActionPerformed(ActionEvent evt) {
-		 cust= new Customer();
-		controlsToObject(cust);
-		AccountMgr accountMgr= new AccountMgr();
-//		cust = accountMgr.update(cust);
-		Boolean bReturn=accountMgr.deleteCustomer(strCustomerID);
-		
-		if (bReturn ){
-			JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
+		try
+		{
+			clearErrorMsgData();
+			
+			if (validateControl()){			
+					
+					cust= new Customer();
+					controlsToObject(cust);			
+					System.out.println("as");
+					System.out.println(cust.getAccIdByCust());
+					Boolean bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+					System.out.println(bReturn);
+					if (bReturn){
+						JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
+					}
+					else {
+						errorMsgSearchLabel.setVisible(true);
+					}
+			}
+			else{
+				errorMsgNRICLabel.setVisible(true);
+			}
+		}catch (Exception e){
+			throw new RuntimeException(e);
 		}
+		
 			
 	}
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
+			accountMgr= new AccountMgr();
+			clearErrorMsgData();
+			System.out.println("a");
+			if (validateControl()){	
+				
+				
+			cust= accountMgr.getCustomerDetailsById(nrcText.getText() );
+			System.out.println(cust.getAccIdByCust());
+			System.out.println(cust.getAccountId());
+			System.out.println(cust.getNric());
 		
-//		SearchCustomer SearchCust = new SearchCustomer(window);
-//		JPanel contentPanepanel = new JPanel(new BorderLayout());
-//		contentPanepanel.revalidate();
-//		contentPanepanel = SearchCust;
-//		window.setContentPane(contentPanepanel);        
-	
-        
-	//	 BillingSystem.updateContentPane(new SearchCustomer()); 
+			if (cust!=null){
+				
+			if (cust.isDeleted()){
+						rdActivitation.setSelected(false);
+						rdDeactivitation.setSelected(true);
+					}
+					else
+					{	
+						rdDeactivitation.setSelected(false);
+						rdActivitation.setSelected(true);
+					}
+			}
+			else {
+				
+				errorMsgSearchLabel.setVisible(true);
+			}
+		}
+			else {
+				
+				errorMsgNRICLabel.setVisible(true);
+			}
 	}
 
 	private void controlsToObject(Customer cust){
@@ -220,5 +299,20 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			cust.setIsDeleted(true);
 		}
 	
+	}
+	
+	private boolean validateControl(){
+		boolean bReturn= true;
+		if (StringUtil.isNullOrEmpty(this.nrcText.getText())){			
+			errorMsgSearchLabel.setVisible(true);
+			bReturn= false;
+		}	
+		return bReturn;
+	}
+	
+	private void clearErrorMsgData(){
+		errorMsgSearchLabel.setVisible(false);
+		errorMsgNRICLabel.setVisible(false);		
+
 	}
 }
