@@ -235,6 +235,8 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					controlsToObject(cust);	
 				
 					System.out.println(cust.getAccIdByCust());
+					
+					
 					Boolean bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
 				
 					if (bReturn){
@@ -291,6 +293,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 		if (rdDeactivitation.isSelected()) {
 			cust.setIsDeleted(true);
 		}
+		customerNameLabel.setText(cust.getName());
 	
 	}
 	
