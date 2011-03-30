@@ -72,15 +72,63 @@ public class BillingWindow extends JFrame {
 			menu = new JMenu("Account  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
-			menuItem = new JMenuItem("item1");
+			menuItem = new JMenuItem("Customer Registration");
 			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
+	
+				menuItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						AddCustomer currentPanel = new AddCustomer(window);
+						contentPane.revalidate();
+						contentPane = currentPanel;
+						window.setContentPane(contentPane);
+						
+					}
+				});
+				menu.add(menuItem);
+				menu.addSeparator();
+				
+				
+				menuItem = new JMenuItem("Update Customer Status");
+				menuItem.setMnemonic(KeyEvent.VK_D);
+				menuItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						UpdateCustomerStatus currentPanel = new UpdateCustomerStatus(window);
+						contentPane.revalidate();
+						contentPane = currentPanel;
+						window.setContentPane(contentPane);
+					}
+				});
+				menu.add(menuItem);
+				menu.addSeparator();
+				
+				
+				menuItem = new JMenuItem("View Customer Details");
+				menuItem.setMnemonic(KeyEvent.VK_D);
+				menuItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						ViewCustomerDetails currentPanel = new ViewCustomerDetails(window);
+						contentPane.revalidate();
+						contentPane = currentPanel;
+						window.setContentPane(contentPane);
+					}
+				});
+				menu.add(menuItem);
+				menu.addSeparator();
+				
+				menuItem = new JMenuItem("Search Customer");
+				menuItem.setMnemonic(KeyEvent.VK_D);
+				menuItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						SearchCustomer currentPanel = new SearchCustomer(window);
+						contentPane.revalidate();
+						contentPane = currentPanel;
+						window.setContentPane(contentPane);
+					}
+				});
+				menu.add(menuItem);
 		}
         
 		
