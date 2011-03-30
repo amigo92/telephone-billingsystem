@@ -24,6 +24,7 @@ import sg.edu.nus.iss.billsys.vo.Customer;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.Date;
+import java.awt.FlowLayout;
 
 /**
 * @author Win Kyi Tin 
@@ -85,9 +86,8 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			this.setPreferredSize(new java.awt.Dimension(508, 255));
 			{
 				CustStatusTop = new JPanel();
-				BoxLayout CustStatusTopLayout = new BoxLayout(CustStatusTop, javax.swing.BoxLayout.X_AXIS);
 				this.add(CustStatusTop, BorderLayout.NORTH);
-				CustStatusTop.setLayout(CustStatusTopLayout);
+				CustStatusTop.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				{
 					updateCustStatusLabel = new JLabel();
 					CustStatusTop.add(updateCustStatusLabel);

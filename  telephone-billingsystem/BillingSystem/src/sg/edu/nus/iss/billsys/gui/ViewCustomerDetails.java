@@ -31,6 +31,8 @@ import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class ViewCustomerDetails extends javax.swing.JPanel {
 
@@ -112,8 +114,10 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			{
 				ViewCustTitlePanel = new JPanel();
 				this.add(ViewCustTitlePanel, BorderLayout.NORTH);
+				ViewCustTitlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				{
 					ViewCustTitleLabel = new JLabel();
+					ViewCustTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 					ViewCustTitlePanel.add(ViewCustTitleLabel);
 					ViewCustTitleLabel.setText("Customer Details");
 					ViewCustTitleLabel.setPreferredSize(new java.awt.Dimension(372, 16));
