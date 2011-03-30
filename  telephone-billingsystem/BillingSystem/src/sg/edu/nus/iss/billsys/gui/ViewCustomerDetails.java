@@ -89,7 +89,8 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	public ViewCustomerDetails(BillingWindow window,String strNRC) {
-		super();
+		super();		
+		this.window = window;
 		initGUI();
 		this.strNRC=strNRC;
 		this.GetCustomerDetails();
@@ -98,6 +99,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	public ViewCustomerDetails(BillingWindow window) {
 		super();
+		this.window = window;
 		initGUI();				
 	}
 	
