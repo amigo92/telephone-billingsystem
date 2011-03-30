@@ -20,6 +20,9 @@ import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
+/**
+* @author Win Kyi Tin 
+*/
 
 public class AddCustomer extends javax.swing.JPanel {
 	private JPanel AddCustTitlePanel;
@@ -180,6 +183,7 @@ public class AddCustomer extends javax.swing.JPanel {
 							 	} catch (BillingSystemException ex) {
 								    // Print out the exception that occurred
 								    System.out.println(ex.getMessage());
+								    errorMsg=new BillingSystemException(ex).getMessagebyException();
 								} catch (Exception e) {
 								    // Print out the exception that occurred
 									errorMsg=new BillingSystemException(e).getMessagebyException();
@@ -226,7 +230,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	
 	private void CancelButtonActionPerformed(ActionEvent evt) {
 		System.out.println("CancelButton.actionPerformed, event="+evt);
-		//TODO add your code for CancelButton.actionPerformed
+		
 		this.setVisible(false);
 	}
 	
@@ -242,7 +246,11 @@ public class AddCustomer extends javax.swing.JPanel {
 				Customer cust =accountMgr.createCustomer(this.CustNameText.getText(),this.CustNameText.getText(),this.CustContactTelText.getText(),this.CustAdd1Text.getText(),this.CustAdd2Text.getText(),this.CustAdd3Text.getText(),this.InterestingText.getText() );
 				System.out.println("save");
 				System.out.println(cust.getAccIdByCust());
-				JOptionPane.showMessageDialog(null ,"Customer Profile is created successfully.","BillingSystem ",1);
+				if ( cust.getAccIdByCust() != null){
+					JOptionPane.showMessageDialog(null ,"Customer Profile is created successfully.","BillingSystem ",1);
+					clearErrorMsgData();
+				}
+				
 				
 			}
 		}
@@ -268,5 +276,11 @@ public class AddCustomer extends javax.swing.JPanel {
 		}		
 		
 		return bReturn;
+	}
+	
+	private void clearErrorMsgData(){
+		errorMsgLabelName.setVisible(false);
+		errorMsgNIRC.setVisible(false);
+
 	}
 }
