@@ -230,20 +230,17 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 		{
 			clearErrorMsgData();
 			
-			if (validateControl()){			
+			if (validateControl()){	
 					
-					cust= new Customer();
-					controlsToObject(cust);			
-					System.out.println("as");
+					controlsToObject(cust);	
+				
 					System.out.println(cust.getAccIdByCust());
 					Boolean bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
-					System.out.println(bReturn);
+				
 					if (bReturn){
 						JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
 					}
-					else {
-						errorMsgSearchLabel.setVisible(true);
-					}
+					
 			}
 			else{
 				errorMsgNRICLabel.setVisible(true);
@@ -259,16 +256,12 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			accountMgr= new AccountMgr();
 			clearErrorMsgData();
 			System.out.println("a");
-			if (validateControl()){	
+			if (validateControl()){					
 				
-				
-			cust= accountMgr.getCustomerDetailsById(nrcText.getText() );
-			System.out.println(cust.getAccIdByCust());
-			System.out.println(cust.getAccountId());
-			System.out.println(cust.getNric());
+			cust= accountMgr.getCustomerDetailsById(nrcText.getText() );			
 		
 			if (cust!=null){
-				
+		
 			if (cust.isDeleted()){
 						rdActivitation.setSelected(false);
 						rdDeactivitation.setSelected(true);
