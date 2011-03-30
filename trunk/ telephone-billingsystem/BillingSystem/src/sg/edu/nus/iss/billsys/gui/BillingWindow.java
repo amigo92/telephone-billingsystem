@@ -307,7 +307,7 @@ public class BillingWindow extends JFrame {
 				window, accountNo);
 
 		contentPane.revalidate();
-		contentPane = subscriptionRegistrationPanel;
+		contentPane = subscriptionDeRegistrationPanel;
 		window.setContentPane(contentPane);
 	}
 
