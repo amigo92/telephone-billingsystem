@@ -149,7 +149,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 				 return false;
 			}
 		
-			if(fromDate.before(utilDate)){
+			if(fromDate.after(utilDate)){
 				JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
 				return false;
 			}
