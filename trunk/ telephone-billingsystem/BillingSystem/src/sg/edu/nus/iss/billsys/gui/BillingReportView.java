@@ -51,6 +51,7 @@ public class BillingReportView extends JPanel {
     	txtNric = new JTextField (1);
     	createBillPeriodComboBox();
     	txtReport = new JTextArea("No record found.");
+    	txtReport.setEditable(false);
     	btnView = new JButton ("View");
     }
     
