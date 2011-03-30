@@ -106,11 +106,14 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		    		                d.setVisible (true);
 		    			     }
 					    });
+		   			    
+//		   			    b.setPreferredSize(new Dimension(200, 30));
+//		   			    JPanel btnp= new JPanel();
+//		   			    btnp.add(b);    
 		   			    p.add(b);
 		   			    
 		   			    features = plan.getOptionalFeatures();	
-		   			    
-		   			    
+
 						for(final Feature feature: features){			
 							p.add ( new JLabel ("       " + feature.getName()));
 						    JButton b2 = new JButton ("De-Register");
@@ -121,7 +124,12 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 				    		            d.setVisible (true);
 			    			     }
 						    });
-				   			p.add(b2);
+			   			    
+//			   			    b2.setPreferredSize(new Dimension(200, 30));
+//			   			    btnp= new JPanel();
+//			   			    btnp.add(b2);
+//				   			p.add(btnp);
+			   			    p.add(b2);
 						}				  
 					 }
 				}
