@@ -2,6 +2,7 @@ package sg.edu.nus.iss.billsys.vo;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
@@ -108,4 +109,7 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 		return startCal.get(Calendar.YEAR) + new DecimalFormat("00").format(startCal.get(Calendar.MONTH) + 1);
 	}
 
+	public String printBillPeriod(){
+		return new SimpleDateFormat("yyyy-MM").format(getEndTime());
+	}
 }
