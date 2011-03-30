@@ -292,8 +292,10 @@ public class BillingWindow extends JFrame {
 		contentPane = subscriptionRegistrationPanel;
 		window.setContentPane(contentPane);
 	}
-	
+	// for customer detail panel
 	public void refreshSubRegPanel(String customerID, String accountNo){
+		setSubscriptionMgr();
+
 		subscriptionRegistrationPanel = new SubscriptionRegistrationPanel(
 				window, customerID, accountNo);
 
