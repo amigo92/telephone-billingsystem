@@ -19,9 +19,12 @@ public class BillingReportView extends JPanel {
 	
 	private BillingWindow window;
 	
+	private JLabel lblNric;
 	private JTextField txtNric;
+	private JLabel lblBP;
 	private JComboBox ddBillPeriod;
 	private JTextArea txtReport;
+	private JScrollPane spReport;
 	private JButton btnView;
 	
 	private BillPeriod billPeriod;
@@ -33,14 +36,9 @@ public class BillingReportView extends JPanel {
 			
 			iniFields();
 			iniListeners();
-			
-		    setLayout (new BorderLayout());
-		    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-
 		    iniLayout();
 		    
-		    txtNric.setText("S8481362F"); //TODO
-		    
+		    txtNric.setText("S8481362F"); //TODO  to be removed
     	}
         catch(Exception e){
         	e.printStackTrace();
@@ -48,14 +46,24 @@ public class BillingReportView extends JPanel {
     }
     
     private void iniFields(){
-    	txtNric = new JTextField (1);
-    	createBillPeriodComboBox();
+    	lblNric = new JLabel ("Customer's NRIC:");
+    	txtNric = new JTextField(10);
+    	lblBP = new JLabel ("Bill Period:");
+    	ddBillPeriod = createBillPeriodComboBox();
+    	btnView = new JButton ("View");
     	txtReport = new JTextArea("No record found.");
     	txtReport.setEditable(false);
-    	btnView = new JButton ("View");
+    	spReport = new JScrollPane(txtReport);
     }
     
     private void iniListeners(){
+    	ddBillPeriod.addActionListener(new ActionListener (){
+	    	public void actionPerformed (ActionEvent e) {
+	    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
+	    		billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
+	    	}
+	    });
+    	
     	btnView.addActionListener (new ActionListener () {
 	        public void actionPerformed (ActionEvent e) {
 	        	try{	
@@ -87,27 +95,36 @@ public class BillingReportView extends JPanel {
     }
     
     private void iniLayout() {
-    	JPanel p = new JPanel (new GridLayout (0,3));
-    
-    	p.add(new JLabel ("Customer's NRIC:   "));
-        p.add(txtNric);
-        p.add(new JLabel (""));
-        
-        p.add(new JLabel ("Bill Period  :   "));
-        p.add(ddBillPeriod);
-        p.add(new JLabel (""));
-  
-        p.add(new JLabel (""));
-        p.add(new JLabel (""));
-        
-        add ("Center", new JScrollPane(txtReport));
-        p.add(btnView);
-
-        JPanel bp = new JPanel ();
-        bp.setLayout (new BorderLayout());   
-        bp.add ("North", p);
-        
-        add ("North", bp);
+    	 GroupLayout layout = new GroupLayout(this);
+    	 this.setLayout(layout);
+    	 
+    	 layout.setHorizontalGroup(
+    		        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+    		            .addGroup((layout.createSequentialGroup()
+    		            		.addComponent(lblNric)
+    		            		.addComponent(txtNric, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		            	              GroupLayout.PREFERRED_SIZE)))
+    		            .addGroup((layout.createSequentialGroup()
+    		            		.addComponent(lblBP)
+    		            		.addComponent(ddBillPeriod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		            	              GroupLayout.PREFERRED_SIZE)))
+    		            .addComponent(btnView, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		                    GroupLayout.PREFERRED_SIZE)		
+    		            .addComponent(spReport)		
+    		            
+    	 );
+    	 
+    	 layout.setVerticalGroup(
+    		        layout.createSequentialGroup()
+    		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+    		            		.addComponent(lblNric)
+    		            		.addComponent(txtNric))
+    		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+    		            		.addComponent(lblBP)
+    		            		.addComponent(ddBillPeriod))		
+    		            		.addComponent(btnView)		
+    	    		            .addComponent(spReport)	
+    	);
     }
  
  	private JComboBox createBillPeriodComboBox() {  
@@ -118,18 +135,10 @@ public class BillingReportView extends JPanel {
     	}
     	
     	ddBillPeriod = new JComboBox(periods);
-	    
-    	ddBillPeriod.addActionListener(new ActionListener (){
-	    	public void actionPerformed (ActionEvent e) {
-	    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
-	    		billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
-	    	}
-	    });
-	    
     	billPeriod = bps[0];	//starting month
     	
     	ddBillPeriod.setSelectedIndex(0);
-	    add(ddBillPeriod, BorderLayout.PAGE_START);
+	    add(ddBillPeriod);
 	    return ddBillPeriod;
     }
 }
