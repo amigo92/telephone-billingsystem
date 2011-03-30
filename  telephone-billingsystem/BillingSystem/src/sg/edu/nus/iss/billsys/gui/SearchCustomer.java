@@ -47,12 +47,13 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private JPanel SearchCustPantelCenter;
 	private Customer cust;
 	private AccountMgr accountMgr;
-	private  ArrayList<Customer> customer;
+	//private  ArrayList<Customer> customer;
 	private QueryTableModel qtm;
 	private BillingWindow  window;
 	private static final long serialVersionUID = 1L;
 	private ArrayList< String[]> newlist = new ArrayList<String[]>();
 	private String errorMsg=null;
+	private JTable table ;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -197,7 +198,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				}
 				{
 				qtm = new QueryTableModel();
-				JTable table = new JTable(qtm);				
+				table = new JTable(qtm);				
 				JScrollPane scrollpane = new JScrollPane(table);
 				pTable.add(scrollpane, BorderLayout.CENTER);
 				table.addMouseListener(new MouseAdapter() {
@@ -213,7 +214,8 @@ public class SearchCustomer extends javax.swing.JPanel {
 	}
 	
 	private void SearchButtonActionPerformed(ActionEvent evt) {
-		newlist= new ArrayList<String[]>(); 
+		newlist= new ArrayList<String[]>(); 	
+	
 		
 		accountMgr= new AccountMgr();
 		boolean bNRIC= true;
@@ -233,26 +235,26 @@ public class SearchCustomer extends javax.swing.JPanel {
 			
 			if (!bNRIC){
 				//still waiting wen jing code for this method
-				//customer= accountMgr.getCustomerDetailsByName(SearchTextBox.getText() );
+				cust= accountMgr.getCustomerDetailsByName(SearchTextBox.getText());				
 			}
 			else {				
 			
-				cust= accountMgr.getCustomerDetailsById(SearchTextBox.getText() );
-			
-				if (cust!= null){
+				cust= accountMgr.getCustomerDetailsById(SearchTextBox.getText() );		
 				
-					newlist.add(new String[] { cust.getName(), cust.getNric() });
-					clearErrorMsgData();
-					qtm.updateTable(newlist);
-				}
-				else 
-				{					
-					errorMsgSearchLabel.setText("No match record founds." );
-					errorMsgSearchLabel.setVisible(true);
-				}
 			}				
 		
-			
+			if (cust!= null){
+				
+				newlist.add(new String[] { cust.getName(), cust.getNric() });
+				clearErrorMsgData();
+				qtm.updateTable(newlist);
+			}
+			else 
+			{				
+				System.out.println( newlist.size());
+				errorMsgSearchLabel.setText("No match record founds." );
+				errorMsgSearchLabel.setVisible(true);
+			}	
 			
 		}
 		
@@ -287,11 +289,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	         //int column = target.getSelectedColumn(); 
 	         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
 	      //  BillingSystem.updateContentPane(new ViewCustomerDetails(window,strCustomerNRC) );
-//	         ViewCustomerDetails currentPanel = new ViewCustomerDetails(window);
-//	           
-//	           contentPane.revalidate();
-//	           contentPane = currentPanel;
-//	           window.setContentPane(contentPane);    
+
 	}
 		
 }
