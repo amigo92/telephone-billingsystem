@@ -235,9 +235,13 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					controlsToObject(cust);	
 				
 					System.out.println(cust.getAccIdByCust());
-					
-					
-					Boolean bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+					Boolean bReturn= false;
+					if (rdActivitation.isSelected()){
+						bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+					}
+					else if (rdDeactivitation.isSelected()){
+						bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+					}	
 				
 					if (bReturn){
 						JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
