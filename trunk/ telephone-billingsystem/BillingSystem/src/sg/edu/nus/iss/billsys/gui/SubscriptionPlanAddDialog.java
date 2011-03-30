@@ -104,7 +104,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 			return false;
 		}
 		
-		if(fromtDate.before(utilDate)){
+		if(fromtDate.after(utilDate)){
 			JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
 			return false;
 		}
