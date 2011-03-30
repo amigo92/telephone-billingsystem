@@ -66,6 +66,10 @@ public class AccountMgr {
 		return custDao.getCustomerByAcctId(acctId);
 	}
 	
+	public Customer getCustomerDetailsByName(String custName){
+		return custDao.getCustomerByName(custName);
+	}
+	
 	public ArrayList<Customer> getAllCustomers(){
 		return custDao.getAllCustomers();
 
