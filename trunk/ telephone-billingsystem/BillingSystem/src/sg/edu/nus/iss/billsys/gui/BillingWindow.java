@@ -312,5 +312,12 @@ public class BillingWindow extends JFrame {
 		contentPane = subscriptionDeRegistrationPanel;
 		window.setContentPane(contentPane);
 	}
+	public void refreshPanelForViewCust(String NRIC){
+		ViewCustomerDetails  VCust= new ViewCustomerDetails(
+				window, NRIC);
 
+		contentPane.revalidate();
+		contentPane = VCust;
+		window.setContentPane(contentPane);
+	}
 }
