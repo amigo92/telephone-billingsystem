@@ -83,6 +83,8 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 
 		try
 		{
+        	dateTerminated = BillingUtil.getDateTime(untilField.getText());
+
 			if(featureType == null)
 				manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
 			else
