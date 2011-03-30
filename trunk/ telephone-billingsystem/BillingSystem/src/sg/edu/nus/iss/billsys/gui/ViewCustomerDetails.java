@@ -241,7 +241,17 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					public void actionPerformed(ActionEvent arg0) {
 						// call 
 						System.out.println("aa");
-						window.refreshSubRegPanel(cust.getNric() ,cust.getAccIdByCust());				
+						if (validateControl()){
+							window.refreshSubRegPanel(cust.getNric() ,cust.getAccIdByCust());	
+						}
+						else {		
+							System.out.println("1");
+							errorMsgNRICLabel.setVisible(true);
+							errorMsgSearchLabel.setVisible(false);
+							
+							ClearData();
+						}
+										
 					}
 				});
 				btnSubscriptionInformation.setBounds(347, 410, 180, 23);
