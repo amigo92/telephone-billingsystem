@@ -31,9 +31,9 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
     	 initialize(window);	
     }
-    public SubscriptionDeRegistrationPanel (BillingWindow window, String accountNo) { 	
-   	 	initialize(window);	
+    public SubscriptionDeRegistrationPanel (BillingWindow window, String accountNo) {
     	this.accountNo = accountNo;
+   	 	initialize(window);	
     }
     public void initialize(BillingWindow window){
     	this.window = window;
