@@ -25,6 +25,7 @@ import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.tools.*;
+import java.awt.FlowLayout;
 
 /**
 * @author Win Kyi Tin 
@@ -85,13 +86,12 @@ public class SearchCustomer extends javax.swing.JPanel {
 			{
 				SearchCustPanel = new JPanel();
 				this.add(SearchCustPanel, BorderLayout.NORTH);
-				SearchCustPanel.setLayout(null);
 				SearchCustPanel.setPreferredSize(new java.awt.Dimension(400, 28));
+				SearchCustPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				{
 					SearchCustTitleLabel = new JLabel();
 					SearchCustPanel.add(SearchCustTitleLabel);
 					SearchCustTitleLabel.setText("Search Customer");
-					SearchCustTitleLabel.setBounds(12, 6, 389, 16);
 					SearchCustTitleLabel.setFont(new java.awt.Font("Segoe UI",1,14));
 				}
 			}
