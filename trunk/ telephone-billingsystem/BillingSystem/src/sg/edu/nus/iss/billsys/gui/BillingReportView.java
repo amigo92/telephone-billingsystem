@@ -4,8 +4,6 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.mgr.*;
 import sg.edu.nus.iss.billsys.vo.*;
 
-import java.util.*;
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
