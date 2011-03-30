@@ -68,12 +68,17 @@ public class SearchCustomer extends javax.swing.JPanel {
 	}
 	
 	public SearchCustomer (BillingWindow window) {
+		
 		this.window = window;
+	
 		initControl();
-
 	}
+	
+
 	private void initControl() {
 		try {
+		
+			
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
 			this.setPreferredSize(new java.awt.Dimension(571, 300));
@@ -149,11 +154,15 @@ public class SearchCustomer extends javax.swing.JPanel {
 					SearchCustPantelCenter.add(SearchButton);
 					SearchButton.setText("Search");
 					SearchButton.setBounds(448, 89, 81, 23);
+					
+					System.out.println("scaa123478");
+					
 					SearchButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							try
 							{
-							SearchButtonActionPerformed(evt);
+								System.out.println("scaa1234789");
+							  SearchButtonActionPerformed(evt);
 							
 							} catch (Exception e) {
 							    // Print out the exception that occurred
@@ -208,7 +217,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 		
 		accountMgr= new AccountMgr();
 		boolean bNRIC= true;
-		
+		System.out.println("scaa123478910");
 	
 		
 		if (validateControls()){		
