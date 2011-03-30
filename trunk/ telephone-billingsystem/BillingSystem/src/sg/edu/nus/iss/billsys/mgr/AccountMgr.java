@@ -70,9 +70,12 @@ public class AccountMgr {
 		return custDao.getCustomerByName(custName);
 	}
 	
+	public Customer reactiveCustomer(String accId, Date today){
+		return custDao.reactiveCustomer(accId, today);
+	}
+	
 	public ArrayList<Customer> getAllCustomers(){
 		return custDao.getAllCustomers();
-
 	}
 	
 	public ArrayList<Customer> getAllActiveCustomers(){
