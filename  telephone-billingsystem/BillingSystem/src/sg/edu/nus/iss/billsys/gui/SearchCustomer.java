@@ -70,8 +70,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	
 	public SearchCustomer (BillingWindow window) {
 		
-		this.window = window;
-	
+		this.window = window;	
 		initControl();
 	}
 	
@@ -247,15 +246,16 @@ public class SearchCustomer extends javax.swing.JPanel {
 				
 				newlist.add(new String[] { cust.getName(), cust.getNric() });
 				clearErrorMsgData();
-				qtm.updateTable(newlist);
+				
 			}
 			else 
 			{				
 				System.out.println( newlist.size());
+				//newlist.add(new String[] { " ", " "});
 				errorMsgSearchLabel.setText("No match record founds." );
 				errorMsgSearchLabel.setVisible(true);
 			}	
-			
+			qtm.updateTable(newlist);
 		}
 		
 		
