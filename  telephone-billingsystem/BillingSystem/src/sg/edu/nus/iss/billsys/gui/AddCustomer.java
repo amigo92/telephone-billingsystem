@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
@@ -240,10 +241,8 @@ public class AddCustomer extends javax.swing.JPanel {
 		
 		try{
 			if (validateControls()){
-				
-				AccountMgr accountMgr= new AccountMgr();
 				System.out.println("Before save");
-				Customer cust =accountMgr.createCustomer(this.CustNameText.getText(),this.CustNameText.getText(),this.CustContactTelText.getText(),this.CustAdd1Text.getText(),this.CustAdd2Text.getText(),this.CustAdd3Text.getText(),this.InterestingText.getText() );
+				Customer cust = MgrFactory.getAccountMgr().createCustomer(CustNameText.getText(), CustNameText.getText(), CustContactTelText.getText(), CustAdd1Text.getText(), CustAdd2Text.getText(), CustAdd3Text.getText(), InterestingText.getText());
 				System.out.println("save");
 				System.out.println(cust.getAccIdByCust());
 				if ( cust.getAccIdByCust() != null){
