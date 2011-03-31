@@ -19,6 +19,7 @@ public class BillMgr {
 
 	private static BillDao aBillDao = new BillDao();
 	private static List<FeatureType> callTxnTypes;
+	private static final String DEFAULT_BILL_PATH = "bill/";
 	
 	protected BillMgr() {
 		// TODO Auto-generated constructor stub
@@ -64,20 +65,37 @@ public class BillMgr {
 	 */
 	public void purge(){
 		aBillDao.purge();
+		
+		File dir = new File(DEFAULT_BILL_PATH);
+		for(File f : dir.listFiles()){
+			if(f.isFile()){
+				f.delete();	//delete the text bills
+			}
+		}
 	}
 	
 	public void writeBills(String filePath, BillPeriod billPeriod, ArrayList<Bill> bills) throws IOException{
 		new File(filePath).mkdirs();
 		File file = new File(filePath, "bills_" + billPeriod.toString() + ".txt");
-		BufferedWriter out = new BufferedWriter(new FileWriter(file));
-		
-		String contents = "";
-		for(Bill bill : bills){
-			contents += bill.toString() 
-					 + "\n\n\n\n================================================================================\n\n\n\n";
+		BufferedWriter out = null;
+
+		try{
+			out = new BufferedWriter(new FileWriter(file));
+			
+			String contents = "";
+			for(Bill bill : bills){
+				contents += bill.toString() 
+						 + "\n\n\n\n================================================================================\n\n\n\n";
+			}
+			
+			out.write(contents);
 		}
-		out.write(contents);
-		out.close();
+		catch(IOException oe){
+			oe.printStackTrace();
+		}
+		finally{
+			if(out != null) out.close();
+		}
 	}
 	
 	/**
@@ -103,6 +121,12 @@ public class BillMgr {
 		aBillDao.add(billPeriod, list);
 		aBillDao.setCurrBillPeriod(billPeriod);
 		aBillDao.save();
+
+		try {
+			writeBills(DEFAULT_BILL_PATH, billPeriod, list);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 	
 	private Bill generate(BillPeriod billPeriod, Customer customer) throws BillingSystemException{;
