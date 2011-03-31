@@ -202,7 +202,7 @@ public class SubscriptionMgrTest extends TestCase {
 				"61234567",
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
-				null
+				TimeUtils.parseDate("2012-02-01 00:00:00")
 			);
 		} catch (BillingSystemException e) {
 			fail();
@@ -354,6 +354,48 @@ public class SubscriptionMgrTest extends TestCase {
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2011-01-01 00:00:00"),
+				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2013-02-01 00:00:00"),
+				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				FeatureType.DigiIDD,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				TimeUtils.parseDate("2013-02-01 00:00:00")
 			);
 			fail();
 		} catch (BillingSystemException e) {
@@ -613,7 +655,7 @@ public class SubscriptionMgrTest extends TestCase {
 				"61234567",
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
-				null
+				TimeUtils.parseDate("2012-02-01 00:00:00")
 			);
 		} catch (BillingSystemException e) {
 			fail();
@@ -690,6 +732,19 @@ public class SubscriptionMgrTest extends TestCase {
 			fail();
 		} catch (BillingSystemException e) {
 			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				digiIDD.getFeatureId(),
+				TimeUtils.parseDate("2013-02-01 00:00:00")
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
 		}
 		try {
 			subMgr.deregisterFeature(
