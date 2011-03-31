@@ -224,7 +224,7 @@ public class UpdateComplaintPanel extends JPanel {
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(this.customerIdTextField.getText())) {
-			errorMessageLabel.setText("Invalid/ Empty customer Id!");
+			errorMessageLabel.setText("Empty customer Id!");
 			errorMessageLabel.setForeground(Color.RED);
 			return;
 		}
@@ -234,10 +234,17 @@ public class UpdateComplaintPanel extends JPanel {
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
 			try{
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(this.customerIdTextField.getText().trim());
-			}catch (Exception e) {
-				e.printStackTrace();
+				customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(this.customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
+			
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid Account #!");
 				errorMessageLabel.setForeground(Color.RED);
@@ -247,10 +254,17 @@ public class UpdateComplaintPanel extends JPanel {
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
 			try{
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(this.customerIdTextField.getText().trim());
-			}catch (Exception e) {
-				e.printStackTrace();
+				customer = MgrFactory.getAccountMgr().getCustomerDetailsById(this.customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
+			
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid NRIC!");
 				errorMessageLabel.setForeground(Color.RED);
@@ -264,8 +278,12 @@ public class UpdateComplaintPanel extends JPanel {
 						.getComplaintByAccount(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				e.printStackTrace();
-				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		} else if ("nric".equalsIgnoreCase(customerIdType)) {
@@ -274,8 +292,12 @@ public class UpdateComplaintPanel extends JPanel {
 						.getComplaintByCustomerId(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				e.printStackTrace();
-				errorMessageLabel.setText("Internal error occurred while retrieving complaints!");
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		}
@@ -299,25 +321,6 @@ public class UpdateComplaintPanel extends JPanel {
 		String customerIdType = null;
 		long returnValue = 0;
 
-//		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
-//			errorMessageLabel.setText("Invalid/ Empty Customer Id!");
-//			errorMessageLabel.setForeground(Color.RED);
-//			return;
-//		}
-//
-//		if (StringUtil.isNullOrEmpty(complaintTextArea.getText())) {
-//			errorMessageLabel.setText("Invalid/ Empty Complaint!");
-//			errorMessageLabel.setForeground(Color.RED);
-//			return;
-//		}
-
-//		if (accountNoRadioButton.isSelected()) {
-//			customerIdType = accountNoRadioButton.getActionCommand();
-//		}
-//		if (nricRadioButton.isSelected()) {
-//			customerIdType = nricRadioButton.getActionCommand();
-//		}
-
 		System.out.println("customerId:" + customerIdTextField.getText());
 		System.out.println("Complaint:" + complaintTextArea.getText());
 		System.out.println("customerIdType:" + customerIdType);
@@ -332,41 +335,20 @@ public class UpdateComplaintPanel extends JPanel {
 			status = ComplaintStatus.PENDING;
 		} 
 		
-		
-		
 		if (NumberUtil.isLong(complaintIdTextField.getText().trim())) {
 			try {
 				returnValue = MgrFactory.getComplaintMgr().updateComplaint(
 						Long.parseLong(complaintIdTextField.getText().trim()), status);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (BillingSystemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
 		}
-//		if ("nric".equalsIgnoreCase(customerIdType)) {
-//			try {
-//				returnValue = MgrFactory.getComplaintMgr()
-//						.createComplaintByCustomerId(
-//								customerIdTextField.getText().trim(),
-//								complaintTextArea.getText().trim());
-//			} catch (BillingSystemException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		} else if ("accountNo".equalsIgnoreCase(customerIdType)) {
-//			try {
-//				returnValue = MgrFactory.getComplaintMgr()
-//						.createComplaintByAccount(
-//								customerIdTextField.getText().trim(),
-//								complaintTextArea.getText().trim());
-//			} catch (BillingSystemException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 
 		// set error message
 		if (returnValue > 0) {
