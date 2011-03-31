@@ -24,7 +24,6 @@ public class BillingReportView extends JPanel {
 	private JComboBox ddBillPeriod;
 	private JTextArea txtReport;
 	private JScrollPane spReport;
-	private JButton btnView;
 	
 	private BillPeriod billPeriod;
 	
@@ -49,7 +48,6 @@ public class BillingReportView extends JPanel {
     	txtNric = new JTextField(10);
     	lblBP = new JLabel ("Bill Period:");
     	ddBillPeriod = createBillPeriodComboBox();
-    	btnView = new JButton ("View");
     	txtReport = new JTextArea("No record found.");
     	txtReport.setEditable(false);
     	txtReport.setFont(new Font("Lucida Console", Font.PLAIN,12));
@@ -59,15 +57,11 @@ public class BillingReportView extends JPanel {
     private void iniListeners(){
     	ddBillPeriod.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
-	    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
-	    		billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
-	    	}
-	    });
-    	
-    	btnView.addActionListener (new ActionListener () {
-	        public void actionPerformed (ActionEvent e) {
-	        	try{	
-	        		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(txtNric.getText());
+	    		try{
+		    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
+		    		billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
+		    		
+		    		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(txtNric.getText());
 	        		
 	        		if(customer == null){
 	        			JOptionPane.showMessageDialog(window, "No customer found.");
@@ -83,34 +77,37 @@ public class BillingReportView extends JPanel {
 	        				txtReport.setText("No record found.");
 	        			}
 	        		}
-
+	
 	        		window.validate();
-	        	}
-		    	catch(Exception ex)
-		    	{
-		    		ex.printStackTrace();
-		    	} 	
+	    		}
+	    		catch(Exception ex){
+	    			ex.printStackTrace();
+	    		}
 	    	}
-        });
+	    });
     }
     
     private void iniLayout() {
     	 GroupLayout layout = new GroupLayout(this);
     	 this.setLayout(layout);
     	 
+    	 layout.setAutoCreateGaps(true);
+    	 layout.setAutoCreateContainerGaps(true);
+    	 
     	 layout.setHorizontalGroup(
     		        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    		            .addGroup((layout.createSequentialGroup()
-    		            		.addComponent(lblNric)
-    		            		.addComponent(txtNric, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-    		            	              GroupLayout.PREFERRED_SIZE)))
-    		            .addGroup((layout.createSequentialGroup()
-    		            		.addComponent(lblBP)
-    		            		.addComponent(ddBillPeriod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-    		            	              GroupLayout.PREFERRED_SIZE)))
-    		            .addComponent(btnView, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-    		                    GroupLayout.PREFERRED_SIZE)		
-    		            .addComponent(spReport)		
+    		            		.addGroup((layout.createSequentialGroup()
+    		            					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			    		            					.addComponent(lblNric)
+			    		            					.addComponent(lblBP)
+    		            						)
+    		            					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+    		            								.addComponent(txtNric, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		              		            	              GroupLayout.PREFERRED_SIZE)
+    		            								.addComponent(ddBillPeriod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		              		            	              GroupLayout.PREFERRED_SIZE)
+    		            						)))			         
+    		            		.addComponent(spReport)		
     		            
     	 );
     	 
@@ -122,8 +119,7 @@ public class BillingReportView extends JPanel {
     		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
     		            		.addComponent(lblBP)
     		            		.addComponent(ddBillPeriod))		
-    		            		.addComponent(btnView)		
-    	    		            .addComponent(spReport)	
+    	    		    .addComponent(spReport)	
     	);
     }
  
