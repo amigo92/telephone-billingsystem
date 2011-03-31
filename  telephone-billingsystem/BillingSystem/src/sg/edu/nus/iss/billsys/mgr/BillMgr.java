@@ -20,6 +20,10 @@ public class BillMgr {
 	private static BillDao aBillDao = new BillDao();
 	private static List<FeatureType> callTxnTypes;
 	
+	protected BillMgr() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * 
 	 * @client GUI

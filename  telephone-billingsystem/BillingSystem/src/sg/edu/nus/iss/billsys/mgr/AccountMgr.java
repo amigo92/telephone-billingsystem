@@ -18,7 +18,7 @@ public class AccountMgr {
 	private ICustomerDao custDao;
 	
 	
-	public AccountMgr() throws BillingSystemException{
+	protected AccountMgr() throws BillingSystemException{
 		custDao = DaoFactory.getInstanceOfCustomerDao();
 	}
 

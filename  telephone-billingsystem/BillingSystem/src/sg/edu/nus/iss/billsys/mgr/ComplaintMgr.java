@@ -20,7 +20,7 @@ public class ComplaintMgr {
 	
 	private IComplaintsDao dao;
 	
-	public ComplaintMgr() throws BillingSystemException
+	protected ComplaintMgr() throws BillingSystemException
 	{
 		dao = DaoFactory.getInstanceOfComplaintsDao();
 	}
