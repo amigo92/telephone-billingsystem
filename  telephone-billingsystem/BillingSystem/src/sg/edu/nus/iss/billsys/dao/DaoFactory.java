@@ -20,6 +20,7 @@ public class DaoFactory {
 	private static ICustomerDao customerDao;
 	private static ICallHistDao callHistDao;
 	private static IPhoneNumbersDao mobileNumbersDao;
+	private static IPhoneNumbersDao digiVoiceNumbersDao;
 	
 	public static IUserDao getInstanceOfUserDao() throws BillingSystemException{
 		
@@ -100,6 +101,15 @@ public class DaoFactory {
 		}
 		
 		return mobileNumbersDao;
+	}
+	
+	public static IPhoneNumbersDao getInstanceOfDigiVoiceNumbersDao() throws BillingSystemException{
+		
+		if(digiVoiceNumbersDao == null){
+			digiVoiceNumbersDao = new DigiVoiceNumbersDao();
+		}
+		
+		return digiVoiceNumbersDao;
 	}
 
 }

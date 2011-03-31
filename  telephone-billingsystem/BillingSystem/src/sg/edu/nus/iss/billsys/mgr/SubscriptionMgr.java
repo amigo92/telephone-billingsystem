@@ -33,6 +33,7 @@ public class SubscriptionMgr {
 		subPlanDao = DaoFactory.getInstanceOfSubscriptionPlanDao();
 		featureRateDao = DaoFactory.getInstanceOfFeatureRateDao();
 		mobileNumbersDao = DaoFactory.getInstanceOfMobileNumbersDao();
+		digiVoiceNumbersDao = DaoFactory.getInstanceOfDigiVoiceNumbersDao();
 	}
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -54,11 +55,19 @@ public class SubscriptionMgr {
 		}
 		return list;
 	}
-	
+
+    /*
+     * To get a list of available mobile numbers.
+     * @return list of String objects
+     */
 	public List<String> getAvailMobileNumbers() {
 		return mobileNumbersDao.getPhoneNumbers();
 	}
-	
+
+    /*
+     * To get a list of available digital voice numbers.
+     * @return list of String objects
+     */
 	public List<String> getAvailDigiVoiceNumbers() {
 		return digiVoiceNumbersDao.getPhoneNumbers();
 	}
