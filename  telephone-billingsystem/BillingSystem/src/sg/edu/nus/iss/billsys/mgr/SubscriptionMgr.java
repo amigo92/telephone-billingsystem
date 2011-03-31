@@ -109,12 +109,14 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("The account is invalid/terminated.");
     	}
     	SubscriptionPlan plan = null;
+    	IPhoneNumbersDao phoneNosDao = null;
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
         	if (assignedTelNo == null) {
         		throw new BillingSystemException("Assigned phone number cannot be null.");
         	}
-        	if (!digiVoiceNumbersDao.removePhoneNumber(assignedTelNo)) {
+        	phoneNosDao = digiVoiceNumbersDao;
+        	if (!phoneNosDao.removePhoneNumber(assignedTelNo)) {
         		throw new BillingSystemException("Invalid assigned phone number. The number is not in the list");
         	}
     		plan = new DigitalVoicePlan(
@@ -130,7 +132,8 @@ public class SubscriptionMgr {
         	if (assignedTelNo == null) {
         		throw new BillingSystemException("Assigned mobile number cannot be null.");
         	}
-        	if (!mobileNumbersDao.removePhoneNumber(assignedTelNo)) {
+        	phoneNosDao = mobileNumbersDao;
+        	if (!phoneNosDao.removePhoneNumber(assignedTelNo)) {
         		throw new BillingSystemException("Invalid assigned mobile number. The number is not in the list");
         	}
 			plan = new MobileVoicePlan(
@@ -158,6 +161,9 @@ public class SubscriptionMgr {
 			throw new BillingSystemException("Failed to add subscription plan into doa.");
 		}
 		subPlanDao.saveObjectData();
+		if (phoneNosDao != null) {
+			phoneNosDao.saveObjectData();
+		}
 		return plan;
     }
 
