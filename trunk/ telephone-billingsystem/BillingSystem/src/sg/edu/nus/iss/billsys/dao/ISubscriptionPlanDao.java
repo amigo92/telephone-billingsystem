@@ -17,7 +17,5 @@ public interface ISubscriptionPlanDao {
 	public boolean addAccountSubscription(String acctNo, SubscriptionPlan plan);
 	public SubscriptionPlan getAccountSubscription(String acctNo, String planId) ;
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) ;
-	public String generateSequence();
 	public void saveObjectData() throws BillingSystemException;
-
 }

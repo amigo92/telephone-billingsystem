@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.tools;
 
+import java.util.UUID;
+
 import sg.edu.nus.iss.billsys.vo.*;
 
 /**
@@ -25,4 +27,8 @@ public class SystemUtils {
 		return profile;
 	}
 
+	
+	public static String generateSequence(){
+		return UUID.randomUUID().toString();
+	}
 }
