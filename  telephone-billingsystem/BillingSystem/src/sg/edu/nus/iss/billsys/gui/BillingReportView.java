@@ -25,8 +25,6 @@ public class BillingReportView extends JPanel {
 	private JTextArea txtReport;
 	private JScrollPane spReport;
 	
-	private BillPeriod billPeriod;
-	
     public BillingReportView (BillingWindow window) {
     	try
     	{
@@ -59,7 +57,7 @@ public class BillingReportView extends JPanel {
 	    	public void actionPerformed (ActionEvent e) {
 	    		try{
 		    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
-		    		billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
+		    		BillPeriod billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
 		    		
 		    		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(txtNric.getText());
 	        		
@@ -131,8 +129,6 @@ public class BillingReportView extends JPanel {
     	}
     	
     	ddBillPeriod = new JComboBox(periods);
-    	billPeriod = bps[0];	//starting month
-    	
     	ddBillPeriod.setSelectedIndex(0);
 	    add(ddBillPeriod);
 	    return ddBillPeriod;
