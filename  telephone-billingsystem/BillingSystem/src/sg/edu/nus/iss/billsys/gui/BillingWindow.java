@@ -1,23 +1,18 @@
 package sg.edu.nus.iss.billsys.gui;
 
-
-import sg.edu.nus.iss.billsys.*;
-import sg.edu.nus.iss.billsys.constant.SessionKeys;
-import sg.edu.nus.iss.billsys.constant.UserRole;
+import sg.edu.nus.iss.billsys.constant.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.mgr.MgrFactory;
-import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
+import sg.edu.nus.iss.billsys.mgr.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Date;
 import javax.swing.*;
 
 public class BillingWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BillingSystem     manager;
+	private BillingSystem manager;
     private JPanel contentPane;
     private BillingWindow window;
     private SubscriptionMgr subscriptionMgr;
@@ -135,7 +130,7 @@ public class BillingWindow extends JFrame {
 			menu = new JMenu("Billing  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
-			menuItem = new JMenuItem("View Billing Report");
+			menuItem = new JMenuItem("View Bill Report");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -148,7 +143,9 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
-			menuItem = new JMenuItem("Generate Billing Report");
+			menu.addSeparator();
+			
+			menuItem = new JMenuItem("Generate Bill Report");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -163,6 +160,15 @@ public class BillingWindow extends JFrame {
 			menu.add(menuItem);
 			menu.addSeparator();
 
+			menuItem = new JMenuItem("Purse Bill Report");
+			menuItem.setMnemonic(KeyEvent.VK_P);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MgrFactory.getBillMgr().purge();
+					JOptionPane.showMessageDialog(window, "Purged bills successfully.");
+				}
+			});
+			menu.add(menuItem);
 	
 			menu = new JMenu("Subscription  ");
 			menu.setMnemonic(KeyEvent.VK_A);
@@ -180,6 +186,8 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
+			menu.addSeparator();
+			
 			menuItem = new JMenuItem("Register");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
@@ -195,6 +203,8 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
+			menu.addSeparator();
+			
 			menuItem = new JMenuItem("De-Register");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
@@ -210,7 +220,7 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
-			menu.addSeparator();
+			
 		
 		
 		// Complaint
@@ -230,6 +240,7 @@ public class BillingWindow extends JFrame {
 		     }
 	    });
         menu.add(menuItem);
+        menu.addSeparator();
         
         menuItem = new JMenuItem("Update Complaint");
         menuItem.setMnemonic(KeyEvent.VK_D);
@@ -243,7 +254,6 @@ public class BillingWindow extends JFrame {
 		     }
 	    });
         menu.add(menuItem);
-        menu.addSeparator();
 
 		// Logout
         menu = new JMenu("Logout  ");
@@ -267,7 +277,6 @@ public class BillingWindow extends JFrame {
 		     }
 	    });
         menu.add(menuItem);
-        menu.addSeparator();
 
         return menuBar;
     }
