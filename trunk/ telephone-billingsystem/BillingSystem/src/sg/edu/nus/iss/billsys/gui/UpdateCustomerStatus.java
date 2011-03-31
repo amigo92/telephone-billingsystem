@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import java.awt.Font;
@@ -49,17 +50,12 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	private String errorMsg=null;
 	private String strCustomerID;
 	private BillingWindow  window;
-	private AccountMgr   accountMgr;
+
 	private static final long serialVersionUID = 1L;
 	private JLabel errorMsgNRICLabel;
 	private JLabel errorMsgSearchLabel;
 
-		
-	
 
-
-		
-	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.getContentPane().add(new UpdateCustomerStatus());
@@ -241,10 +237,10 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					if (rdActivitation.isSelected()){
 						Calendar today = Calendar.getInstance();
 						Date todayDate = today.getTime();
-						bReturn=accountMgr.reactiveCustomer(cust.getAccIdByCust(), todayDate);
+						bReturn=MgrFactory.getAccountMgr().reactiveCustomer(cust.getAccIdByCust(), todayDate);
 					}
 					else if (rdDeactivitation.isSelected()){
-						bReturn=accountMgr.deleteCustomer(cust.getAccIdByCust());
+						bReturn=MgrFactory.getAccountMgr().deleteCustomer(cust.getAccIdByCust());
 					}	
 				
 					if (bReturn){
@@ -263,17 +259,16 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	}
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
-		try{	
-		accountMgr= new AccountMgr();
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 			clearErrorMsgData();
 			System.out.println("a");
 			if (validateControl()){					
 				
-			cust= accountMgr.getCustomerDetailsById(nrcText.getText() );			
+			try {
+				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nrcText.getText() );
+			} catch (BillingSystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		
 			if (cust!=null){
 				customerNameLabel.setText(cust.getName());
