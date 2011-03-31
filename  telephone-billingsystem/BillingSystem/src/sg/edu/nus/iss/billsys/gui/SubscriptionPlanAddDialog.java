@@ -26,6 +26,7 @@ import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.util.StringUtil;
 
 public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
@@ -69,7 +70,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		assignedNumberField = new JFormattedTextField(BillingUtil.createFormatter(window, "########"));
 
 		p.add (assignedNumberField);
-		p.add (new JLabel ("Start Date (d-MMM-yyyy)"));
+		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
 		fromField = new JTextField (20);
 		p.add (fromField);
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
@@ -97,14 +98,18 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 			return false;
 		}
 		Date utilDate;
-		try {
-			utilDate = BillingUtil.getDateTime(untilField.getText());
-		} catch (ParseException e) {
-			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
-			return false;
+		if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+			utilDate = null;
+		else{
+			try {
+				utilDate = BillingUtil.getDateTime(untilField.getText());
+			} catch (ParseException e) {
+				JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
+				return false;
+			}
 		}
-		
-		if(fromtDate.after(utilDate)){
+
+		if(utilDate != null && fromtDate.after(utilDate)){
 			JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
 			return false;
 		}
@@ -113,6 +118,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 			manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, fromtDate, utilDate);
 			window.refreshSubRegPanel(accountNo);
 		} catch (BillingSystemException e) {
+			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
+			return false;
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
 		}
