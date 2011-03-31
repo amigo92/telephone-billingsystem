@@ -36,7 +36,8 @@ public abstract class GenericDao {
 	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
 	private final static String  USER_DATA_FILE="data/User.txt";
 	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
-	
+	private final static String  MOBILE_NUMBERS_DATA_FILE="data/MobileNumbers.txt";
+	private final static String  DIGIVOICE_NUMBERS_DATA_FILE="data/DigiVoiceNumbers.txt";
 	
 	private static String [][] callHistoryData=null;
 	private static String [][] customerData=null;
@@ -47,6 +48,8 @@ public abstract class GenericDao {
 	private static String [][] subscriptionPlanData=null;
 	private static String [][] userData=null;
 	private static String [][] complaintData=null;
+	private static String [][] mobileNumbersData=null;
+	private static String [][] digiVoiceNumbersData=null;
 	
 	/*
 	 * This static block will load the data to the String [][] objects which represents the
@@ -218,7 +221,8 @@ public abstract class GenericDao {
 		subscriptionPlanData=getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
 		userData=getDataAsArray(USER_DATA_FILE);
 		complaintData=getDataAsArray(COMPLAINTS_DATA_FILE);
-		
+		mobileNumbersData=getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
+		digiVoiceNumbersData=getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
 		
 	}
 	/*
@@ -294,6 +298,14 @@ public abstract class GenericDao {
 		
 		return complaintData;
 	}
+	protected String[][] getMobileNumbersData(){
+		
+		return mobileNumbersData;
+	}
+	protected String[][] getDigiVoiceNumbersData(){
+		
+		return digiVoiceNumbersData;
+	}
 	/*
 	 * These are the list of protected methods used by the subclasses to write the 
 	 * the Data object which represents the Data file on to the Data file.
@@ -315,6 +327,13 @@ public abstract class GenericDao {
 		complaintData=data;
 		return storeDataByArray(COMPLAINTS_DATA_FILE, complaintData);
 	}
-	
+	protected boolean saveMobileNumbersData(String[][] data){
+		mobileNumbersData=data;
+		return storeDataByArray(MOBILE_NUMBERS_DATA_FILE, mobileNumbersData);
+	}
+	protected boolean saveDigiVoiceNumbersData(String[][] data){
+		digiVoiceNumbersData=data;
+		return storeDataByArray(DIGIVOICE_NUMBERS_DATA_FILE, digiVoiceNumbersData);
+	}
 
 }

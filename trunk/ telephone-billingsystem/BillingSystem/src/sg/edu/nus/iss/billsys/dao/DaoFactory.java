@@ -19,6 +19,7 @@ public class DaoFactory {
 	private static IFeatureRateDao featureRateDao;
 	private static ICustomerDao customerDao;
 	private static ICallHistDao callHistDao;
+	private static IPhoneNumbersDao mobileNumbersDao;
 	
 	public static IUserDao getInstanceOfUserDao() throws BillingSystemException{
 		
@@ -90,6 +91,15 @@ public class DaoFactory {
 		}
 		
 		return callHistDao;
+	}
+	
+	public static IPhoneNumbersDao getInstanceOfMobileNumbersDao() throws BillingSystemException{
+		
+		if(mobileNumbersDao == null){
+			mobileNumbersDao = new MobileNumbersDao();
+		}
+		
+		return mobileNumbersDao;
 	}
 
 }

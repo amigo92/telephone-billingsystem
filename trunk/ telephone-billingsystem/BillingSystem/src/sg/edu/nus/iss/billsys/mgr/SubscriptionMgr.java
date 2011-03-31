@@ -26,10 +26,13 @@ public class SubscriptionMgr {
 
 	private ISubscriptionPlanDao subPlanDao;
 	private IFeatureRateDao featureRateDao;
+	private IPhoneNumbersDao mobileNumbersDao;
+	private IPhoneNumbersDao digiVoiceNumbersDao;
 	
 	protected SubscriptionMgr() throws BillingSystemException {
 		subPlanDao = DaoFactory.getInstanceOfSubscriptionPlanDao();
 		featureRateDao = DaoFactory.getInstanceOfFeatureRateDao();
+		mobileNumbersDao = DaoFactory.getInstanceOfMobileNumbersDao();
 	}
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -50,7 +53,15 @@ public class SubscriptionMgr {
 			list.add(featureType);
 		}
 		return list;
-	}	
+	}
+	
+	public List<String> getAvailMobileNumbers() {
+		return mobileNumbersDao.getPhoneNumbers();
+	}
+	
+	public List<String> getAvailDigiVoiceNumbers() {
+		return digiVoiceNumbersDao.getPhoneNumbers();
+	}
 
     /*
      * To get all subscription plans of the account.
