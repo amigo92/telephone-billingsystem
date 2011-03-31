@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
@@ -304,12 +303,6 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		
 	protected SubscriptionPlanDao() throws BillingSystemException{
 		this.objectDataMapping(getSubscriptionPlanData());
-	}
-	
-	public String generateSequence(){
-		
-		return UUID.randomUUID().toString();
-		
 	}
 	
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {

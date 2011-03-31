@@ -8,6 +8,7 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.tools.SystemUtils;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.DigitalVoicePlan;
@@ -91,29 +92,29 @@ public class SubscriptionMgr {
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
     		plan = new DigitalVoicePlan(
-    				subPlanDao.generateSequence(),
+    			SystemUtils.generateSequence(),
 				acctNo,
 				assignedTelNo,
-				subPlanDao.generateSequence(),
+				SystemUtils.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
     		break;
     	case MOBILE_VOICE:
 			plan = new MobileVoicePlan(
-					subPlanDao.generateSequence(),
+				SystemUtils.generateSequence(),
 				acctNo,
 				assignedTelNo,
-				subPlanDao.generateSequence(),
+				SystemUtils.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
     		break;
     	case CABLE_TV:
 			plan = new CableTvPlan(
-					subPlanDao.generateSequence(),
+				SystemUtils.generateSequence(),
 				acctNo,
-				subPlanDao.generateSequence(),
+				SystemUtils.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
@@ -169,7 +170,7 @@ public class SubscriptionMgr {
         	}
     	}
      	Feature feature = new Feature(
-     			subPlanDao.generateSequence(),
+     		SystemUtils.generateSequence(),
 			featureType,
 			dateCommenced,
 			dateTerminated
