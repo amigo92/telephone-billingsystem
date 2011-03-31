@@ -12,7 +12,6 @@ import org.junit.Test;
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.dao.DaoFactory;
-import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Feature;
