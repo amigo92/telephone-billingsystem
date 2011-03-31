@@ -19,7 +19,10 @@ public class BillingUtil {
 	        return date;
 	    } 
 	public static String getDateTimeStr(Date date) {
-		 return DATE_FORMAT.format(date);
+	     if (date == null)
+	    	 return "";
+	     else
+	    	 return DATE_FORMAT.format(date);
 	    }
 	
 	public static Date getCurrentDate() {
