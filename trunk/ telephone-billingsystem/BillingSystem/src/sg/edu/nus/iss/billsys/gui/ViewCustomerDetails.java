@@ -27,7 +27,9 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.util.StringUtil;
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
@@ -64,17 +66,10 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private String strNRC;
-	private Customer cust= new Customer();
-	
-	private AccountMgr accountMgr=null;
+	private Customer cust= new Customer();	
 
-	
-
-	private SubscriptionMgr subMgr ;//= new SubscriptionMgr();
 	private JLabel errorMsgSearchLabel;
 	private JLabel errorMsgNRICLabel;
-	
-	//private List<SubscriptionPlan> listSubPlan = new ArrayList<SubscriptionPlan>() ;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -296,31 +291,29 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}
 	}
 	
-	private void SearchCustButtonActionPerformed(ActionEvent evt) {
-		try{
-		accountMgr= new AccountMgr();
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+	private void SearchCustButtonActionPerformed(ActionEvent evt){
 		clearErrorMsgData();
-		System.out.println("a");
 		if (validateControl()){					
 			
-		cust= accountMgr.getCustomerDetailsById(nricText.getText() );			
-	
-		if (cust!=null){
-	
-			ObjectsToControls();
+			try {
+				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nricText.getText() );
+			} catch (BillingSystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		
+			if (cust!=null){
+		
+				ObjectsToControls();
+			}
+			else {
+				
+				System.out.println("2");
+				errorMsgSearchLabel.setVisible(true);
+				errorMsgNRICLabel.setVisible(false);
+				ClearData();
+			}
 		}
-		else {
-			
-			System.out.println("2");
-			errorMsgSearchLabel.setVisible(true);
-			errorMsgNRICLabel.setVisible(false);
-			ClearData();
-		}
-	}
 		else {		
 			System.out.println("1");
 			errorMsgNRICLabel.setVisible(true);
@@ -354,14 +347,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	private void GetCustomerDetails(){
-		try{
-			accountMgr= new AccountMgr();
-			}catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		cust= accountMgr.getCustomerDetailsById(strNRC);			
-		ObjectsToControls();
+		try {
+			cust= MgrFactory.getAccountMgr().getCustomerDetailsById(strNRC);
+			ObjectsToControls();
+		} catch (BillingSystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
 	}
 	
 	private boolean validateControl(){
