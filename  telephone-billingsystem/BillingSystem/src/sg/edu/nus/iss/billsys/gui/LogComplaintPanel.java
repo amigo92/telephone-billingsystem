@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +48,6 @@ public class LogComplaintPanel extends JPanel {
 	private JRadioButton accountNoRadioButton;
 	private JLabel errorMessageLabel;
 	private JButton logButton;
-	private JLabel customerIdLabel;
 	private ButtonGroup customerIdButtonGroup;
 	JPanel mainPanel;
 
@@ -65,9 +65,8 @@ public class LogComplaintPanel extends JPanel {
 	private void initGUI() {
 		try {
 			this.setLayout(new GridLayout(0, 1));
-			
+
 			customerIdPanel = new JPanel();
-			// customerIdPanel.setLayout(new SpringLayout());
 			customerIdPanel.setLayout(formatGridLayout(new GridLayout(0, 4)));
 
 			complaintLabel = new JLabel();
@@ -101,7 +100,8 @@ public class LogComplaintPanel extends JPanel {
 			statusLabel.setText("Status:");
 			statusPanel.add(statusLabel);
 
-			ComboBoxModel stautsComboBoxModel = new DefaultComboBoxModel(StringUtil.getComplaintStatus());
+			ComboBoxModel stautsComboBoxModel = new DefaultComboBoxModel(
+					StringUtil.getComplaintStatus());
 			statusComboBox = new JComboBox();
 			statusComboBox.setSelectedItem(ComplaintStatus.PENDING.toString());
 			statusComboBox.setModel(stautsComboBoxModel);
@@ -120,7 +120,7 @@ public class LogComplaintPanel extends JPanel {
 
 			errorMessageLabel = new JLabel();
 			this.add(errorMessageLabel);
-			
+
 			buttonPanel = new JPanel();
 			buttonPanel.setLayout(formatGridLayout(new GridLayout(0, 2)));
 
@@ -164,26 +164,34 @@ public class LogComplaintPanel extends JPanel {
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
-			errorMessageLabel.setText("Invalid/ Empty Customer Id!");
+			errorMessageLabel.setText("Empty Customer Id!");
 			errorMessageLabel.setForeground(Color.RED);
 			return;
 		}
 
 		if (StringUtil.isNullOrEmpty(complaintTextPane.getText())) {
-			errorMessageLabel.setText("Invalid/ Empty Complaint!");
+			errorMessageLabel.setText("Empty Complaint!");
 			errorMessageLabel.setForeground(Color.RED);
 			return;
 		}
 
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
-			
-			try{
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(customerIdTextField.getText().trim());
-			}catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+
+			try {
+				customer = MgrFactory.getAccountMgr()
+						.getCustomerDetailsByAccountId(
+								customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
+			
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid Account #!");
 				errorMessageLabel.setForeground(Color.RED);
@@ -192,12 +200,19 @@ public class LogComplaintPanel extends JPanel {
 		}
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
-try{
-			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(customerIdTextField.getText().trim());
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+			try {
+				customer = MgrFactory.getAccountMgr().getCustomerDetailsById(
+						customerIdTextField.getText().trim());
+			} catch (BillingSystemException e) {
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			}
+
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid NRIC!");
 				errorMessageLabel.setForeground(Color.RED);
@@ -218,8 +233,13 @@ try{
 								customerIdTextField.getText().trim(),
 								complaintTextPane.getText().trim());
 			} catch (BillingSystemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
 		} else if ("accountNo".equalsIgnoreCase(customerIdType)) {
 			try {
@@ -228,8 +248,13 @@ try{
 								customerIdTextField.getText().trim(),
 								complaintTextPane.getText().trim());
 			} catch (BillingSystemException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorMessageLabel.setText(e.getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
+			} catch (Exception e) {
+				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+				errorMessageLabel.setForeground(Color.RED);
+				return;
 			}
 		}
 
