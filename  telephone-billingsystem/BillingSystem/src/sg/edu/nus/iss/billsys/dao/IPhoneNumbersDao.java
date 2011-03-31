@@ -10,6 +10,6 @@ import java.util.List;
 public interface IPhoneNumbersDao {
 
 	public List<String> getPhoneNumbers();
-	public void removePhoneNumber(String phoneNo);
+	public boolean removePhoneNumber(String phoneNo);
 
 }

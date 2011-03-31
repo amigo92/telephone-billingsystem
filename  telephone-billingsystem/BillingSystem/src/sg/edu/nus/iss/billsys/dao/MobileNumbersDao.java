@@ -48,7 +48,7 @@ public class MobileNumbersDao extends GenericDao implements IPhoneNumbersDao {
 		return listMobileNumbers;
 	}
 	
-	public void removePhoneNumber(String mobileNo) {
-		listMobileNumbers.remove(mobileNo);
+	public boolean removePhoneNumber(String mobileNo) {
+		return listMobileNumbers.remove(mobileNo);
 	}
 }
