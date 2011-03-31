@@ -202,8 +202,7 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BillingReportGenerator currentPanel = new BillingReportGenerator(
-							window);
+					BillingReportGenerator currentPanel = new BillingReportGenerator(window);
 
 					contentPane.revalidate();
 					contentPane = currentPanel;
@@ -218,7 +217,13 @@ public class BillingWindow extends JFrame {
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					MgrFactory.getBillMgr().purge();
-					JOptionPane.showMessageDialog(window, "Purged bills successfully.");
+					JOptionPane.showMessageDialog(window, "Existing bills purged successfully.");
+					
+					BillingReportGenerator currentPanel = new BillingReportGenerator(window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
 				}
 			});
 			menu.add(menuItem);
