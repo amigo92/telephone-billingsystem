@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
+import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.tools.*;
@@ -216,11 +217,11 @@ public class SearchCustomer extends javax.swing.JPanel {
 		newlist= new ArrayList<String[]>(); 	
 	
 		try{
-		accountMgr= new AccountMgr();
-	}catch (Exception e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	}
+			accountMgr= MgrFactory.getAccountMgr();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		boolean bNRIC= true;
 		System.out.println("scaa123478910");
 	
