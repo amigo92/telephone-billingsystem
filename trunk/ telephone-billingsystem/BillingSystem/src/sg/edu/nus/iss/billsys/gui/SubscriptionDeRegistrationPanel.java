@@ -7,6 +7,7 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 
+import sg.edu.nus.iss.billsys.util.BillingUtil;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
@@ -81,23 +82,28 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     }
     
     private JScrollPane deRegisterScrollPanel () {
-		JPanel p = new JPanel ();
-		
+		JPanel p1 = new JPanel (new BorderLayout());
+		JPanel p = new JPanel (new GridLayout (0, 3));
+
 		try
 		{
 	    	if(accountNo != null){
-	    		p.setLayout (new GridLayout (0, 2));
+	    		p1.add ("North", new JLabel ("Existing Subscripiton Information:"));
 
-	    		p.add (new JLabel ("Existing Subscripiton Information         :             "));
-		    	p.add(new JLabel("                    "));
-
+	    		
 				List<SubscriptionPlan> subscribedPlans = manager.getAccountSubscriptions(accountNo);
 				
 				if(subscribedPlans != null)
 				{
 					 for (final SubscriptionPlan plan : subscribedPlans)
 					 {
-						p.add ( new JLabel (plan.getPlanDescription()));	
+						 String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
+							+	(plan.getDateTerminated() == null? " ": "  -  " ) 
+							+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
+			   
+						p.add ( new JLabel (plan.getPlanDescription()));
+						p.add ( new JLabel (strDateInfo));	
+
 					 	JButton b = new JButton ("De-Register");
 		   			    b.addActionListener (new ActionListener () {
 		    			     public void actionPerformed (ActionEvent e) {		    			    	 	
@@ -113,9 +119,16 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		   			    p.add(b);
 		   			    
 		   			    features = plan.getOptionalFeatures();	
+		   			    
 
 						for(final Feature feature: features){			
+							 strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
+								+	(feature.getDateTerminated() == null? " ": "  -  " ) 
+								+   BillingUtil.getDateTimeStr(feature.getDateTerminated());
+				   
 							p.add ( new JLabel ("       " + feature.getName()));
+							p.add ( new JLabel (  strDateInfo));
+
 						    JButton b2 = new JButton ("De-Register");
 			   			    b2.addActionListener (new ActionListener () {
 			    			     public void actionPerformed (ActionEvent e) {
@@ -137,9 +150,10 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		}catch(Exception ex){
 			JOptionPane.showMessageDialog(window, ex.getMessage(),"" ,0);
 		}
+		p1.add("Center", p);
 
         JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getViewport().add( p );
+		scrollPane.getViewport().add( p1 );
        
         return scrollPane;
     }

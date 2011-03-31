@@ -31,6 +31,7 @@ import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
@@ -87,7 +88,7 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		p.add (new JLabel("Please select: "));
 		featurePanel = createFeaturePanel();
 		p.add(featurePanel); 
-		p.add (new JLabel ("Start Date (d-MMM-yyyy)"));
+		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
 		fromField = new JTextField (20);
 		p.add (fromField);
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
@@ -141,15 +142,20 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
 				 return false;
 			}
+			
 			Date utilDate;
-			try {
-				utilDate = BillingUtil.getDateTime(untilField.getText());
-			} catch (ParseException e1) {
-				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
-				 return false;
+			if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+				utilDate = null;
+			else{
+				try {
+					utilDate = BillingUtil.getDateTime(untilField.getText());
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
+					return false;
+				}
 			}
 		
-			if(fromDate.after(utilDate)){
+			if(utilDate != null && fromDate.after(utilDate)){
 				JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
 				return false;
 			}

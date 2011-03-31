@@ -33,12 +33,12 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private JTextField           customerID;
 	private PlanType[]       listOfPlanType;
 	private SubscriptionMgr      manager;
-	//private JComboBox planTypeBox;
 	private String[] planNames;
 	private PlanType planType;
 	private String accountNo;
 	private JPanel featurePanel;
 	private JComboBox featureBox;
+	private JPanel registerSubscriptionPlanPanel;
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
     
@@ -66,7 +66,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    add ("North", createFormPanel());      
 	    add ("Center", featurePanel);   
 		featurePanel.add ("North", registerFeaturePanel());
-
 	    customerID.setText("S8481362F");    
     }
 
@@ -79,20 +78,28 @@ public class SubscriptionRegistrationPanel extends JPanel {
         JButton b = new JButton ("Validate & Get Subscription Information");
         b.addActionListener (new ActionListener () {
 	        public void actionPerformed (ActionEvent e) {
-	        	try{	
-		    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-	
-	        		featurePanel.revalidate();
-	        		featurePanel.add ("North", registerFeaturePanel());
-	        	}
-		    	catch(Exception ex)
-		    	{
-		    		JOptionPane.showMessageDialog(window, ex.getMessage());
-		    	} 	
+		        	try{	
+		        		Account acc = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct();
+			    	   // if(acc.)
+		        		accountNo = acc.getAcctNo();
+		
+		        		featurePanel.revalidate();
+		        		featurePanel.add ("North", registerFeaturePanel());
+		        		
+		        	}
+		        	catch(BillingSystemException ex){
+			    		JOptionPane.showMessageDialog(window, ex.getMessage(), "", 0);
+			    	} 
+			    	catch(Exception ex){
+			    		JOptionPane.showMessageDialog(window, ex.getMessage(), "", 0);
+			    	} 	
 	    		}
 	        });
         
         p.add (b);
+        
+     
+
 
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
@@ -147,11 +154,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    add(planTypeBox, BorderLayout.PAGE_START);
 	    return planTypeBox;
     }
-    
-
-
-    
-    
+  
     private JPanel registerFeaturePanel () {
     	
 		JScrollPane scrollPane = new JScrollPane();
@@ -200,15 +203,17 @@ public class SubscriptionRegistrationPanel extends JPanel {
 					
 					for(SubscriptionPlan plan: subscribedPlans){
 						String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
-											+ "  -  " + BillingUtil.getDateTimeStr(plan.getDateTerminated());
-			
-						sp.add ( new JLabel (plan.getPlanDescription()));						
-						sp.add(new JLabel(strDateInfo));
+									+	(plan.getDateTerminated() == null? " ": "  -  " ) 
+									+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
+					    
+						sp.add (new JLabel (plan.getPlanDescription()));						
+						sp.add (new JLabel(strDateInfo));
 						
 						List<Feature> features = plan.getOptionalFeatures();	
 						for(Feature feature: features){
 							strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
-							+ "  -  " + BillingUtil.getDateTimeStr(feature.getDateTerminated());
+							+ (feature.getDateTerminated() == null? " ": "  -  " ) 
+							+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
 
 							sp.add ( new JLabel ("        " + feature.getName()));
 							sp.add(new JLabel(strDateInfo));
@@ -216,8 +221,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 					}
 
 					scrollPane.getViewport().add( sp );
-					
-
+	
 				}
 			}catch(Exception ex) {			
 	    		JOptionPane.showMessageDialog(window, ex.getMessage());
