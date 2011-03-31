@@ -48,7 +48,7 @@ public class DigiVoiceNumbersDao extends GenericDao implements IPhoneNumbersDao 
 		return listNumbers;
 	}
 	
-	public void removePhoneNumber(String phoneNo) {
-		listNumbers.remove(phoneNo);
+	public boolean removePhoneNumber(String phoneNo) {
+		return listNumbers.remove(phoneNo);
 	}
 }

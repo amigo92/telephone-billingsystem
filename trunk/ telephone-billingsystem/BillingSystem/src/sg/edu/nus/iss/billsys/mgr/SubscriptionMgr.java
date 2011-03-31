@@ -111,6 +111,12 @@ public class SubscriptionMgr {
     	SubscriptionPlan plan = null;
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
+        	if (assignedTelNo == null) {
+        		throw new BillingSystemException("Assigned phone number cannot be null.");
+        	}
+        	if (!digiVoiceNumbersDao.removePhoneNumber(assignedTelNo)) {
+        		throw new BillingSystemException("Invalid assigned phone number. The number is not in the list");
+        	}
     		plan = new DigitalVoicePlan(
     			SystemUtils.generateSequence(),
 				acctNo,
@@ -121,6 +127,12 @@ public class SubscriptionMgr {
     		);
     		break;
     	case MOBILE_VOICE:
+        	if (assignedTelNo == null) {
+        		throw new BillingSystemException("Assigned mobile number cannot be null.");
+        	}
+        	if (!mobileNumbersDao.removePhoneNumber(assignedTelNo)) {
+        		throw new BillingSystemException("Invalid assigned mobile number. The number is not in the list");
+        	}
 			plan = new MobileVoicePlan(
 				SystemUtils.generateSequence(),
 				acctNo,
