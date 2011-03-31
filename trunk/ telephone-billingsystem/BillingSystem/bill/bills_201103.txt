@@ -439,9 +439,9 @@ At a Glance
 Previous Balance.........................$0.00                                  
 Payments................................-$500.00                                
                                                                                 
-Current Charges Due on 15-Apr-2011.......$1618.60                               
+Current Charges Due on 15-Apr-2011.......$1939.60                               
                                                                                 
-Please pay...............................$1618.60                               
+Please pay...............................$1939.60                               
                                                                                 
                                                                                 
                                                                                 
@@ -504,11 +504,21 @@ Line
                                                                                 
 Three Standard Channels                                                         
    Subscription charges                              30.00                      
+   Additional Channel charges                        180.00                     
+                                                                  210.00        
+                                                                                
+Mobile                                                                          
+   Subscription charges                              90.00                      
+   Usage charges                                     0.00                       
+                                                                  90.00         
+                                                                                
+Three Standard Channels                                                         
+   Subscription charges                              30.00                      
    Additional Channel charges                        0.00                       
                                                                   30.00         
                                                                                 
-Total GST                                                         138.60        
-Total Current Charges                                             2118.60       
+Total GST                                                         159.60        
+Total Current Charges                                             2439.60       
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
@@ -522,31 +532,21 @@ Digital Voice Number 81102020
                                                                   1950.00       
 Cable TV                                                                        
    Subscriptions charges                             30.00                      
+   Additional 2 Channel charge(s)                    180.00                     
+                                                                  0.00          
+Mobile Number 12345678                                                          
+   Subscription Charges                                                         
+   Mobile                                            20.00                      
+   Data Services                                     70.00                      
+   Usage Charges                                                                
+                                                                  90.00         
+Cable TV                                                                        
+   Subscriptions charges                             30.00                      
    Additional 0 Channel charge(s)                    0.00                       
                                                                   0.00          
                                                                                 
-Total GST                                                         138.60        
-Total Current Charges                                             2118.60       
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
+Total GST                                                         159.60        
+Total Current Charges                                             2439.60       
                                                                                 
                                                                                 
                                                                      Page 2 of 2
