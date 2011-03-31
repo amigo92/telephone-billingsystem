@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
-import sg.edu.nus.iss.billsys.dao.DaoFactory;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.tools.SystemUtils;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Feature;
 
@@ -32,10 +32,10 @@ public class DigitalVoicePlanTest extends TestCase {
 	
 	@Before
 	public void setUp() throws Exception {
-		planId1 = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
+		planId1 = SystemUtils.generateSequence();
 		acctNo1 = "SA-1234567";
 		assignedTelNo1 = "66667777";
-		basicFeatureId1 = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
+		basicFeatureId1 = SystemUtils.generateSequence();
 		dateCommenced1 = TimeUtils.parseDate("2011-01-01 00:00:00");
 		dateTerminated1 = null;
 		plan1 = new DigitalVoicePlan(planId1, acctNo1, assignedTelNo1, basicFeatureId1, dateCommenced1, dateTerminated1);
@@ -90,7 +90,7 @@ public class DigitalVoicePlanTest extends TestCase {
 	public void testAddOptionalFeature() {
 		String fidIDD = null;
 		try {
-			fidIDD = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
+			fidIDD = SystemUtils.generateSequence();
 			Feature f = new Feature(
 				fidIDD,
 				FeatureType.DigiIDD,
@@ -105,7 +105,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		String fidCallTransfer = null;
 		try {
-			fidCallTransfer = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
+			fidCallTransfer = SystemUtils.generateSequence();
 			Feature f = new Feature(
 				fidCallTransfer,
 				FeatureType.CallTransfer,
@@ -120,7 +120,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -134,7 +134,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.DataService,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -148,7 +148,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.Roaming,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -162,7 +162,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -176,7 +176,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -190,7 +190,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -206,7 +206,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			Feature f = plan1.getOptionalFeatureById(fidIDD);
 			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
 			f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-03-01 00:00:00"),
 				null
@@ -221,7 +221,7 @@ public class DigitalVoicePlanTest extends TestCase {
 			Feature f = plan1.getOptionalFeatureById(fidCallTransfer);
 			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
 			f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-03-01 00:00:00"),
 				null
@@ -241,7 +241,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		Feature f = null;
 		try {
 			f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -258,7 +258,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		assertEquals(f,list.get(0));
 		try {
 			f = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -279,7 +279,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		Feature f2 = null;
 		try {
 			f2 = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -297,7 +297,7 @@ public class DigitalVoicePlanTest extends TestCase {
 		f2 = null;
 		try {
 			f2 = new Feature(
-				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
+				SystemUtils.generateSequence(),
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
