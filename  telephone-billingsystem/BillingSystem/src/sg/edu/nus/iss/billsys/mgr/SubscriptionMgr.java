@@ -27,7 +27,7 @@ public class SubscriptionMgr {
 	private ISubscriptionPlanDao subPlanDao;
 	private IFeatureRateDao featureRateDao;
 	
-	public SubscriptionMgr() throws BillingSystemException {
+	protected SubscriptionMgr() throws BillingSystemException {
 		subPlanDao = DaoFactory.getInstanceOfSubscriptionPlanDao();
 		featureRateDao = DaoFactory.getInstanceOfFeatureRateDao();
 	}
