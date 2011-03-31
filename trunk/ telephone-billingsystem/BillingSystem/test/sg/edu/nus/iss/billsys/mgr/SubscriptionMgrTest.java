@@ -46,6 +46,12 @@ public class SubscriptionMgrTest extends TestCase {
 	
 	@Test
 	public void testRegisterNewSubscriptionPlan() {
+		for (String s : subMgr.getAvailDigiVoiceNumbers()) {
+			System.out.println(s);
+		}
+		for (String s : subMgr.getAvailMobileNumbers()) {
+			System.out.println(s);
+		}
 		try {
 			subMgr.registerNewSubscriptionPlan(
 				null,
