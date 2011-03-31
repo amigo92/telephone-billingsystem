@@ -232,7 +232,7 @@ public class BillMgr {
 		DetailCharges detail = bill.new DetailCharges();
 		detail.setDesc(cableTvPlan.getPlanDescription());
 		detail.addEntry(bill.new Entry("Subscriptions charges", basicCharges));
-		detail.addEntry(bill.new Entry("Additional " + channels + " Channel charge(s)" , additionCharges));
+		detail.addEntry(bill.new Entry("Additional " + channels + " Channel(s) charges" , additionCharges));
 		bill.addDetailChargesList(detail);
 	}
 	
