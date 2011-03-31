@@ -47,7 +47,8 @@ public class BillingReportGenerator extends JPanel {
 	        public void actionPerformed (ActionEvent e) {
 	        	try{	
 	        		MgrFactory.getBillMgr().generate(aBillPeriod);
-
+	        		JOptionPane.showMessageDialog(window, "Bill generated successfully.");
+	        		
 	        		aBillPeriod = MgrFactory.getBillMgr().getNextBillPeriod();
 	            	lblBillPeriod.setText("Next Bill Period: " + aBillPeriod.printBillPeriod());
 	        		
