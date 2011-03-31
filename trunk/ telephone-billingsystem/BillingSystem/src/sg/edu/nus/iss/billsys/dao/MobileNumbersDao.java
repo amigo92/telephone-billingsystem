@@ -28,7 +28,7 @@ public class MobileNumbersDao extends GenericDao implements IPhoneNumbersDao {
 	}
 
 	@Override
-	protected void saveObjectData() throws BillingSystemException {
+	public void saveObjectData() throws BillingSystemException {
 		
 		String data[][] = new String[listMobileNumbers.size()][COL_LENGTH];
 		int cnt=0;
