@@ -13,14 +13,14 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 public class UserMgr {
 		
-	private UserDao dao;
+	private IUserDao dao;
 	private static User currentUser;
 	
 	/*
 	 * Default Constructor
 	 */
 	public UserMgr() throws BillingSystemException{
-		dao = new UserDao();
+		dao = DaoFactory.getInstanceOfUserDao();
 		currentUser = null;
 	}
 	

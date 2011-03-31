@@ -13,12 +13,12 @@ import sg.edu.nus.iss.billsys.vo.*;
  * @author Xu Guoneng , Veera
  *
  */
-public class CallHistDao extends GenericDao {
+public class CallHistDao extends GenericDao implements ICallHistDao{
 	
 	private static final int COL_LENGTH=6;
 	private List<CallHist> listCallHx=new ArrayList<CallHist>();
 	
-	public CallHistDao() throws BillingSystemException{
+	protected CallHistDao() throws BillingSystemException{
 		this.objectDataMapping(getCallHistoryData());
 	}
 	

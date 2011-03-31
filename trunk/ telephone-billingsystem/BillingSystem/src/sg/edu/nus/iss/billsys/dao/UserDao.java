@@ -11,7 +11,7 @@ import sg.edu.nus.iss.billsys.vo.User;
  * @author Veera
  *
  */
-public class UserDao extends GenericDao{
+public class UserDao extends GenericDao implements IUserDao{
 	
 	private static final int COL_LENGTH=3;
 	private List<User> listUser=new ArrayList<User>();
@@ -59,7 +59,7 @@ public class UserDao extends GenericDao{
 	}*/
 	}	
 	
-	public UserDao() throws BillingSystemException{
+	protected UserDao() throws BillingSystemException{
 	 this.objectDataMapping(getUserData());
 	}
 	

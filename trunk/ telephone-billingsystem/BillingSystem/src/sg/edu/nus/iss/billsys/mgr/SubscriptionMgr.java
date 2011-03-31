@@ -23,12 +23,12 @@ import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionMgr {
 
-	private SubscriptionPlanDao subPlanDao;
-	private FeatureRateDao featureRateDao;
+	private ISubscriptionPlanDao subPlanDao;
+	private IFeatureRateDao featureRateDao;
 	
 	public SubscriptionMgr() throws BillingSystemException {
-		subPlanDao = new SubscriptionPlanDao();
-		featureRateDao = new FeatureRateDao();
+		subPlanDao = DaoFactory.getInstanceOfSubscriptionPlanDao();
+		featureRateDao = DaoFactory.getInstanceOfFeatureRateDao();
 	}
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -91,29 +91,29 @@ public class SubscriptionMgr {
     	switch (planType.planCode) {
     	case DIGITAL_VOICE:
     		plan = new DigitalVoicePlan(
-				SubscriptionPlanDao.generateSequence(),
+    				subPlanDao.generateSequence(),
 				acctNo,
 				assignedTelNo,
-				SubscriptionPlanDao.generateSequence(),
+				subPlanDao.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
     		break;
     	case MOBILE_VOICE:
 			plan = new MobileVoicePlan(
-    			SubscriptionPlanDao.generateSequence(),
+					subPlanDao.generateSequence(),
 				acctNo,
 				assignedTelNo,
-				SubscriptionPlanDao.generateSequence(),
+				subPlanDao.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
     		break;
     	case CABLE_TV:
 			plan = new CableTvPlan(
-    			SubscriptionPlanDao.generateSequence(),
+					subPlanDao.generateSequence(),
 				acctNo,
-				SubscriptionPlanDao.generateSequence(),
+				subPlanDao.generateSequence(),
 				dateCommenced,
 				dateTerminated
     		);
@@ -169,7 +169,7 @@ public class SubscriptionMgr {
         	}
     	}
      	Feature feature = new Feature(
-			SubscriptionPlanDao.generateSequence(),
+     			subPlanDao.generateSequence(),
 			featureType,
 			dateCommenced,
 			dateTerminated

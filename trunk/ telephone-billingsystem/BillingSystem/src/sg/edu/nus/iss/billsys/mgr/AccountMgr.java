@@ -9,15 +9,17 @@ import sg.edu.nus.iss.billsys.*;
 import java.util.*;
 
 import sg.edu.nus.iss.billsys.dao.CustomerDao;
+import sg.edu.nus.iss.billsys.dao.DaoFactory;
+import sg.edu.nus.iss.billsys.dao.ICustomerDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
 
 public class AccountMgr {
-	private CustomerDao custDao;
+	private ICustomerDao custDao;
 	
 	
-	public AccountMgr(){
-		custDao = new CustomerDao();
+	public AccountMgr() throws BillingSystemException{
+		custDao = DaoFactory.getInstanceOfCustomerDao();
 	}
 
 	public Customer createCustomer(Customer customer){

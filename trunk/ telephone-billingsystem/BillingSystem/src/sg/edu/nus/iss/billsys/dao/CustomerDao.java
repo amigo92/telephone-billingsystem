@@ -15,12 +15,12 @@ import sg.edu.nus.iss.billsys.vo.Customer;
  *
  */
 
-public class CustomerDao extends GenericDao{
+public class CustomerDao extends GenericDao implements ICustomerDao{
 	
 	private List<Customer> listCustomer=new ArrayList<Customer>();
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) {
+	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
 		
 		List<Customer> listCustomer=new ArrayList<Customer>();
 		
@@ -78,7 +78,7 @@ public class CustomerDao extends GenericDao{
 		
 	}
 	
-	public CustomerDao() {
+	protected CustomerDao() throws BillingSystemException{
 	 this.objectDataMapping(getCustomerData());
 	}
 	

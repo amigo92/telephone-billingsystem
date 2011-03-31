@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.Rate;
 
@@ -12,7 +13,7 @@ import sg.edu.nus.iss.billsys.vo.Rate;
  * @author Veera
  *
  */
-public class FeatureRateDao extends GenericDao{
+public class FeatureRateDao extends GenericDao implements IFeatureRateDao{
 	private static final int COL_LENGTH=2;
 	private List<Rate> listFeatureRates=new ArrayList<Rate>();
 	
@@ -47,7 +48,7 @@ public class FeatureRateDao extends GenericDao{
 	//This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 	}	
 	
-	public FeatureRateDao() throws BillingSystemException{
+	protected FeatureRateDao() throws BillingSystemException{
 	 this.objectDataMapping(getFeatureRateData());
 	}
 	

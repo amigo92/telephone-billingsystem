@@ -215,8 +215,12 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private void SearchButtonActionPerformed(ActionEvent evt) {
 		newlist= new ArrayList<String[]>(); 	
 	
-		
+		try{
 		accountMgr= new AccountMgr();
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+	}
 		boolean bNRIC= true;
 		System.out.println("scaa123478910");
 	

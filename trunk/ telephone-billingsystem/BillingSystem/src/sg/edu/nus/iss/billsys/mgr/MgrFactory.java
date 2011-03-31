@@ -23,7 +23,7 @@ public class MgrFactory {
 		return aUserMgr;
 	}
 	
-	public static AccountMgr getAccountMgr(){
+	public static AccountMgr getAccountMgr() throws BillingSystemException{
 		if(aAccountMgr == null){
 			aAccountMgr = new AccountMgr();
 		}

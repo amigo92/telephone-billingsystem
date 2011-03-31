@@ -12,7 +12,7 @@ import sg.edu.nus.iss.billsys.vo.Rate;
  * @author Veera
  *
  */
-public class PlanRateDao extends GenericDao{
+public class PlanRateDao extends GenericDao implements IPlanRateDao{
 	
 	private static final int COL_LENGTH=2;
 	private List<Rate> listPlanRates=new ArrayList<Rate>();
@@ -46,7 +46,7 @@ public class PlanRateDao extends GenericDao{
 	//This method will not be implemented , since there is no save use case for this data,only read operation is required on the Payment history
 	}	
 	
-	public PlanRateDao() throws BillingSystemException{
+	protected PlanRateDao() throws BillingSystemException{
 	 this.objectDataMapping(getPlanRatesData());
 	}
 	

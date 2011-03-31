@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
+import sg.edu.nus.iss.billsys.dao.DaoFactory;
 import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
@@ -32,9 +33,10 @@ public class CableTvPlanTest extends TestCase {
 	
 	@Before
 	public void setUp() throws Exception {
-		planId1 = SubscriptionPlanDao.generateSequence();
+		
+		planId1 = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
 		acctNo1 = "SC-1234567";
-		basicFeatureId1 = SubscriptionPlanDao.generateSequence();
+		basicFeatureId1 = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
 		dateCommenced1 = TimeUtils.parseDate("2011-01-01 00:00:00");
 		dateTerminated1 = null;
 		plan1 = new CableTvPlan(planId1, acctNo1, basicFeatureId1, dateCommenced1, dateTerminated1);
@@ -84,7 +86,7 @@ public class CableTvPlanTest extends TestCase {
 	public void testAddOptionalFeature() {
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -97,7 +99,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.DigiIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -111,7 +113,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.CallTransfer,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -125,7 +127,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.MobileIDD,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -139,7 +141,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.DataService,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -153,7 +155,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		try {
 			Feature f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.Roaming,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -167,7 +169,7 @@ public class CableTvPlanTest extends TestCase {
 		}
 		String fid = null;
 		try {
-			fid = SubscriptionPlanDao.generateSequence();
+			fid = DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence();
 			Feature f = new Feature(
 				fid,
 				FeatureType.AddChannel,
@@ -184,7 +186,7 @@ public class CableTvPlanTest extends TestCase {
 			Feature f = plan1.getOptionalFeatureById(fid);
 			f.setDateTerminated(TimeUtils.parseDate("2011-02-01 00:00:00"));
 			f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-03-01 00:00:00"),
 				null
@@ -204,7 +206,7 @@ public class CableTvPlanTest extends TestCase {
 		Feature f = null;
 		try {
 			f = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -222,7 +224,7 @@ public class CableTvPlanTest extends TestCase {
 		Feature f1 = null;
 		try {
 			f1 = new Feature(
-				SubscriptionPlanDao.generateSequence(),
+				DaoFactory.getInstanceOfSubscriptionPlanDao().generateSequence(),
 				FeatureType.AddChannel,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null

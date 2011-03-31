@@ -12,7 +12,7 @@ import sg.edu.nus.iss.billsys.vo.*;
  * @author Xu Guoneng,Veera
  *
  */
-public class PaymentHistDao extends GenericDao {
+public class PaymentHistDao extends GenericDao implements IPaymentHistDao{
 	private static final int COL_LENGTH=3;
 	private List<PaymentHist> listPaymentHx=new ArrayList<PaymentHist>();
 
@@ -47,7 +47,7 @@ public class PaymentHistDao extends GenericDao {
 			
 	
 	}
-	public PaymentHistDao() throws BillingSystemException{
+	protected PaymentHistDao() throws BillingSystemException{
 		this.objectDataMapping(getPaymentHistoryData());
 	}
 	

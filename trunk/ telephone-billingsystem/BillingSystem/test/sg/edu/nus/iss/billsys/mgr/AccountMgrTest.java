@@ -9,8 +9,13 @@ public class AccountMgrTest {
 
 	@Test
 	public void testGetAllCustomers(){
+		try{
 		for(Customer c : MgrFactory.getAccountMgr().getAllCustomers()){
 			System.out.println(c);
 		}
+		}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 	}
 }

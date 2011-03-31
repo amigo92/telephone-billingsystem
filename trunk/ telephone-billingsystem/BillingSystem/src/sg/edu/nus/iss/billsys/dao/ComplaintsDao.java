@@ -14,12 +14,12 @@ import sg.edu.nus.iss.billsys.vo.*;
  * @author Veera, Yu Chui Chi
  *
  */
-public class ComplaintsDao extends GenericDao {
+public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	
 	private static final int COL_LENGTH=5;
 	private List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
 	
-	public ComplaintsDao() throws BillingSystemException{
+	protected ComplaintsDao() throws BillingSystemException{
 		this.objectDataMapping(getComplaintsData());
 	}
 	
