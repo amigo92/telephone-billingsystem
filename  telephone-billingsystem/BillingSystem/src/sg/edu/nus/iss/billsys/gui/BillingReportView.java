@@ -4,6 +4,7 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.mgr.*;
 import sg.edu.nus.iss.billsys.vo.*;
 
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -51,6 +52,7 @@ public class BillingReportView extends JPanel {
     	btnView = new JButton ("View");
     	txtReport = new JTextArea("No record found.");
     	txtReport.setEditable(false);
+    	txtReport.setFont(new Font("Lucida Console", Font.PLAIN,12));
     	spReport = new JScrollPane(txtReport);
     }
     
