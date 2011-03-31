@@ -127,48 +127,6 @@ public class BillingWindow extends JFrame {
 		}
         
 		
-			menu = new JMenu("Billing  ");
-			menu.setMnemonic(KeyEvent.VK_A);
-			menuBar.add(menu);
-			menuItem = new JMenuItem("View Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					BillingReportView currentPanel = new BillingReportView(
-							window);
-
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
-			
-			menuItem = new JMenuItem("Generate Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					BillingReportGenerator currentPanel = new BillingReportGenerator(
-							window);
-
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
-
-			menuItem = new JMenuItem("Purse Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_P);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MgrFactory.getBillMgr().purge();
-					JOptionPane.showMessageDialog(window, "Purged bills successfully.");
-				}
-			});
-			menu.add(menuItem);
 	
 			menu = new JMenu("Subscription  ");
 			menu.setMnemonic(KeyEvent.VK_A);
@@ -221,7 +179,49 @@ public class BillingWindow extends JFrame {
 			});
 			menu.add(menuItem);
 			
-		
+			//Billing
+			menu = new JMenu("Bill  ");
+			menu.setMnemonic(KeyEvent.VK_A);
+			menuBar.add(menu);
+			menuItem = new JMenuItem("View Bill Report");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BillingReportView currentPanel = new BillingReportView(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menu.addSeparator();
+			
+			menuItem = new JMenuItem("Generate Bill Report");
+			menuItem.setMnemonic(KeyEvent.VK_D);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BillingReportGenerator currentPanel = new BillingReportGenerator(
+							window);
+
+					contentPane.revalidate();
+					contentPane = currentPanel;
+					window.setContentPane(contentPane);
+				}
+			});
+			menu.add(menuItem);
+			menu.addSeparator();
+
+			menuItem = new JMenuItem("Purse Bill Report");
+			menuItem.setMnemonic(KeyEvent.VK_P);
+			menuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MgrFactory.getBillMgr().purge();
+					JOptionPane.showMessageDialog(window, "Purged bills successfully.");
+				}
+			});
+			menu.add(menuItem);
 		
 		// Complaint
         menu = new JMenu("Complaint  ");
