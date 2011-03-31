@@ -65,7 +65,11 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private String strNRC;
 	private Customer cust= new Customer();
-	private AccountMgr accountMgr= new AccountMgr();
+	
+	private AccountMgr accountMgr=null;
+
+	
+
 	private SubscriptionMgr subMgr ;//= new SubscriptionMgr();
 	private JLabel errorMsgSearchLabel;
 	private JLabel errorMsgNRICLabel;
@@ -293,7 +297,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	private void SearchCustButtonActionPerformed(ActionEvent evt) {
+		try{
 		accountMgr= new AccountMgr();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		clearErrorMsgData();
 		System.out.println("a");
 		if (validateControl()){					
@@ -345,6 +354,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	}
 	
 	private void GetCustomerDetails(){
+		try{
+			accountMgr= new AccountMgr();
+			}catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		cust= accountMgr.getCustomerDetailsById(strNRC);			
 		ObjectsToControls();
 	}

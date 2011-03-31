@@ -18,11 +18,11 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 public class ComplaintMgr {
 	
-	private ComplaintsDao dao;
+	private IComplaintsDao dao;
 	
 	public ComplaintMgr() throws BillingSystemException
 	{
-		dao = new ComplaintsDao();
+		dao = DaoFactory.getInstanceOfComplaintsDao();
 	}
 	
 	/**
@@ -109,11 +109,14 @@ public class ComplaintMgr {
 	private String getAcctNoByCustId(String custId)
 	{
 		String acctNo = "";
-		
+		try{
 		AccountMgr accountManager = new AccountMgr();
 		Customer thisCustomer = accountManager.getCustomerDetailsById(custId);
 		if(thisCustomer!=null) //customer found
 			acctNo = thisCustomer.getAcct().getAcctNo();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 				
 		return acctNo;
 	}

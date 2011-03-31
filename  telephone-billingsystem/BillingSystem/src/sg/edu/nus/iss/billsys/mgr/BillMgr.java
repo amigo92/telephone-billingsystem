@@ -113,7 +113,7 @@ public class BillMgr {
 		bill.setAcctNo(acct.getAcctNo());
 		
 		int paymentAmt = 0;
-		for(PaymentHist ph : new PaymentHistDao().getPaymentHistByBillPeriodAcctNo(billPeriod, acct.getAcctNo())){
+		for(PaymentHist ph : DaoFactory.getInstanceOfPaymentHistDao().getPaymentHistByBillPeriodAcctNo(billPeriod, acct.getAcctNo())){
 			bill.addPaymentReceived(ph.getPaymentDate(), ph.getPaymentAmt());
 			paymentAmt += ph.getPaymentAmt();
 		}
@@ -211,7 +211,7 @@ public class BillMgr {
 	private int getTotalUsage(BillPeriod billPeriod, Bill bill, DetailCharges detail, VoicePlan plan) throws BillingSystemException{
 		detail.addEntry(bill.new Entry("Usage Charges", null));
 		
-		ArrayList<CallHist> calls = new CallHistDao().getCallHistByBillDateAcctNo(billPeriod, plan.getAcctNo());
+		ArrayList<CallHist> calls = DaoFactory.getInstanceOfCallHistDao().getCallHistByBillDateAcctNo(billPeriod, plan.getAcctNo());
 		
 		int total_use_charges = 0;
 		for(FeatureType ct : getCallTxnTypes()){
@@ -236,7 +236,7 @@ public class BillMgr {
 		}
 		
 		if(total_duration != 0){
-			int usage_per_number = total_duration * new FeatureRateDao().getPricebyFeatureCode(ct.getFeatureCd()).getPrice();
+			int usage_per_number = total_duration * DaoFactory.getInstanceOfFeatureRateDao().getPricebyFeatureCode(ct.getFeatureCd()).getPrice();
 
 			return bill.new Entry(ct.name, usage_per_number);
 		}

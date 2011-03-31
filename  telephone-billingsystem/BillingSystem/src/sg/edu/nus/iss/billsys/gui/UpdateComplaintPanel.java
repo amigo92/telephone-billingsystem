@@ -233,8 +233,11 @@ public class UpdateComplaintPanel extends JPanel {
 
 		if (accountNoRadioButton.isSelected()) {
 			customerIdType = accountNoRadioButton.getActionCommand();
+			try{
 			customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(this.customerIdTextField.getText().trim());
-			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid Account #!");
 				errorMessageLabel.setForeground(Color.RED);
@@ -243,8 +246,11 @@ public class UpdateComplaintPanel extends JPanel {
 		}
 		if (nricRadioButton.isSelected()) {
 			customerIdType = nricRadioButton.getActionCommand();
+			try{
 			customer = MgrFactory.getAccountMgr().getCustomerDetailsById(this.customerIdTextField.getText().trim());
-			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			if (customer == null) {
 				errorMessageLabel.setText("Invalid NRIC!");
 				errorMessageLabel.setForeground(Color.RED);

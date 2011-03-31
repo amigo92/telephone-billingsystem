@@ -27,7 +27,7 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
  * @author Veera, Lem Kian Hao (Stephen)
  *
  */
-public class SubscriptionPlanDao extends GenericDao{
+public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlanDao{
 	
 	private static final int SUBSCRIPTION_COL_LENGTH=4;
 	private static final int FEATURE_COL_LENGTH=5;
@@ -302,11 +302,11 @@ public class SubscriptionPlanDao extends GenericDao{
 		
 	}
 		
-	public SubscriptionPlanDao() throws BillingSystemException{
+	protected SubscriptionPlanDao() throws BillingSystemException{
 		this.objectDataMapping(getSubscriptionPlanData());
 	}
 	
-	public static String generateSequence(){
+	public String generateSequence(){
 		
 		return UUID.randomUUID().toString();
 		

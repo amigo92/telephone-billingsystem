@@ -263,7 +263,12 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	}
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
-			accountMgr= new AccountMgr();
+		try{	
+		accountMgr= new AccountMgr();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 			clearErrorMsgData();
 			System.out.println("a");
 			if (validateControl()){					
