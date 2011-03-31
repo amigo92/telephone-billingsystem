@@ -19,7 +19,7 @@ public class UserMgr {
 	/*
 	 * Default Constructor
 	 */
-	public UserMgr() throws BillingSystemException{
+	protected UserMgr() throws BillingSystemException{
 		dao = DaoFactory.getInstanceOfUserDao();
 		currentUser = null;
 	}
