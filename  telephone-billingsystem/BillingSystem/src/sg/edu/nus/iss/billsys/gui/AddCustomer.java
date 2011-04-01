@@ -242,7 +242,7 @@ public class AddCustomer extends javax.swing.JPanel {
 		try{
 			if (validateControls()){
 				System.out.println("Before save");
-				Customer cust = MgrFactory.getAccountMgr().createCustomer(CustNameText.getText(), CustNameText.getText(), CustContactTelText.getText(), CustAdd1Text.getText(), CustAdd2Text.getText(), CustAdd3Text.getText(), InterestingText.getText());
+				Customer cust = MgrFactory.getAccountMgr().createCustomer(CustNameText.getText(), CustNIRCText.getText(), CustContactTelText.getText(), CustAdd1Text.getText(), CustAdd2Text.getText(), CustAdd3Text.getText(), InterestingText.getText());
 				System.out.println("save");
 				System.out.println(cust.getAccIdByCust());
 				if ( cust.getAccIdByCust() != null){
