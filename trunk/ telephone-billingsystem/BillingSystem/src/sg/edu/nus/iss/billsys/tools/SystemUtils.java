@@ -37,8 +37,9 @@ public class SystemUtils {
 	
 	private static HashMap<String, String> getMap(String fileName){
 		HashMap<String, String> map = new HashMap<String, String>();
+		BufferedReader br = null;
 		try{
-			BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
+			br = new BufferedReader(new FileReader(new File(fileName)));
 			String s = null;
 			while((s = br.readLine()) != null){
 				StringTokenizer st = new StringTokenizer(s, "=");
@@ -47,6 +48,13 @@ public class SystemUtils {
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
+		}
+		finally{
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return map;
