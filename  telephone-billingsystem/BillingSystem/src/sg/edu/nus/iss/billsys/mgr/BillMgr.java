@@ -147,18 +147,19 @@ public class BillMgr {
 		}
 		bill.setTotalPaymentMade(paymentAmt);
 
-		for(SubscriptionPlan plan : MgrFactory.getSubscriptionMgr().getAccountSubscriptions(acct.getAcctNo())){
-			if(billPeriod.isOverlapped(plan.getDateCommenced(), plan.getDateTerminated())){
-				if(plan instanceof VoicePlan){
-					processCallBasedPlan(bill, billPeriod, (VoicePlan)plan);
-				}
-				else{
-					processNonCallBasedPlan(bill, billPeriod, (CableTvPlan)plan);
+		List<SubscriptionPlan> plans = MgrFactory.getSubscriptionMgr().getAccountSubscriptions(acct.getAcctNo());
+		if(plans != null){
+			for(SubscriptionPlan plan : plans){
+				if(billPeriod.isOverlapped(plan.getDateCommenced(), plan.getDateTerminated())){
+					if(plan instanceof VoicePlan){
+						processCallBasedPlan(bill, billPeriod, (VoicePlan)plan);
+					}
+					else{
+						processNonCallBasedPlan(bill, billPeriod, (CableTvPlan)plan);
+					}
 				}
 			}
 		}
-		
-		
 		
 		int chargesBefGST = calculateTotalCurrChargesBeforeGST(bill.getSummaryChargesList());
 		bill.setTotalGST(FinanceUtils.calGST(chargesBefGST));
