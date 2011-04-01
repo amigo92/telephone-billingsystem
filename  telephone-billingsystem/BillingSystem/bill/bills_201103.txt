@@ -107,9 +107,9 @@ Mobile Number 66366366
    Roaming                                           80.00                      
    Usage Charges                                                                
                                                                   100.00        
-Cable TV                                                                        
+Cable TV MAC ID PLAN_ID_2                                                       
    Subscriptions charges                             30.00                      
-   Additional 0 Channel charge(s)                    0.00                       
+   Additional 0 Channel(s) charges                   0.00                       
                                                                   0.00          
 Digital Voice Number 81102121                                                   
    Subscription Charges                                                         
@@ -243,9 +243,9 @@ Mobile Number 66346366
    Mobile                                            20.00                      
    Usage Charges                                                                
                                                                   20.00         
-Cable TV                                                                        
+Cable TV MAC ID PLAN_ID_5                                                       
    Subscriptions charges                             30.00                      
-   Additional 0 Channel charge(s)                    0.00                       
+   Additional 0 Channel(s) charges                   0.00                       
                                                                   0.00          
 Digital Voice Number 91102121                                                   
    Subscription Charges                                                         
@@ -383,9 +383,9 @@ Mobile Number 66346377
    Mobile                                            20.00                      
    Usage Charges                                                                
                                                                   20.00         
-Cable TV                                                                        
+Cable TV MAC ID PLAN_ID_8                                                       
    Subscriptions charges                             30.00                      
-   Additional 0 Channel charge(s)                    0.00                       
+   Additional 0 Channel(s) charges                   0.00                       
                                                                   0.00          
 Digital Voice Number 91232121                                                   
    Subscription Charges                                                         
@@ -530,9 +530,9 @@ Digital Voice Number 81102020
    Local Calls                                       1800.00                    
    Roaming Calls                                     140.00                     
                                                                   1950.00       
-Cable TV                                                                        
+Cable TV MAC ID PLAN_ID_11                                                      
    Subscriptions charges                             30.00                      
-   Additional 2 Channel charge(s)                    180.00                     
+   Additional 2 Channel(s) charges                   180.00                     
                                                                   0.00          
 Mobile Number 12345678                                                          
    Subscription Charges                                                         
@@ -540,9 +540,9 @@ Mobile Number 12345678
    Data Services                                     70.00                      
    Usage Charges                                                                
                                                                   90.00         
-Cable TV                                                                        
+Cable TV MAC ID 96434ADB840A                                                    
    Subscriptions charges                             30.00                      
-   Additional 0 Channel charge(s)                    0.00                       
+   Additional 0 Channel(s) charges                   0.00                       
                                                                   0.00          
                                                                                 
 Total GST                                                         159.60        
@@ -648,9 +648,9 @@ Total Current Charges                                             32.10
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Cable TV                                                                        
+Cable TV MAC ID PLAN_ID_12                                                      
    Subscriptions charges                             30.00                      
-   Additional 0 Channel charge(s)                    0.00                       
+   Additional 0 Channel(s) charges                   0.00                       
                                                                   0.00          
                                                                                 
 Total GST                                                         2.10          
