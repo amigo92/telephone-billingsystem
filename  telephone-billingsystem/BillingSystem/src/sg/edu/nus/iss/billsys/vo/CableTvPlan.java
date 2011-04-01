@@ -5,6 +5,7 @@ import java.util.Date;
 import sg.edu.nus.iss.billsys.constant.*;
 import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.tools.TimeUtils;
 
 /**
  * 
@@ -39,6 +40,10 @@ public class CableTvPlan extends SubscriptionPlan {
 
 	@Override
 	public String getPlanDescription() {
-		return "Cable TV";
+		String id = getPlanId();
+		if (id.length() > 12) {
+			id = id.substring(id.length()-12);
+		}
+		return "Cable TV MAC ID "+id.toUpperCase();
 	}
 }
