@@ -78,9 +78,9 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 	
 	private void initGUI() {
 		try {
-			this.setPreferredSize(new java.awt.Dimension(595, 378));
-			this.setMinimumSize(new java.awt.Dimension(600, 600));
-			this.setMaximumSize(new java.awt.Dimension(600, 600));
+			this.setPreferredSize(new java.awt.Dimension(800, 600));
+			this.setMinimumSize(new java.awt.Dimension(800, 600));
+			this.setMaximumSize(new java.awt.Dimension(800, 600));
 			
 			customerIdButtonGroup = new ButtonGroup();
 			{
@@ -88,24 +88,24 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 				this.add(logComplaintLabel);
 				logComplaintLabel.setText("Log Complaint");
 				logComplaintLabel.setFont(new java.awt.Font("Tahoma",1,14));
-				logComplaintLabel.setPreferredSize(new java.awt.Dimension(581, 25));
+				logComplaintLabel.setPreferredSize(new java.awt.Dimension(750, 25));
 			}
 			{
 				jSeparator1 = new JSeparator();
 				this.add(jSeparator1);
-				jSeparator1.setPreferredSize(new java.awt.Dimension(581, 25));
+				jSeparator1.setPreferredSize(new java.awt.Dimension(750, 25));
 			}
 			{
 				customerIdLabel = new JLabel();
 				this.add(customerIdLabel);
 				customerIdLabel.setText("Customer Id:");
-				customerIdLabel.setPreferredSize(new java.awt.Dimension(126, 20));
+				customerIdLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
 				accountNoRadioButton = new JRadioButton();
 				this.add(accountNoRadioButton);
 				accountNoRadioButton.setText("Account #");
-				accountNoRadioButton.setPreferredSize(new java.awt.Dimension(84, 20));
+				accountNoRadioButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				accountNoRadioButton.setActionCommand("accountNo");
 				customerIdButtonGroup.add(accountNoRadioButton);
 			}
@@ -113,7 +113,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 				nricRadioButton = new JRadioButton();
 				this.add(nricRadioButton);
 				nricRadioButton.setText("NRIC");
-				nricRadioButton.setPreferredSize(new java.awt.Dimension(61, 20));
+				nricRadioButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				nricRadioButton.setSelected(true);
 				nricRadioButton.setActionCommand("nric");
 				customerIdButtonGroup.add(nricRadioButton);
@@ -121,13 +121,13 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				customerIdTextField = new JTextField();
 				this.add(customerIdTextField);
-				customerIdTextField.setPreferredSize(new java.awt.Dimension(245, 20));
+				customerIdTextField.setPreferredSize(new java.awt.Dimension(250, 20));
 			}
 			{
 				statusLabel = new JLabel();
 				this.add(statusLabel);
 				statusLabel.setText("Status:");
-				statusLabel.setPreferredSize(new java.awt.Dimension(126, 20));
+				statusLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
 				ComboBoxModel jComboBox1Model = 
@@ -135,7 +135,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 				statusComboBox = new JComboBox();
 				this.add(statusComboBox);
 				statusComboBox.setModel(jComboBox1Model);
-				statusComboBox.setPreferredSize(new java.awt.Dimension(161, 20));
+				statusComboBox.setPreferredSize(new java.awt.Dimension(200, 20));
 				statusComboBox.setSelectedItem(ComplaintStatus.PENDING.toString());
 				statusComboBox.setEnabled(false);
 			}
@@ -143,30 +143,30 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 				blankLabel1 = new JLabel();
 				this.add(blankLabel1);
 				blankLabel1.setText("");
-				blankLabel1.setPreferredSize(new java.awt.Dimension(231, 20));
+				blankLabel1.setPreferredSize(new java.awt.Dimension(350, 20));
 			}
 			{
 				complaintLabel = new JLabel();
 				this.add(complaintLabel);
 				complaintLabel.setText("Complaint:");
-				complaintLabel.setPreferredSize(new java.awt.Dimension(126, 20));
+				complaintLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
 				complaintTextArea = new JTextArea();
 				this.add(complaintTextArea);
-				complaintTextArea.setPreferredSize(new java.awt.Dimension(399, 91));
+				complaintTextArea.setPreferredSize(new java.awt.Dimension(550, 91));
 			}
 			{
 				errorMessageLabel = new JLabel();
 				this.add(errorMessageLabel);
 				errorMessageLabel.setText("");
-				errorMessageLabel.setPreferredSize(new java.awt.Dimension(539, 20));
+				errorMessageLabel.setPreferredSize(new java.awt.Dimension(750, 20));
 			}
 			{
 				logButton = new JButton();
 				this.add(logButton);
 				logButton.setText("Log");
-				logButton.setPreferredSize(new java.awt.Dimension(105, 20));
+				logButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				logButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -178,13 +178,13 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 				blankLabel2 = new JLabel();
 				this.add(blankLabel2);
 				blankLabel2.setText("");
-				blankLabel2.setPreferredSize(new java.awt.Dimension(49, 20));
+				blankLabel2.setPreferredSize(new java.awt.Dimension(50, 20));
 			}
 			{
 				cancelButton = new JButton();
 				this.add(cancelButton);
 				cancelButton.setText("Cancel");
-				cancelButton.setPreferredSize(new java.awt.Dimension(105, 21));
+				cancelButton.setPreferredSize(new java.awt.Dimension(150, 21));
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
