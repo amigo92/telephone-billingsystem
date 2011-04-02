@@ -26,7 +26,6 @@ public class GenericDaoTest {
 	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
 	private final static String  FEATURE_RATES_DATA_FILE="data/FeatureRates.txt";
 	private final static String  PAYMENT_HISTORY_DATA_FILE="data/PaymentHistory.txt";
-	private final static String  PLANRATES_DATA_FILE="data/PlanRates.txt";
 	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
 	private final static String  USER_DATA_FILE="data/User.txt";
 	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
@@ -38,7 +37,6 @@ public class GenericDaoTest {
 	private static String [][] featureData=null;
 	private static String [][] featureRatesData=null;
 	private static String [][] paymentHistoryData=null;
-	private static String [][] planRatesData=null;
 	private static String [][] subscriptionPlanData=null;
 	private static String [][] userData=null;
 	private static String [][] complaintData=null;
@@ -161,15 +159,6 @@ public class GenericDaoTest {
 	public void testGetPaymentHistoryData() {
 		paymentHistoryData=dao.getDataAsArray(PAYMENT_HISTORY_DATA_FILE);
 		testArray(paymentHistoryData, "testGetPaymentHistoryData()");
-	}
-
-	/**
-	 * Test method for {@link sg.edu.nus.iss.billsys.dao.GenericDao#getPlanRatesData()}.
-	 */
-	@Test
-	public void testGetPlanRatesData() {
-		planRatesData=dao.getDataAsArray(PLANRATES_DATA_FILE);
-		testArray(planRatesData, "testGetPlanRatesData()");
 	}
 
 	/**
