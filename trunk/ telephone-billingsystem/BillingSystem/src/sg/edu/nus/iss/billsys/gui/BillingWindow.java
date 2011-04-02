@@ -16,6 +16,8 @@ public class BillingWindow extends JFrame {
     private JPanel contentPane;
     private BillingWindow window;
     private SubscriptionMgr subscriptionMgr;
+    private AccountMgr accountMgr;
+
     private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
     private SubscriptionDeRegistrationPanel subscriptionDeRegistrationPanel;
     
@@ -135,7 +137,6 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setSubscriptionMgr();
 					SubscriptionIntroPanel currentPanel = new SubscriptionIntroPanel(
 							window);
 					contentPane.revalidate();
@@ -150,7 +151,6 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setSubscriptionMgr();
 
 					SubscriptionRegistrationPanel currentPanel = new SubscriptionRegistrationPanel(
 							window);
@@ -167,7 +167,6 @@ public class BillingWindow extends JFrame {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setSubscriptionMgr();
 					subscriptionDeRegistrationPanel = new SubscriptionDeRegistrationPanel(
 							window);
 
@@ -290,12 +289,29 @@ public class BillingWindow extends JFrame {
 		try {
 			this.subscriptionMgr = MgrFactory.getSubscriptionMgr();
 		} catch (BillingSystemException e) {
-			JOptionPane.showMessageDialog(window, e.getMessage(),"" ,0);
+			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
 		}
 	}
 
 	public SubscriptionMgr getSubscriptionMgr() {
+		if(subscriptionMgr == null)
+			setSubscriptionMgr();
+		
 		return subscriptionMgr;
+	}
+	
+	public void setAccountMgr() {
+		try {
+			this.accountMgr = MgrFactory.getAccountMgr();
+		} catch (BillingSystemException e) {
+			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
+		}
+	}
+
+	public AccountMgr getAccountMgr() {
+		if(accountMgr == null)
+			setAccountMgr();
+		return accountMgr;
 	}
 	
 	public void refreshSubRegPanel(String accountNo){
@@ -308,7 +324,6 @@ public class BillingWindow extends JFrame {
 	}
 	// for customer detail panel
 	public void refreshSubRegPanel(String customerID, String accountNo){
-		setSubscriptionMgr();
 
 		subscriptionRegistrationPanel = new SubscriptionRegistrationPanel(
 				window, customerID, accountNo);
@@ -334,4 +349,6 @@ public class BillingWindow extends JFrame {
 		contentPane = VCust;
 		window.setContentPane(contentPane);
 	}
+
+
 }
