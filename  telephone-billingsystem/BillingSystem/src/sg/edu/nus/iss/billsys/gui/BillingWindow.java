@@ -166,7 +166,6 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
-			menu.addSeparator();
 			
 			//Billing
 			menu = new JMenu("Bill  ");
