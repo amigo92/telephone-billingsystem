@@ -74,16 +74,19 @@ public class SubscriptionRegistrationPanel extends JPanel {
   
     }
 
-    private JPanel createFormPanel () {
-    	JPanel p = new JPanel (new GridLayout (0,2));
-    
-        p.add(createCustomerComboBox());
- 
-        p.add (new Label());
+    private JPanel createFormPanel () {	
+    	JLabel title = new JLabel("                                                            Registration");    	
+    	
+    	JPanel p = new JPanel (new GridLayout(0,2));
+        p.add (new JLabel("Please select a customer:"));
+        p.add (new JLabel(" "));
+
+        p.add( createCustomerComboBox());
+        p.add (new JLabel(" "));
 
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
-        bp.add ("North", new JLabel ("Please select a Customer:   "));
+        bp.add ("North", title);
         bp.add ("Center", p);
         bp.add("South", registerSubscriptionPlanPanel());
      
