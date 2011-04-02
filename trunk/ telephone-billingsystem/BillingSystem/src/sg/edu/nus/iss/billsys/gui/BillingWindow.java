@@ -138,7 +138,7 @@ public class BillingWindow extends JFrame {
 			menu = new JMenu("Subscription  ");
 			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
-			menuItem = new JMenuItem("Introduction");
+			menuItem = new JMenuItem("Charges");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
