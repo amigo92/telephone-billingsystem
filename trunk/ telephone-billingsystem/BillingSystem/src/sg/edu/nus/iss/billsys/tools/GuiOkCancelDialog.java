@@ -13,6 +13,10 @@ public abstract class GuiOkCancelDialog extends JDialog {
         
         add ("Center", createFormPanel());
         add ("South",  createButtonPanel());
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension screenSize = tk.getScreenSize();
+	    this.setLocation(screenSize.width/2-400, screenSize.height/2-300);
     }
 
     public GuiOkCancelDialog (JFrame parent) {
