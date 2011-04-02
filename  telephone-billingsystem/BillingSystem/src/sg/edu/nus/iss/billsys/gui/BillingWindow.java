@@ -19,7 +19,6 @@ public class BillingWindow extends JFrame {
     private AccountMgr accountMgr;
 
     private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
-    private SubscriptionDeRegistrationPanel subscriptionDeRegistrationPanel;
     
     private boolean isAdmin = false;
 
@@ -169,21 +168,6 @@ public class BillingWindow extends JFrame {
 			menu.add(menuItem);
 			menu.addSeparator();
 			
-			menuItem = new JMenuItem("De-Register");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					subscriptionDeRegistrationPanel = new SubscriptionDeRegistrationPanel(
-							window);
-
-					contentPane.revalidate();
-					contentPane = subscriptionDeRegistrationPanel;
-					window.setContentPane(contentPane);
-
-				}
-			});
-			menu.add(menuItem);
-			
 			//Billing
 			menu = new JMenu("Bill  ");
 			menu.setMnemonic(KeyEvent.VK_A);
@@ -332,14 +316,7 @@ public class BillingWindow extends JFrame {
 		contentPane = subscriptionRegistrationPanel;
 		window.setContentPane(contentPane);
 	}	
-	public void refreshSubDeRegPanel(String accountNo){
-		subscriptionDeRegistrationPanel = new SubscriptionDeRegistrationPanel(
-				window, accountNo);
 
-		contentPane.revalidate();
-		contentPane = subscriptionDeRegistrationPanel;
-		window.setContentPane(contentPane);
-	}
 	public void refreshPanelForViewCust(String NRIC){
 		ViewCustomerDetails  VCust= new ViewCustomerDetails(
 				window, NRIC);
