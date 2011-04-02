@@ -218,13 +218,17 @@ public class SubscriptionRegistrationPanel extends JPanel {
     }
 	 private JScrollPane existingSubscriptionPanel (List<SubscriptionPlan> subscribedPlans) {
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setAutoscrolls(true);
+//		scrollPane.setSize(740, 500);
+		//scrollPane.setLayout(new BorderLayout());
+		
 	
 		JPanel sp = new JPanel (new GridLayout (0, 2));
 			
-		JLabel titleLabel = new JLabel ("Existing Subscription Information:");
+		JLabel titleLabel = new JLabel ("Existing Subscription Information:                     ");
 		
 		sp.add ( titleLabel);
-		sp.add(new JLabel(""));
+		sp.add(new JLabel("                                                         "));
 		
 		for(SubscriptionPlan plan: subscribedPlans){
 			String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
