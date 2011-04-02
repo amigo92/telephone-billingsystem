@@ -88,7 +88,7 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testGetCustomerByName() {
-		String testName = "Veera";
+		String testName = "Paul";
 		if(custDao == null){
 			fail("Exception while initialising CustomerDao , objectDataMapping have errors !!");
 		}
