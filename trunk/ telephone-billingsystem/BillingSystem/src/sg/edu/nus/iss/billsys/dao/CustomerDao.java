@@ -17,11 +17,14 @@ import sg.edu.nus.iss.billsys.vo.Customer;
 
 public class CustomerDao extends GenericDao implements ICustomerDao{
 	
+	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";
+	private static final int COL_LENGTH=9;
 	private List<Customer> listCustomer=new ArrayList<Customer>();
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
-		
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(CUSTOMER_DATA_FILE);
+		if(validateData(data,"Customer",COL_LENGTH)){
 		List<Customer> listCustomer=new ArrayList<Customer>();
 		
 		for(int i=0;i<data.length;i++){
@@ -48,6 +51,7 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 
 		
 		this.listCustomer=listCustomer;
+		}
 		
 	}
 	
@@ -55,7 +59,7 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;
 		
-		String data[][]=new String[listCustomer.size()][9];
+		String data[][]=new String[listCustomer.size()][COL_LENGTH];
 			
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
 		
@@ -74,12 +78,13 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 				
 				cnt++;				
 			}
-		if(!saveCustomerData(data))throw new BillingSystemException("Saving to File Operation Failed for CustomerData");
-		
+		if(validateData(data,"Customer",COL_LENGTH)){
+		if(!storeDataByArray(CUSTOMER_DATA_FILE, data))throw new BillingSystemException("Saving to File Operation Failed for CustomerData");
+		}
 	}
 	
 	protected CustomerDao() throws BillingSystemException{
-	 this.objectDataMapping(getCustomerData());
+	 this.objectDataMapping();
 	}
 	
 	public Customer getCustomerByNric(String nric) {

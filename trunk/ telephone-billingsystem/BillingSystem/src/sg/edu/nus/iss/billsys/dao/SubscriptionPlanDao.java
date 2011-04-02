@@ -28,15 +28,17 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
  */
 public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlanDao{
 	
+	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
+	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
 	private static final int SUBSCRIPTION_COL_LENGTH=4;
 	private static final int FEATURE_COL_LENGTH=5;
 	
 	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
-		
-		String[][] featureData =getFeatureData();		
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
+		String[][] featureData =getDataAsArray(FEATURE_DATA_FILE);		
 		
 		if(validateData(data,"Susbscription Plan",SUBSCRIPTION_COL_LENGTH) && validateData(featureData, "Features", FEATURE_COL_LENGTH)){
 		
@@ -295,14 +297,14 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		    }
 		
 		if(validateData(planData,"Susbscription Plan",SUBSCRIPTION_COL_LENGTH) && validateData(featureData, "Features", FEATURE_COL_LENGTH)){
-			if(!saveSubscriptionPlanData(planData))throw new BillingSystemException("Saving to File Operation Failed for SubscriptionPlanData");
-			if(!saveFeatureData(featureData))throw new BillingSystemException("Saving to File Operation Failed for FeatureData");
+			if(!storeDataByArray(SUBSCRIPTION_PLAN_DATA_FILE, planData))throw new BillingSystemException("Saving to File Operation Failed for SubscriptionPlanData");
+			if(!storeDataByArray(FEATURE_DATA_FILE, featureData))throw new BillingSystemException("Saving to File Operation Failed for FeatureData");
 		}
 		
 	}
 		
 	protected SubscriptionPlanDao() throws BillingSystemException{
-		this.objectDataMapping(getSubscriptionPlanData());
+		this.objectDataMapping();
 	}
 	
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {

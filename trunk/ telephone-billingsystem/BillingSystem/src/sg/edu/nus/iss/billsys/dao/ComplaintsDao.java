@@ -16,11 +16,12 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	
+	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
 	private static final int COL_LENGTH=5;
 	private List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
 	
 	protected ComplaintsDao() throws BillingSystemException{
-		this.objectDataMapping(getComplaintsData());
+		this.objectDataMapping();
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 				cnt++;				
 			}
 		if(validateData(data,"Complaints",COL_LENGTH)){
-			if(!saveComplaintsData(data))throw new BillingSystemException("Saving to File Operation Failed for ComplaintsData");
+			if(!storeDataByArray(COMPLAINTS_DATA_FILE, data))throw new BillingSystemException("Saving to File Operation Failed for ComplaintsData");
 		}
 		
 	}
@@ -63,8 +64,8 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	}
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
-				
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(COMPLAINTS_DATA_FILE);
 		if(validateData(data,"Complaints",COL_LENGTH)){
 		List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();
 		

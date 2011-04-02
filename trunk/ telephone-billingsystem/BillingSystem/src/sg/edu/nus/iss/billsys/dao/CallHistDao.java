@@ -15,11 +15,12 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class CallHistDao extends GenericDao implements ICallHistDao{
 	
+	private final static String  CALL_HISTORY_DATA_FILE="data/CallHistory.txt";
 	private static final int COL_LENGTH=6;
 	private List<CallHist> listCallHx=new ArrayList<CallHist>();
 	
 	protected CallHistDao() throws BillingSystemException{
-		this.objectDataMapping(getCallHistoryData());
+		this.objectDataMapping();
 	}
 	
 	@Override
@@ -29,8 +30,8 @@ public class CallHistDao extends GenericDao implements ICallHistDao{
 	}
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
-		
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(CALL_HISTORY_DATA_FILE);
 		if(validateData(data,"Call History",COL_LENGTH)){
 					
 				List<CallHist> listCallHx=new ArrayList<CallHist>();

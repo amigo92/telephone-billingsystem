@@ -14,13 +14,14 @@ import sg.edu.nus.iss.billsys.vo.Rate;
  */
 public class PlanRateDao extends GenericDao implements IPlanRateDao{
 	
+	private final static String  PLANRATES_DATA_FILE="data/PlanRates.txt";
 	private static final int COL_LENGTH=2;
 	private List<Rate> listPlanRates=new ArrayList<Rate>();
 	
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
-	
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(PLANRATES_DATA_FILE);
 		if(validateData(data,"Plan Rate",COL_LENGTH)){
 			
 			List<Rate> listPlanRates=new ArrayList<Rate>();
@@ -47,7 +48,7 @@ public class PlanRateDao extends GenericDao implements IPlanRateDao{
 	}	
 	
 	protected PlanRateDao() throws BillingSystemException{
-	 this.objectDataMapping(getPlanRatesData());
+	 this.objectDataMapping();
 	}
 	
 	public Rate getPricebyPlanType(String plan_type) throws BillingSystemException{

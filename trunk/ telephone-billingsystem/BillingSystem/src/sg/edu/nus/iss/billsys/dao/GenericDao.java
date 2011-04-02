@@ -22,49 +22,12 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
  */
 public abstract class GenericDao {
 	
-	/*
-	 * Constants Holding the file name for the data structure.It is kept private 
-	 * since the IO will be only made through this BaseDao
-	 */
-	
-	private final static String  CALL_HISTORY_DATA_FILE="data/CallHistory.txt";
-	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";
-	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
-	private final static String  FEATURE_RATES_DATA_FILE="data/FeatureRates.txt";
-	private final static String  PAYMENT_HISTORY_DATA_FILE="data/PaymentHistory.txt";
-	private final static String  PLANRATES_DATA_FILE="data/PlanRates.txt";
-	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
-	private final static String  USER_DATA_FILE="data/User.txt";
-	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
-	private final static String  MOBILE_NUMBERS_DATA_FILE="data/MobileNumbers.txt";
-	private final static String  DIGIVOICE_NUMBERS_DATA_FILE="data/DigiVoiceNumbers.txt";
-	
-	private static String [][] callHistoryData=null;
-	private static String [][] customerData=null;
-	private static String [][] featureData=null;
-	private static String [][] featureRatesData=null;
-	private static String [][] paymentHistoryData=null;
-	private static String [][] planRatesData=null;
-	private static String [][] subscriptionPlanData=null;
-	private static String [][] userData=null;
-	private static String [][] complaintData=null;
-	private static String [][] mobileNumbersData=null;
-	private static String [][] digiVoiceNumbersData=null;
-	
-	/*
-	 * This static block will load the data to the String [][] objects which represents the
-	 * data file .
-	 */
-	static{
 		
-		initializeLoadData();
-		
-	}
 	/*
 	 * This method is used to get the Data file as a two dimensional array
 	 * this is a reusable methods which can be used for any data file to 2d array.
 	 */
-	private static String[][] getDataAsArray(String filename){
+	protected final String[][] getDataAsArray(String filename){
 		String [][]data=null;
 		try{
 			FileReader fr = new FileReader(filename); 
@@ -87,7 +50,7 @@ public abstract class GenericDao {
 	 * correct filename and the String [][] is given to it.
 	 * 
 	 */
-	private boolean storeDataByArray(String filename , String [][] data){
+	protected final boolean storeDataByArray(String filename , String [][] data){
 		
 		try {
 			String firstLine=readFirstLine(filename);
@@ -204,28 +167,6 @@ public abstract class GenericDao {
 	}
 	
 	/*
-	 * This method is used by the static block to load all the data file on to 
-	 * the String [][] object which will then used by the application for data
-	 * mapping and manipulation.
-	 */
-		
-	private static void initializeLoadData(){
-		
-		
-		callHistoryData=getDataAsArray(CALL_HISTORY_DATA_FILE);
-		customerData=getDataAsArray(CUSTOMER_DATA_FILE);
-		featureData=getDataAsArray(FEATURE_DATA_FILE);
-		featureRatesData=getDataAsArray(FEATURE_RATES_DATA_FILE);
-		paymentHistoryData=getDataAsArray(PAYMENT_HISTORY_DATA_FILE);
-		planRatesData=getDataAsArray(PLANRATES_DATA_FILE);
-		subscriptionPlanData=getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
-		userData=getDataAsArray(USER_DATA_FILE);
-		complaintData=getDataAsArray(COMPLAINTS_DATA_FILE);
-		mobileNumbersData=getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
-		digiVoiceNumbersData=getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
-		
-	}
-	/*
 	 * This method is used by the dao classes to validate the data type and 
 	 * data format.
 	 */
@@ -249,91 +190,13 @@ public abstract class GenericDao {
 	 * This method is used by the dao classes to map the data object with the 
 	 * domain object
 	 */
-	protected abstract void objectDataMapping(String [][] data) throws BillingSystemException;
+	protected abstract void objectDataMapping() throws BillingSystemException;
 	
 	/*
 	 * This method is used by the dao classes to save the  
 	 * domain object to data object for saving.
 	 */
 	protected abstract void saveObjectData() throws BillingSystemException;
-	
-	/*
-	 * These are the list of protected methods used by the subclasses to get the reference to
-	 * the Data object which represents the Data file.
-	 */
-	
-	protected String[][] getCallHistoryData(){
-		
-		return callHistoryData;
-	}	
-	protected String[][] getCustomerData(){
-			
-		return customerData;
-	}
-	protected String[][] getFeatureData(){
-		
-		return featureData;
-	}
-	protected String[][] getFeatureRateData(){
-		
-		return featureRatesData;
-	}
-	protected String[][] getPaymentHistoryData(){
-		
-		return paymentHistoryData;
-	}
-	protected String[][] getPlanRatesData(){
-		
-		return planRatesData;
-	}
-	protected String[][] getSubscriptionPlanData(){
-		
-		return subscriptionPlanData;
-	}
-	protected String[][] getUserData(){
-		
-		return userData;
-	}	
-	protected String[][] getComplaintsData(){
-		
-		return complaintData;
-	}
-	protected String[][] getMobileNumbersData(){
-		
-		return mobileNumbersData;
-	}
-	protected String[][] getDigiVoiceNumbersData(){
-		
-		return digiVoiceNumbersData;
-	}
-	/*
-	 * These are the list of protected methods used by the subclasses to write the 
-	 * the Data object which represents the Data file on to the Data file.
-	 */
-	
-	protected boolean saveCustomerData(String[][] data){
-		customerData=data;
-		return storeDataByArray(CUSTOMER_DATA_FILE, customerData);
-	}
-	protected boolean saveFeatureData(String[][] data){
-		featureData=data;
-		return storeDataByArray(FEATURE_DATA_FILE, featureData);
-	}
-	protected boolean saveSubscriptionPlanData(String[][] data){
-		subscriptionPlanData=data;
-		return storeDataByArray(SUBSCRIPTION_PLAN_DATA_FILE, subscriptionPlanData);
-	}
-	protected boolean saveComplaintsData(String[][] data){
-		complaintData=data;
-		return storeDataByArray(COMPLAINTS_DATA_FILE, complaintData);
-	}
-	protected boolean saveMobileNumbersData(String[][] data){
-		mobileNumbersData=data;
-		return storeDataByArray(MOBILE_NUMBERS_DATA_FILE, mobileNumbersData);
-	}
-	protected boolean saveDigiVoiceNumbersData(String[][] data){
-		digiVoiceNumbersData=data;
-		return storeDataByArray(DIGIVOICE_NUMBERS_DATA_FILE, digiVoiceNumbersData);
-	}
+
 
 }

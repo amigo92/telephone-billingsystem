@@ -11,13 +11,14 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 
 public class MobileNumbersDao extends GenericDao implements IPhoneNumbersDao {
 	
+	private final static String  MOBILE_NUMBERS_DATA_FILE="data/MobileNumbers.txt";
 	private static final int COL_LENGTH = 1;
 	private List<String> listMobileNumbers = new ArrayList<String>();
 
 	@Override
-	protected void objectDataMapping(String[][] data)
+	protected void objectDataMapping()
 			throws BillingSystemException {
-		
+		String[][] data=getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
 		if (validateData(data,"Mobile Number",COL_LENGTH)) {
 			List<String> listMobileNumbers = new ArrayList<String>();
 			for (int i=0;i<data.length;i++) {
@@ -35,13 +36,13 @@ public class MobileNumbersDao extends GenericDao implements IPhoneNumbersDao {
 		for (String s : listMobileNumbers) {
 			data[cnt++][0]=s;
 		}
-		if (!saveMobileNumbersData(data)) {
+		if (!storeDataByArray(MOBILE_NUMBERS_DATA_FILE, data)) {
 			throw new BillingSystemException("Saving to File Operation Failed for MobileNumbersData");
 		}
 	}
 	
 	protected MobileNumbersDao() throws BillingSystemException {
-		this.objectDataMapping(getMobileNumbersData());
+		this.objectDataMapping();
 	}
 
 	public List<String> getPhoneNumbers() {
