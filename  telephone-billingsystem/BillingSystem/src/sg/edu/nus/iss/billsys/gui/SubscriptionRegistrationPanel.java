@@ -223,14 +223,16 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		//scrollPane.setLayout(new BorderLayout());
 		
 	
-		JPanel sp = new JPanel (new GridLayout (0, 2));
+		JPanel sp = new JPanel (new GridLayout (0, 3));
 			
+		sp.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		JLabel titleLabel = new JLabel ("Existing Subscription Information:                     ");
 		
 		sp.add ( titleLabel);
 		sp.add(new JLabel("                                                         "));
-		
-		for(SubscriptionPlan plan: subscribedPlans){
+		sp.add(new JLabel("                                                         "));
+
+		for(final SubscriptionPlan plan: subscribedPlans){
 			String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
 						+	(plan.getDateTerminated() == null? " ": "  -  " ) 
 						+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
@@ -238,14 +240,51 @@ public class SubscriptionRegistrationPanel extends JPanel {
 			sp.add (new JLabel (plan.getPlanDescription()));						
 			sp.add (new JLabel(strDateInfo));
 			
+			JButton b;
+			if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+				b = new JButton ("De-Register");
+			else
+				b = new JButton ("Extend Subscription");
+			    b.addActionListener (new ActionListener () {
+			     public void actionPerformed (ActionEvent e) {		    			    	 	
+			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, null);
+		                d.pack();
+		                d.setVisible (true);
+			     }
+		    });
+			    
+//			    b.setPreferredSize(new Dimension(200, 30));
+//			    JPanel btnp= new JPanel();
+//			    btnp.add(b);    
+			    sp.add(b);
+			
 			List<Feature> features = plan.getOptionalFeatures();	
-			for(Feature feature: features){
+			for(final Feature feature: features){
 				strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
 					+ (feature.getDateTerminated() == null? " ": "  -  " ) 
 					+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
 		
 				sp.add ( new JLabel ("        " + feature.getName()));
 				sp.add(new JLabel(strDateInfo));
+				
+				JButton b2;
+				if(feature.getDateTerminated() == null || feature.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+					b2 = new JButton ("De-Register");
+				else
+					b2 = new JButton ("Extend Subscription");
+   			    b2.addActionListener (new ActionListener () {
+    			     public void actionPerformed (ActionEvent e) {
+    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, feature);
+    			    	 	d.pack();
+	    		            d.setVisible (true);
+    			     }
+			    });
+   			    
+//   			    b2.setPreferredSize(new Dimension(200, 30));
+//   			    btnp= new JPanel();
+//   			    btnp.add(b2);
+//	   			p.add(btnp);
+   			    sp.add(b2);
 			}
 		}
 		
