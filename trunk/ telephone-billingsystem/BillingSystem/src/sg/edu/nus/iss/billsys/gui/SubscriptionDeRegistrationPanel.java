@@ -8,9 +8,11 @@ import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 
 import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,6 +30,8 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 	private String accountNo;
 	private JPanel deRegisterPanel;
 	private List<Feature> features;
+	private ArrayList<Customer>	customersList;
+
 	
     public SubscriptionDeRegistrationPanel (BillingWindow window) {   
     	 initialize(window);	
@@ -39,48 +43,73 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     public void initialize(BillingWindow window){
     	this.window = window;
 		manager = window.getSubscriptionMgr();
+		
+    	customersList =  window.getAccountMgr().getAllActiveCustomers();
 	
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	    deRegisterPanel = new JPanel(new BorderLayout());  
-	    if(accountNo != null){
-	    	deRegisterPanel.add("North", deRegisterScrollPanel());
-	    }
+//	    if(accountNo != null){
+//	    	deRegisterPanel.add("North", deRegisterScrollPanel());
+//	    }
 
 	    add ("North", createFormPanel());      
 	    add ("Center", deRegisterPanel);
 	      
-	    customerID.setText("S8481362F");
     }
+    
+	
+
     private JPanel createFormPanel () {
+    	
+    	JLabel title = new JLabel("                                                            De-Registration");    	
+
     	JPanel p = new JPanel (new GridLayout (0,2));
     	
-        p.add ( new JLabel ("Customer ID:   "));
+        p.add ( new JLabel ("Please select a customer:   "));
         p.add ( new JLabel (""));
 
-        customerID = new JTextField (1);
-        p.add(customerID);
-        JButton b = new JButton ("Get Subscription Information");
-        b.addActionListener (new ActionListener () {
-        public void actionPerformed (ActionEvent e) {
-        	try{	
- 	    	    accountNo = MgrFactory.getAccountMgr().getCustomerDetailsById(customerID.getText()).getAcct().getAcctNo();
-        		deRegisterPanel.revalidate();
-            	deRegisterPanel.add("North", deRegisterScrollPanel());
-        	}
-	    	catch(Exception ex){
-	    		JOptionPane.showMessageDialog(window, ex.getMessage());	
-	    	} 	
-    	}
-        });
-        p.add (b);
+
+        p.add(createCustomerComboBox());
+        p.add ( new JLabel (""));
+
+
   
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
-        bp.add ("North", p);     
+        bp.add ("North", title);     
+        bp.add ("South", p);     
+
         return bp;
     }
-    
+    private JComboBox createCustomerComboBox () {  	
+	    JComboBox accountBox = new JComboBox();
+	    int selectedIndex = 0;
+	    
+	    for(Customer c :customersList){
+	    	accountBox.addItem(c.getName()+ "-" + c.getNric());
+	    	
+	    	 if(accountNo != null){  		 
+	    		if( c.getAccountId().equals(accountNo))
+	    			selectedIndex = customersList.indexOf(c);
+	    	 }
+	    }
+	 
+	    accountBox.addActionListener(new ActionListener (){
+	    	public void actionPerformed (ActionEvent e) {
+	    		   JComboBox cb = (JComboBox)e.getSource();
+	    		   Customer  selectedCustomer = customersList.get(cb.getSelectedIndex());
+	    		   accountNo = selectedCustomer.getAcct().getAcctNo();
+	    		   deRegisterPanel.revalidate();
+	    		   deRegisterPanel.removeAll();
+	    		   deRegisterPanel.add("North", deRegisterScrollPanel());
+	    		   deRegisterPanel.repaint();
+	        }
+	    });
+	 
+	    accountBox.setSelectedIndex(selectedIndex);
+	    return accountBox;
+    }
     private JScrollPane deRegisterScrollPanel () {
 		JPanel p1 = new JPanel (new BorderLayout());
 		JPanel p = new JPanel (new GridLayout (0, 3));
@@ -103,8 +132,11 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 			   
 						p.add ( new JLabel (plan.getPlanDescription()));
 						p.add ( new JLabel (strDateInfo));	
-
-					 	JButton b = new JButton ("De-Register");
+						JButton b;
+						if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+							b = new JButton ("De-Register");
+						else
+							b = new JButton ("Extend Subscription");
 		   			    b.addActionListener (new ActionListener () {
 		    			     public void actionPerformed (ActionEvent e) {		    			    	 	
 		    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, null);
@@ -129,7 +161,11 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 							p.add ( new JLabel ("       " + feature.getName()));
 							p.add ( new JLabel (  strDateInfo));
 
-						    JButton b2 = new JButton ("De-Register");
+							JButton b2;
+							if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+								b2 = new JButton ("De-Register");
+							else
+								b2 = new JButton ("Extend Subscription");
 			   			    b2.addActionListener (new ActionListener () {
 			    			     public void actionPerformed (ActionEvent e) {
 			    			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, feature);
