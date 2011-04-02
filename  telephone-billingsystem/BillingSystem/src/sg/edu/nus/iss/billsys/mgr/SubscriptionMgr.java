@@ -54,30 +54,11 @@ public class SubscriptionMgr {
 	}	
 
 	public FeatureType[] getPlanOptionalFeatures(PlanType planType) {
-		switch(planType) {
-		case DigitalVoice:
-			return new FeatureType[] {
-				FeatureType.CallTransfer,
-				FeatureType.DigiIDD,
-				FeatureType.DigiLocalCall,
-				FeatureType.DigiIDDCall,
-			};
-		case MobileVoice:
-			return new FeatureType[] {
-				FeatureType.DataService,
-				FeatureType.Roaming,
-				FeatureType.MobileIDD,
-				FeatureType.MobileLocalCall,
-				FeatureType.MobileIDDCall,
-				FeatureType.RoamingCall,
-			};
-		case CableTv:
-			return new FeatureType[] {
-				FeatureType.AddChannel
-			};
-		default:
-			return null;
-		}
+		return planType.optionalFeatures;
+	}
+
+	public FeatureType[] getPlanUsageChargeFeatures(PlanType planType) {
+		return planType.usageChargeFeatures;
 	}
 
     /*
