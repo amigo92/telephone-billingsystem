@@ -53,12 +53,26 @@ public class SubscriptionMgr {
 		return planType.basicFeature;
 	}	
 
-	public FeatureType[] getPlanOptionalFeatures(PlanType planType) {
-		return planType.optionalFeatures;
-	}
-
-	public FeatureType[] getPlanUsageChargeFeatures(PlanType planType) {
-		return planType.usageChargeFeatures;
+	public FeatureType[] getPlanFeatures(PlanType planType) {
+		return new FeatureType[] {
+			// digi voice
+			FeatureType.Line,
+			FeatureType.CallTransfer,
+			FeatureType.DigiIDD,
+			FeatureType.DigiLocalCall,
+			FeatureType.DigiIDDCall,
+			// mobile
+			FeatureType.Mobile,
+			FeatureType.DataService,
+			FeatureType.Roaming,
+			FeatureType.MobileIDD,
+			FeatureType.MobileLocalCall,
+			FeatureType.MobileIDDCall,
+			FeatureType.RoamingCall,
+			// cable tv
+			FeatureType.StdChannels,
+			FeatureType.AddChannel
+		};
 	}
 
     /*
