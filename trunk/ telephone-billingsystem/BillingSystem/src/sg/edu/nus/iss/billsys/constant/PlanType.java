@@ -36,13 +36,6 @@ public enum PlanType {
 	public final String name;
 	public final FeatureType basicFeature;
 	public final FeatureType[] optionalFeatures;
-	public final FeatureType[] usageChargeFeatures = new FeatureType[] {
-		FeatureType.DigiLocalCall,
-		FeatureType.MobileLocalCall,
-		FeatureType.DigiIDDCall,
-		FeatureType.MobileIDDCall,
-		FeatureType.RoamingCall
-	};
 	
 	private PlanType(PlanCode code, String name, FeatureType basicFeature, FeatureType[] optionalFeatures) {
 		this.planCode = code;
