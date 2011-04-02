@@ -29,6 +29,7 @@ public class SubscriptionMgrTest extends TestCase {
 	@Before
 	public void setUp() throws Exception {
 		subMgr = MgrFactory.getSubscriptionMgr();
+		subMgr.setSaveObjData(false);
 		cust = MgrFactory.getAccountMgr().createCustomer(
 			"John",
 			"S1234567",

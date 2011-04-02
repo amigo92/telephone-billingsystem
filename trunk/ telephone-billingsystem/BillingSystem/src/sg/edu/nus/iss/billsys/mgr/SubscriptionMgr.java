@@ -28,12 +28,17 @@ public class SubscriptionMgr {
 	private IFeatureRateDao featureRateDao;
 	private IPhoneNumbersDao mobileNumbersDao;
 	private IPhoneNumbersDao digiVoiceNumbersDao;
+	private boolean saveObjData = true;
 	
 	protected SubscriptionMgr() throws BillingSystemException {
 		subPlanDao = DaoFactory.getInstanceOfSubscriptionPlanDao();
 		featureRateDao = DaoFactory.getInstanceOfFeatureRateDao();
 		mobileNumbersDao = DaoFactory.getInstanceOfMobileNumbersDao();
 		digiVoiceNumbersDao = DaoFactory.getInstanceOfDigiVoiceNumbersDao();
+	}
+	
+	public void setSaveObjData(boolean value) {
+		this.saveObjData = value;
 	}
 		
 	public int getSubscriptionCharge(FeatureType featureType){
@@ -175,8 +180,10 @@ public class SubscriptionMgr {
 		if (!subPlanDao.addAccountSubscription(acctNo, plan)) {
 			throw new BillingSystemException("Failed to add subscription plan into doa.");
 		}
-		subPlanDao.saveObjectData();
-		if (phoneNosDao != null) {
+		if (saveObjData) {
+			subPlanDao.saveObjectData();
+		}
+		if (phoneNosDao != null && saveObjData) {
 			phoneNosDao.saveObjectData();
 		}
 		return plan;
@@ -229,7 +236,9 @@ public class SubscriptionMgr {
 			dateTerminated
 		);
     	plan.addOptionalFeature(feature);
-		subPlanDao.saveObjectData();
+    	if (saveObjData) {
+    		subPlanDao.saveObjectData();
+    	}
 		return feature;
     }
 
@@ -340,7 +349,9 @@ public class SubscriptionMgr {
     		throw new BillingSystemException("Invalid feature id.");
     	}
     	feature.setDateTerminated(dateTerminated);
-		subPlanDao.saveObjectData();
+    	if (saveObjData) {
+    		subPlanDao.saveObjectData();
+    	}
     }
 
     /*
@@ -368,7 +379,9 @@ public class SubscriptionMgr {
     	for (Feature f : regFeatures) {
     		f.setDateTerminated(dateTerminated);
     	}
-		subPlanDao.saveObjectData();
+    	if (saveObjData) {
+    		subPlanDao.saveObjectData();
+    	}
     }
     
     private boolean validateAccount(String acctNo) throws BillingSystemException {
