@@ -14,7 +14,6 @@ public class DaoFactory {
 	private static IUserDao userDao;
 	private static ISubscriptionPlanDao subscriptionPlanDao;
 	private static IComplaintsDao complaintsDao;
-	private static IPlanRateDao planRateDao;
 	private static IPaymentHistDao paymentHistDao;
 	private static IFeatureRateDao featureRateDao;
 	private static ICustomerDao customerDao;
@@ -47,15 +46,6 @@ public class DaoFactory {
 		}
 		
 		return complaintsDao;
-	}
-	
-	public static IPlanRateDao getInstanceOfPlanRateDao() throws BillingSystemException{
-		
-		if(planRateDao == null){
-			planRateDao = new PlanRateDao();
-		}
-		
-		return planRateDao;
 	}
 	
 	public static IPaymentHistDao getInstanceOfPaymentHistDao() throws BillingSystemException{
