@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -67,19 +68,11 @@ public class DigiVoiceNumbersDaoTest {
 	}
 
 	/**
-	 * Test method for {@link sg.edu.nus.iss.billsys.dao.DigiVoiceNumbersDao#DigiVoiceNumbersDao()}.
-	 */
-	@Test
-	public void testDigiVoiceNumbersDao() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link sg.edu.nus.iss.billsys.dao.DigiVoiceNumbersDao#getPhoneNumbers()}.
 	 */
 	@Test
 	public void testGetPhoneNumbers() {
-		fail("Not yet implemented");
+		assertNotNull(digiDao.getPhoneNumbers());
 	}
 
 	/**
@@ -87,7 +80,14 @@ public class DigiVoiceNumbersDaoTest {
 	 */
 	@Test
 	public void testRemovePhoneNumber() {
-		fail("Not yet implemented");
+		List<String> list = digiDao.getPhoneNumbers();
+		assertNotNull(list);
+		assertTrue(list.size() > 0);
+		String no = list.get(0);
+		assertNotNull(no);
+		assertTrue(list.contains(no));
+		assertTrue(digiDao.removePhoneNumber(no));
+		assertFalse(list.contains(no));
 	}
 
 }
