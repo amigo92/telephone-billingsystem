@@ -32,26 +32,26 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BillingWindow        window;
+	
 	private JTextField           customerID;
+	private JPanel featurePanel;
+
 	private PlanType[]       listOfPlanType;
 	private SubscriptionMgr      manager;
 	private String[] planNames;
 	private PlanType planType;
 	private String accountNo;
-	private JPanel featurePanel;
-	private JComboBox featureBox;
-	private JPanel registerSubscriptionPlanPanel;
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
 	private AccountMgr accountMgr;
 	private ArrayList<Customer>  customersList;
     
     public SubscriptionRegistrationPanel (BillingWindow window) {
-    		 initialize(window);
+		initialize(window);
     }
     public SubscriptionRegistrationPanel (BillingWindow window, String accountNo) {
-    		this.accountNo = accountNo;
-    		initialize(window);
+		this.accountNo = accountNo;
+		initialize(window);
     }
     public SubscriptionRegistrationPanel (BillingWindow window,String customerID, String accountNo) {
 		this.accountNo = accountNo;	
@@ -64,44 +64,23 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    manager = window.getSubscriptionMgr();
 	    accountMgr = window.getAccountMgr();
     	customersList =  accountMgr.getAllActiveCustomers();
-
 	    
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	   
-	    featurePanel = new JPanel(new BorderLayout());  // registerFeaturePanel();
-//		featurePanel.add ("North", registerFeaturePanel());
+	    featurePanel = new JPanel(new BorderLayout());
 
 	    add ("North", createFormPanel());      
 	    add ("Center", featurePanel);   
-//	    customerID.setText("S8481362F");    
+  
     }
 
     private JPanel createFormPanel () {
     	JPanel p = new JPanel (new GridLayout (0,2));
     
         p.add(createCustomerComboBox());
-
-//        JButton b = new JButton ("Validate & Get Subscription Information");
-//        b.addActionListener (new ActionListener () {
-//	        public void actionPerformed (ActionEvent e) {
-//		        	try{	
-//		        		
-//			    		   Account acc = selectedCustomer.getAcct();
-//			        	   accountNo = acc.getAcctNo();
-//			        	   featurePanel.revalidate();
-//			               featurePanel.add ("North", registerFeaturePanel());
-//		        	}
-////		        	catch (BillingSystemException ex){
-////		    			JOptionPane.showMessageDialog(window, ex.getMessage(),"Error" ,0);
-////		    		}
-//		        	catch(Exception ex){
-//			    		JOptionPane.showMessageDialog(window, ex.getMessage(), "Error", 0);
-//			    	} 	
-//	    		}
-//	        });
-        
-         p.add (new Label());
+ 
+        p.add (new Label());
 
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
@@ -118,8 +97,8 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    for(Customer c :customersList){
 	    	accountBox.addItem(c.getName()+ "-" + c.getNric());
 	    	
-	    	 if(accountNo != null){
-	    		if( c.getNric().equals(accountNo))
+	    	 if(accountNo != null){  		 
+	    		if( c.getAccountId().equals(accountNo))
 	    			selectedIndex = customersList.indexOf(c);
 	    	 }
 	    }
@@ -137,7 +116,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    });
 	 
 	    accountBox.setSelectedIndex(selectedIndex);
-	    //add(accountBox, BorderLayout.PAGE_START);
 	    return accountBox;
     }
 
@@ -174,6 +152,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    
 	    JComboBox planTypeBox = new JComboBox(planNames);
 	    
+	    
 	    planTypeBox.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		   JComboBox cb = (JComboBox)e.getSource();
@@ -182,20 +161,15 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    });
 	 
 	    planTypeBox.setSelectedIndex(0);
-	   // add(planTypeBox, BorderLayout.PAGE_START);
 	    return planTypeBox;
     }
   
     private JPanel registerFeaturePanel () {
-    	
-		JScrollPane scrollPane = new JScrollPane();
+    	JPanel bp = new JPanel (new BorderLayout());
 
-		JPanel p = new JPanel ();
-		p.setLayout (new GridLayout (0, 2));
-		
-		p.add(new JLabel ("Register New Feature: "));
-		p.add(new JLabel(""));
-		   
+		JScrollPane scrollPane = new JScrollPane();
+		JPanel p = new JPanel (new GridLayout (0, 2));
+
 		if(accountNo != null){
 
 			try{
@@ -203,6 +177,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
 				
 				if(subscribedPlans !=null)
 				{	
+					p.add(new JLabel ("Register New Feature: "));
+					p.add(new JLabel(""));
+					
 					JButton b = new JButton ("Register new feature");
 			        b.addActionListener (new ActionListener () {
 			        public void actionPerformed (ActionEvent e) {
@@ -225,10 +202,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 					JPanel sp = new JPanel (new GridLayout (0, 2));
 					
 					JLabel titleLabel = new JLabel ("Existing Subscription Information:");
-//					Font font = new Font("Verdana", Font.BOLD, 12);
-//					titleLabel.setFont(font);
-//					titleLabel.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
-//					
+				
 					sp.add ( titleLabel);
 					sp.add(new JLabel(""));
 					
@@ -248,24 +222,17 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
 							sp.add ( new JLabel ("        " + feature.getName()));
 							sp.add(new JLabel(strDateInfo));
-						}			
-					}
-
-					scrollPane.getViewport().add( sp );
-	
+						}	
+						scrollPane.getViewport().add( sp );
+						bp.add ("North", p);
+			        	bp.add ("Center", scrollPane);
+					} 
 				}
 			}catch(Exception ex) {			
-	    		JOptionPane.showMessageDialog(window, ex.getMessage());
+	    		JOptionPane.showMessageDialog(window, ex.getMessage(), "Error",0);
 			}
 		}
-		
-    	JPanel bp = new JPanel (new BorderLayout());
- 
-        if(accountNo != null){
-        	bp.add ("North", p);
-        	bp.add ("Center", scrollPane);
-         }
-     
+
         return bp;
     }
 
@@ -287,7 +254,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    });
 	 
 	    planBox.setSelectedIndex(0);
-	   // add(planBox, BorderLayout.PAGE_START);
 	    return planBox;
     }
 }
