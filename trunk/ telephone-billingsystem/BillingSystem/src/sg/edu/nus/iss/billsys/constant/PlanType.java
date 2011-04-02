@@ -14,6 +14,9 @@ public enum PlanType {
 		new FeatureType[] {
 			FeatureType.DigiIDD,
 			FeatureType.CallTransfer
+		},new FeatureType[] {
+			FeatureType.DigiLocalCall,
+			FeatureType.DigiIDDCall
 		}),
 	MobileVoice(
 		PlanCode.MOBILE_VOICE,
@@ -23,6 +26,9 @@ public enum PlanType {
 			FeatureType.MobileIDD,
 			FeatureType.DataService,
 			FeatureType.Roaming,
+		},new FeatureType[] {
+			FeatureType.MobileLocalCall,
+			FeatureType.MobileIDDCall
 		}),
 	CableTv(
 		PlanCode.CABLE_TV,
@@ -30,18 +36,21 @@ public enum PlanType {
 		FeatureType.StdChannels,
 		new FeatureType[] {
 			FeatureType.AddChannel
+		},new FeatureType[] {
 		});
 	
 	public final PlanCode planCode;
 	public final String name;
 	public final FeatureType basicFeature;
 	public final FeatureType[] optionalFeatures;
+	public final FeatureType[] usageChargeFeatures;
 	
-	private PlanType(PlanCode code, String name, FeatureType basicFeature, FeatureType[] optionalFeatures) {
+	private PlanType(PlanCode code, String name, FeatureType basicFeature, FeatureType[] optionalFeatures, FeatureType[] usageChargeFeatures) {
 		this.planCode = code;
 		this.name = name;
 		this.basicFeature = basicFeature;
 		this.optionalFeatures = optionalFeatures;
+		this.usageChargeFeatures = usageChargeFeatures;
 	}
 	
 	/**
