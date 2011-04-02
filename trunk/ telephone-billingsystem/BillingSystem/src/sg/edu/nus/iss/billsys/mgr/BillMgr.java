@@ -234,6 +234,7 @@ public class BillMgr {
 		detail.setDesc(cableTvPlan.getPlanDescription());
 		detail.addEntry(bill.new Entry("Subscriptions charges", basicCharges));
 		detail.addEntry(bill.new Entry("Additional " + channels + " Channel(s) charges" , additionCharges));
+		detail.setTotalAmt(basicCharges + additionCharges);
 		bill.addDetailChargesList(detail);
 	}
 	
