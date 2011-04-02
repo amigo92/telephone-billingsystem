@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -357,9 +358,11 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 						.getComplaintByCustomerId(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
+				BillingSystemLogger.logSevere("Exce" + evt);
 				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
+				BillingSystemLogger.logInfo("Inside getComplaintsButtonActionPerformed, event=" + evt);
 				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -372,6 +375,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			complaintsTable.setModel(complaintTableModel);
 		 } else {
 				JOptionPane.showMessageDialog(window, "No complaints found!", "Warning Message", JOptionPane.WARNING_MESSAGE);
+				// populate the table
+				TableModel complaintTableModel = new DefaultTableModel(
+						getTableData(new ArrayList<CustComplaint>()), getColumnNames());
+				complaintsTable.setModel(complaintTableModel);
 				return;
 		 }
 	}
@@ -411,6 +418,9 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		// set error message
 		if (returnValue > 0) {
 			JOptionPane.showMessageDialog(window, "Successfully updated the complaint.", "Success Message", JOptionPane.INFORMATION_MESSAGE);
+			
+			// reload the complaints list
+			getComplaintsButtonActionPerformed(null);
 		} else {
 			JOptionPane.showMessageDialog(window, "Internal error occurred during the complaint updation!.", "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
