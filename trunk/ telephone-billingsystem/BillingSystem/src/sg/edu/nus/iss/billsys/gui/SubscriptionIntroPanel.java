@@ -8,6 +8,7 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
+import sg.edu.nus.iss.billsys.tools.FinanceUtils;
 
 import java.util.List;
 import java.awt.*;
@@ -47,7 +48,7 @@ public class SubscriptionIntroPanel extends JPanel {
         	FeatureType basicFeatureType = manager.getPlanBasicFeatures(planType);
     	
 	    	//p.add(new JLabel("     " + basicFeatureType.name));
-	        p.add(new JLabel("     " + manager.getSubscriptionCharge(basicFeatureType)));
+	        p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(basicFeatureType))));
 	    	p.add(new JLabel(""));
 	    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);
     	
@@ -57,10 +58,10 @@ public class SubscriptionIntroPanel extends JPanel {
 	    		{
 	    			p.add(new JLabel("     " + featureType.name));
 			    	p.add(new JLabel(""));
-			    	p.add(new JLabel("     " + manager.getSubscriptionCharge(featureType)));				    	
+			    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));				    	
 	    		}else {
 		    		p.add(new JLabel("     " + featureType.name));
-			    	p.add(new JLabel("     " + manager.getSubscriptionCharge(featureType)));	
+			    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));	
 			    	p.add(new JLabel(""));
 	    		}	
 	    	} 	
