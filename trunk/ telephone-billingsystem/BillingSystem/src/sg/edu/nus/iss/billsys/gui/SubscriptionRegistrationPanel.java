@@ -58,15 +58,14 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    manager = window.getSubscriptionMgr();
 	    accountMgr = window.getAccountMgr();
     	customersList =  accountMgr.getAllActiveCustomers();
-	    
+    	
+	    featurePanel = new JPanel(new BorderLayout());
+
 	    setLayout (new BorderLayout());
 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 	   
-	    featurePanel = new JPanel(new BorderLayout());
-
 	    add ("North", createFormPanel());      
-	    add ("Center", featurePanel);   
-  
+	    add ("Center", featurePanel); 
     }
 
     private JPanel createFormPanel () {	
@@ -181,7 +180,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		        		d.setVisible(true);
 			    
 			        	}catch(Exception ex){
-				    		JOptionPane.showMessageDialog(window, ex.getMessage());
+				    		JOptionPane.showMessageDialog(window, ex.getMessage(),"Error", 0);
 				    	} 	
 			    	}
 			        });
@@ -219,6 +218,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	 private JScrollPane existingSubscriptionPanel (List<SubscriptionPlan> subscribedPlans) {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setAutoscrolls(true);
+		scrollPane.setPreferredSize(new Dimension(700,320));
 	
 		JPanel sp = new JPanel (new GridLayout (0, 3));
 			
