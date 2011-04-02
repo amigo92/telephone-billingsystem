@@ -49,7 +49,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			subMgr.registerNewSubscriptionPlan(
 				null,
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-01-01 00:00:00"),
 				null
@@ -63,7 +63,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				null,
 				null
@@ -75,7 +75,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				TimeUtils.parseDate("2011-01-01 00:00:00")
@@ -89,7 +89,21 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			subMgr.registerNewSubscriptionPlan(
 				"AAAAAA111111",
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
+				PlanType.DigitalVoice,
+				TimeUtils.parseDate("2011-02-01 00:00:00"),
+				null
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.registerNewSubscriptionPlan(
+				cust.getAccountId(),
+				"66668888",
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
@@ -103,7 +117,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			SubscriptionPlan plan1 = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
@@ -118,7 +132,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			SubscriptionPlan plan1 = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"91234567",
+				subMgr.getAvailMobileNumbers().get(0),
 				PlanType.MobileVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
@@ -148,7 +162,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			SubscriptionPlan plan1 = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				TimeUtils.parseDate("2013-02-01 00:00:00")
@@ -163,7 +177,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			SubscriptionPlan plan1 = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"91234567",
+				subMgr.getAvailMobileNumbers().get(0),
 				PlanType.MobileVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				TimeUtils.parseDate("2013-02-01 00:00:00")
@@ -199,7 +213,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			digiPlan = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				TimeUtils.parseDate("2012-02-01 00:00:00")
@@ -441,7 +455,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			mobilePlan = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"91234567",
+				subMgr.getAvailMobileNumbers().get(0),
 				PlanType.MobileVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
@@ -652,7 +666,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			digiPlan = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				TimeUtils.parseDate("2012-02-01 00:00:00")
@@ -784,7 +798,7 @@ public class SubscriptionMgrTest extends TestCase {
 		try {
 			digiPlan = subMgr.registerNewSubscriptionPlan(
 				cust.getAccountId(),
-				"61234567",
+				subMgr.getAvailDigiVoiceNumbers().get(0),
 				PlanType.DigitalVoice,
 				TimeUtils.parseDate("2011-02-01 00:00:00"),
 				null
