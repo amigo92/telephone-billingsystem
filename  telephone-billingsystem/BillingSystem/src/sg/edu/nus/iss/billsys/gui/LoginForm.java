@@ -290,6 +290,10 @@ public class LoginForm extends javax.swing.JFrame {
 		billingWindow.pack ();
 		billingWindow.setSize(600, 600);
 		billingWindow.setVisible (true);	
+	    Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension screenSize = tk.getScreenSize();
+	    billingWindow.setLocation(screenSize.width/2-300, screenSize.height/2-300);
+	    billingWindow.setResizable(false);
 	}
 
 }

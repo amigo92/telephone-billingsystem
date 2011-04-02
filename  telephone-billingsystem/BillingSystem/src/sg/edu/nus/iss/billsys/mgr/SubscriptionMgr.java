@@ -73,6 +73,21 @@ public class SubscriptionMgr {
 	}
 
     /*
+     * To get a list of available phone numbers by plan type.
+     * @return list of String objects
+     */
+	public List<String> getAvailPhoneNumbers(PlanType planType) {
+		switch(planType) {
+		case DigitalVoice:
+			return digiVoiceNumbersDao.getPhoneNumbers();
+		case MobileVoice:
+			return mobileNumbersDao.getPhoneNumbers();
+		default:
+			return null;	
+		}
+	}
+
+    /*
      * To get all subscription plans of the account.
      * @return list of SubscriptionPlan objects
      */
