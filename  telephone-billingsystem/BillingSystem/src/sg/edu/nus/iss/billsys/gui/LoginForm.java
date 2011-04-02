@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -68,6 +70,7 @@ public class LoginForm extends javax.swing.JFrame {
 			{
 				loginButton = new JButton();
 				loginButton.setText("Login");
+				getRootPane().setDefaultButton(loginButton);
 				loginButton.addActionListener(new ActionListener() {
 
 					@Override
@@ -226,6 +229,10 @@ public class LoginForm extends javax.swing.JFrame {
 							.addContainerGap(35, 35));
 			pack();
 			this.setSize(317, 237);
+		    Toolkit tk = Toolkit.getDefaultToolkit();
+		    Dimension screenSize = tk.getScreenSize();
+		    setLocation(screenSize.width/2-160, screenSize.height/2-120);
+		    setResizable(false);
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
