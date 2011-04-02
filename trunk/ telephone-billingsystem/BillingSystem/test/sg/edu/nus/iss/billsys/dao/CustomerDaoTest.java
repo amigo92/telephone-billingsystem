@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -70,7 +71,12 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testGetCustomerByNric() {
-		fail("Not yet implemented");
+		String testNRIC = "S8481366F";
+		if(custDao == null){
+			fail("Exception while initialising CustomerDao , objectDataMapping have errors !!");
+		}
+		//System.out.println(custDao.getCustomerByNric(testNRIC).getAccountId());
+		assertEquals(testNRIC,custDao.getCustomerByNric(testNRIC).getNric());
 	}
 
 	/**
@@ -78,7 +84,12 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testGetCustomerByName() {
-		fail("Not yet implemented");
+		String testName = "Veera";
+		if(custDao == null){
+			fail("Exception while initialising CustomerDao , objectDataMapping have errors !!");
+		}
+		//System.out.println(custDao.getCustomerByNric(testNRIC).getAccountId());
+		assertEquals(testName,custDao.getCustomerByName(testName).getName());
 	}
 
 	/**
@@ -86,23 +97,26 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testGetCustomerByAcctId() {
-		fail("Not yet implemented");
+		String testAcct = "SA-2011-03-25-8481362";
+		if(custDao == null){
+			fail("Exception while initialising CustomerDao , objectDataMapping have errors !!");
+		}
+		//System.out.println(custDao.getCustomerByNric(testNRIC).getAccountId());
+		assertEquals(testAcct,custDao.getCustomerByAcctId(testAcct).getAccountId());
 	}
 
 	/**
 	 * Test method for {@link sg.edu.nus.iss.billsys.dao.CustomerDao#addCustomer(sg.edu.nus.iss.billsys.vo.Customer)}.
 	 */
 	@Test
-	public void testAddCustomer() {
-		fail("Not yet implemented");
-	}
+
 
 	/**
 	 * Test method for {@link sg.edu.nus.iss.billsys.dao.CustomerDao#getAllCustomers()}.
 	 */
-	@Test
+
 	public void testGetAllCustomers() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -118,7 +132,13 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testDeleteCust() {
-		fail("Not yet implemented");
+		if(custDao == null){
+			fail("Exception in dao generation , objectDataMapping have errors !!");
+		}
+		String testAcct = "SA-2011-03-25-8481361";
+		custDao.deleteCust(testAcct, Calendar.getInstance().getTime());
+		assertEquals(true,custDao.getCustomerByAcctId(testAcct).getIsDeleted());
+		
 	}
 
 }
