@@ -13,11 +13,13 @@ import sg.edu.nus.iss.billsys.vo.User;
  */
 public class UserDao extends GenericDao implements IUserDao{
 	
+	private final static String  USER_DATA_FILE="data/User.txt";
 	private static final int COL_LENGTH=3;
 	private List<User> listUser=new ArrayList<User>();
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(USER_DATA_FILE);
 		if(validateData(data,"Authorised User",COL_LENGTH)){
 		List<User> listUser=new ArrayList<User>();
 		
@@ -39,28 +41,11 @@ public class UserDao extends GenericDao implements IUserDao{
 	
 	@Override
 	public final void saveObjectData() throws BillingSystemException{
-//		Veera : This is a method to give a idea of the dao design implementation and not used for any usecase.
-	/*	int cnt=0;
-	
-	String data[][]=new String[listUser.size()][COL_LENGTH];
-		
-	for (Iterator<User> iter = listUser.iterator(); iter.hasNext();) {
-	
-		User element = (User) iter.next();			
-			
-			data[cnt][0]=element.getUsername();
-			data[cnt][1]=element.getPassword();
-			data[cnt][2]=String.valueOf(element.getRole().ordinal());
-			
-			cnt++;				
-		}
-	if(validateData(data,"Authorised User",COL_LENGTH)){
-		saveUserData(data);
-	}*/
+		//This method will not be implemented , since there is no save use case for this data,only read operation is required on the User Authentication
 	}	
 	
 	protected UserDao() throws BillingSystemException{
-	 this.objectDataMapping(getUserData());
+	 this.objectDataMapping();
 	}
 	
 	private UserRole getRoleByCode(String code){

@@ -11,13 +11,14 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 
 public class DigiVoiceNumbersDao extends GenericDao implements IPhoneNumbersDao {
 	
+	private final static String  DIGIVOICE_NUMBERS_DATA_FILE="data/DigiVoiceNumbers.txt";
 	private static final int COL_LENGTH = 1;
 	private List<String> listNumbers = new ArrayList<String>();
 
 	@Override
-	protected void objectDataMapping(String[][] data)
+	protected void objectDataMapping()
 			throws BillingSystemException {
-		
+		String[][] data=getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
 		if (validateData(data,"DigiVoice Number",COL_LENGTH)) {
 			List<String> listNumbers = new ArrayList<String>();
 			for (int i=0;i<data.length;i++) {
@@ -35,13 +36,13 @@ public class DigiVoiceNumbersDao extends GenericDao implements IPhoneNumbersDao 
 		for (String s : listNumbers) {
 			data[cnt++][0]=s;
 		}
-		if (!saveDigiVoiceNumbersData(data)) {
+		if (!storeDataByArray(DIGIVOICE_NUMBERS_DATA_FILE, data)) {
 			throw new BillingSystemException("Saving to File Operation Failed for DigiVoiceNumbersData");
 		}
 	}
 	
 	protected DigiVoiceNumbersDao() throws BillingSystemException {
-		this.objectDataMapping(getDigiVoiceNumbersData());
+		this.objectDataMapping();
 	}
 
 	public List<String> getPhoneNumbers() {

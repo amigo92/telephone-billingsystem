@@ -14,12 +14,14 @@ import sg.edu.nus.iss.billsys.vo.Rate;
  *
  */
 public class FeatureRateDao extends GenericDao implements IFeatureRateDao{
+	private final static String  FEATURE_RATES_DATA_FILE="data/FeatureRates.txt";
 	private static final int COL_LENGTH=2;
 	private List<Rate> listFeatureRates=new ArrayList<Rate>();
 	
 	
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(FEATURE_RATES_DATA_FILE);
 		if(validateData(data,"Feature Rate",COL_LENGTH)){
 		try{
 			List<Rate> listFeatureRates=new ArrayList<Rate>();
@@ -49,7 +51,7 @@ public class FeatureRateDao extends GenericDao implements IFeatureRateDao{
 	}	
 	
 	protected FeatureRateDao() throws BillingSystemException{
-	 this.objectDataMapping(getFeatureRateData());
+	 this.objectDataMapping();
 	}
 	
 	public Rate getPricebyFeatureCode(int feature_code){

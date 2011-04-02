@@ -13,6 +13,7 @@ import sg.edu.nus.iss.billsys.vo.*;
  *
  */
 public class PaymentHistDao extends GenericDao implements IPaymentHistDao{
+	private final static String  PAYMENT_HISTORY_DATA_FILE="data/PaymentHistory.txt";
 	private static final int COL_LENGTH=3;
 	private List<PaymentHist> listPaymentHx=new ArrayList<PaymentHist>();
 
@@ -22,7 +23,8 @@ public class PaymentHistDao extends GenericDao implements IPaymentHistDao{
 		
 	}
 	@Override
-	protected final void objectDataMapping(String[][] data) throws BillingSystemException{
+	protected final void objectDataMapping() throws BillingSystemException{
+		String[][] data=getDataAsArray(PAYMENT_HISTORY_DATA_FILE);
 		if(validateData(data,"Payment History",COL_LENGTH)){
 			List<PaymentHist> listPaymentHx=new ArrayList<PaymentHist>();
 			
@@ -48,7 +50,7 @@ public class PaymentHistDao extends GenericDao implements IPaymentHistDao{
 	
 	}
 	protected PaymentHistDao() throws BillingSystemException{
-		this.objectDataMapping(getPaymentHistoryData());
+		this.objectDataMapping();
 	}
 	
 	/**
