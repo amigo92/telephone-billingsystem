@@ -6,6 +6,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 import java.awt.Font;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -24,6 +25,11 @@ public class BillingReportView extends JPanel {
 	private JComboBox ddBillPeriod;
 	private JTextArea txtReport;
 	private JScrollPane spReport;
+	
+	private JLabel lblBillPeriod;
+	private JButton btnGenerate;
+	
+	private BillPeriod aBillPeriod;
 	
     public BillingReportView (BillingWindow window) {
     	try
@@ -50,6 +56,15 @@ public class BillingReportView extends JPanel {
     	txtReport.setEditable(false);
     	txtReport.setFont(new Font("Lucida Console", Font.PLAIN,12));
     	spReport = new JScrollPane(txtReport);
+    	
+    	aBillPeriod = MgrFactory.getBillMgr().getNextBillPeriod();
+    	lblBillPeriod = new JLabel ("Next Bill Period: " + aBillPeriod.printBillPeriod());
+    	btnGenerate = new JButton ("Generate");
+    	
+    	if(!window.isAdmin()){
+    		lblBillPeriod.setVisible(false);
+    		btnGenerate.setVisible(false);
+    	}
     }
     
     private void iniListeners(){
@@ -83,6 +98,25 @@ public class BillingReportView extends JPanel {
 	    		}
 	    	}
 	    });
+
+    	btnGenerate.addActionListener (new ActionListener () {
+	        public void actionPerformed (ActionEvent e) {
+	        	try{	
+	        		MgrFactory.getBillMgr().generate(aBillPeriod);
+	        		JOptionPane.showMessageDialog(window, "Bill generated successfully.");
+	        		
+	        		aBillPeriod = MgrFactory.getBillMgr().getNextBillPeriod();
+	            	lblBillPeriod.setText("Next Bill Period: " + aBillPeriod.printBillPeriod());
+	            	
+	            	ddBillPeriod.addItem(aBillPeriod.printBillPeriod());   		
+	        		window.validate();
+	        	}
+		    	catch(Exception ex)
+		    	{
+		    		ex.printStackTrace();
+		    	} 	
+	    	}
+        });
     }
     
     private void iniLayout() {
@@ -103,8 +137,10 @@ public class BillingReportView extends JPanel {
     		            								.addComponent(txtNric, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
     		              		            	              GroupLayout.PREFERRED_SIZE)
     		            								.addComponent(ddBillPeriod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-    		              		            	              GroupLayout.PREFERRED_SIZE)
-    		            						)))			         
+    		              		            	              GroupLayout.PREFERRED_SIZE)  
+    		            						)))	
+    		            		.addComponent(lblBillPeriod)	
+			    		    	.addComponent(btnGenerate)
     		            		.addComponent(spReport)		
     		            
     	 );
@@ -116,7 +152,9 @@ public class BillingReportView extends JPanel {
     		            		.addComponent(txtNric))
     		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
     		            		.addComponent(lblBP)
-    		            		.addComponent(ddBillPeriod))		
+    		            		.addComponent(ddBillPeriod))
+    		            .addComponent(lblBillPeriod)	
+			    		.addComponent(btnGenerate)		
     	    		    .addComponent(spReport)	
     	);
     }
