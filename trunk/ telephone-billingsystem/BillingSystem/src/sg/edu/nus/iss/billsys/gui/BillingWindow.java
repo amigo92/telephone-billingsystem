@@ -21,7 +21,14 @@ public class BillingWindow extends JFrame {
     private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
     private SubscriptionDeRegistrationPanel subscriptionDeRegistrationPanel;
     
-    private WindowListener windowListener = new WindowAdapter () {
+    private boolean isAdmin = false;
+
+    
+    public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	private WindowListener windowListener = new WindowAdapter () {
         public void windowClosing (WindowEvent e) {
             System.exit(0);
         }
@@ -58,7 +65,6 @@ public class BillingWindow extends JFrame {
         JMenu menu;
         menuBar = new JMenuBar();
         
-        boolean isAdmin = false;
         UserRole role = (UserRole) SessionMgr.map.get(SessionKeys.USER_ROLE); 
 
         if (role != null && role.toString().equalsIgnoreCase(UserRole.ADMIN.toString())) {
