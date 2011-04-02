@@ -1,30 +1,32 @@
 package sg.edu.nus.iss.billsys.gui;
 
 import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
+import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
@@ -34,189 +36,256 @@ import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
-public class UpdateComplaintPanel extends JPanel {
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
+public class UpdateComplaintPanel extends javax.swing.JPanel {
+
+	/**
+	* Auto-generated main method to display this 
+	* JPanel inside a new JFrame.
+	*/
 	private BillingWindow window;
-	private JPanel customerIdPanel;
-	private JPanel tablePanel;
-	private JPanel statusPanel;
-	private JPanel buttonPanel;
+	private JLabel customerIdLabel;
+	private JButton getComplaintsButton;
+	private JLabel complaintIdLabel;
+	private JSeparator jSeparator3;
+	private JTable complaintsTable;
+	private JScrollPane complaintsScrollPane;
+	private JLabel blankLabel1;
+	private JLabel statusLabel;
 	private JButton cancelButton;
+	private JLabel blankLabel2;
+	private JButton updateButton;
 	private JTextArea complaintTextArea;
 	private JLabel complaintLabel;
 	private JComboBox statusComboBox;
-	private JLabel statusLabel;
 	private JTextField complaintIdTextField;
-	private JLabel complaintIdLabel;
-	private JTable complaintTable;
-	private JSeparator jSeparator1;
-	private JLabel getComplaintsLabel;
+	private JSeparator jSeparator2;
 	private JTextField customerIdTextField;
 	private JRadioButton nricRadioButton;
 	private JRadioButton accountNoRadioButton;
-	private JScrollPane updateComplaintScrollPane;
-	private JButton getComplaintsButton;
-	private JLabel errorMessageLabel;
-	private JButton updateLogButton;
-	private JLabel customerIdLabel;
+	private JSeparator jSeparator1;
+	private JLabel updateComplaintsLabel;
 	private ButtonGroup customerIdButtonGroup;
 
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.getContentPane().add(new TestPanel(new BillingWindow()));
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
 	public UpdateComplaintPanel(BillingWindow window) {
 		super();
 		this.window = window;
 		this.window.setTitle("Billing System > Update Complaint");
 		initGUI();
 	}
-
+	
 	private void initGUI() {
 		try {
-			this.setLayout(new GridLayout(0, 1));
-
-			getComplaintsLabel = new JLabel();
-			getComplaintsLabel.setText("Get Complaints:");
-			this.add(getComplaintsLabel);
-
-			customerIdPanel = new JPanel();
-			customerIdPanel.setLayout(formatGridLayout(new GridLayout(0, 5)));
-
-			complaintLabel = new JLabel();
-			complaintLabel.setText("Complaint:");
-			customerIdPanel.add(complaintLabel);
-
+			this.setPreferredSize(new java.awt.Dimension(800, 600));
+			this.setMinimumSize(new java.awt.Dimension(800, 600));
+			this.setMaximumSize(new java.awt.Dimension(800, 600));
+			
 			customerIdButtonGroup = new ButtonGroup();
+			
+			{
+				updateComplaintsLabel = new JLabel();
+				this.add(updateComplaintsLabel);
+				updateComplaintsLabel.setText("Update Complaints");
+				updateComplaintsLabel.setPreferredSize(new java.awt.Dimension(750, 23));
+				updateComplaintsLabel.setFont(new java.awt.Font("Tahoma",1,14));
+			}
+			{
+				jSeparator1 = new JSeparator();
+				this.add(jSeparator1);
+				jSeparator1.setPreferredSize(new java.awt.Dimension(750, 15));
+			}
+			{
+				customerIdLabel = new JLabel();
+				this.add(customerIdLabel);
+				customerIdLabel.setText("Customer Id:");
+				customerIdLabel.setPreferredSize(new java.awt.Dimension(200, 14));
+			}
+			{
+				accountNoRadioButton = new JRadioButton();
+				this.add(accountNoRadioButton);
+				accountNoRadioButton.setText("Account #");
+				accountNoRadioButton.setPreferredSize(new java.awt.Dimension(100, 18));
+				accountNoRadioButton.setActionCommand("accountNo");
+				customerIdButtonGroup.add(accountNoRadioButton);
+			}
+			{
+				nricRadioButton = new JRadioButton();
+				this.add(nricRadioButton);
+				nricRadioButton.setText("NRIC");
+				nricRadioButton.setPreferredSize(new java.awt.Dimension(100, 18));
+				nricRadioButton.setSelected(true);
+				nricRadioButton.setActionCommand("nric");
+				customerIdButtonGroup.add(nricRadioButton);
+			}
+			{
+				customerIdTextField = new JTextField();
+				this.add(customerIdTextField);
+				customerIdTextField.setPreferredSize(new java.awt.Dimension(200, 21));
+			}
+			{
+				getComplaintsButton = new JButton();
+				this.add(getComplaintsButton);
+				getComplaintsButton.setText("Get Complaints");
+				getComplaintsButton.setPreferredSize(new java.awt.Dimension(150, 21));
+				getComplaintsButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						getComplaintsButtonActionPerformed(arg0);
+					}
+				});
+			}
+			{
+				jSeparator2 = new JSeparator();
+				this.add(jSeparator2);
+				jSeparator2.setPreferredSize(new java.awt.Dimension(750, 15));
+			}
+			{
+				complaintsScrollPane = new JScrollPane();
+				this.add(complaintsScrollPane);
+				complaintsScrollPane.setPreferredSize(new java.awt.Dimension(750, 125));
+				{
+					TableModel complaintsTable1Model = 
+						new DefaultTableModel(new String[3][4], getColumnNames());
+					complaintsTable =  new JTable(){
+						public boolean isCellEditable(int rowIndex, int colIndex) {
+					        return false;   //Disallow the editing of any cell
+					    }
+					};
 
-			accountNoRadioButton = new JRadioButton();
-			accountNoRadioButton.setText("Account #");
-			accountNoRadioButton.setActionCommand("accountNo");
-			customerIdButtonGroup.add(accountNoRadioButton);
-			customerIdPanel.add(accountNoRadioButton);
-
-			nricRadioButton = new JRadioButton();
-			nricRadioButton.setText("NRIC");
-			nricRadioButton.setSelected(true);
-			nricRadioButton.setActionCommand("nric");
-			customerIdButtonGroup.add(nricRadioButton);
-			customerIdPanel.add(nricRadioButton);
-
-			customerIdTextField = new JTextField();
-			customerIdPanel.add(customerIdTextField);
-
-			getComplaintsButton = new JButton();
-			getComplaintsButton.setText("Get Complaints");
-			getComplaintsButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					getComplaintsButtonActionPerformed(arg0);
+					complaintsScrollPane.setViewportView(complaintsTable);
+					complaintsTable.setModel(complaintsTable1Model);
+					complaintsTable.setPreferredSize(new java.awt.Dimension(750, 125));
+					JTableHeader header = complaintsTable.getTableHeader();
+					header.setBackground(Color.yellow);
+					complaintsTable.getSelectionModel().addListSelectionListener(
+							new ListSelectionListener() {
+								public void valueChanged(ListSelectionEvent event) {
+									int viewRow = complaintsTable.getSelectedRow();
+									if (viewRow >= 0) {
+										System.out.println("["
+												+ complaintsTable.getModel().getValueAt(
+														viewRow, 0)
+												+ ";"
+												+ complaintsTable.getModel().getValueAt(
+														viewRow, 1)
+												+ ";"
+												+ complaintsTable.getModel().getValueAt(
+														viewRow, 2)
+												+ ";"
+												+ complaintsTable.getModel().getValueAt(
+														viewRow, 3) + "]");
+										complaintIdTextField.setText(complaintsTable
+												.getModel().getValueAt(viewRow, 0)
+												.toString());
+										statusComboBox.setSelectedItem(complaintsTable
+												.getModel().getValueAt(viewRow, 3)
+												.toString());
+										complaintTextArea.setText(complaintsTable
+												.getModel().getValueAt(viewRow, 2)
+												.toString());
+									}
+								}
+							});
 				}
-			});
-			customerIdPanel.add(getComplaintsButton);
-
-			this.add(customerIdPanel);
-
-			jSeparator1 = new JSeparator();
-			this.add(jSeparator1);
-
-			TableModel complaintTableModel = new DefaultTableModel(
-					new String[3][4], getColumnNames());
-			complaintTable = new JTable(){
-				public boolean isCellEditable(int rowIndex, int colIndex) {
-			        return false;   //Disallow the editing of any cell
-			    }
-			};
-			complaintTable.setPreferredSize(new java.awt.Dimension(485, 102));
-			complaintTable.setModel(complaintTableModel);
-			JTableHeader header = complaintTable.getTableHeader();
-			header.setBackground(Color.yellow);
-			updateComplaintScrollPane = new JScrollPane(complaintTable);
-			complaintTable.getSelectionModel().addListSelectionListener(
-					new ListSelectionListener() {
-						public void valueChanged(ListSelectionEvent event) {
-							int viewRow = complaintTable.getSelectedRow();
-							if (viewRow >= 0) {
-								System.out.println("["
-										+ complaintTable.getModel().getValueAt(
-												viewRow, 0)
-										+ ";"
-										+ complaintTable.getModel().getValueAt(
-												viewRow, 1)
-										+ ";"
-										+ complaintTable.getModel().getValueAt(
-												viewRow, 2)
-										+ ";"
-										+ complaintTable.getModel().getValueAt(
-												viewRow, 3) + "]");
-								complaintIdTextField.setText(complaintTable
-										.getModel().getValueAt(viewRow, 0)
-										.toString());
-								statusComboBox.setSelectedItem(complaintTable
-										.getModel().getValueAt(viewRow, 3)
-										.toString());
-								complaintTextArea.setText(complaintTable
-										.getModel().getValueAt(viewRow, 2)
-										.toString());
-							}
-						}
-					});
-			this.add(updateComplaintScrollPane);
-
-			statusPanel = new JPanel();
-			statusPanel.setLayout(formatGridLayout(new GridLayout(0, 4)));
-
-			complaintIdLabel = new JLabel("Complaint Id:");
-			statusPanel.add(complaintIdLabel);
-
-			complaintIdTextField = new JTextField();
-			statusPanel.add(complaintIdTextField);
-			complaintIdTextField.setEnabled(false);
-
-			statusLabel = new JLabel();
-			statusLabel.setText("Status:");
-			statusPanel.add(statusLabel);
-
-			ComboBoxModel stautsComboBoxModel = new DefaultComboBoxModel(StringUtil.getComplaintStatus());
-			statusComboBox = new JComboBox();
-			statusComboBox.setModel(stautsComboBoxModel);
-			statusComboBox.setEnabled(true);
-
-			statusPanel.add(statusComboBox);
-
-			this.add(statusPanel);
-
-			complaintLabel = new JLabel();
-			complaintLabel.setText("Complaint:");
-			this.add(complaintLabel);
-
-			complaintTextArea = new JTextArea();
-			complaintTextArea.setEnabled(false);
-			this.add(complaintTextArea);
-
-			errorMessageLabel = new JLabel();
-			this.add(errorMessageLabel);
-
-			buttonPanel = new JPanel();
-			buttonPanel.setLayout(formatGridLayout(new GridLayout(0, 2)));
-
-			updateLogButton = new JButton();
-			updateLogButton.setText("Update Log");
-			updateLogButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					UpdateComplaintPanel.this.updateLogButtonActionPerformed(e);
-				}
-			});
-			buttonPanel.add(updateLogButton);
-
-			cancelButton = new JButton();
-			cancelButton.setText("Cancel");
-			cancelButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					UpdateComplaintPanel.this.cancelButtonActionPerformed(e);
-				}
-			});
-			buttonPanel.add(cancelButton);
-
-			this.add(buttonPanel);
-
+			}
+			{
+				jSeparator3 = new JSeparator();
+				this.add(jSeparator3);
+				jSeparator3.setPreferredSize(new java.awt.Dimension(750, 10));
+			}
+			{
+				complaintIdLabel = new JLabel();
+				this.add(complaintIdLabel);
+				complaintIdLabel.setText("Complaint Id:");
+				complaintIdLabel.setPreferredSize(new java.awt.Dimension(200, 14));
+			}
+			{
+				complaintIdTextField = new JTextField();
+				this.add(complaintIdTextField);
+				complaintIdTextField.setPreferredSize(new java.awt.Dimension(100, 21));
+				complaintIdTextField.setEnabled(false);
+			}
+			{
+				blankLabel1 = new JLabel();
+				this.add(blankLabel1);
+				blankLabel1.setText("");
+				blankLabel1.setPreferredSize(new java.awt.Dimension(150, 14));
+			}
+			{
+				statusLabel = new JLabel();
+				this.add(statusLabel);
+				statusLabel.setText("Status:");
+				statusLabel.setPreferredSize(new java.awt.Dimension(200, 14));
+			}
+			{
+				ComboBoxModel jComboBox1Model = 
+					new DefaultComboBoxModel(StringUtil.getComplaintStatus());
+				statusComboBox = new JComboBox();
+				this.add(statusComboBox);
+				statusComboBox.setModel(jComboBox1Model);
+				statusComboBox.setPreferredSize(new java.awt.Dimension(100, 21));
+			}
+			{
+				complaintLabel = new JLabel();
+				this.add(complaintLabel);
+				complaintLabel.setText("Complaint:");
+				complaintLabel.setPreferredSize(new java.awt.Dimension(200, 14));
+			}
+			{
+				complaintTextArea = new JTextArea();
+				this.add(complaintTextArea);
+				complaintTextArea.setPreferredSize(new java.awt.Dimension(550, 95));
+				complaintTextArea.setEnabled(false);
+			}
+			{
+				updateButton = new JButton();
+				this.add(updateButton);
+				updateButton.setText("Update");
+				updateButton.setPreferredSize(new java.awt.Dimension(150, 21));
+				updateButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						UpdateComplaintPanel.this.updateLogButtonActionPerformed(e);
+					}
+				});
+			}
+			{
+				blankLabel2 = new JLabel();
+				this.add(blankLabel2);
+				blankLabel2.setText("");
+				blankLabel2.setPreferredSize(new java.awt.Dimension(50, 14));
+			}
+			{
+				cancelButton = new JButton();
+				this.add(cancelButton);
+				cancelButton.setText("Cancel");
+				cancelButton.setPreferredSize(new java.awt.Dimension(150, 21));
+				cancelButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						UpdateComplaintPanel.this.cancelButtonActionPerformed(e);
+					}
+				});
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -228,8 +297,9 @@ public class UpdateComplaintPanel extends JPanel {
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(this.customerIdTextField.getText())) {
-			errorMessageLabel.setText("Empty customer Id!");
-			errorMessageLabel.setForeground(Color.RED);
+			showMessage("Empty customer Id!");
+//			errorMessageLabel.setText("Empty customer Id!");
+//			errorMessageLabel.setForeground(Color.RED);
 			return;
 		}
 
@@ -240,18 +310,21 @@ public class UpdateComplaintPanel extends JPanel {
 			try{
 				customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(this.customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				errorMessageLabel.setText(e.getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(e.getMessagebyException());
+//				errorMessageLabel.setText(e.getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			} catch (Exception e) {
-				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 			
 			if (customer == null) {
-				errorMessageLabel.setText("Invalid Account #!");
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage("Invalid Account #!");
+//				errorMessageLabel.setText("Invalid Account #!");
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		}
@@ -260,18 +333,21 @@ public class UpdateComplaintPanel extends JPanel {
 			try{
 				customer = MgrFactory.getAccountMgr().getCustomerDetailsById(this.customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				errorMessageLabel.setText(e.getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(e.getMessagebyException());
+//				errorMessageLabel.setText(e.getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			} catch (Exception e) {
-				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 			
 			if (customer == null) {
-				errorMessageLabel.setText("Invalid NRIC!");
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage("Invalid NRIC!");
+//				errorMessageLabel.setText("Invalid NRIC!");
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		}
@@ -282,12 +358,14 @@ public class UpdateComplaintPanel extends JPanel {
 						.getComplaintByAccount(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				errorMessageLabel.setText(e.getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(e.getMessagebyException());
+//				errorMessageLabel.setText(e.getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			} catch (Exception e) {
-				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		} else if ("nric".equalsIgnoreCase(customerIdType)) {
@@ -296,12 +374,14 @@ public class UpdateComplaintPanel extends JPanel {
 						.getComplaintByCustomerId(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				errorMessageLabel.setText(e.getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(e.getMessagebyException());
+//				errorMessageLabel.setText(e.getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			} catch (Exception e) {
-				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		}
@@ -310,14 +390,8 @@ public class UpdateComplaintPanel extends JPanel {
 			// populate the table
 			TableModel complaintTableModel = new DefaultTableModel(
 					getTableData(complaints), getColumnNames());
-			complaintTable.setModel(complaintTableModel);
+			complaintsTable.setModel(complaintTableModel);
 		 }
-	}
-
-	private GridLayout formatGridLayout(GridLayout layout) {
-		layout.setHgap(5);
-		layout.setVgap(5);
-		return layout;
 	}
 
 	private void updateLogButtonActionPerformed(ActionEvent arg0) {
@@ -344,24 +418,28 @@ public class UpdateComplaintPanel extends JPanel {
 				returnValue = MgrFactory.getComplaintMgr().updateComplaint(
 						Long.parseLong(complaintIdTextField.getText().trim()), status);
 			} catch (BillingSystemException e) {
-				errorMessageLabel.setText(e.getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(e.getMessagebyException());
+//				errorMessageLabel.setText(e.getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			} catch (Exception e) {
-				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-				errorMessageLabel.setForeground(Color.RED);
+				showMessage(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
+//				errorMessageLabel.setForeground(Color.RED);
 				return;
 			}
 		}
 
 		// set error message
 		if (returnValue > 0) {
-			errorMessageLabel.setText("Successfully updated the complaint.");
-			errorMessageLabel.setForeground(Color.BLUE);
+			showMessage("Successfully updated the complaint.");
+//			errorMessageLabel.setText("Successfully updated the complaint.");
+//			errorMessageLabel.setForeground(Color.BLUE);
 		} else {
-			errorMessageLabel
-					.setText("Internal error occurred during the complaint updation!.");
-			errorMessageLabel.setForeground(Color.RED);
+			showMessage("Internal error occurred during the complaint updation!.");
+//			errorMessageLabel
+//					.setText("Internal error occurred during the complaint updation!.");
+//			errorMessageLabel.setForeground(Color.RED);
 		}
 	}
 
@@ -388,25 +466,8 @@ public class UpdateComplaintPanel extends JPanel {
 		return data;
 	}
 
-	private String[][] getTableTestData(List<CustComplaint> complaints) {
-		String[][] data = new String[4][4];
-		data[0][0] = "1";
-		data[0][1] = "1/1/2011";
-		data[0][2] = "complaint #1";
-		data[0][3] = "Pending";
-		data[1][0] = "2";
-		data[1][1] = "1/2/2011";
-		data[1][2] = "complaint #2";
-		data[1][3] = "Completed";
-		data[2][0] = "3";
-		data[2][1] = "1/3/2011";
-		data[2][2] = "complaint #3";
-		data[2][3] = "Pending";
-		data[3][0] = "4";
-		data[3][1] = "1/4/2011";
-		data[3][2] = "complaint #4";
-		data[3][3] = "Completed";
-		return data;
+	private void showMessage(String msg) {
+		JOptionPane.showMessageDialog(window, msg);
 	}
 
 }
