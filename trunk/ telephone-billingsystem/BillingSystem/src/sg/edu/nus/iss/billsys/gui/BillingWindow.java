@@ -152,7 +152,7 @@ public class BillingWindow extends JFrame {
 			menu.add(menuItem);
 			menu.addSeparator();
 			
-			menuItem = new JMenuItem("Register");
+			menuItem = new JMenuItem("Manage Subscription");
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
