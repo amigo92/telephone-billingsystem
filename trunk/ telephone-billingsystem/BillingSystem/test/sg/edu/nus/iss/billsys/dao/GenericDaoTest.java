@@ -32,6 +32,18 @@ public class GenericDaoTest {
 	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
 	private final static String  MOBILE_NUMBERS_DATA_FILE="data/MobileNumbers.txt";
 	private final static String  DIGIVOICE_NUMBERS_DATA_FILE="data/DigiVoiceNumbers.txt";
+	
+	private static String [][] callHistoryData=null;
+	private static String [][] customerData=null;
+	private static String [][] featureData=null;
+	private static String [][] featureRatesData=null;
+	private static String [][] paymentHistoryData=null;
+	private static String [][] planRatesData=null;
+	private static String [][] subscriptionPlanData=null;
+	private static String [][] userData=null;
+	private static String [][] complaintData=null;
+	private static String [][] mobileNumbersData=null;
+	private static String [][] digiVoiceNumbersData=null;
 		
 	private GenericDao dao;
 	
@@ -110,7 +122,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public  void testGetCallHistoryData() {
-		testArray(dao.getDataAsArray(CALL_HISTORY_DATA_FILE), "testGetCallHistoryData()");
+		callHistoryData=dao.getDataAsArray(CALL_HISTORY_DATA_FILE);
+		testArray(callHistoryData, "testGetCallHistoryData()");
 		
 	}
 	
@@ -119,7 +132,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetCustomerData() {
-		testArray(dao.getDataAsArray(CUSTOMER_DATA_FILE), "testGetCustomerData()");
+		customerData=dao.getDataAsArray(CUSTOMER_DATA_FILE);
+		testArray(customerData, "testGetCustomerData()");
 	}
 
 	/**
@@ -127,7 +141,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetFeatureData() {
-		testArray(dao.getDataAsArray(FEATURE_DATA_FILE), "testGetFeatureData()");
+		featureData=dao.getDataAsArray(FEATURE_DATA_FILE);
+		testArray(featureData, "testGetFeatureData()");
 	}
 
 	/**
@@ -135,7 +150,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetFeatureRateData() {
-		testArray(dao.getDataAsArray(FEATURE_RATES_DATA_FILE), "testGetFeatureRateData()");
+		featureRatesData=dao.getDataAsArray(FEATURE_RATES_DATA_FILE);
+		testArray(featureRatesData, "testGetFeatureRateData()");
 	}
 
 	/**
@@ -143,7 +159,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistoryData() {
-		testArray(dao.getDataAsArray(PAYMENT_HISTORY_DATA_FILE), "testGetPaymentHistoryData()");
+		paymentHistoryData=dao.getDataAsArray(PAYMENT_HISTORY_DATA_FILE);
+		testArray(paymentHistoryData, "testGetPaymentHistoryData()");
 	}
 
 	/**
@@ -151,7 +168,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetPlanRatesData() {
-		testArray(dao.getDataAsArray(PLANRATES_DATA_FILE), "testGetPlanRatesData()");
+		planRatesData=dao.getDataAsArray(PLANRATES_DATA_FILE);
+		testArray(planRatesData, "testGetPlanRatesData()");
 	}
 
 	/**
@@ -159,7 +177,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetSubscriptionPlanData() {
-		testArray(dao.getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE), "testGetSubscriptionPlanData()");
+		subscriptionPlanData=dao.getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
+		testArray(subscriptionPlanData, "testGetSubscriptionPlanData()");
 	}
 
 	/**
@@ -167,7 +186,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetUserData() {
-		testArray(dao.getDataAsArray(USER_DATA_FILE), "testGetUserData()");
+		userData=dao.getDataAsArray(USER_DATA_FILE);
+		testArray(userData, "testGetUserData()");
 	}
 
 	/**
@@ -175,7 +195,8 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetComplaintsData() {
-		testArray(dao.getDataAsArray(COMPLAINTS_DATA_FILE), "testGetComplaintsData()");
+		complaintData=dao.getDataAsArray(COMPLAINTS_DATA_FILE);
+		testArray(complaintData, "testGetComplaintsData()");
 	}
 	
 	/**
@@ -183,12 +204,14 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetMobileNumbersData() {
-		testArray(dao.getDataAsArray(MOBILE_NUMBERS_DATA_FILE), "testGetMobileNumbersData()");
+		mobileNumbersData=dao.getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
+		testArray(mobileNumbersData, "testGetMobileNumbersData()");
 	}
 	
 	@Test
 	public void testGetDigiVoiceNumbersData() {
-		testArray(dao.getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE), "testGetDigiVoiceNumbersData()");
+		digiVoiceNumbersData=dao.getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
+		testArray(digiVoiceNumbersData, "testGetDigiVoiceNumbersData()");
 	}
 
 	/**
@@ -198,7 +221,7 @@ public class GenericDaoTest {
 	public void testSaveCustomerData() {
 	
 		try{
-			String[][] temp=dao.getDataAsArray(CUSTOMER_DATA_FILE);
+			String[][] temp=customerData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(CUSTOMER_DATA_FILE, temp))
@@ -222,7 +245,7 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveFeatureData() {
 		try{
-			String[][] temp=dao.getDataAsArray(FEATURE_DATA_FILE);
+			String[][] temp=featureData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(FEATURE_DATA_FILE, temp))
@@ -245,7 +268,7 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveSubscriptionPlanData() {
 		try{
-			String[][] temp=dao.getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
+			String[][] temp=subscriptionPlanData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(SUBSCRIPTION_PLAN_DATA_FILE,temp))
@@ -267,7 +290,7 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveComplaintsData() {
 		try{
-			String[][] temp=dao.getDataAsArray(COMPLAINTS_DATA_FILE);
+			String[][] temp=complaintData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(COMPLAINTS_DATA_FILE, temp))
@@ -289,7 +312,7 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveMobileNumberData() {
 		try{
-			String[][] temp=dao.getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
+			String[][] temp=mobileNumbersData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(MOBILE_NUMBERS_DATA_FILE, temp))
@@ -308,7 +331,7 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveDigiNumberData() {
 		try{
-			String[][] temp=dao.getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
+			String[][] temp=digiVoiceNumbersData;
 			
 			if(temp!=null && temp.length>0){
 				if(!dao.storeDataByArray(DIGIVOICE_NUMBERS_DATA_FILE, temp))
