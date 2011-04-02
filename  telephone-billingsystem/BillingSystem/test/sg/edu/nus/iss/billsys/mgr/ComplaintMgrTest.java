@@ -168,6 +168,10 @@ public class ComplaintMgrTest {
 			// get the complaint to update
 			complaints = manager.getComplaintByAccount(acctNo);
 			complaint = complaints.get(0);
+			
+			System.out.println("Current Status");			
+			System.out.println("Complaint Id: " + complaint.getComplaint_id());
+			System.out.println("Complaint Status: " + complaint.getStatus().toString());
 					
 			System.out.println("Update Status to Pending");
 			System.out.println("**********************************************");
@@ -179,6 +183,7 @@ public class ComplaintMgrTest {
 			System.out.println("Complaint Status: " + complaint.getStatus().toString());
 			if(complaint.getStatus() != ComplaintStatus.PENDING)
 				fail("Complaint Status not updated to Pending");
+			
 			
 			System.out.println("**********************************************");
 			System.out.println("Update Status to Completed");
