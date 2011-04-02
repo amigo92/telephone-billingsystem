@@ -288,11 +288,11 @@ public class LoginForm extends javax.swing.JFrame {
 
 		BillingWindow billingWindow = new BillingWindow ();
 		billingWindow.pack ();
-		billingWindow.setSize(600, 600);
+		billingWindow.setSize(800, 600);
 		billingWindow.setVisible (true);	
 	    Toolkit tk = Toolkit.getDefaultToolkit();
 	    Dimension screenSize = tk.getScreenSize();
-	    billingWindow.setLocation(screenSize.width/2-300, screenSize.height/2-300);
+	    billingWindow.setLocation(screenSize.width/2-400, screenSize.height/2-300);
 	    billingWindow.setResizable(false);
 	}
 
