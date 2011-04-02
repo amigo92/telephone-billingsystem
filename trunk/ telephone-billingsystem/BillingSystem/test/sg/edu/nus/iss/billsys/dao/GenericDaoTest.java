@@ -278,9 +278,10 @@ public class GenericDaoTest {
 			}	
 			
 		}catch (Exception e) {
-			fail("Exception while invoking saveSubscriptionPlanData to save Data");	
 			BillingSystemLogger.log(Level.SEVERE, e);
 			e.printStackTrace();
+			fail("Exception while invoking saveSubscriptionPlanData to save Data");	
+			
 		}	
 	}
 
