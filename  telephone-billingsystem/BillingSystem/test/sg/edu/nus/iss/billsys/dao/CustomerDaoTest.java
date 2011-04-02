@@ -5,7 +5,9 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -13,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
+import sg.edu.nus.iss.billsys.vo.CustComplaint;
+import sg.edu.nus.iss.billsys.vo.Customer;
 
 /**
  * @author Veera
@@ -116,7 +120,15 @@ public class CustomerDaoTest {
 	 */
 
 	public void testGetAllCustomers() {
-		
+		ArrayList<Customer> custList = custDao.getAllCustomers();
+		if(custList == null){
+			fail("Exception get all customers , getAllCustomers have errors !!");
+		}
+		/*for (Iterator<Customer> iter = custList.iterator(); iter.hasNext();) 
+		{
+			Customer element = (Customer) iter.next();
+			System.out.println(element.getName() + "\n");
+		}*/
 	}
 
 	/**
@@ -124,7 +136,15 @@ public class CustomerDaoTest {
 	 */
 	@Test
 	public void testGetAllActiveCustomers() {
-		fail("Not yet implemented");
+		ArrayList<Customer> custList = custDao.getAllActiveCustomers();
+		if(custList == null){
+			fail("Exception get active customers , getAllActiveCustomers have errors !!");
+		}
+		/*for (Iterator<Customer> iter = custList.iterator(); iter.hasNext();) 
+		{
+			Customer element = (Customer) iter.next();
+			System.out.println(element.getName() + "\n");
+		}*/
 	}
 
 	/**
