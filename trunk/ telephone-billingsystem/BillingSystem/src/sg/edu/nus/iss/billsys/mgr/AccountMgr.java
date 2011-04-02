@@ -1,14 +1,6 @@
 package sg.edu.nus.iss.billsys.mgr;
-import sg.edu.nus.iss.billsys.*;
-
-/*Modified by Wen Jing @ Mar 26
- * 
- * 
- */
-
 import java.util.*;
 
-import sg.edu.nus.iss.billsys.dao.CustomerDao;
 import sg.edu.nus.iss.billsys.dao.DaoFactory;
 import sg.edu.nus.iss.billsys.dao.ICustomerDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
@@ -37,8 +29,9 @@ public class AccountMgr {
 		Customer newCust = new Customer(name, address1, address2, address3, tel, interest, nric);
 		Calendar today = Calendar.getInstance();
 		Date aDate = today.getTime();
-		String lastDigit = nric.substring(1, nric.length()-1);
-		int nextAccount = Integer.parseInt(lastDigit);
+		boolean isValidNric = nric.matches("S\\d{7}[A-Z]");
+		if(!isValidNric) throw new BillingSystemException("Nric is not Valid !");
+		int nextAccount = Integer.parseInt(nric.substring(1,nric.length()-1));
 		Account account = new Account(aDate, nextAccount);
 		account.setDateCreated(aDate);
 		newCust.setAcct(account);
