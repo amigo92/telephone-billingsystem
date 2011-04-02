@@ -64,7 +64,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 			assignedNumberLabel.setVisible(false);
 			phoneNumberBox.setVisible(false);
 		}else{
-			List<String> phoneNumbers = manager.getAvailDigiVoiceNumbers();
+			List<String> phoneNumbers = manager.getAvailPhoneNumbers(planType);
 
 			for(String n : phoneNumbers){
 				phoneNumberBox.addItem(n);
