@@ -61,16 +61,15 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		fromField.setText(BillingUtil.getCurrentDateStr());
 	
 		if(planType.planCode == PlanCode.CABLE_TV ){
-			assignedNumberField.setVisible(false);
+			assignedNumberLabel.setVisible(false);
 			phoneNumberBox.setVisible(false);
 		}else{
-				List<String> phoneNumbers = manager.getAvailMobileNumbers();
+			List<String> phoneNumbers = manager.getAvailDigiVoiceNumbers();
 
-				for(String n : phoneNumbers){
-					phoneNumberBox.addItem(n);
-				}
-			    phoneNumberBox.setSelectedIndex(0);
-
+			for(String n : phoneNumbers){
+				phoneNumberBox.addItem(n);
+			}
+		    phoneNumberBox.setSelectedIndex(0);
 		}
 
 	}
