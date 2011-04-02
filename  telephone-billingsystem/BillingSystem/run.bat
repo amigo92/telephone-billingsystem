@@ -1,0 +1,1 @@
+java -cp classes sg.edu.nus.iss.billsys.gui.BillingSystem
