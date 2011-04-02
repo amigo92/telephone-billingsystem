@@ -4,6 +4,8 @@ package sg.edu.nus.iss.billsys.gui;
  *
  */
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +30,7 @@ import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
+import sg.edu.nus.iss.billsys.vo.Customer;
 
 public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
@@ -38,10 +42,13 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
     
     private JTextField fromField;
     private JTextField untilField;
+    private JComboBox phoneNumberBox;
     
     private BillingWindow window;
     private String accountNo;
     private PlanType planType;
+    private String selectedPhoneNumber;
+   
 	   
 	public SubscriptionPlanAddDialog(BillingWindow window, PlanType planType, String accountNo) {
 		super(window,  "Register new Subscription Plan :"  + planType.name);
@@ -51,12 +58,20 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		this.accountNo = accountNo;
 		this.planType = planType;
 		
+		fromField.setText(BillingUtil.getCurrentDateStr());
+	
 		if(planType.planCode == PlanCode.CABLE_TV ){
 			assignedNumberField.setVisible(false);
-			assignedNumberLabel.setVisible(false);
+			phoneNumberBox.setVisible(false);
+		}else{
+				List<String> phoneNumbers = manager.getAvailMobileNumbers();
+
+				for(String n : phoneNumbers){
+					phoneNumberBox.addItem(n);
+				}
+			    phoneNumberBox.setSelectedIndex(0);
+
 		}
-		fromField.setText(BillingUtil.getCurrentDateStr());
-		untilField.setText(BillingUtil.getNextYearStr());
 
 	}
 
@@ -65,11 +80,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		  
-		p.add (assignedNumberLabel = new JLabel ("Assigned Phone Number"));
-		//assignedNumberField = new JTextField (8);
-		assignedNumberField = new JFormattedTextField(BillingUtil.createFormatter(window, "########"));
-
-		p.add (assignedNumberField);
+		p.add (assignedNumberLabel = new JLabel ("Please select a phone number"));
+	
+		p.add (createPhoneNumberComboBox ());
 		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
 		fromField = new JTextField (20);
 		p.add (fromField);
@@ -80,15 +93,34 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		return p;
 	}
+	
+	private JComboBox createPhoneNumberComboBox () {  	
+	    phoneNumberBox = new JComboBox();
+	    
+	 
+	    phoneNumberBox.addActionListener(new ActionListener (){
+	    	public void actionPerformed (ActionEvent e) {
+	    		   JComboBox cb = (JComboBox)e.getSource();
+	    		   selectedPhoneNumber = (String)cb.getSelectedItem();
+	        }
+	    });
+	 
+	    //add(accountBox, BorderLayout.PAGE_START);
+	    return phoneNumberBox;
+    }
+
+  
 
 	@Override
 	protected boolean performOkAction() {
-		String assignedTelNo = assignedNumberField.getText();
+//		String assignedTelNo = assignedNumberField.getText();
+//		
+//		if(planType.planCode != PlanCode.CABLE_TV && assignedTelNo.trim().equals("")  ){
+//			JOptionPane.showMessageDialog(window, "Phone Number must be 8 digits","",0);
+//			return false;
+//		}
 		
-		if(planType.planCode != PlanCode.CABLE_TV && assignedTelNo.trim().equals("")  ){
-			JOptionPane.showMessageDialog(window, "Phone Number must be 8 digits","",0);
-			return false;
-		}
+		String assignedTelNo = selectedPhoneNumber;
 		
 		Date fromtDate;
 		try {
@@ -117,6 +149,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		try {
 			manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, fromtDate, utilDate);
 			window.refreshSubRegPanel(accountNo);
+			
 		} catch (BillingSystemException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
