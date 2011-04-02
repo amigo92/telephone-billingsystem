@@ -290,6 +290,8 @@ public class BillingWindow extends JFrame {
 			this.subscriptionMgr = MgrFactory.getSubscriptionMgr();
 		} catch (BillingSystemException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
 		}
 	}
 
@@ -304,6 +306,8 @@ public class BillingWindow extends JFrame {
 		try {
 			this.accountMgr = MgrFactory.getAccountMgr();
 		} catch (BillingSystemException e) {
+			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
+		}catch (Exception e){
 			JOptionPane.showMessageDialog(window, e.getMessage(),"Error" ,0);
 		}
 	}
