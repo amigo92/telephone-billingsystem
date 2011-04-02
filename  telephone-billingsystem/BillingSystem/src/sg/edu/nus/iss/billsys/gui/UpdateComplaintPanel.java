@@ -117,7 +117,11 @@ public class UpdateComplaintPanel extends JPanel {
 
 			TableModel complaintTableModel = new DefaultTableModel(
 					new String[3][4], getColumnNames());
-			complaintTable = new JTable();
+			complaintTable = new JTable(){
+				public boolean isCellEditable(int rowIndex, int colIndex) {
+			        return false;   //Disallow the editing of any cell
+			    }
+			};
 			complaintTable.setPreferredSize(new java.awt.Dimension(485, 102));
 			complaintTable.setModel(complaintTableModel);
 			JTableHeader header = complaintTable.getTableHeader();
