@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -20,7 +21,9 @@ import javax.swing.SwingUtilities;
 import sg.edu.nus.iss.billsys.constant.SessionKeys;
 import sg.edu.nus.iss.billsys.constant.UserRole;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 
 /**
@@ -240,22 +243,22 @@ public class LoginForm extends javax.swing.JFrame {
 	}
 
 	protected void cancelButtonActionPerformed(ActionEvent arg0) {
-		System.out.println("cancelButton.actionPerformed, arg0=" + arg0);
+		BillingSystemLogger.logInfo("Inside cancelButtonActionPerformed(), arg0=" + arg0);
 		// exit application
 		System.exit(0);
 	}
 
 	protected void loginButtonActionPerformed(ActionEvent arg0) {
-		System.out.println("loginButton.actionPerformed, arg0=" + arg0);
-
-		System.out.println(this.usernameText.getText());
-		System.out.println(this.passwordText.getText());
+		BillingSystemLogger.logInfo("loginButton.actionPerformed, arg0=" + arg0);
+//		BillingSystemLogger.logInfo(">>>>>" + ResourceHandler.getError("error.null"));
+		BillingSystemLogger.logInfo(this.usernameText.getText());
+		BillingSystemLogger.logInfo(this.passwordText.getText());
 
 		// validate username & password input
 		if (StringUtil.isNullOrEmpty(this.usernameText.getText())
 				|| StringUtil.isNullOrEmpty(this.passwordText.getText())) {
 			// display error message
-			this.errorMsgLabel.setText("Invalid input for username/ password!");
+			JOptionPane.showMessageDialog(this, "Invalid input for username/ password!", "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -276,11 +279,14 @@ public class LoginForm extends javax.swing.JFrame {
 				
 			} else {
 //				 display error message
-				this.errorMsgLabel.setText("Authentication failed!");
+				JOptionPane.showMessageDialog(this, "Authentication failed!", "Error Message", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (BillingSystemException e) {
 //			// display error message
-			this.errorMsgLabel.setText("Not able to login, internal error occurred!");
+			JOptionPane.showMessageDialog(this, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 	}
 

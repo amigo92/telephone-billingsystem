@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.NumberUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
@@ -181,7 +182,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 								public void valueChanged(ListSelectionEvent event) {
 									int viewRow = complaintsTable.getSelectedRow();
 									if (viewRow >= 0) {
-										System.out.println("["
+										BillingSystemLogger.logInfo("["
 												+ complaintsTable.getModel().getValueAt(
 														viewRow, 0)
 												+ ";"
@@ -264,7 +265,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 				updateButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						UpdateComplaintPanel.this.updateLogButtonActionPerformed(e);
+						UpdateComplaintPanel.this.updateButtonActionPerformed(e);
 					}
 				});
 			}
@@ -292,14 +293,12 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 	}
 
 	private void getComplaintsButtonActionPerformed(ActionEvent evt) {
-		System.out.println("getComplaintsButtonActionPerformed, event=" + evt);
+		BillingSystemLogger.logInfo("Inside getComplaintsButtonActionPerformed, event=" + evt);
 		List<CustComplaint> complaints = null;
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(this.customerIdTextField.getText())) {
-			showMessage("Empty customer Id!");
-//			errorMessageLabel.setText("Empty customer Id!");
-//			errorMessageLabel.setForeground(Color.RED);
+			JOptionPane.showMessageDialog(window, "Empty customer Id!", "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -310,21 +309,15 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			try{
 				customer = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(this.customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				showMessage(e.getMessagebyException());
-//				errorMessageLabel.setText(e.getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
-				showMessage(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
 			if (customer == null) {
-				showMessage("Invalid Account #!");
-//				errorMessageLabel.setText("Invalid Account #!");
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, "Invalid Account #!", "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -333,21 +326,15 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			try{
 				customer = MgrFactory.getAccountMgr().getCustomerDetailsById(this.customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				showMessage(e.getMessagebyException());
-//				errorMessageLabel.setText(e.getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
-				showMessage(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
 			if (customer == null) {
-				showMessage("Invalid NRIC!");
-//				errorMessageLabel.setText("Invalid NRIC!");
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, "Invalid NRIC!", "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -358,14 +345,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 						.getComplaintByAccount(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				showMessage(e.getMessagebyException());
-//				errorMessageLabel.setText(e.getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
-				showMessage(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		} else if ("nric".equalsIgnoreCase(customerIdType)) {
@@ -374,14 +357,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 						.getComplaintByCustomerId(
 								customerIdTextField.getText().trim());
 			} catch (BillingSystemException e) {
-				showMessage(e.getMessagebyException());
-//				errorMessageLabel.setText(e.getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
-				showMessage(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -394,15 +373,15 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		 }
 	}
 
-	private void updateLogButtonActionPerformed(ActionEvent arg0) {
-		System.out.println("logButton.actionPerformed, event=" + arg0);
+	private void updateButtonActionPerformed(ActionEvent arg0) {
+		BillingSystemLogger.logInfo("Inside updateButtonActionPerformed(), arg0=" + arg0);
 		String customerIdType = null;
 		long returnValue = 0;
 
-		System.out.println("customerId:" + customerIdTextField.getText());
-		System.out.println("Complaint:" + complaintTextArea.getText());
-		System.out.println("customerIdType:" + customerIdType);
-		System.out.println("Status:"
+		BillingSystemLogger.logInfo("customerId:" + customerIdTextField.getText());
+		BillingSystemLogger.logInfo("Complaint:" + complaintTextArea.getText());
+		BillingSystemLogger.logInfo("customerIdType:" + customerIdType);
+		BillingSystemLogger.logInfo("Status:"
 				+ statusComboBox.getSelectedItem().toString());
 
 		ComplaintStatus status = null;
@@ -418,33 +397,24 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 				returnValue = MgrFactory.getComplaintMgr().updateComplaint(
 						Long.parseLong(complaintIdTextField.getText().trim()), status);
 			} catch (BillingSystemException e) {
-				showMessage(e.getMessagebyException());
-//				errorMessageLabel.setText(e.getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			} catch (Exception e) {
-				showMessage(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setText(new BillingSystemException(e).getMessagebyException());
-//				errorMessageLabel.setForeground(Color.RED);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
 
 		// set error message
 		if (returnValue > 0) {
-			showMessage("Successfully updated the complaint.");
-//			errorMessageLabel.setText("Successfully updated the complaint.");
-//			errorMessageLabel.setForeground(Color.BLUE);
+			JOptionPane.showMessageDialog(window, "Successfully updated the complaint.", "Success Message", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			showMessage("Internal error occurred during the complaint updation!.");
-//			errorMessageLabel
-//					.setText("Internal error occurred during the complaint updation!.");
-//			errorMessageLabel.setForeground(Color.RED);
+			JOptionPane.showMessageDialog(window, "Internal error occurred during the complaint updation!.", "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void cancelButtonActionPerformed(ActionEvent arg0) {
-		System.out.println("actionPerformed, event=" + arg0);
+		BillingSystemLogger.logInfo("Inside cancelButtonActionPerformed(), event=" + arg0);
 		this.setVisible(false);
 	}
 
@@ -465,9 +435,4 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		}
 		return data;
 	}
-
-	private void showMessage(String msg) {
-		JOptionPane.showMessageDialog(window, msg);
-	}
-
 }
