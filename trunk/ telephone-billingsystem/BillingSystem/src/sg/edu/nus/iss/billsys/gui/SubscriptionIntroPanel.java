@@ -50,21 +50,18 @@ public class SubscriptionIntroPanel extends JPanel {
 	    	//p.add(new JLabel("     " + basicFeatureType.name));
 	        p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(basicFeatureType))));
 	    	p.add(new JLabel(""));
-	    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);
-    	
+	    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);   	
 	    	for (FeatureType featureType : optionalFeatureTypes ){	
-	    		
-	    		if(featureType.usageCharge)
-	    		{
-	    			p.add(new JLabel("     " + featureType.name));
-			    	p.add(new JLabel(""));
-			    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));				    	
-	    		}else {
-		    		p.add(new JLabel("     " + featureType.name));
-			    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));	
-			    	p.add(new JLabel(""));
-	    		}	
+	    		p.add(new JLabel("     " + featureType.name));
+		    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));	
+		    	p.add(new JLabel(""));
 	    	} 	
+	    	List<FeatureType> usageChargeFeatureTypes = manager.getPlanUsageChargeFeatures(planType);
+	    	for (FeatureType featureType : usageChargeFeatureTypes ){	
+    			p.add(new JLabel("     " + featureType.name));
+		    	p.add(new JLabel(""));
+		    	p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(featureType))));				    	
+    		}
     	}
     	
     	JLabel title = new JLabel("<html><center><h3>Introduction of Subcription Plan</h3></center></html>");   
