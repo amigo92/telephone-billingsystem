@@ -21,6 +21,18 @@ import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
  */
 public class GenericDaoTest {
 	
+	private final static String  CALL_HISTORY_DATA_FILE="data/CallHistory.txt";
+	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";
+	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
+	private final static String  FEATURE_RATES_DATA_FILE="data/FeatureRates.txt";
+	private final static String  PAYMENT_HISTORY_DATA_FILE="data/PaymentHistory.txt";
+	private final static String  PLANRATES_DATA_FILE="data/PlanRates.txt";
+	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
+	private final static String  USER_DATA_FILE="data/User.txt";
+	private final static String  COMPLAINTS_DATA_FILE="data/Complaints.txt";
+	private final static String  MOBILE_NUMBERS_DATA_FILE="data/MobileNumbers.txt";
+	private final static String  DIGIVOICE_NUMBERS_DATA_FILE="data/DigiVoiceNumbers.txt";
+		
 	private GenericDao dao;
 	
 	/**
@@ -31,7 +43,7 @@ public class GenericDaoTest {
 		
 		dao=new GenericDao(){
 		@Override
-		protected void objectDataMapping(String[][] data) throws BillingSystemException {
+		protected void objectDataMapping() throws BillingSystemException {
 			// TODO Auto-generated method stub
 			
 		}
@@ -97,8 +109,8 @@ public class GenericDaoTest {
 	 * Test method for {@link sg.edu.nus.iss.billsys.dao.GenericDao#getCallHistoryData()}.
 	 */
 	@Test
-	public void testGetCallHistoryData() {
-		testArray(dao.getCallHistoryData(), "getCallHistoryData()");
+	public  void testGetCallHistoryData() {
+		testArray(dao.getDataAsArray(CALL_HISTORY_DATA_FILE), "testGetCallHistoryData()");
 		
 	}
 	
@@ -107,7 +119,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetCustomerData() {
-		testArray(dao.getCustomerData(), "getCustomerData()");
+		testArray(dao.getDataAsArray(CUSTOMER_DATA_FILE), "testGetCustomerData()");
 	}
 
 	/**
@@ -115,7 +127,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetFeatureData() {
-		testArray(dao.getFeatureData(), "getFeatureData()");
+		testArray(dao.getDataAsArray(FEATURE_DATA_FILE), "testGetFeatureData()");
 	}
 
 	/**
@@ -123,7 +135,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetFeatureRateData() {
-		testArray(dao.getFeatureRateData(), "getFeatureRateData()");
+		testArray(dao.getDataAsArray(FEATURE_RATES_DATA_FILE), "testGetFeatureRateData()");
 	}
 
 	/**
@@ -131,7 +143,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistoryData() {
-		testArray(dao.getPaymentHistoryData(), "getPaymentHistoryData()");
+		testArray(dao.getDataAsArray(PAYMENT_HISTORY_DATA_FILE), "testGetPaymentHistoryData()");
 	}
 
 	/**
@@ -139,7 +151,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetPlanRatesData() {
-		testArray(dao.getPlanRatesData(), "getPlanRatesData()");
+		testArray(dao.getDataAsArray(PLANRATES_DATA_FILE), "testGetPlanRatesData()");
 	}
 
 	/**
@@ -147,7 +159,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetSubscriptionPlanData() {
-		testArray(dao.getSubscriptionPlanData(), "getSubscriptionPlanData()");
+		testArray(dao.getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE), "testGetSubscriptionPlanData()");
 	}
 
 	/**
@@ -155,7 +167,7 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetUserData() {
-		testArray(dao.getUserData(), "getUserData()");
+		testArray(dao.getDataAsArray(USER_DATA_FILE), "testGetUserData()");
 	}
 
 	/**
@@ -163,7 +175,20 @@ public class GenericDaoTest {
 	 */
 	@Test
 	public void testGetComplaintsData() {
-		testArray(dao.getComplaintsData(), "getComplaintsData()");
+		testArray(dao.getDataAsArray(COMPLAINTS_DATA_FILE), "testGetComplaintsData()");
+	}
+	
+	/**
+	 * Test method for {@link sg.edu.nus.iss.billsys.dao.GenericDao#getComplaintsData()}.
+	 */
+	@Test
+	public void testGetMobileNumbersData() {
+		testArray(dao.getDataAsArray(MOBILE_NUMBERS_DATA_FILE), "testGetMobileNumbersData()");
+	}
+	
+	@Test
+	public void testGetDigiVoiceNumbersData() {
+		testArray(dao.getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE), "testGetDigiVoiceNumbersData()");
 	}
 
 	/**
@@ -173,11 +198,11 @@ public class GenericDaoTest {
 	public void testSaveCustomerData() {
 	
 		try{
-			String[][] temp=dao.getCustomerData();
+			String[][] temp=dao.getDataAsArray(CUSTOMER_DATA_FILE);
 			
 			if(temp!=null && temp.length>0){
-				if(!dao.saveCustomerData(temp))
-					fail("saveCustomerData , Save Failed !!");
+				if(!dao.storeDataByArray(CUSTOMER_DATA_FILE, temp))
+					fail("testSaveCustomerData , Save Failed !!");
 			}else {				
 				fail("saveCustomer Data to be saved is null or empty !!");				 
 			}		
@@ -197,11 +222,11 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveFeatureData() {
 		try{
-			String[][] temp=dao.getFeatureData();
+			String[][] temp=dao.getDataAsArray(FEATURE_DATA_FILE);
 			
 			if(temp!=null && temp.length>0){
-				if(!dao.saveFeatureData(temp))
-					fail("saveFeatureData , Save Failed !!");
+				if(!dao.storeDataByArray(FEATURE_DATA_FILE, temp))
+					fail("testSaveFeatureData , Save Failed !!");
 			}else {				
 				fail("saveFeature Data to be saved is null or empty !!");				 
 			}		
@@ -220,11 +245,11 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveSubscriptionPlanData() {
 		try{
-			String[][] temp=dao.getSubscriptionPlanData();
+			String[][] temp=dao.getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
 			
 			if(temp!=null && temp.length>0){
-				if(!dao.saveSubscriptionPlanData(temp))
-					fail("saveSubscriptionPlanData , Save Failed !!");
+				if(!dao.storeDataByArray(SUBSCRIPTION_PLAN_DATA_FILE,temp))
+					fail("testSaveSubscriptionPlanData , Save Failed !!");
 			}else {				
 				fail("saveSubscriptionPlan Data to be saved is null or empty !!");				 
 			}	
@@ -242,17 +267,58 @@ public class GenericDaoTest {
 	@Test
 	public void testSaveComplaintsData() {
 		try{
-			String[][] temp=dao.getComplaintsData();
+			String[][] temp=dao.getDataAsArray(COMPLAINTS_DATA_FILE);
 			
 			if(temp!=null && temp.length>0){
-				if(!dao.saveComplaintsData(temp))
-					fail("saveComplaintsData , Save Failed !!");
+				if(!dao.storeDataByArray(COMPLAINTS_DATA_FILE, temp))
+					fail("testSaveComplaintsData , Save Failed !!");
 			}else {				
 				fail("saveComplaints Data to be saved is null or empty !!");				 
 			}
 			
 		}catch (Exception e) {
 			fail("Exception while invoking saveComplaintsData to save Data");	
+			BillingSystemLogger.log(Level.SEVERE, e);
+			e.printStackTrace();
+		}	
+	}
+	
+	/**
+	 * Test method for {@link sg.edu.nus.iss.billsys.dao.GenericDao#saveComplaintsData(java.lang.String[][])}.
+	 */
+	@Test
+	public void testSaveMobileNumberData() {
+		try{
+			String[][] temp=dao.getDataAsArray(MOBILE_NUMBERS_DATA_FILE);
+			
+			if(temp!=null && temp.length>0){
+				if(!dao.storeDataByArray(MOBILE_NUMBERS_DATA_FILE, temp))
+					fail("testSaveMobileNumberData , Save Failed !!");
+			}else {				
+				fail("SaveMobileNumberData Data to be saved is null or empty !!");				 
+			}
+			
+		}catch (Exception e) {
+			fail("Exception while invoking SaveMobileNumberData to save Data");	
+			BillingSystemLogger.log(Level.SEVERE, e);
+			e.printStackTrace();
+		}	
+	}
+	
+	@Test
+	public void testSaveDigiNumberData() {
+		try{
+			String[][] temp=dao.getDataAsArray(DIGIVOICE_NUMBERS_DATA_FILE);
+			
+			if(temp!=null && temp.length>0){
+				if(!dao.storeDataByArray(DIGIVOICE_NUMBERS_DATA_FILE, temp))
+					fail("testSaveDigiNumberData , Save Failed !!");
+			}else {				
+				fail("SaveDigiNumberData Data to be saved is null or empty !!");				 
+			}
+			
+		}catch (Exception e) {
+			fail("Exception while invoking SaveDigiNumberData to save Data");	
 			BillingSystemLogger.log(Level.SEVERE, e);
 			e.printStackTrace();
 		}	
