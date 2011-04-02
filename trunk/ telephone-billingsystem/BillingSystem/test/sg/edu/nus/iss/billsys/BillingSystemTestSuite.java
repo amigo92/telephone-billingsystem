@@ -11,7 +11,6 @@ import sg.edu.nus.iss.billsys.dao.FeatureRateTest;
 import sg.edu.nus.iss.billsys.dao.GenericDaoTest;
 import sg.edu.nus.iss.billsys.dao.MobileNumbersDaoTest;
 import sg.edu.nus.iss.billsys.dao.PaymentHistDaoTest;
-import sg.edu.nus.iss.billsys.dao.PlanRateDaoTest;
 import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDaoTest;
 import sg.edu.nus.iss.billsys.dao.UserDaoTest;
 import sg.edu.nus.iss.billsys.mgr.AccountMgrTest;
@@ -33,7 +32,6 @@ import sg.edu.nus.iss.billsys.vo.MobileVoicePlanTest;
 	GenericDaoTest.class,
 	MobileNumbersDaoTest.class,
 	PaymentHistDaoTest.class,
-	PlanRateDaoTest.class,
 	SubscriptionPlanDaoTest.class,
 	UserDaoTest.class,
 	DigitalVoicePlanTest.class,
