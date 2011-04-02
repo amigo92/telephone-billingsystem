@@ -70,8 +70,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
     }
 
     private JPanel createFormPanel () {	
-    	JLabel title = new JLabel("                                                            Registration");    	
-    	
+    	JLabel title = new JLabel("<html><center><h3>Registration</h3></center></html>");   
+    	title.setHorizontalAlignment(SwingConstants.CENTER );
+
     	JPanel p = new JPanel (new GridLayout(0,2));
         p.add (new JLabel("Please select a customer:"));
         p.add (new JLabel(" "));
@@ -163,74 +164,42 @@ public class SubscriptionRegistrationPanel extends JPanel {
   
     private JPanel registerFeaturePanel () {
     	JPanel bp = new JPanel (new BorderLayout());
-
-		JScrollPane scrollPane = new JScrollPane();
 		JPanel p = new JPanel (new GridLayout (0, 2));
 
 		if(accountNo != null){
-
-			try{
-				subscribedPlans = manager.getAccountSubscriptions(accountNo);	
+			subscribedPlans = manager.getAccountSubscriptions(accountNo);	
+			
+			if(subscribedPlans !=null)
+			{	
+				p.add(new JLabel ("Register New Feature: "));
+				p.add(new JLabel(""));
 				
-				if(subscribedPlans !=null)
-				{	
-					p.add(new JLabel ("Register New Feature: "));
-					p.add(new JLabel(""));
-					
-					JButton b = new JButton ("Register new feature");
-			        b.addActionListener (new ActionListener () {
-			        public void actionPerformed (ActionEvent e) {
-			        	try{		        		
-			        		SubscriptionPlanAddFDialog d = new SubscriptionPlanAddFDialog(window,accountNo, subscribedPlans.get(selectedPlanIndex));
-			        		d.pack();
-			        		d.setVisible(true);
-				    
-			        	}catch(Exception ex){
-				    		JOptionPane.showMessageDialog(window, ex.getMessage());
-				    	} 	
-			    	}
-			        });
+				JButton b = new JButton ("Register new feature");
+		        b.addActionListener (new ActionListener () {
+		        public void actionPerformed (ActionEvent e) {
+		        	try{		        		
+		        		SubscriptionPlanAddFDialog d = new SubscriptionPlanAddFDialog(window,accountNo, subscribedPlans.get(selectedPlanIndex));
+		        		d.pack();
+		        		d.setVisible(true);
+			    
+		        	}catch(Exception ex){
+			    		JOptionPane.showMessageDialog(window, ex.getMessage());
+			    	} 	
+		    	}
+		        });
 
-					p.add(createRegisteredSubComboBox(subscribedPlans));
-					p.add(b);
+				p.add(createFeatureComboBox(subscribedPlans));
+				p.add(b);
 
-					JPanel sp = new JPanel (new GridLayout (0, 2));
-					
-					JLabel titleLabel = new JLabel ("Existing Subscription Information:");
 				
-					sp.add ( titleLabel);
-					sp.add(new JLabel(""));
-					
-					for(SubscriptionPlan plan: subscribedPlans){
-						String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
-									+	(plan.getDateTerminated() == null? " ": "  -  " ) 
-									+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
-					    
-						sp.add (new JLabel (plan.getPlanDescription()));						
-						sp.add (new JLabel(strDateInfo));
-						
-						List<Feature> features = plan.getOptionalFeatures();	
-						for(Feature feature: features){
-							strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
-							+ (feature.getDateTerminated() == null? " ": "  -  " ) 
-							+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
-
-							sp.add ( new JLabel ("        " + feature.getName()));
-							sp.add(new JLabel(strDateInfo));
-						}	
-						scrollPane.getViewport().add( sp );
-						bp.add ("North", p);
-			        	bp.add ("Center", scrollPane);
-					} 
-				}
-			}catch(Exception ex) {			
-	    		JOptionPane.showMessageDialog(window, ex.getMessage(), "Error",0);
+				bp.add ("North", p);
+	        	bp.add ("Center", existingSubscriptionPanel (subscribedPlans));
 			}
 		}
         return bp;
     }
    
-    private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {
+    private JComboBox createFeatureComboBox (List<SubscriptionPlan> subscribedPlans) {
     	JComboBox	planBox = new JComboBox();
     	
     	final String[] planDescs = new String[subscribedPlans.size()];
@@ -249,4 +218,36 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    planBox.setSelectedIndex(0);
 	    return planBox;
     }
+	 private JScrollPane existingSubscriptionPanel (List<SubscriptionPlan> subscribedPlans) {
+		JScrollPane scrollPane = new JScrollPane();
+	
+		JPanel sp = new JPanel (new GridLayout (0, 2));
+			
+		JLabel titleLabel = new JLabel ("Existing Subscription Information:");
+		
+		sp.add ( titleLabel);
+		sp.add(new JLabel(""));
+		
+		for(SubscriptionPlan plan: subscribedPlans){
+			String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
+						+	(plan.getDateTerminated() == null? " ": "  -  " ) 
+						+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
+		    
+			sp.add (new JLabel (plan.getPlanDescription()));						
+			sp.add (new JLabel(strDateInfo));
+			
+			List<Feature> features = plan.getOptionalFeatures();	
+			for(Feature feature: features){
+				strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
+				+ (feature.getDateTerminated() == null? " ": "  -  " ) 
+				+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
+		
+				sp.add ( new JLabel ("        " + feature.getName()));
+				sp.add(new JLabel(strDateInfo));
+			}
+		}
+		
+		scrollPane.getViewport().add(sp );
+		return scrollPane;			    	
+	 }
 }

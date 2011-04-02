@@ -66,12 +66,12 @@ public class SubscriptionIntroPanel extends JPanel {
 	    	} 	
     	}
     	
-    	JLabel headerLabel =  new JLabel ("Introduction of Subcription Plan:   ");
-    	headerLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-    	
+    	JLabel title = new JLabel("<html><center><h3>Introduction of Subcription Plan</h3></center></html>");   
+    	title.setHorizontalAlignment(SwingConstants.CENTER );
+    	    	
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
-        bp.add ("North",headerLabel);
+        bp.add ("North",title);
         bp.add ("Center", p);
         return bp;
     }

@@ -79,7 +79,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		  
-		p.add (assignedNumberLabel = new JLabel ("Please select a phone number"));
+		p.add (assignedNumberLabel = new JLabel ("Please select a phone number *"));
 	
 		p.add (createPhoneNumberComboBox ());
 		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
@@ -88,6 +88,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog {
 		p.add (new JLabel ("End Date (d-MMM-yyyy)"));
 		untilField = new JTextField (20);
 		p.add (untilField);
+		
+		p.add (new JLabel ("* compulsory field"));
+		p.add (new JLabel (""));
 		
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		return p;

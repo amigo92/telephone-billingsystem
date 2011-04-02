@@ -99,6 +99,9 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 		untilField = new JTextField (20);
 		p.add (untilField);
 		
+		p.add (new JLabel ("* compulsory field"));
+		p.add (new JLabel (""));
+
 		p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		
 		return p;
