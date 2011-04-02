@@ -56,7 +56,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
     public SubscriptionRegistrationPanel (BillingWindow window,String customerID, String accountNo) {
 		this.accountNo = accountNo;	
 		initialize(window);
-		this.customerID.setText(customerID);
     }
     
     private void initialize(BillingWindow window){
