@@ -247,7 +247,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 						// call 
 						System.out.println("aa");
 						if (validateControl()){
-							window.refreshSubRegPanel(cust.getNric() ,cust.getAccIdByCust());	
+							window.refreshSubRegPanel(cust.getAccIdByCust());	
 						}
 						else {		
 							System.out.println("1");
