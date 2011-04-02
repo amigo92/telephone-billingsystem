@@ -284,8 +284,10 @@ public class SubscriptionRegistrationPanel extends JPanel {
    			    sp.add(b2);
 			}
 		}
+		JPanel bp = new JPanel(new BorderLayout());
+		bp.add("North", sp);
+		scrollPane.getViewport().add(bp );
 		
-		scrollPane.getViewport().add(sp );
 		return scrollPane;			    	
 	 }
 }
