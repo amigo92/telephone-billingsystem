@@ -35,14 +35,14 @@ import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
-public class SubscriptionPlanAddFDialog extends JDialog {
+public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
 	
     protected SubscriptionMgr manager;
         
     private JTextField fromField;
     private JTextField untilField;
-    private JPanel featurePanel;
+    private JComboBox featureBox;
     
     private BillingWindow window;
     private String accountNo;
@@ -70,24 +70,28 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 			p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 			p.add (new JLabel("All featuers has been registered!"));
+			
+			add("Center",p);
 
-			add ("Center", p);
 		}
 		else {
-			add ("Center", createFormPanel());
 			fromField.setText(BillingUtil.getCurrentDateStr());
 			untilField.setText(BillingUtil.getNextYearStr());
+			
+			for(FeatureType f: unregisteredFeatures)
+				featureBox.addItem(f.name);
+			
+		    featureBox.setSelectedIndex(0);
 		}
-        add ("South",  createButtonPanel()); 
+	
 	}
-
+	@Override
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
 		
 		p.add (new JLabel("Please select: "));
-		featurePanel = createFeaturePanel();
-		p.add(featurePanel); 
+		p.add(createFeatureComboBox()); 
 		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
 		fromField = new JTextField (20);
 		p.add (fromField);
@@ -99,40 +103,22 @@ public class SubscriptionPlanAddFDialog extends JDialog {
 		
 		return p;
 	}
-	protected JPanel createFeaturePanel() {
-		JPanel p = new JPanel ();
-		p.setLayout (new GridLayout (0, 1));
-    	
-		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0 ){
-			p.add(createFeatureComboBox(unregisteredFeatures));		
-		}		
-		return p;
-	}
-	
-	 private JComboBox createFeatureComboBox (List<FeatureType> features) {  	
-	    	    JComboBox featureBox = new JComboBox();		
-	    	
-		    	if(features != null){
-			    String[] featuresNames = new String[features.size()];
-			    for (int i = 0 ; i <features.size(); i ++ ) {
-			    	featuresNames[i] = features.get(i).name;
-			    } 
-			    
-			    featureBox = new JComboBox(featuresNames);
-			    
-			    featureBox.addActionListener(new ActionListener (){
-			    	public void actionPerformed (ActionEvent e) {
-			    		   JComboBox cb = (JComboBox)e.getSource();
-			    			   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
-			            }
-			    });
-			    featureBox.setSelectedIndex(0);
-	    	} 
-		    add(featureBox, BorderLayout.PAGE_START);
-		    return featureBox;
-	    }
 
-	protected boolean performOkAction() {
+	 private JComboBox createFeatureComboBox () {  	
+			featureBox = new JComboBox();		
+					    
+			featureBox.addActionListener(new ActionListener (){
+				public void actionPerformed (ActionEvent e) {
+					   JComboBox cb = (JComboBox)e.getSource();
+						   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
+			        }
+			});
+		
+			return featureBox;
+	   }
+
+	 @Override	
+	 protected boolean performOkAction() {
 		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0)
 		{
 			Date fromDate;
@@ -186,40 +172,5 @@ public class SubscriptionPlanAddFDialog extends JDialog {
     		 }
 	    	return unRegisteredFestures;
     	}
-    }
-	
-    private JPanel createButtonPanel () {
-        JPanel p = new JPanel ();
-
-        JButton b;
-        ActionListener l;
-
-        b = new JButton ("OK");
-        l = new ActionListener () {
-            public void actionPerformed (ActionEvent e) {
-                boolean success = performOkAction ();
-                if (success) {
-                    destroyDialog ();
-                }
-            }
-        };
-        b.addActionListener (l);
-        p.add (b);
-
-        b = new JButton ("Cancel");
-        l = new ActionListener () {
-            public void actionPerformed (ActionEvent e) {
-                destroyDialog ();
-            }
-        };
-        b.addActionListener (l);
-        p.add (b);
-
-        return p;
-    }
-
-    private void destroyDialog () {
-        setVisible (false);
-        dispose();
     }
 }
