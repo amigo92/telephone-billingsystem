@@ -74,7 +74,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 	public LogComplaintPanel(BillingWindow window) {
 		super();
 		this.window = window;
-		this.window.setTitle("Billing System > Log Complaint");
+//		this.window.setTitle("Billing System > Log Complaint");
 		initGUI();
 	}
 	

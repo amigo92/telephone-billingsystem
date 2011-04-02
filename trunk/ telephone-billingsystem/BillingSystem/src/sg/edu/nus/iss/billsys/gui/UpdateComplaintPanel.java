@@ -90,7 +90,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 	public UpdateComplaintPanel(BillingWindow window) {
 		super();
 		this.window = window;
-		this.window.setTitle("Billing System > Update Complaint");
+//		this.window.setTitle("Billing System > Update Complaint");
 		initGUI();
 	}
 	
@@ -370,6 +370,9 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			TableModel complaintTableModel = new DefaultTableModel(
 					getTableData(complaints), getColumnNames());
 			complaintsTable.setModel(complaintTableModel);
+		 } else {
+				JOptionPane.showMessageDialog(window, "No complaints found!", "Warning Message", JOptionPane.WARNING_MESSAGE);
+				return;
 		 }
 	}
 
