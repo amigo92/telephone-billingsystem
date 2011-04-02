@@ -54,25 +54,36 @@ public class SubscriptionMgr {
 	}	
 
 	public FeatureType[] getPlanFeatures(PlanType planType) {
-		return new FeatureType[] {
-			// digi voice
-			FeatureType.Line,
-			FeatureType.CallTransfer,
-			FeatureType.DigiIDD,
-			FeatureType.DigiLocalCall,
-			FeatureType.DigiIDDCall,
-			// mobile
-			FeatureType.Mobile,
-			FeatureType.DataService,
-			FeatureType.Roaming,
-			FeatureType.MobileIDD,
-			FeatureType.MobileLocalCall,
-			FeatureType.MobileIDDCall,
-			FeatureType.RoamingCall,
-			// cable tv
-			FeatureType.StdChannels,
-			FeatureType.AddChannel
-		};
+		switch(planType) {
+		case DigitalVoice:
+			return new FeatureType[] {
+				// digi voice
+				FeatureType.Line,
+				FeatureType.CallTransfer,
+				FeatureType.DigiIDD,
+				FeatureType.DigiLocalCall,
+				FeatureType.DigiIDDCall,
+			};
+		case MobileVoice:
+			return new FeatureType[] {
+				// mobile
+				FeatureType.Mobile,
+				FeatureType.DataService,
+				FeatureType.Roaming,
+				FeatureType.MobileIDD,
+				FeatureType.MobileLocalCall,
+				FeatureType.MobileIDDCall,
+				FeatureType.RoamingCall,
+			};
+		case CableTv:
+			return new FeatureType[] {
+				// cable tv
+				FeatureType.StdChannels,
+				FeatureType.AddChannel
+			};
+		default:
+			return null;
+		}
 	}
 
     /*
