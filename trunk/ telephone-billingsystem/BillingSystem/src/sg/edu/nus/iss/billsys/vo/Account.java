@@ -27,7 +27,7 @@ public class Account extends VirtualObject{
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		NumberFormat nf = new DecimalFormat("#00");
-		return  "SA-" + Integer.toString(year) + "-" + nf.format(month) + nf.format(nextAcct);
+		return  "SA-" + Integer.toString(year) + "-" + nf.format(month) + "-" + nf.format(nextAcct);
 	}
 	public String getAcctNo() {
 		return acctNo;
