@@ -53,12 +53,20 @@ public class SubscriptionMgr {
 		return planType.basicFeature;
 	}	
 
-	public FeatureType[] getPlanOptionalFeatures(PlanType planType) {
-		return planType.optionalFeatures;
+	public List<FeatureType> getPlanOptionalFeatures(PlanType planType) {
+		List<FeatureType> list = new ArrayList<FeatureType>();
+		for (FeatureType f : planType.optionalFeatures) {
+			list.add(f);
+		}
+		return list;
 	}
 
-	public FeatureType[] getPlanUsageChargeFeatures(PlanType planType) {
-		return planType.usageChargeFeatures;
+	public List<FeatureType> getPlanUsageChargeFeatures(PlanType planType) {
+		List<FeatureType> list = new ArrayList<FeatureType>();
+		for (FeatureType f : planType.usageChargeFeatures) {
+			list.add(f);
+		}
+		return list;
 	}
 
     /*
