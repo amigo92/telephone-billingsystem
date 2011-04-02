@@ -60,20 +60,17 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
     
 	
 
-    private JPanel createFormPanel () {
+    private JPanel createFormPanel () {  	
+    	JLabel title = new JLabel("<html><center><h3>De-Registration</h3></center></html>");   
+    	title.setHorizontalAlignment(SwingConstants.CENTER );
     	
-    	JLabel title = new JLabel("                                                            De-Registration");    	
-
     	JPanel p = new JPanel (new GridLayout (0,2));
     	
         p.add ( new JLabel ("Please select a customer:   "));
         p.add ( new JLabel (""));
 
-
         p.add(createCustomerComboBox());
         p.add ( new JLabel (""));
-
-
   
         JPanel bp = new JPanel ();
         bp.setLayout (new BorderLayout());
@@ -118,7 +115,6 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 		{
 	    	if(accountNo != null){
 	    		p1.add ("North", new JLabel ("Existing Subscripiton Information:"));
-
 	    		
 				List<SubscriptionPlan> subscribedPlans = manager.getAccountSubscriptions(accountNo);
 				
@@ -162,7 +158,7 @@ public class SubscriptionDeRegistrationPanel extends JPanel {
 							p.add ( new JLabel (  strDateInfo));
 
 							JButton b2;
-							if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+							if(feature.getDateTerminated() == null || feature.getDateTerminated().after(BillingUtil.getCurrentDate())) 
 								b2 = new JButton ("De-Register");
 							else
 								b2 = new JButton ("Extend Subscription");
