@@ -146,11 +146,9 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    		
 	    for (int i = 0 ; i <listOfPlanType.length; i ++ ) {
 	    	planNames[i] = listOfPlanType[i].name;
-	    } 
-	    
+	    }     
 	    JComboBox planTypeBox = new JComboBox(planNames);
-	    
-	    
+
 	    planTypeBox.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		   JComboBox cb = (JComboBox)e.getSource();
@@ -182,11 +180,11 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		        		d.pack();
 		        		d.setVisible(true);
 			    
-		        	}catch(Exception ex){
-			    		JOptionPane.showMessageDialog(window, ex.getMessage());
-			    	} 	
-		    	}
-		        });
+			        	}catch(Exception ex){
+				    		JOptionPane.showMessageDialog(window, ex.getMessage());
+				    	} 	
+			    	}
+			        });
 
 				p.add(createFeatureComboBox(subscribedPlans));
 				p.add(b);
@@ -239,8 +237,8 @@ public class SubscriptionRegistrationPanel extends JPanel {
 			List<Feature> features = plan.getOptionalFeatures();	
 			for(Feature feature: features){
 				strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
-				+ (feature.getDateTerminated() == null? " ": "  -  " ) 
-				+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
+					+ (feature.getDateTerminated() == null? " ": "  -  " ) 
+					+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
 		
 				sp.add ( new JLabel ("        " + feature.getName()));
 				sp.add(new JLabel(strDateInfo));
