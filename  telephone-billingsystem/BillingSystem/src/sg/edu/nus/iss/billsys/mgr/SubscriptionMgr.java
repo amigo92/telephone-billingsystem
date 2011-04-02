@@ -53,12 +53,10 @@ public class SubscriptionMgr {
 		return planType.basicFeature;
 	}	
 
-	public FeatureType[] getPlanFeatures(PlanType planType) {
+	public FeatureType[] getPlanOptionalFeatures(PlanType planType) {
 		switch(planType) {
 		case DigitalVoice:
 			return new FeatureType[] {
-				// digi voice
-				FeatureType.Line,
 				FeatureType.CallTransfer,
 				FeatureType.DigiIDD,
 				FeatureType.DigiLocalCall,
@@ -66,8 +64,6 @@ public class SubscriptionMgr {
 			};
 		case MobileVoice:
 			return new FeatureType[] {
-				// mobile
-				FeatureType.Mobile,
 				FeatureType.DataService,
 				FeatureType.Roaming,
 				FeatureType.MobileIDD,
@@ -77,8 +73,6 @@ public class SubscriptionMgr {
 			};
 		case CableTv:
 			return new FeatureType[] {
-				// cable tv
-				FeatureType.StdChannels,
 				FeatureType.AddChannel
 			};
 		default:
