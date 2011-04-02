@@ -53,11 +53,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		this.accountNo = accountNo;
 		initialize(window);
     }
-    public SubscriptionRegistrationPanel (BillingWindow window,String customerID, String accountNo) {
-		this.accountNo = accountNo;	
-		initialize(window);
-    }
-    
     private void initialize(BillingWindow window){
 		this.window = window;
 	    manager = window.getSubscriptionMgr();
@@ -190,9 +185,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 			        		d.pack();
 			        		d.setVisible(true);
 				    
-			        	}
-				    	catch(Exception ex)
-				    	{
+			        	}catch(Exception ex){
 				    		JOptionPane.showMessageDialog(window, ex.getMessage());
 				    	} 	
 			    	}
@@ -234,10 +227,8 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    		JOptionPane.showMessageDialog(window, ex.getMessage(), "Error",0);
 			}
 		}
-
         return bp;
     }
-
    
     private JComboBox createRegisteredSubComboBox (List<SubscriptionPlan> subscribedPlans) {
     	JComboBox	planBox = new JComboBox();
