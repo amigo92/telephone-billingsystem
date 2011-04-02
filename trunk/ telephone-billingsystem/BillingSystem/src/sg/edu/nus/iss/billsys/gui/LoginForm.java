@@ -250,7 +250,7 @@ public class LoginForm extends javax.swing.JFrame {
 
 	protected void loginButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("loginButton.actionPerformed, arg0=" + arg0);
-//		BillingSystemLogger.logInfo(">>>>>" + ResourceHandler.getError("error.null"));
+//		BillingSystemLogger.logInfo(">>>>>" + ResourceHandler.getError("loginform.error1"));
 		BillingSystemLogger.logInfo(this.usernameText.getText());
 		BillingSystemLogger.logInfo(this.passwordText.getText());
 
