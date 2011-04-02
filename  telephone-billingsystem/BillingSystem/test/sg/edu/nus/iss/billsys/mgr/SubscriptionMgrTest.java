@@ -32,7 +32,7 @@ public class SubscriptionMgrTest extends TestCase {
 		subMgr.setSaveObjData(false);
 		cust = MgrFactory.getAccountMgr().createCustomer(
 			"John",
-			"S1234567",
+			"S1234567C",
 			"66667777",
 			"700 Hill Street",
 			"#11-11",
