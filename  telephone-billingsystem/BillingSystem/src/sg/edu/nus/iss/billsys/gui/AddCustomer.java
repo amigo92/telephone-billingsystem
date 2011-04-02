@@ -30,7 +30,6 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ContactTelLabel;
 	private JLabel IntestingLabel;
 	private JLabel errorMsgNIRC;
-	private JLabel errorMsgLabelName;
 	private JButton CancelButton;
 	private JButton SubmitButton;
 	private JTextField CustContactTelText;
@@ -47,6 +46,8 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel CustomerNameLabel;
 	private JPanel CustomerCenterPanel;
 	private JLabel CustomerTitle;
+	private JLabel ErrMsgTeleNoLabel; 
+	private JLabel errorMsgLabelName;
 	
 	private String errorMsg=null;
 	private BillingWindow window;
@@ -109,7 +110,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					Address1Label = new JLabel();
 					CustomerCenterPanel.add(Address1Label);
 					Address1Label.setText("Address 1  : ");
-					Address1Label.setBounds(6, 97, 102, 16);
+					Address1Label.setBounds(6, 91, 102, 16);
 				}
 				{
 					CustNameText = new JTextField();
@@ -124,57 +125,57 @@ public class AddCustomer extends javax.swing.JPanel {
 				{
 					CustAdd1Text = new JTextField();
 					CustomerCenterPanel.add(CustAdd1Text);
-					CustAdd1Text.setBounds(148, 88, 252, 36);
+					CustAdd1Text.setBounds(148, 88, 252, 23);
 				}
 				{
 					CustAdd2Text = new JTextField();
 					CustomerCenterPanel.add(CustAdd2Text);
-					CustAdd2Text.setBounds(148, 136, 252, 36);
+					CustAdd2Text.setBounds(148, 122, 252, 23);
 				}
 				{
 					CustAdd2Label = new JLabel();
 					CustomerCenterPanel.add(CustAdd2Label);
 					CustAdd2Label.setText("Address 2  : ");
-					CustAdd2Label.setBounds(6, 145, 102, 16);
+					CustAdd2Label.setBounds(6, 125, 102, 16);
 				}
 				{
 					CustAdd3Label = new JLabel();
 					CustomerCenterPanel.add(CustAdd3Label);
 					CustAdd3Label.setText("Address 3  : ");
-					CustAdd3Label.setBounds(6, 196, 102, 16);
+					CustAdd3Label.setBounds(6, 159, 102, 16);
 				}
 				{
 					CustAdd3Text = new JTextField();
 					CustomerCenterPanel.add(CustAdd3Text);
-					CustAdd3Text.setBounds(148, 187, 252, 36);
+					CustAdd3Text.setBounds(148, 156, 252, 23);
 				}
 				{
 					ContactTelLabel = new JLabel();
 					CustomerCenterPanel.add(ContactTelLabel);
 					ContactTelLabel.setText("Contact Telephone :");
-					ContactTelLabel.setBounds(6, 243, 142, 16);
+					ContactTelLabel.setBounds(6, 193, 142, 16);
 				}
 				{
 					CustContactTelText = new JTextField();
 					CustomerCenterPanel.add(CustContactTelText);
-					CustContactTelText.setBounds(148, 240, 164, 23);
+					CustContactTelText.setBounds(148, 190, 164, 23);
 				}
 				{
 					InterestingText  = new JTextField();
 					CustomerCenterPanel.add(InterestingText);
-					InterestingText.setBounds(148, 275, 252, 36);
+					InterestingText.setBounds(148, 220, 353, 23);
 				}
 				{
 					IntestingLabel = new JLabel();
 					CustomerCenterPanel.add(IntestingLabel);
 					IntestingLabel.setText("Interesting :");
-					IntestingLabel.setBounds(8, 284, 142, 16);
+					IntestingLabel.setBounds(6, 230, 142, 16);
 				}
 				{
 					SubmitButton = new JButton();
 					CustomerCenterPanel.add(SubmitButton);
 					SubmitButton.setText("Submit");
-					SubmitButton.setBounds(231, 358, 81, 23);
+					SubmitButton.setBounds(231, 272, 81, 23);
 					SubmitButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							 try{
@@ -198,7 +199,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					CancelButton = new JButton();
 					CustomerCenterPanel.add(CancelButton);
 					CancelButton.setText("Cancel");
-					CancelButton.setBounds(323, 358, 77, 23);
+					CancelButton.setBounds(320, 272, 77, 23);
 					CancelButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							CancelButtonActionPerformed(evt);
@@ -220,8 +221,16 @@ public class AddCustomer extends javax.swing.JPanel {
 					errorMsgNIRC.setText("*Please enter NIRC.");
 					errorMsgNIRC.setBounds(406, 49, 169, 16);
 					errorMsgNIRC.setOpaque(true);
-					errorMsgNIRC.setForeground(new java.awt.Color(255, 0, 0));
 					errorMsgNIRC.setVisible(false);
+					errorMsgNIRC.setForeground(new java.awt.Color(255, 0, 0));
+				}
+				{
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number");
+					ErrMsgTeleNoLabel.setBounds(320, 194, 194, 14);
+					CustomerCenterPanel.add(ErrMsgTeleNoLabel);
+					ErrMsgTeleNoLabel.setVisible(false);
+					ErrMsgTeleNoLabel.setOpaque(true);
+					ErrMsgTeleNoLabel.setForeground(new java.awt.Color(255, 0, 0));
 				}
 			}
 		} catch (Exception e) {
@@ -276,10 +285,36 @@ public class AddCustomer extends javax.swing.JPanel {
 			// display error message
 			errorMsgNIRC.setVisible(true);
 			bReturn= false;
+		}	
+		
+		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
+			
+			if (!isNumeric(this.CustContactTelText.getText())){
+			// display error message
+			ErrMsgTeleNoLabel.setVisible(true);
+			bReturn= false;
+			}
 		}		
 		
 		return bReturn;
 	}
+	
+	public boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+
+
+
+
 	
 	private void clearErrorMsgData(){
 		errorMsgLabelName.setVisible(false);
