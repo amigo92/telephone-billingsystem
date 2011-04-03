@@ -185,7 +185,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
 
 				p.add(createFeatureComboBox(subscribedPlans));
 				p.add(b);
-
 				
 				bp.add ("North", p);
 	        	bp.add ("Center", existingSubscriptionPanel (subscribedPlans));

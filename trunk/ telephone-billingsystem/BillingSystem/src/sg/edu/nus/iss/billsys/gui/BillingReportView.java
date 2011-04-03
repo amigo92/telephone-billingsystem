@@ -22,7 +22,8 @@ public class BillingReportView extends JPanel {
 	private BillingWindow window;
 	private AccountMgr accountMgr;
 
-	
+	private JLabel lblTitleView;
+	private JLabel lblTitleGenerate;
 	private JLabel lblNric;
 	private JComboBox ddAccount;
 	private JLabel lblBP;
@@ -55,11 +56,15 @@ public class BillingReportView extends JPanel {
     }
     
     private void iniFields(){
+    	lblTitleView = new JLabel("<html><center><h3>View Bill Report</h3></center></html>");   
+    	lblTitleView.setHorizontalAlignment(SwingConstants.CENTER );
+    	
+    	lblTitleGenerate = new JLabel("<html><center><h3>Generate Bill Report</h3></center></html>");   
+    	lblTitleGenerate.setHorizontalAlignment(SwingConstants.CENTER );
+    	
     	lblNric = new JLabel ("Please select a customer:");
     	ddAccount = createCustomerComboBox ();
-
     	lblBP = new JLabel ("Bill Period:");
-
     	ddBillPeriod = createBillPeriodComboBox();
     	txtReport = new JTextArea("No record found.");
     	txtReport.setEditable(false);
@@ -73,6 +78,7 @@ public class BillingReportView extends JPanel {
     	if(!window.isAdmin()){
     		lblBillPeriod.setVisible(false);
     		btnGenerate.setVisible(false);
+    		lblTitleGenerate.setVisible(false);
     	}
     }
     
@@ -128,6 +134,7 @@ public class BillingReportView extends JPanel {
     	 
     	 layout.setHorizontalGroup(
     		        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+    		        			.addComponent(lblTitleView)	
     		            		.addGroup((layout.createSequentialGroup()
     		            					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 			    		            					.addComponent(lblNric)
@@ -141,6 +148,8 @@ public class BillingReportView extends JPanel {
     		            						)))	
 
     		            		.addComponent(spReport)	
+    		            		
+    		            		.addComponent(lblTitleGenerate)	
     		            		.addComponent(lblBillPeriod)	
 			    		    	.addComponent(btnGenerate)
     		            
@@ -148,6 +157,7 @@ public class BillingReportView extends JPanel {
     	 
     	 layout.setVerticalGroup(
     		        layout.createSequentialGroup()
+    		        	.addComponent(lblTitleView)	
     		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
     		            		.addComponent(lblNric)
     		            		.addComponent(ddAccount))
@@ -156,6 +166,8 @@ public class BillingReportView extends JPanel {
     		            		.addComponent(ddBillPeriod))
 		
     	    		    .addComponent(spReport)	
+    	    		    
+    	    		    .addComponent(lblTitleGenerate)	
     	    		    .addComponent(lblBillPeriod)	
 			    		.addComponent(btnGenerate)
     	);
