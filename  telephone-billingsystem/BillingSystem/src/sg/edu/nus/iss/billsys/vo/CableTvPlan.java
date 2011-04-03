@@ -3,9 +3,6 @@ package sg.edu.nus.iss.billsys.vo;
 import java.util.Date;
 
 import sg.edu.nus.iss.billsys.constant.*;
-import sg.edu.nus.iss.billsys.dao.SubscriptionPlanDao;
-import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.tools.TimeUtils;
 
 /**
  * 

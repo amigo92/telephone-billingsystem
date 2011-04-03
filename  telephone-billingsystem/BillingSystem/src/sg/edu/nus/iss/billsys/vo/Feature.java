@@ -4,7 +4,6 @@ import java.util.Date;
 import sg.edu.nus.iss.billsys.constant.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
-import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 
 public class Feature {
 	
