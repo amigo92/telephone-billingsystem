@@ -90,19 +90,19 @@ public class BillingWindow extends JFrame {
 				menu.addSeparator();
 				
 				
-				menuItem = new JMenuItem("Update Customer Status");
-				menuItem.setMnemonic(KeyEvent.VK_D);
-				menuItem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						UpdateCustomerStatus currentPanel = new UpdateCustomerStatus(window);
-						contentPane.revalidate();
-						contentPane = currentPanel;
-						window.setContentPane(contentPane);
-					}
-				});
-				menu.add(menuItem);
-				menu.addSeparator();
+//				menuItem = new JMenuItem("Update Customer Status");
+//				menuItem.setMnemonic(KeyEvent.VK_D);
+//				menuItem.addActionListener(new ActionListener() {
+//					public void actionPerformed(ActionEvent e) {
+//						
+//						UpdateCustomerStatus currentPanel = new UpdateCustomerStatus(window);
+//						contentPane.revalidate();
+//						contentPane = currentPanel;
+//						window.setContentPane(contentPane);
+//					}
+//				});
+//				menu.add(menuItem);
+//				menu.addSeparator();
 				
 				
 				menuItem = new JMenuItem("View Customer Details");
