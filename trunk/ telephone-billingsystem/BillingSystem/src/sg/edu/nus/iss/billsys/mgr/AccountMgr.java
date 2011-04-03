@@ -92,6 +92,10 @@ public class AccountMgr {
 	public ArrayList<Customer> getAllActiveCustomers(){
 		return custDao.getAllActiveCustomers();
 	}
+	
+	public boolean updateCustomer(Customer newCust){
+		return custDao.updateCust(newCust);
+	}
 
 	public void update(Account acct){
 		//TODO
