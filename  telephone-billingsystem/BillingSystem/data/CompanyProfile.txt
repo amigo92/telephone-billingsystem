@@ -4,5 +4,5 @@ street=41 Uni Lane
 unit=#02-003
 country=Singapore
 postalCd=654092
-hotline=Call 1654
+hotline=1654
 email=customer@onehash.com
