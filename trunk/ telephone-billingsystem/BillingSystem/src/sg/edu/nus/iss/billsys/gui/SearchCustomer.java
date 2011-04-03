@@ -27,6 +27,7 @@ import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.tools.*;
 import java.awt.FlowLayout;
+import java.awt.Dimension;
 
 /**
 * @author Win Kyi Tin 
@@ -56,6 +57,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private ArrayList< String[]> newlist = new ArrayList<String[]>();
 	private String errorMsg=null;
 	private JTable table ;
+	private JLabel lblNoteTo;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -83,7 +85,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 			
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			this.setPreferredSize(new java.awt.Dimension(571, 300));
+			this.setPreferredSize(new Dimension(571, 396));
 			{
 				SearchCustPanel = new JPanel();
 				this.add(SearchCustPanel, BorderLayout.NORTH);
@@ -201,6 +203,11 @@ public class SearchCustomer extends javax.swing.JPanel {
 				table = new JTable(qtm);				
 				JScrollPane scrollpane = new JScrollPane(table);
 				pTable.add(scrollpane, BorderLayout.CENTER);
+				{
+					lblNoteTo = new JLabel("Note : To View Customer Details , Please double click on the Customer NRIC or Name.");
+					lblNoteTo.setBounds(12, 285, 517, 14);
+					SearchCustPantelCenter.add(lblNoteTo);
+				}
 				table.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent evt) {
 						tableHeaderMouseClicked(evt);
