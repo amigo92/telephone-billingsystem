@@ -133,7 +133,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		untilField = new JTextField (20);
 		p.add (untilField);
 		
-		p.add (new JLabel ("Feature"));
+		p.add (new JLabel ("Features"));
 		checkPanel = new JPanel(new FlowLayout());
 		p.add (checkPanel);
 		
