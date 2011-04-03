@@ -66,6 +66,14 @@ public class AccountMgr {
 		return custDao.getCustomerByName(custName);
 	}
 	
+	public ArrayList<Customer> getCustomerListByName(String searchName){
+		return custDao.getCustomerListByName(searchName);
+	}
+	
+	public ArrayList<Customer> getCustomerListByAcctId(String searchId){
+		return custDao.getCustomerListByAcctId(searchId);
+	}
+	
 	public boolean reactiveCustomer(String accId, Date today) throws BillingSystemException{
 		Customer cust = custDao.reactiveCustomer(accId, today);
 		if(cust != null){

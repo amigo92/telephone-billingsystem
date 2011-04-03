@@ -22,6 +22,8 @@ public interface ICustomerDao {
 	public void addCustomer(Customer customer);
 	public ArrayList<Customer> getAllCustomers();
 	public ArrayList<Customer> getAllActiveCustomers();
+	public ArrayList<Customer> getCustomerListByName(String searchName);
+	public ArrayList<Customer> getCustomerListByAcctId(String searchId);
 	public boolean deleteCust(String accountId, Date today);
 	public void saveObjectData() throws BillingSystemException;
 
