@@ -189,6 +189,7 @@ public class AddCustomer extends javax.swing.JPanel {
 								} catch (Exception e) {
 								    // Print out the exception that occurred
 									errorMsg=new BillingSystemException(e).getMessagebyException();
+									
 								}
 								
 							
