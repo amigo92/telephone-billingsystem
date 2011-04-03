@@ -16,6 +16,7 @@ import javax.swing.JButton;
 * @author Win Kyi Tin 
 */
 
+import javax.swing.ButtonGroup;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
@@ -35,6 +36,7 @@ import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import javax.swing.JRadioButton;
 
 public class ViewCustomerDetails extends javax.swing.JPanel {
 
@@ -70,6 +72,10 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 
 	private JLabel errorMsgSearchLabel;
 	private JLabel errorMsgNRICLabel;
+	private JLabel lblCustomersStatus;
+	private JRadioButton rdbtnDeactivate;
+	private JRadioButton rdbtnActivated;
+	private ButtonGroup bgroup;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -109,7 +115,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		try {
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			this.setPreferredSize(new Dimension(655, 467));
+			this.setPreferredSize(new Dimension(655, 526));
 			{
 				ViewCustTitlePanel = new JPanel();
 				this.add(ViewCustTitlePanel, BorderLayout.NORTH);
@@ -220,24 +226,24 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					accountTitleLabel = new JLabel();
 					ViewCustPanelCenter.add(accountTitleLabel);
 					accountTitleLabel.setText("Account Information");
-					accountTitleLabel.setBounds(12, 329, 230, 16);
+					accountTitleLabel.setBounds(12, 376, 230, 16);
 					accountTitleLabel.setFont(new java.awt.Font("Segoe UI",1,14));
 				}
 				{
 					jSeparator1 = new JSeparator();
 					ViewCustPanelCenter.add(jSeparator1);
-					jSeparator1.setBounds(3, 319, 650, 10);
+					jSeparator1.setBounds(0, 355, 655, 10);
 				}
 				{
 					accountNoLabel = new JLabel();
 					ViewCustPanelCenter.add(accountNoLabel);
 					accountNoLabel.setText("Account No :");
-					accountNoLabel.setBounds(12, 364, 140, 16);
+					accountNoLabel.setBounds(12, 402, 140, 16);
 				}
 				{
 					CustAccontNoLabel = new JLabel( );
 					ViewCustPanelCenter.add(CustAccontNoLabel);
-					CustAccontNoLabel.setBounds(170, 367, 272, 10);
+					CustAccontNoLabel.setBounds(170, 405, 272, 10);
 					
 				}
 				
@@ -259,7 +265,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 										
 					}
 				});
-				btnSubscriptionInformation.setBounds(347, 410, 180, 23);
+				btnSubscriptionInformation.setBounds(352, 466, 180, 23);
 				ViewCustPanelCenter.add(btnSubscriptionInformation);
 				{
 					errorMsgSearchLabel = new JLabel("*No match record founds.");
@@ -281,6 +287,29 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					errorMsgNRICLabel.setVisible(false);
 					ViewCustPanelCenter.add(errorMsgNRICLabel);
 				}
+				{
+					lblCustomersStatus = new JLabel("Customer 's Status :");
+					lblCustomersStatus.setBounds(10, 330, 116, 14);
+					ViewCustPanelCenter.add(lblCustomersStatus);
+				}
+				{
+				 rdbtnActivated = new JRadioButton("Activated");
+				 rdbtnActivated.setEnabled(false);
+				rdbtnActivated.setBounds(170, 325, 109, 23);
+				ViewCustPanelCenter.add(rdbtnActivated);
+				}
+				{
+				 rdbtnDeactivate = new JRadioButton("Deactivate");
+				 rdbtnDeactivate.setEnabled(false);
+				 rdbtnDeactivate.setBounds(292, 326, 109, 23);
+				 ViewCustPanelCenter.add(rdbtnDeactivate);
+				}
+				{
+					bgroup = new ButtonGroup();
+					bgroup.add(rdbtnActivated);
+					bgroup.add(rdbtnDeactivate);				
+				}
+				
 				
 //				{
 //					qtm = new QueryTableModel();
@@ -331,7 +360,19 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		Custaddress3Label.setText(cust.getAddress3()) ;
 		CustTeleLabel.setText(cust.getContactTel());
 		CustInterestLabel.setText(cust.getInterest());
-		CustAccontNoLabel.setText(cust.getAccIdByCust()) ;		
+		CustAccontNoLabel.setText(cust.getAccIdByCust()) ;
+		
+		if (cust.isDeleted()){
+			rdbtnActivated.setSelected(false);
+			rdbtnDeactivate.setSelected(true);
+		}
+		else
+		{	
+			rdbtnDeactivate.setSelected(false);
+			rdbtnActivated.setSelected(true);
+		}
+
+	
 		//qtm.updateTable(listSubPlan);
 	}
 	
@@ -343,7 +384,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		Custaddress3Label.setText(null) ;
 		CustTeleLabel.setText(null);
 		CustInterestLabel.setText(null);
-		CustAccontNoLabel.setText(null) ;	
+		CustAccontNoLabel.setText(null) ;
+		rdbtnDeactivate.setSelected(false);
+		rdbtnActivated.setSelected(false);
 	}
 	
 	private void GetCustomerDetails(){
