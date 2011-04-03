@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -15,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
-import sg.edu.nus.iss.billsys.vo.CustComplaint;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
 /**
