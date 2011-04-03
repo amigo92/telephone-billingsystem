@@ -10,6 +10,11 @@ import javax.swing.table.AbstractTableModel;
  */
 
 public class QueryTableModel extends AbstractTableModel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<String[]> table; // will hold String[] objects . . .
 	int colCount;
 	String[] headers;
