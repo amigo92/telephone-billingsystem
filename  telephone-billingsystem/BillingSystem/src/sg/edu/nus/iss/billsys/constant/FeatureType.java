@@ -13,8 +13,8 @@ public enum FeatureType {
 	StdChannels("Three Standard Channels", false, false, false),		//2
 
 	//optional feature
-	DigiIDD("IDD Calls", true, false, false),							//3
-	MobileIDD("IDD Calls", true, false, false),							//4
+	DigiIDD("IDD", true, false, false),									//3
+	MobileIDD("IDD", true, false, false),								//4
 	CallTransfer("Call Transfer", true, false, false),					//5
 	DataService("Data Services", true, false, false),					//6
 	Roaming("Roaming", true, false, false),								//7
