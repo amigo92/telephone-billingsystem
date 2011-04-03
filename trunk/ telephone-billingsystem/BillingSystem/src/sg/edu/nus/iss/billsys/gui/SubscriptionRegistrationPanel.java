@@ -32,12 +32,10 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BillingWindow        window;
-	
-	private JTextField           customerID;
-	private JPanel featurePanel;
-
-	private PlanType[]       listOfPlanType;
+	private JPanel bottomFormPanel;
 	private SubscriptionMgr      manager;
+
+	private PlanType[] listOfPlanType;
 	private String[] planNames;
 	private PlanType planType;
 	private String accountNo;
@@ -59,13 +57,13 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    accountMgr = window.getAccountMgr();
     	customersList =  accountMgr.getAllActiveCustomers();
     	
-	    featurePanel = new JPanel(new BorderLayout());
-
-	    setLayout (new BorderLayout());
-	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-	   
+    	setLayout (new BorderLayout());
+ 	    setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+ 	 	
+	    bottomFormPanel = new JPanel(new BorderLayout());
+  
 	    add ("North", createFormPanel());      
-	    add ("Center", featurePanel); 
+	    add ("Center", bottomFormPanel); 
     }
 
     private JPanel createFormPanel () {	
@@ -105,10 +103,10 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    		   JComboBox cb = (JComboBox)e.getSource();
 	    		   Customer  selectedCustomer = customersList.get(cb.getSelectedIndex());
 	    		   accountNo = selectedCustomer.getAcct().getAcctNo();
-	        	   featurePanel.revalidate();
-	        	   featurePanel.removeAll();
-	               featurePanel.add ("North", registerFeaturePanel());
-	               featurePanel.repaint();
+	    		   bottomFormPanel.revalidate();
+	    		   bottomFormPanel.removeAll();
+	    		   bottomFormPanel.add ("North", createBottomFormPanel());
+	    		   bottomFormPanel.repaint();
 	        }
 	    });
 	 
@@ -159,7 +157,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
 	    return planTypeBox;
     }
   
-    private JPanel registerFeaturePanel () {
+    private JPanel createBottomFormPanel () {
     	JPanel bp = new JPanel (new BorderLayout());
 		JPanel p = new JPanel (new GridLayout (0, 2));
 
