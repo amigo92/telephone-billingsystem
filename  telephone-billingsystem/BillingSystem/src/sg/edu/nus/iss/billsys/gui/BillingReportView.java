@@ -5,6 +5,7 @@ import sg.edu.nus.iss.billsys.mgr.*;
 import sg.edu.nus.iss.billsys.vo.*;
 
 import java.awt.Font;
+import java.awt.Label;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -139,7 +140,7 @@ public class BillingReportView extends JPanel {
     		              		            	              GroupLayout.PREFERRED_SIZE)  
     		            						)))	
 
-    		            		.addComponent(spReport)		
+    		            		.addComponent(spReport)	
     		            		.addComponent(lblBillPeriod)	
 			    		    	.addComponent(btnGenerate)
     		            
