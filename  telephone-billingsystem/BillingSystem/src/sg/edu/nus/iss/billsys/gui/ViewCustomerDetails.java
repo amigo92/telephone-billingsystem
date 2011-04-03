@@ -17,6 +17,7 @@ import javax.swing.JButton;
 */
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
@@ -66,7 +67,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private JPanel ViewCustTitlePanel;
 	//private QueryTableModel qtm;
 	private static final long serialVersionUID = 1L;
-	
+	private String errorMsg=null;
 	private String strNRC;
 	private Customer cust= new Customer();	
 
@@ -76,6 +77,14 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private JRadioButton rdbtnDeactivate;
 	private JRadioButton rdbtnActivated;
 	private ButtonGroup bgroup;
+	private JButton btnEditCustomerInformation;
+	private JTextField CustNameTextBox;
+	private JTextField CustAdd1TextBox;
+	private JTextField CustAdd2TextBox;
+	private JTextField CustAdd3TextBox;
+	private JTextField CustContact;
+	private JTextField CustInterest;
+	private JButton  btnSubscriptionInformation;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -205,7 +214,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				{
 					Custaddress2Label = new JLabel( );
 					ViewCustPanelCenter.add(Custaddress2Label);
-					Custaddress2Label.setBounds(170, 137, 238, 41);
+					Custaddress2Label.setBounds(170, 137, 272, 23);
 				}
 				{
 					Custaddress3Label = new JLabel( );
@@ -247,7 +256,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					
 				}
 				
-				JButton btnSubscriptionInformation = new JButton("Subscription Information");
+				btnSubscriptionInformation = new JButton("Subscription Information");
 				btnSubscriptionInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						// call 
@@ -295,13 +304,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				{
 				 rdbtnActivated = new JRadioButton("Activated");
 				 rdbtnActivated.setEnabled(false);
-				rdbtnActivated.setBounds(170, 325, 109, 23);
+				rdbtnActivated.setBounds(170, 325, 88, 23);
 				ViewCustPanelCenter.add(rdbtnActivated);
 				}
 				{
 				 rdbtnDeactivate = new JRadioButton("Deactivate");
 				 rdbtnDeactivate.setEnabled(false);
-				 rdbtnDeactivate.setBounds(292, 326, 109, 23);
+				 rdbtnDeactivate.setBounds(260, 325, 109, 23);
 				 ViewCustPanelCenter.add(rdbtnDeactivate);
 				}
 				{
@@ -309,14 +318,75 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					bgroup.add(rdbtnActivated);
 					bgroup.add(rdbtnDeactivate);				
 				}
+				{
+				btnEditCustomerInformation = new JButton("Edit Customer Information");
+				btnEditCustomerInformation.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0){
+						if (validateControl()){
+							if (btnEditCustomerInformation.getText().equals("Edit Customer Information")){
+								 VisibilityControls(true);
+							}
+							else if (btnEditCustomerInformation.getText().equals("Update Customer Information")){
+								 VisibilityControls(false);
+								 UpdateCustomerInformation();
+							}
+						}	
+						else {		
+						
+							errorMsgNRICLabel.setVisible(true);
+							errorMsgSearchLabel.setVisible(false);							
+							ClearData();
+						}
+					}
+				});
+				btnEditCustomerInformation.setBounds(371, 326, 238, 23);
+				ViewCustPanelCenter.add(btnEditCustomerInformation);
+				}
 				
+				CustNameTextBox = new JTextField();
+				CustNameTextBox.setBounds(170, 50, 192, 20);
+				ViewCustPanelCenter.add(CustNameTextBox);
+				CustNameTextBox.setColumns(10);
+				CustNameTextBox.setVisible(false);
+				
+				CustAdd1TextBox = new JTextField();
+				CustAdd1TextBox.setBounds(170, 95, 255, 20);
+				ViewCustPanelCenter.add(CustAdd1TextBox);
+				CustAdd1TextBox.setColumns(10);
+				CustAdd1TextBox.setVisible(false);
+				
+				CustAdd2TextBox = new JTextField();
+				CustAdd2TextBox.setBounds(170, 147, 255, 20);
+				ViewCustPanelCenter.add(CustAdd2TextBox);
+				CustAdd2TextBox.setColumns(10);
+				CustAdd2TextBox.setVisible(false);
+				
+				CustAdd3TextBox = new JTextField();
+				CustAdd3TextBox.setBounds(170, 206, 255, 20);
+				ViewCustPanelCenter.add(CustAdd3TextBox);
+				CustAdd3TextBox.setColumns(10);
+				CustAdd3TextBox.setVisible(false);
+				
+				CustContact = new JTextField();
+				CustContact.setBounds(170, 247, 192, 20);
+				ViewCustPanelCenter.add(CustContact);
+				CustContact.setColumns(10);
+				CustContact.setVisible(false);
+				
+				CustInterest = new JTextField();
+				CustInterest.setBounds(170, 293, 255, 20);
+				ViewCustPanelCenter.add(CustInterest);
+				CustInterest.setColumns(10);
+				CustInterest.setVisible(false);
 				
 //				{
 //					qtm = new QueryTableModel();
 //				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();			
+			errorMsg=new BillingSystemException(e).getMessagebyException();
+			JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -329,22 +399,25 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			} catch (BillingSystemException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				errorMsg=new BillingSystemException(e).getMessagebyException();
+				JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 			}			
 		
 			if (cust!=null){
 		
 				ObjectsToControls();
+				btnEditCustomerInformation.setVisible(true);
+				btnSubscriptionInformation.setVisible(true);
 			}
-			else {
-				
-				System.out.println("2");
+			else {			
+			
 				errorMsgSearchLabel.setVisible(true);
 				errorMsgNRICLabel.setVisible(false);
 				ClearData();
 			}
 		}
 		else {		
-			System.out.println("1");
+			
 			errorMsgNRICLabel.setVisible(true);
 			errorMsgSearchLabel.setVisible(false);
 			
@@ -352,6 +425,26 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}
 	}
 	
+	private void UpdateCustomerInformation(){
+		try {
+			ControlsToObject();
+		//	cust= MgrFactory.getAccountMgr().UpdateCustomer (cust);
+			
+			//if(cust != null){
+				ObjectsToControls();
+				JOptionPane.showMessageDialog(window, "Customer information has been updated. ", "Success Message", JOptionPane.INFORMATION_MESSAGE);
+				VisibilityControls(false);				
+			//}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorMsg=new BillingSystemException(e).getMessagebyException();
+			JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
+		}				
+		
+	}
 	private void ObjectsToControls(){		
 		CustNameLabel.setText(cust.getName()) ;
 		nricText.setText(cust.getNric()) ;
@@ -373,7 +466,61 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}
 
 	
+		CustNameTextBox.setText(cust.getName()) ;	
+		CustAdd1TextBox.setText(cust.getAddress1()) ;
+		CustAdd2TextBox.setText(cust.getAddress2()) ;
+		CustAdd3TextBox.setText(cust.getAddress3()) ;
+		CustContact.setText(cust.getContactTel());
+		CustInterest.setText(cust.getInterest());
+		
 		//qtm.updateTable(listSubPlan);
+	}
+	
+	private void ControlsToObject(){
+	
+		cust.setName(CustNameTextBox.getText());
+		cust.setAddress1(CustAdd1TextBox.getText());
+		cust.setAddress2(CustAdd2TextBox.getText());
+		cust.setAddress3(CustAdd3TextBox.getText());
+		cust.setContactTel(CustContact.getText());
+		cust.setInterest(CustInterest.getText());
+		
+		if (rdbtnActivated.isSelected()) {
+			cust.setIsDeleted(false);
+		}
+		if (rdbtnDeactivate.isSelected()) {
+			cust.setIsDeleted(true);
+		}
+		
+		
+	}
+	private void VisibilityControls(Boolean  bFlag){		
+		
+		CustNameTextBox.setVisible(bFlag);
+		CustAdd1TextBox.setVisible(bFlag);
+		CustAdd2TextBox.setVisible(bFlag);
+		CustAdd3TextBox.setVisible(bFlag);
+		CustContact.setVisible(bFlag);
+		CustInterest.setVisible(bFlag);
+		 rdbtnActivated.setEnabled(bFlag);
+		 rdbtnDeactivate.setEnabled(bFlag);
+		
+		if (bFlag){
+			btnEditCustomerInformation.setText("Update Customer Information");				
+	 
+		}
+		else {
+			btnEditCustomerInformation.setText("Edit Customer Information");				
+		   
+		}	
+		
+		
+		CustNameLabel.setVisible(!bFlag);
+		Custaddress1Label.setVisible(!bFlag);
+		Custaddress2Label.setVisible(!bFlag);
+		Custaddress3Label.setVisible(!bFlag);
+		CustTeleLabel.setVisible(!bFlag);
+		CustInterestLabel.setVisible(!bFlag);
 	}
 	
 	private void ClearData(){
@@ -387,6 +534,16 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		CustAccontNoLabel.setText(null) ;
 		rdbtnDeactivate.setSelected(false);
 		rdbtnActivated.setSelected(false);
+		
+		CustNameTextBox.setText(null) ;
+		CustAdd1TextBox.setText(null) ;
+		CustAdd2TextBox.setText(null) ;
+		CustAdd3TextBox.setText(null) ;
+		CustTeleLabel.setText(null);
+		CustInterest.setText(null);
+	
+		
+		
 	}
 	
 	private void GetCustomerDetails(){
@@ -395,7 +552,10 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			ObjectsToControls();
 		} catch (BillingSystemException e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+			errorMsg=new BillingSystemException(e).getMessagebyException();
+			JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 		}			
 	}
 	
@@ -405,7 +565,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			errorMsgSearchLabel.setVisible(true);
 			bReturn= false;
 		}	
-		System.out.println(bReturn);
+	
 		return bReturn;
 	}
 	
