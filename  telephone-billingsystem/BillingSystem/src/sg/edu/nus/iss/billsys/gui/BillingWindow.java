@@ -184,37 +184,6 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
-			menu.addSeparator();
-			
-			menuItem = new JMenuItem("Generate Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_D);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					BillingReportGenerator currentPanel = new BillingReportGenerator(window);
-
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
-			menu.addSeparator();
-
-			menuItem = new JMenuItem("Purse Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_P);
-			menuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MgrFactory.getBillMgr().purge();
-					JOptionPane.showMessageDialog(window, "Existing bills purged successfully.");
-					
-					BillingReportGenerator currentPanel = new BillingReportGenerator(window);
-
-					contentPane.revalidate();
-					contentPane = currentPanel;
-					window.setContentPane(contentPane);
-				}
-			});
-			menu.add(menuItem);
 		
 		// Complaint
         menu = new JMenu("Complaint  ");
