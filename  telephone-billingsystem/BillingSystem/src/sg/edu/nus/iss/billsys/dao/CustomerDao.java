@@ -125,6 +125,48 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;
 	}
 	
+	public ArrayList<Customer> getCustomerListByAcctId(String searchId){
+		ArrayList<Customer> custList = new ArrayList<Customer>();
+		String s;
+		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
+			Customer element = (Customer) iter.next();
+			s = element.getAccountId();
+			if(s.indexOf(searchId)> 0 ){
+				custList.add(element);
+			}
+			else
+			{
+				s = s.toLowerCase();
+				searchId = searchId.toLowerCase();
+				if(s.indexOf(searchId) > 0 ){
+					custList.add(element);
+				}
+			}
+		}			
+		return custList;
+	}
+	
+	public ArrayList<Customer> getCustomerListByName(String searchName){
+		ArrayList<Customer> custList = new ArrayList<Customer>();
+		String s;
+		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
+			Customer element = (Customer) iter.next();
+			s = element.getName();
+			if(s.indexOf(searchName)> 0 ){
+				custList.add(element);
+			}
+			else
+			{
+				s = s.toLowerCase();
+				searchName = searchName.toLowerCase();
+				if(s.indexOf(searchName) > 0 ){
+					custList.add(element);
+				}
+			}
+		}			
+		return custList;
+	}
+	
 	public Customer reactiveCustomer(String acctId, Date today){
 		Customer cust = null;
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
@@ -169,6 +211,20 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 			Customer element = (Customer) iter.next();
 			if(element.getAcct().getAcctNo().equals(accountId)){
 				element.setIsDeleted(true, today);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean updateCust(Customer newCust){
+		if(newCust == null){
+			return false;
+		}
+		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
+			Customer element = (Customer) iter.next();
+			if(element.getAcct().getAcctNo().equals(newCust.getAccountId())){
+				element = newCust;
 				return true;
 			}
 		}
