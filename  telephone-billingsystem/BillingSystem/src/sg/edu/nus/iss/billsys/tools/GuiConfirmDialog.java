@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.billsys.tools;
 
-import java.awt.*;
 
 import javax.swing.*;
 
