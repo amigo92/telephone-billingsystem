@@ -76,7 +76,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 		}
 		else {
 			fromField.setText(BillingUtil.getCurrentDateStr());
-			untilField.setText(BillingUtil.getNextYearStr());
 			
 			for(FeatureType f: unregisteredFeatures)
 				featureBox.addItem(f.name);
