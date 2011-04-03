@@ -5,8 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
-import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
