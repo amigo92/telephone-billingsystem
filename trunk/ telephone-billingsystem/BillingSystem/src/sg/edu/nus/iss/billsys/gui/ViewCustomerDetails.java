@@ -274,7 +274,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 										
 					}
 				});
-				btnSubscriptionInformation.setBounds(352, 466, 180, 23);
+				btnSubscriptionInformation.setBounds(371, 466, 180, 23);
 				ViewCustPanelCenter.add(btnSubscriptionInformation);
 				{
 					errorMsgSearchLabel = new JLabel("*No match record founds.");
