@@ -104,29 +104,31 @@ public class BillMgr {
 	 * @client GUI
 	 */
 	public void generate(BillPeriod billPeriod) throws BillingSystemException{
-		if(!billPeriod.equals(getNextBillPeriod())){
-			throw new BillingSystemException("The next bill generation period must be " + billPeriod.getBillDate());
+		if(billPeriod.compareTo(new BillPeriod(2011, 2)) <= 0){
+			purge();
 		}
-		
-		ArrayList<Bill> list = new ArrayList<Bill>();
-		
-		ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
-		for(Customer c : customers){
-			Bill bill = generate(billPeriod, c);
-			if(bill != null){
-				list.add(bill);
+		else{
+			generate(billPeriod.getPrevBillPeriod());	// recursively generate previous months' bills 
+			ArrayList<Bill> list = new ArrayList<Bill>();
+			
+			ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
+			for(Customer c : customers){
+				Bill bill = generate(billPeriod, c);
+				if(bill != null){
+					list.add(bill);
+				}
 			}
-		}
-		
-		aBillDao.add(billPeriod, list);
-		aBillDao.setCurrBillPeriod(billPeriod);
-		aBillDao.save();
+			
+			aBillDao.add(billPeriod, list);
+			aBillDao.setCurrBillPeriod(billPeriod);
+			aBillDao.save();
 
-		try {
-			writeBills(DEFAULT_BILL_PATH, billPeriod, list);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+			try {
+				writeBills(DEFAULT_BILL_PATH, billPeriod, list);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+		}
 	}
 	
 	private Bill generate(BillPeriod billPeriod, Customer customer) throws BillingSystemException{;
