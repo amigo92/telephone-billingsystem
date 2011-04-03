@@ -6,6 +6,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 import java.awt.Font;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -18,29 +19,34 @@ public class BillingReportView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BillingWindow window;
+	private AccountMgr accountMgr;
+
 	
 	private JLabel lblNric;
-	private JTextField txtNric;
+	private JComboBox ddAccount;
 	private JLabel lblBP;
 	private JComboBox ddBillPeriod;
 	private JTextArea txtReport;
 	private JScrollPane spReport;
+
 	
 	private JLabel lblBillPeriod;
 	private JButton btnGenerate;
 	
 	private BillPeriod aBillPeriod;
+	private ArrayList<Customer>  customersList;
+	private String accountNo;
 	
     public BillingReportView (BillingWindow window) {
     	try
     	{
 			this.window = window;
-			
+			accountMgr = window.getAccountMgr();
+		    customersList =  accountMgr.getAllActiveCustomers();
+
 			iniFields();
 			iniListeners();
 		    iniLayout();
-		    
-		    txtNric.setText("S8481362F"); //TODO  to be removed
     	}
         catch(Exception e){
         	e.printStackTrace();
@@ -48,18 +54,20 @@ public class BillingReportView extends JPanel {
     }
     
     private void iniFields(){
-    	lblNric = new JLabel ("Customer's NRIC:");
-    	txtNric = new JTextField(10);
+    	lblNric = new JLabel ("Please select a customer:");
+    	ddAccount = createCustomerComboBox ();
+
     	lblBP = new JLabel ("Bill Period:");
+
     	ddBillPeriod = createBillPeriodComboBox();
     	txtReport = new JTextArea("No record found.");
     	txtReport.setEditable(false);
     	txtReport.setFont(new Font("Lucida Console", Font.PLAIN,12));
     	spReport = new JScrollPane(txtReport);
-    	
+    	    	
     	aBillPeriod = MgrFactory.getBillMgr().getNextBillPeriod();
     	lblBillPeriod = new JLabel ("Next Bill Period: " + aBillPeriod.printBillPeriod());
-    	btnGenerate = new JButton ("Generate");
+    	btnGenerate = new JButton ("Generate for all customers");
     	
     	if(!window.isAdmin()){
     		lblBillPeriod.setVisible(false);
@@ -68,37 +76,28 @@ public class BillingReportView extends JPanel {
     }
     
     private void iniListeners(){
+    	ddAccount.addActionListener(new ActionListener (){
+ 	    	public void actionPerformed (ActionEvent e) {
+				  JComboBox cb = (JComboBox)e.getSource();
+				  Customer  selectedCustomer = customersList.get(cb.getSelectedIndex());
+				  accountNo = selectedCustomer.getAcct().getAcctNo();
+				   
+				  refreshReprot();
+ 	        }
+ 	    });
+
+    	
     	ddBillPeriod.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		try{
-		    		String yearMonth = (String)ddBillPeriod.getSelectedItem();
-		    		BillPeriod billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
-		    		
-		    		Customer customer = MgrFactory.getAccountMgr().getCustomerDetailsById(txtNric.getText());
-	        		
-	        		if(customer == null){
-	        			JOptionPane.showMessageDialog(window, "No customer found.");
-	        			txtReport.setText("No record found.");
-	        		}
-	        		else{
-	        			String accountNo = customer.getAcct().getAcctNo();
-	        			Bill bill = MgrFactory.getBillMgr().getBill(billPeriod, accountNo);
-	        			if(bill != null){
-	        				txtReport.setText(bill.toString());
-	        			}
-	        			else{
-	        				txtReport.setText("No record found.");
-	        			}
-	        		}
-	
-	        		window.validate();
+	    			refreshReprot();
 	    		}
 	    		catch(Exception ex){
 	    			ex.printStackTrace();
 	    		}
 	    	}
 	    });
-
+    	
     	btnGenerate.addActionListener (new ActionListener () {
 	        public void actionPerformed (ActionEvent e) {
 	        	try{	
@@ -134,14 +133,15 @@ public class BillingReportView extends JPanel {
 			    		            					.addComponent(lblBP)
     		            						)
     		            					.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    		            								.addComponent(txtNric, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+    		            								.addComponent(ddAccount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
     		              		            	              GroupLayout.PREFERRED_SIZE)
     		            								.addComponent(ddBillPeriod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
     		              		            	              GroupLayout.PREFERRED_SIZE)  
     		            						)))	
+
+    		            		.addComponent(spReport)		
     		            		.addComponent(lblBillPeriod)	
 			    		    	.addComponent(btnGenerate)
-    		            		.addComponent(spReport)		
     		            
     	 );
     	 
@@ -149,14 +149,27 @@ public class BillingReportView extends JPanel {
     		        layout.createSequentialGroup()
     		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
     		            		.addComponent(lblNric)
-    		            		.addComponent(txtNric))
+    		            		.addComponent(ddAccount))
     		            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
     		            		.addComponent(lblBP)
     		            		.addComponent(ddBillPeriod))
-    		            .addComponent(lblBillPeriod)	
-			    		.addComponent(btnGenerate)		
+		
     	    		    .addComponent(spReport)	
+    	    		    .addComponent(lblBillPeriod)	
+			    		.addComponent(btnGenerate)
     	);
+    }
+    
+    private JComboBox createCustomerComboBox () {  	
+	    JComboBox accountBox = new JComboBox();
+	    
+	    for(Customer c :customersList){
+	    	accountBox.addItem(c.getName()+ "-" + c.getNric());
+	    }
+	 
+	   
+	    accountBox.setSelectedIndex(0);
+	    return accountBox;
     }
  
  	private JComboBox createBillPeriodComboBox() {  
@@ -171,4 +184,18 @@ public class BillingReportView extends JPanel {
 	    add(ddBillPeriod);
 	    return ddBillPeriod;
     }
+ 	
+ 	private void refreshReprot(){
+			String yearMonth = (String)ddBillPeriod.getSelectedItem();
+    		BillPeriod billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
+    		
+			Bill bill = MgrFactory.getBillMgr().getBill(billPeriod, accountNo);
+			if(bill != null){
+				txtReport.setText(bill.toString());
+			}
+			else{
+				txtReport.setText("No record found.");
+			}
+    		window.validate();
+ 	}
 }
