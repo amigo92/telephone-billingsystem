@@ -80,13 +80,13 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 	private JLabel updateComplaintsLabel;
 	private ButtonGroup customerIdButtonGroup;
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new TestPanel(new BillingWindow()));
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		JFrame frame = new JFrame();
+//		frame.getContentPane().add(new UpdateComplaintPanel(new BillingWindow()));
+//		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+//		frame.pack();
+//		frame.setVisible(true);
+//	}
 	
 	public UpdateComplaintPanel(BillingWindow window) {
 		super();
