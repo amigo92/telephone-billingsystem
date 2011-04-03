@@ -156,16 +156,18 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					submitButton.setText("Submit");
 					submitButton.setBounds(290, 194, 79, 23);
 					submitButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent evt) {
-							try {
-						
-								     submitButtonActionPerformed(evt);
-							
-							} catch (Exception e) {
-							    // Print out the exception that occurred
+						public void actionPerformed(ActionEvent evt) {	
+							try
+							{
+								     submitButtonActionPerformed(evt);				
+							} catch (Exception e){
+								e.printStackTrace();			
 								errorMsg=new BillingSystemException(e).getMessagebyException();
+								JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 							}
+							
 						}
+						
 					});
 				}
 				{
@@ -251,6 +253,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			else{
 				errorMsgNRICLabel.setVisible(true);
 			}
+		
 		}catch (Exception e){
 			throw new RuntimeException(e);
 		}
@@ -267,8 +270,12 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nrcText.getText() );
 			} catch (BillingSystemException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+				e.getMessagebyException();
+			}	
+			catch (Exception ex)
+			{
+				throw new RuntimeException(ex);
+			}
 		
 			if (cust!=null){
 				customerNameLabel.setText(cust.getName());
