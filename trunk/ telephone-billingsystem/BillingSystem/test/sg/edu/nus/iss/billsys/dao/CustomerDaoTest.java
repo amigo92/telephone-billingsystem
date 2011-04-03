@@ -156,7 +156,27 @@ public class CustomerDaoTest {
 		String testAcct = "SA-2011-03-25-8481361";
 		custDao.deleteCust(testAcct, Calendar.getInstance().getTime());
 		assertEquals(true,custDao.getCustomerByAcctId(testAcct).getIsDeleted());
-		
 	}
-
+	
+	public void testGetCustomerListByAcctId(){
+		if(custDao == null){
+			fail("Exception in dao generation , objectDataMapping have errors !!");
+		}
+		String searchId = "2011-03";
+		ArrayList<Customer> testList = custDao.getCustomerListByAcctId(searchId);
+		if(testList == null){
+			fail("Exception in dao method, getCustomerListByAcctId have errors!!");
+		}
+	}
+	
+	public void testGetCustomerListByName(){
+		if(custDao == null){
+			fail("Exception in dao generation , objectDataMapping have errors !!");
+		}
+		String searchName = "vee";
+		ArrayList<Customer> testList = custDao.getCustomerListByName(searchName);
+		if(testList == null){
+			fail("Exception in dao method, getCustomerListByName have errors!!");
+		}
+	}
 }
