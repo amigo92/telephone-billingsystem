@@ -83,7 +83,7 @@ public class BillDao {
 		save();
 	}
 	
-	public static void save(){
+	public  void save(){
 		FileOutputStream fos = null;
 		try{
 			fos = new FileOutputStream(new File(getFilepath()));
