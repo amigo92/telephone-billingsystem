@@ -4,9 +4,12 @@ package sg.edu.nus.iss.billsys.gui;
  *
  */
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +19,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -35,23 +39,26 @@ import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
-public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
+public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements ItemListener{
 	private static final long serialVersionUID = 1L;
 	
     protected SubscriptionMgr manager;
         
     private JTextField fromField;
     private JTextField untilField;
-    private JComboBox featureBox;
+//    private JComboBox featureBox;
+    private JPanel checkPanel;
+
+    private ArrayList<String> selectedFeatures;
+    private List<FeatureType> unregisteredFeatures;
+    private List<String> featureNames;
     
     private BillingWindow window;
     private String accountNo;
     private SubscriptionPlan subscription;
     
     private String planId;
-    private FeatureType selectedFeatureType;
     
-    private List<FeatureType> unregisteredFeatures;
      
 	public SubscriptionPlanAddFDialog(BillingWindow window, String accountNo, SubscriptionPlan subscription) {
 		super(window, "Register New Feature for : " + subscription.getPlanDescription());
@@ -75,12 +82,34 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 
 		}
 		else {
+			
+			
 			fromField.setText(BillingUtil.getCurrentDateStr());
 			
-			for(FeatureType f: unregisteredFeatures)
-				featureBox.addItem(f.name);
+			selectedFeatures = new ArrayList<String>();
+			featureNames = new ArrayList<String>();
+			JCheckBox cb;
 			
-		    featureBox.setSelectedIndex(0);
+	    	for(FeatureType ft:unregisteredFeatures)
+	    	{
+	    		if(ft.allowMultiple){
+	    			for(int i = 0 ; i < 2 ;i++){
+	    				cb = new JCheckBox(ft.name);
+	    				cb.addItemListener(this);
+	    				checkPanel.add(cb);
+	    			}	
+	    		}else{
+					cb = new JCheckBox(ft.name);
+					cb.addItemListener(this);
+					checkPanel.add(cb);
+	    		}	
+				featureNames.add(ft.name);
+	    	}
+			
+//			for(FeatureType f: unregisteredFeatures)
+//				featureBox.addItem(f.name);
+//			
+//		    featureBox.setSelectedIndex(0);
 		}
 	
 	}
@@ -90,7 +119,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 		p.setLayout (new GridLayout (0, 2));
 		
 		p.add (new JLabel("Please select: "));
-		p.add(createFeatureComboBox()); 
+//		p.add(createFeatureComboBox()); 
+		checkPanel = new JPanel(new FlowLayout());
+		p.add (checkPanel);
+		
 		p.add (new JLabel ("Start Date (d-MMM-yyyy) *"));
 		fromField = new JTextField (20);
 		p.add (fromField);
@@ -106,19 +138,33 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 		return p;
 	}
 
-	 private JComboBox createFeatureComboBox () {  	
-			featureBox = new JComboBox();		
-					    
-			featureBox.addActionListener(new ActionListener (){
-				public void actionPerformed (ActionEvent e) {
-					   JComboBox cb = (JComboBox)e.getSource();
-						   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
-			        }
-			});
-		
-			return featureBox;
-	   }
+//	 private JComboBox createFeatureComboBox () {  	
+//			featureBox = new JComboBox();		
+//					    
+//			featureBox.addActionListener(new ActionListener (){
+//				public void actionPerformed (ActionEvent e) {
+//					   JComboBox cb = (JComboBox)e.getSource();
+//						   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
+//			        }
+//			});
+//		
+//			return featureBox;
+//	   }
+	public void itemStateChanged(ItemEvent e) {
 
+        JCheckBox source = (JCheckBox)e.getSource();
+
+    	String featureName =source.getText();
+
+        if (e.getStateChange() == ItemEvent.DESELECTED) {
+        	if(selectedFeatures.contains(featureName))
+        		selectedFeatures.remove(featureName);
+        }
+        else{
+        	if(!selectedFeatures.contains(featureName))
+        		selectedFeatures.add(featureName);
+        }
+    }
 	 @Override	
 	 protected boolean performOkAction() {
 		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0)
@@ -144,12 +190,22 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog {
 			}
 		
 			if(utilDate != null && fromDate.after(utilDate)){
-				JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",0);	
+				JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",2);	
 				return false;
 			}
 			
 			try {
-				manager.registerNewFeature(accountNo, planId, selectedFeatureType, fromDate, utilDate);
+				if(selectedFeatures !=null && selectedFeatures.size() >0 ){	
+					for(String f : selectedFeatures ){
+						int index = featureNames.indexOf(f);
+						FeatureType selectedFeatureType = unregisteredFeatures.get(index);
+						manager.registerNewFeature(accountNo, planId, selectedFeatureType, fromDate, utilDate);
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(window, "No feature selected!","",2);	
+					return false;
+				}
 				window.refreshSubRegPanel(accountNo);
 			} catch (BillingSystemException e) {
 				JOptionPane.showMessageDialog(window, e.getMessage(),"",0);
