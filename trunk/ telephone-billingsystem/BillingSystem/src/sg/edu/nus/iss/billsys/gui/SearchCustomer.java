@@ -48,7 +48,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private JLabel errorMsgSearchLabel;
 	private JLabel jLabel1;
 	private JPanel SearchCustPantelCenter;
-	private Customer cust;
+	private ArrayList<Customer>  cust;
 	private AccountMgr accountMgr;
 	//private  ArrayList<Customer> customer;
 	private QueryTableModel qtm;
@@ -220,7 +220,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 		}
 	}
 	
-	private void SearchButtonActionPerformed(ActionEvent evt) {
+	private void SearchButtonActionPerformed(ActionEvent evt)  {
 		newlist= new ArrayList<String[]>(); 	
 	
 		try{
@@ -232,7 +232,8 @@ public class SearchCustomer extends javax.swing.JPanel {
 		boolean bNRIC= true;
 		System.out.println("scaa123478910");
 	
-		
+		try
+		{
 		if (validateControls()){		
 			
 			if (CustNameRadioButton.isSelected()) {
@@ -244,19 +245,26 @@ public class SearchCustomer extends javax.swing.JPanel {
 		
 			newlist.add(new String[] { "Customer Name", "Customer NRIC"});
 			
-			if (!bNRIC){
-				//still waiting wen jing code for this method
-				cust= accountMgr.getCustomerDetailsByName(SearchTextBox.getText());				
+			if (!bNRIC){				
+				cust= MgrFactory.getAccountMgr().getCustomerListByName(SearchTextBox.getText());				
 			}
-			else {				
-			
-				cust= accountMgr.getCustomerDetailsById(SearchTextBox.getText() );		
+			else {	
+				cust= MgrFactory.getAccountMgr().getCustomerListByAcctId(SearchTextBox.getText() );		
 				
 			}				
 		
-			if (cust!= null){
+			if (cust!= null){				
+		
+//				for (int i = 0; i < 3; i++) {	
+//					cust.add(new Customer("aa" + i,null,null,null,null,null, "bb"+i ));
+//					
+//				}
+				System.out.println("Count" + cust.size());				
 				
-				newlist.add(new String[] { cust.getName(), cust.getNric() });
+				for (int i = 0; i < cust.size(); i++) {					
+					newlist.add(new String[] { cust.get(i).getName(), cust.get(i).getNric() });
+					//System.out.println(cust.get(i).getName()); 
+				}							
 				clearErrorMsgData();
 				
 			}
@@ -269,20 +277,20 @@ public class SearchCustomer extends javax.swing.JPanel {
 			}	
 			qtm.updateTable(newlist);
 		}
+		}
+		catch ( BillingSystemException ex)
+		{
+			ex.printStackTrace();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		
 		
 	}
 	
-	private void bindToTable(){
 
-//		ArrayList< String[]> newlist = new ArrayList<String[]>();
-//		newlist.add(new String[] { "Customer Name", "Customer NRIC"});
-//		newlist.add(new String[] { "a", "b", "c" });
-//		newlist.add(new String[] { "a", "ab", "ac" });
-		
-		//table.setModel(qtm);
-	//	qtm.updateTable(newlist);
-	}
 	
 	private boolean validateControls(){
 		boolean bReturn= true;
@@ -300,7 +308,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	         int row = target.getSelectedRow();
 	         //int column = target.getSelectedColumn(); 
 	         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
-	         window.refreshPanelForViewCust(cust.getNric());	
+	         window.refreshPanelForViewCust(strCustomerNRC);	
 	}
 		
 }
