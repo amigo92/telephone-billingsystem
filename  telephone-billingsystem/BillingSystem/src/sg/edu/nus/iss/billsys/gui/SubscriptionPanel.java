@@ -23,8 +23,10 @@ public class SubscriptionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private BillingWindow        window;
-	private JPanel bottomFormPanel;
 	private SubscriptionMgr      manager;
+	private AccountMgr accountMgr;
+
+	private JPanel bottomFormPanel;
 
 	private PlanType[] listOfPlanType;
 	private String[] planNames;
@@ -32,7 +34,6 @@ public class SubscriptionPanel extends JPanel {
 	private String accountNo;
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
-	private AccountMgr accountMgr;
 	private ArrayList<Customer>  customersList;
     
 	
