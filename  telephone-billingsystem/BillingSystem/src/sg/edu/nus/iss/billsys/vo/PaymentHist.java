@@ -45,8 +45,5 @@ public class PaymentHist {
 		return paymentDate;
 	}
 
-	public boolean isCurrMonthTxn(Date billDate){
-		return TimeUtils.equalsYearMonth(getPaymentDate(), billDate);
-	}
 	
 }
