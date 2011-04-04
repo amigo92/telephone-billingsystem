@@ -1,4 +1,6 @@
 #"username","password","role"
+"admin","pwd123","0"
+"agent","pwd123","1"
 "Guoneng","password$1","0"
 "Veera","password$1","0"
 "Raghavan","password$1","0"
