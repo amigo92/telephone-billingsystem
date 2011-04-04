@@ -428,14 +428,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private void UpdateCustomerInformation(){
 		try {
 			ControlsToObject();
-		//	cust= MgrFactory.getAccountMgr().UpdateCustomer (cust);
+			boolean bReturn = MgrFactory.getAccountMgr().updateCustomer(cust);
 			
-			//if(cust != null){
+			if(bReturn){
 				ObjectsToControls();
 				JOptionPane.showMessageDialog(window, "Customer information has been updated. ", "Success Message", JOptionPane.INFORMATION_MESSAGE);
 				VisibilityControls(false);				
-			//}
-			
+			}		
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
