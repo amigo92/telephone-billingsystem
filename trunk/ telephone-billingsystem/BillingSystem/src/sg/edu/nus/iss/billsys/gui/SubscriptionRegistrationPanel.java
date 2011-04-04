@@ -67,7 +67,7 @@ public class SubscriptionRegistrationPanel extends JPanel {
     }
 
     private JPanel createFormPanel () {	
-    	JLabel title = new JLabel("<html><center><h3>Registration</h3></center></html>");   
+    	JLabel title = new JLabel("<html><center><h3>Manage Subscription</h3></center></html>");   
     	title.setHorizontalAlignment(SwingConstants.CENTER );
 
     	JPanel p = new JPanel (new GridLayout(0,2));
