@@ -7,6 +7,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 import java.awt.Font;
 import java.awt.Label;
+import java.awt.Point;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -53,6 +54,9 @@ public class BillingReportView extends JPanel {
 			iniFields();
 			iniListeners();
 		    iniLayout();
+		    
+		    ddAccount.setSelectedIndex(0);
+	    	ddBillPeriod.setSelectedIndex(0);
     	}
         catch(Exception ex){
     		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
@@ -92,7 +96,7 @@ public class BillingReportView extends JPanel {
 				  JComboBox cb = (JComboBox)e.getSource();
 				  Customer  selectedCustomer = customersList.get(cb.getSelectedIndex());
 				  accountNo = selectedCustomer.getAcct().getAcctNo();
-				   
+				 
 				  refreshReprot();
  	        }
  	    });
@@ -112,7 +116,8 @@ public class BillingReportView extends JPanel {
 	        public void actionPerformed (ActionEvent e) {
 	        	try{	
 	        		billMgr.generate(aBillPeriod);
-	            	ddBillPeriod.addItem(aBillPeriod.printBillPeriod());   		
+	            	ddBillPeriod.addItem(aBillPeriod.printBillPeriod());
+	            	ddBillPeriod.setSelectedIndex(ddBillPeriod.getItemCount() -1 );
 	            	
 	        		JOptionPane.showMessageDialog(window, "Bill generated successfully.");
 	        		
@@ -178,14 +183,13 @@ public class BillingReportView extends JPanel {
     }
     
     private JComboBox createCustomerComboBox () {  	
-	    JComboBox accountBox = new JComboBox();
+    	ddAccount = new JComboBox();
 	    
 	    for(Customer c :customersList){
-	    	accountBox.addItem(c.getName()+ "-" + c.getNric());
+	    	ddAccount.addItem(c.getName()+ "-" + c.getNric());
 	    }
 
-	    accountBox.setSelectedIndex(0);
-	    return accountBox;
+	    return ddAccount;
     }
  
  	private JComboBox createBillPeriodComboBox() {  
@@ -196,8 +200,6 @@ public class BillingReportView extends JPanel {
     	}
     	
     	ddBillPeriod = new JComboBox(periods);
-    	ddBillPeriod.setSelectedIndex(0);
-	    add(ddBillPeriod);
 	    return ddBillPeriod;
     }
  	
@@ -208,6 +210,7 @@ public class BillingReportView extends JPanel {
 			Bill bill = billMgr.getBill(billPeriod, accountNo);
 			if(bill != null){
 				txtReport.setText(bill.toString());
+				txtReport.setCaretPosition(0);
 			}
 			else{
 				txtReport.setText("No record found.");
