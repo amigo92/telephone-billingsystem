@@ -318,6 +318,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					bgroup.add(rdbtnActivated);
 					bgroup.add(rdbtnDeactivate);				
 				}
+				if (window.isAdmin()){
+					
+				
 				{
 				btnEditCustomerInformation = new JButton("Edit Customer Information");
 				btnEditCustomerInformation.addActionListener(new ActionListener() {
@@ -342,7 +345,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				btnEditCustomerInformation.setBounds(371, 326, 238, 23);
 				ViewCustPanelCenter.add(btnEditCustomerInformation);
 				}
-				
+				}
 				CustNameTextBox = new JTextField();
 				CustNameTextBox.setBounds(170, 50, 192, 20);
 				ViewCustPanelCenter.add(CustNameTextBox);
