@@ -93,13 +93,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 	    		}	
 				featureNames.add(ft.name);
 	    	}
-			
-//			for(FeatureType f: unregisteredFeatures)
-//				featureBox.addItem(f.name);
-//			
-//		    featureBox.setSelectedIndex(0);
 		}
-	
 	}
 	@Override
 	protected JPanel createFormPanel() {
@@ -126,7 +120,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-
         JCheckBox source = (JCheckBox)e.getSource();
 
     	String featureName =source.getText();
@@ -183,13 +176,18 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 				}
 				window.refreshSubRegPanel(accountNo);
 			} catch (BillingSystemException e) {
-				JOptionPane.showMessageDialog(window, e.getMessage(),"",0);
+				JOptionPane.showMessageDialog(window, e.getMessagebyException(),"Error",0);
+				return false;
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(window, e.getMessage(),"Error",0);
 				return false;
 			}
 		}
 		return true;
 	}
-	
+	/*Get list of unregistered features 
+	 *except for Cable TV's feature "Additional channel" 
+	 *which can be registered for multiple times */
     private List<FeatureType> getUnRegisterFeature () {
     	List<FeatureType> allFeatureTypes = manager.getPlanOptionalFeatures(subscription.getPlanType());
     	List<Feature> regFeatures = subscription.getOptionalFeatures();
