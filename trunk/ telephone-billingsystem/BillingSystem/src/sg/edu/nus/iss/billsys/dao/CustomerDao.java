@@ -87,6 +87,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 	 this.objectDataMapping();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerByNric(java.lang.String)
+	 */
 	public Customer getCustomerByNric(String nric) {
 		Customer cust=null;
 		
@@ -100,6 +104,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;	
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerByName(java.lang.String)
+	 */
 	public Customer getCustomerByName(String name) {
 		Customer cust=null;
 		
@@ -113,6 +121,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;	
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerByAcctId(java.lang.String)
+	 */
 	public Customer getCustomerByAcctId(String acctId){
 		Customer cust = null;
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
@@ -125,6 +137,12 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerListByAcctId(java.lang.String)
+	 * case insensitive, partial search by AcctId;
+	 * return a list of customers if found;
+	 */
 	public ArrayList<Customer> getCustomerListByAcctId(String searchId){
 		ArrayList<Customer> custList = new ArrayList<Customer>();
 		String s;
@@ -146,6 +164,12 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return custList;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerListByName(java.lang.String)
+	 * case insensitive, partial search by AcctId;
+	 * return a list of customers if found;
+	 */
 	public ArrayList<Customer> getCustomerListByName(String searchName){
 		ArrayList<Customer> custList = new ArrayList<Customer>();
 		String s;
@@ -167,6 +191,11 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return custList;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#reactiveCustomer(java.lang.String, java.util.Date)
+	 * reactivate customer account
+	 */
 	public Customer reactiveCustomer(String acctId, Date today){
 		Customer cust = null;
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
@@ -180,6 +209,11 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#addCustomer(sg.edu.nus.iss.billsys.vo.Customer)
+	 * Add a customer to the list
+	 */
 	public void addCustomer(Customer customer){
 		if(customer == null){
 			return;
@@ -187,6 +221,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		listCustomer.add(customer);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getAllCustomers()
+	 */
 	public ArrayList<Customer> getAllCustomers(){
 		ArrayList<Customer> custList = new ArrayList<Customer>();
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
@@ -196,6 +234,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return custList;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getAllActiveCustomers()
+	 */
 	public ArrayList<Customer> getAllActiveCustomers(){
 		ArrayList<Customer> custList = new ArrayList<Customer>();
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
@@ -206,6 +248,10 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return custList;
 	} 
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#deleteCust(java.lang.String, java.util.Date)
+	 */
 	public boolean deleteCust(String accountId, Date today){
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
 			Customer element = (Customer) iter.next();
@@ -217,6 +263,11 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return false;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#updateCust(sg.edu.nus.iss.billsys.vo.Customer)
+	 * Update customer details by passing in a customer object
+	 */
 	public boolean updateCust(Customer newCust){
 		if(newCust == null){
 			return false;
