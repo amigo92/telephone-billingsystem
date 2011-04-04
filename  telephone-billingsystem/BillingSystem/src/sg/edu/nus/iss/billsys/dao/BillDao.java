@@ -48,17 +48,20 @@ public class BillDao {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return a list of Bill Periods generated so far
+	 */
 	public Set<BillPeriod> getAllGeneratedBillPeriods(){
 		return aBillStore.getMap().keySet();
 	}
 
+	/**
+	 * 
+	 * @return the next Bill Period for bill generation
+	 */
 	public BillPeriod getNextBillPeriod(){
 		return aBillStore.getCurrBillPeriod().getNextBillPeriod();
-	}
-	
-	public boolean isBillReady(BillPeriod billPeriod){
-		BillPeriod currBp = aBillStore.getCurrBillPeriod();
-		return billPeriod.getStartTime().before(currBp.getStartTime());
 	}
 	
 	public void setCurrBillPeriod(BillPeriod currBillPeriod){
@@ -74,15 +77,26 @@ public class BillDao {
 		return aBillStore.getMap().get(billPeriod);
 	}
 	
+	/**
+	 * To insert bill for a particular bill period
+	 * @param billPeriod
+	 * @param bills
+	 */
 	public void add(BillPeriod billPeriod, ArrayList<Bill> bills){
 		aBillStore.getMap().put(billPeriod, bills != null ? bills : new ArrayList<Bill>());
 	}
 	
+	/**
+	 * Clear the billStore
+	 */
 	public void purge(){
 		aBillStore = new BillStore();
 		save();
 	}
 	
+	/**
+	 * To save the changes to external file
+	 */
 	public  void save(){
 		FileOutputStream fos = null;
 		try{
