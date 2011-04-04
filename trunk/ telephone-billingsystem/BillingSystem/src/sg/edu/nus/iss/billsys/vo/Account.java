@@ -21,6 +21,10 @@ public class Account extends VirtualObject{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/*The Account Number format = SA-YYYY-MM-#######';
+	 * Where the nextAcct = the digits in the customer NRIC#;
+	 * 
+	 */
 	private String genAcctNo(Date today, int nextAcct){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(today);
