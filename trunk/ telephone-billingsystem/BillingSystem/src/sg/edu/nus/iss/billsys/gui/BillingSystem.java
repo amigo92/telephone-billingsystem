@@ -1,15 +1,11 @@
 package sg.edu.nus.iss.billsys.gui;
 
-import sg.edu.nus.iss.billsys.*;
-
-import java.util.*;
 
 public class BillingSystem  {
 	
 	
 	private  BillingWindow billingWindow;
 	private  LoginForm loginForm;
-	private String role;
 
 	public BillingSystem () {
 	  
