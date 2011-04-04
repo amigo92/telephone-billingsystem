@@ -132,6 +132,10 @@ public class Customer extends VirtualObject implements Cloneable, Serializable{
 		return this.acct.getAcctNo();
 	}
 	
+	public String getAccIdByCust(){
+		return this.acct.getAcctNo();
+	}
+	
 	/*
 	 * combine the address lines together;
 	 */
