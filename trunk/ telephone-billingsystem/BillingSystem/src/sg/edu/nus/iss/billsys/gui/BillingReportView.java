@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.gui;
 
 
+import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.*;
 import sg.edu.nus.iss.billsys.vo.*;
 
@@ -21,6 +22,7 @@ public class BillingReportView extends JPanel {
 	
 	private BillingWindow window;
 	private AccountMgr accountMgr;
+	private BillMgr billMgr;
 
 	private JLabel lblTitleView;
 	private JLabel lblTitleGenerate;
@@ -44,14 +46,16 @@ public class BillingReportView extends JPanel {
     	{
 			this.window = window;
 			accountMgr = window.getAccountMgr();
+			billMgr =  MgrFactory.getBillMgr();
+			
 		    customersList =  accountMgr.getAllActiveCustomers();
 
 			iniFields();
 			iniListeners();
 		    iniLayout();
     	}
-        catch(Exception e){
-        	e.printStackTrace();
+        catch(Exception ex){
+    		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
         }
     }
     
@@ -98,28 +102,28 @@ public class BillingReportView extends JPanel {
 	    	public void actionPerformed (ActionEvent e) {
 	    		try{
 	    			refreshReprot();
-	    		}
-	    		catch(Exception ex){
-	    			ex.printStackTrace();
-	    		}
+	    		} catch(Exception ex){
+	        		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
+		    	} 
 	    	}
 	    });
     	
     	btnGenerate.addActionListener (new ActionListener () {
 	        public void actionPerformed (ActionEvent e) {
 	        	try{	
-	        		MgrFactory.getBillMgr().generate(aBillPeriod);
+	        		billMgr.generate(aBillPeriod);
+	            	ddBillPeriod.addItem(aBillPeriod.printBillPeriod());   		
+	            	
 	        		JOptionPane.showMessageDialog(window, "Bill generated successfully.");
 	        		
-	        		aBillPeriod = MgrFactory.getBillMgr().getNextBillPeriod();
+	        		aBillPeriod = billMgr.getNextBillPeriod();
 	            	lblBillPeriod.setText("Next Bill Period: " + aBillPeriod.printBillPeriod());
 	            	
-	            	ddBillPeriod.addItem(aBillPeriod.printBillPeriod());   		
 	        		window.validate();
-	        	}
-		    	catch(Exception ex)
-		    	{
-		    		ex.printStackTrace();
+	        	}catch(BillingSystemException ex){
+	        		JOptionPane.showMessageDialog(window, ex.getMessagebyException(),"", 0);
+		    	} catch(Exception ex){
+	        		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
 		    	} 	
 	    	}
         });
@@ -179,14 +183,13 @@ public class BillingReportView extends JPanel {
 	    for(Customer c :customersList){
 	    	accountBox.addItem(c.getName()+ "-" + c.getNric());
 	    }
-	 
-	   
+
 	    accountBox.setSelectedIndex(0);
 	    return accountBox;
     }
  
  	private JComboBox createBillPeriodComboBox() {  
-    	BillPeriod[] bps = MgrFactory.getBillMgr().getAllGeneratedBillPeriods();
+    	BillPeriod[] bps = billMgr.getAllGeneratedBillPeriods();
     	String[] periods = new String[bps.length];
     	for(int i = 0; i < bps.length; i++){
     		periods[i] = bps[i].printBillPeriod();
@@ -202,7 +205,7 @@ public class BillingReportView extends JPanel {
 			String yearMonth = (String)ddBillPeriod.getSelectedItem();
     		BillPeriod billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
     		
-			Bill bill = MgrFactory.getBillMgr().getBill(billPeriod, accountNo);
+			Bill bill = billMgr.getBill(billPeriod, accountNo);
 			if(bill != null){
 				txtReport.setText(bill.toString());
 			}
