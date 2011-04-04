@@ -17,7 +17,7 @@ public class BillingWindow extends JFrame {
     private SubscriptionMgr subscriptionMgr;
     private AccountMgr accountMgr;
 
-    private SubscriptionRegistrationPanel subscriptionRegistrationPanel;
+    private SubscriptionPanel subscriptionPanel;
     
     private boolean isAdmin = false;
 
@@ -146,7 +146,7 @@ public class BillingWindow extends JFrame {
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					SubscriptionRegistrationPanel currentPanel = new SubscriptionRegistrationPanel(
+					SubscriptionPanel currentPanel = new SubscriptionPanel(
 							window);
 
 					contentPane.revalidate();
@@ -259,11 +259,11 @@ public class BillingWindow extends JFrame {
 	}
 	
 	public void refreshSubRegPanel(String accountNo){
-		subscriptionRegistrationPanel = new SubscriptionRegistrationPanel(
+		subscriptionPanel = new SubscriptionPanel(
 				window, accountNo);
 
 		contentPane.revalidate();
-		contentPane = subscriptionRegistrationPanel;
+		contentPane = subscriptionPanel;
 		window.setContentPane(contentPane);
 	}	
 
