@@ -39,62 +39,117 @@ import sg.edu.nus.iss.billsys.vo.CustComplaint;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * @author L Sriragavan
+ *
+ * This is the GUI class to update complaints
+ */
 public class UpdateComplaintPanel extends javax.swing.JPanel {
-
 	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
+	 * Instance of the BillingWindow class.
+	 */
 	private BillingWindow window;
-	private JLabel customerIdLabel;
-	private JButton getComplaintsButton;
-	private JLabel complaintIdLabel;
-	private JSeparator jSeparator3;
-	private JTable complaintsTable;
-	private JScrollPane complaintsScrollPane;
-	private JLabel blankLabel1;
-	private JLabel statusLabel;
-	private JButton cancelButton;
-	private JLabel blankLabel2;
-	private JButton updateButton;
-	private JTextArea complaintTextArea;
-	private JLabel complaintLabel;
-	private JComboBox statusComboBox;
-	private JTextField complaintIdTextField;
-	private JSeparator jSeparator2;
-	private JTextField customerIdTextField;
-	private JRadioButton nricRadioButton;
-	private JRadioButton accountNoRadioButton;
-	private JSeparator jSeparator1;
+	/**
+	 * Update complaint heading label.
+	 */
 	private JLabel updateComplaintsLabel;
+	/**
+	 * This is the label for the customer Id field.
+	 */
+	private JLabel customerIdLabel;
+	/**
+	 * This is the get complaint button.
+	 */
+	private JButton getComplaintsButton;
+	/**
+	 * This is the label for the complaint Id field.
+	 */
+	private JLabel complaintIdLabel;
+	/**
+	 * Separator variable.
+	 */
+	private JSeparator jSeparator3;
+	/**
+	 * This is the table instance to display complaints.
+	 */
+	private JTable complaintsTable;
+	/**
+	 * This is the container to contain the complaintTable instance.
+	 */
+	private JScrollPane complaintsScrollPane;
+	/**
+	 * Blank label used for spacing.
+	 */
+	private JLabel blankLabel1;
+	/**
+	 * This is the label for the status field.
+	 */
+	private JLabel statusLabel;
+	/**
+	 * This is the cancel button instance.
+	 */
+	private JButton cancelButton;
+	/**
+	 * Blank label used for spacing.
+	 */
+	private JLabel blankLabel2;
+	/**
+	 * This is the update button to update complaints.
+	 */
+	private JButton updateButton;
+	/**
+	 * This is the field to get comlaint input.
+	 */
+	private JTextArea complaintTextArea;
+	/**
+	 * This is the label for the complaint field.
+	 */
+	private JLabel complaintLabel;
+	/**
+	 * This is the status input field.
+	 */
+	private JComboBox statusComboBox;
+	/**
+	 * This is the complaint Id input field.
+	 */
+	private JTextField complaintIdTextField;
+	/**
+	 * This is the separator instance.
+	 */
+	private JSeparator jSeparator2;
+	/**
+	 * This is the customer Id input field.
+	 */
+	private JTextField customerIdTextField;
+	/**
+	 * This is the NRIC selection button.
+	 */
+	private JRadioButton nricRadioButton;
+	/**
+	 * This is the account # selection button.
+	 */
+	private JRadioButton accountNoRadioButton;
+	/**
+	 * This is a separator field.
+	 */
+	private JSeparator jSeparator1;
+	/**
+	 * This is a group button to which groups NRIC & Account # radio buttons.
+	 */
 	private ButtonGroup customerIdButtonGroup;
 
-//	public static void main(String[] args) {
-//		JFrame frame = new JFrame();
-//		frame.getContentPane().add(new UpdateComplaintPanel(new BillingWindow()));
-//		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//		frame.pack();
-//		frame.setVisible(true);
-//	}
-	
+	/**
+	 * Default constructor
+	 * @param window BillingWindow instance
+	 */
 	public UpdateComplaintPanel(BillingWindow window) {
 		super();
 		this.window = window;
-//		this.window.setTitle("Billing System > Update Complaint");
 		initGUI();
 	}
-	
+
+	/**
+	 * This method draws the GUI.
+	 */
 	private void initGUI() {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -292,7 +347,11 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * This is the event listener method to be called upon clicking the get complaints button.
+	 * @param evt ActionEvent
+	 */
 	private void getComplaintsButtonActionPerformed(ActionEvent evt) {
 		BillingSystemLogger.logInfo("Inside getComplaintsButtonActionPerformed, event=" + evt);
 		List<CustComplaint> complaints = null;
@@ -383,6 +442,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		 }
 	}
 
+	/**
+	 * This is the event listener method to be called upon clicking the update complaint button.
+	 * @param arg0 ActionEvent
+	 */
 	private void updateButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("Inside updateButtonActionPerformed(), arg0=" + arg0);
 		String customerIdType = null;
@@ -426,16 +489,29 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		}
 	}
 
+	/**
+	 * This is the event listener method to be called upon clicking the cancel button.
+	 * @param arg0 ActionEvent
+	 */
 	private void cancelButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("Inside cancelButtonActionPerformed(), event=" + arg0);
 		this.setVisible(false);
 	}
 
+	/**
+	 * This method returns the column names.
+	 * @return String[]
+	 */
 	private String[] getColumnNames() {
 		String[] cols = { "Id", "Date/ Time", "Complaint", "Status" };
 		return cols;
 	}
 
+	/**
+	 * This method returns the table data from the list of complaints.
+	 * @param complaints List<CustComplaint>
+	 * @return String[][]
+	 */
 	private String[][] getTableData(List<CustComplaint> complaints) {
 		String[][] data = new String[complaints.size()][4];
 		int rowNum = 0;

@@ -27,29 +27,51 @@ import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ * @author L Sriragavan
+ *
+ * This is the GUI form class for the login form.
  */
 public class LoginForm extends javax.swing.JFrame {
-	private JButton cancelButton;
-	private JPasswordField passwordText;
-	private JLabel errorMsgLabel;
-	private JLabel passwordLabel;
+	/**
+	 * Holds the label for username field.
+	 */
 	private JLabel usernameLabel;
+	/**
+	 * Holds the label for password field.
+	 */
+	private JLabel passwordLabel;
+	/**
+	 * Holds the label for error messages.
+	 */
+	private JLabel errorMsgLabel;
+	/**
+	 * This is the text field to get the user name.
+	 */
 	private JTextField usernameText;
+	/**
+	 * This is the text field to get the password.
+	 */
+	private JPasswordField passwordText;
+	/**
+	 * This is the button to perform login.
+	 */
 	private JButton loginButton;
+	/**
+	 * This is the button to cancel login.
+	 */
+	private JButton cancelButton;
 
+	/**
+	 * Default constructor.
+	 */
 	public LoginForm() {
 		super();
 		initGUI();
 	}
 
+	/**
+	 * This method draws the login form GUI.
+	 */
 	private void initGUI() {
 		try {
 			GroupLayout thisLayout = new GroupLayout(
@@ -242,12 +264,22 @@ public class LoginForm extends javax.swing.JFrame {
 		}
 	}
 
+	/**
+	 * This is the action handler method which will be called when clicking
+	 *  on cancel button. 
+	 * @param arg0 action event
+	 */
 	protected void cancelButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("Inside cancelButtonActionPerformed(), arg0=" + arg0);
 		// exit application
 		System.exit(0);
 	}
 
+	/**
+	 * This is the action handler method which will be called when clicking
+	 *  on login button. 
+	 * @param arg0 action event
+	 */
 	protected void loginButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("loginButton.actionPerformed, arg0=" + arg0);
 //		BillingSystemLogger.logInfo(">>>>>" + ResourceHandler.getError("loginform.error1"));
@@ -290,7 +322,10 @@ public class LoginForm extends javax.swing.JFrame {
 		}
 	}
 
-	public void startBillingWindow() {
+	/**
+	 * This method launches the billing window form.
+	 */
+	private void startBillingWindow() {
 
 		BillingWindow billingWindow = new BillingWindow ();
 		billingWindow.pack ();
