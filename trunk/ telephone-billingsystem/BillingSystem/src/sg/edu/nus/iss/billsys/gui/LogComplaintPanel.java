@@ -28,56 +28,94 @@ import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
 /**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ * 
+ * @author L Sriragavan
+ * 
+ * This is the GUI class to log complaints. 
+ *
+ */
 public class LogComplaintPanel extends javax.swing.JPanel {
+	/**
+	 * This is the customer Id input field. 
+	 */
 	private JTextField customerIdTextField;
+	/**
+	 * This is the NRIC selection input field. 
+	 */
 	private JRadioButton nricRadioButton;
+	/**
+	 * This is the account # selection input field. 
+	 */
 	private JRadioButton accountNoRadioButton;
+	/**
+	 * This is the label for customer Id input field. 
+	 */
 	private JLabel customerIdLabel;
+	/**
+	 * This is the label for status input field. 
+	 */
 	private JLabel statusLabel;
+	/**
+	 * Blank label for spacing. 
+	 */
 	private JLabel blankLabel1;
+	/**
+	 * This is the label for complaint input field. 
+	 */
 	private JLabel complaintLabel;
+	/**
+	 * Blank label for spacing. 
+	 */
 	private JLabel blankLabel2;
+	/**
+	 * This is the customer Id input field 
+	 */
 	private JButton cancelButton;
+	/**
+	 * This is the cancel button. 
+	 */
 	private JButton logButton;
-//	private JLabel errorMessageLabel;
+	/**
+	 * This is the cancel button. 
+	 */
+	/**
+	 * This is the customer input field. 
+	 */
 	private JTextArea complaintTextArea;
+	/**
+	 * This is the status input field. 
+	 */
 	private JComboBox statusComboBox;
+	/**
+	 * This is the separator instance. 
+	 */
 	private JSeparator jSeparator1;
+	/**
+	 * This is the label for complaint input field. 
+	 */
 	private JLabel logComplaintLabel;
+	/**
+	 * This is the instance for BillingWindow class. 
+	 */
 	private BillingWindow window;
+	/**
+	 * This is the group instance for NRIC & account # selection. 
+	 */
 	private ButtonGroup customerIdButtonGroup;
 
-
 	/**
-	* Auto-generated main method to display this 
-	* JPanel inside a new JFrame.
-	*/
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new LogComplaintPanel(new BillingWindow()));
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-	
+	 * Default constructor
+	 * @param window BillingWindow instance.
+	 */
 	public LogComplaintPanel(BillingWindow window) {
 		super();
 		this.window = window;
-//		this.window.setTitle("Billing System > Log Complaint");
 		initGUI();
 	}
-	
+
+	/**
+	 * This method draws the GUI.
+	 */
 	private void initGUI() {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -198,6 +236,11 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * The action listener method to be called upon clicking the Log button.
+	 * @param arg0 ActionEvent
+	 */
 	private void logButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("Inside logButtonActionPerformed(), arg0=" + arg0);
 		String customerIdType = null;
@@ -295,6 +338,10 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 		}
 	}
 
+	/**
+	 * The action listener method to be called upon clicking the Cancel button.
+	 * @param arg0 ActionEvent
+	 */
 	private void cancelButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("Inside cancelButtonActionPerformed(), event=" + arg0);
 		this.setVisible(false);
