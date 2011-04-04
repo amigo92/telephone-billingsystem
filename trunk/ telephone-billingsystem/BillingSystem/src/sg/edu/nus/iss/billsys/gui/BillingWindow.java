@@ -159,7 +159,7 @@ public class BillingWindow extends JFrame {
 			//Billing
 			menu = new JMenu("Bill  ");
 			menuBar.add(menu);
-			menuItem = new JMenuItem("View Bill Report");
+			menuItem = new JMenuItem("Bill Report");
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BillingReportView currentPanel = new BillingReportView(
