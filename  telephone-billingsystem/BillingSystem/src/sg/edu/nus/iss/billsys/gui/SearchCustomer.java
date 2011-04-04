@@ -253,7 +253,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				
 			}				
 		
-			if (cust!= null){				
+			if (cust.size() >0 ){				
 		
 //				for (int i = 0; i < 3; i++) {	
 //					cust.add(new Customer("aa" + i,null,null,null,null,null, "bb"+i ));
