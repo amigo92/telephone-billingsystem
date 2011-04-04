@@ -66,9 +66,10 @@ public class BillingWindow extends JFrame {
         	isAdmin = true;
         }
         
-        if (isAdmin) {
+      
 			menu = new JMenu("Account  ");
 			menuBar.add(menu);
+			if (isAdmin) {
 			menuItem = new JMenuItem("Customer Registration");
 	
 				menuItem.addActionListener(new ActionListener() {
@@ -82,7 +83,7 @@ public class BillingWindow extends JFrame {
 				});
 				menu.add(menuItem);
 				menu.addSeparator();
-				
+			  }
 				
 //				menuItem = new JMenuItem("Update Customer Status");
 //				menuItem.setMnemonic(KeyEvent.VK_D);
@@ -112,6 +113,7 @@ public class BillingWindow extends JFrame {
 				menu.add(menuItem);
 				menu.addSeparator();
 				
+				
 				menuItem = new JMenuItem("Search Customer");
 				menuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -123,7 +125,7 @@ public class BillingWindow extends JFrame {
 					}
 				});
 				menu.add(menuItem);
-		}
+		
         
 		
 	
