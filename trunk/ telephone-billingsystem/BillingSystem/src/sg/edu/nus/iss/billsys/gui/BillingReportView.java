@@ -124,9 +124,9 @@ public class BillingReportView extends JPanel {
 	            	
 	        		window.validate();
 	        	}catch(BillingSystemException ex){
-	        		JOptionPane.showMessageDialog(window, ex.getMessagebyException(),"", 0);
+	        		JOptionPane.showMessageDialog(window, ex.getMessagebyException(),"Error", 0);
 		    	} catch(Exception ex){
-	        		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
+	        		JOptionPane.showMessageDialog(window, ex.getMessage(),"Error", 0);
 		    	} 	
 	    	}
         });
