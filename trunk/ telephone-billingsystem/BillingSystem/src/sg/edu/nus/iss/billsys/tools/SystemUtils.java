@@ -13,6 +13,10 @@ import sg.edu.nus.iss.billsys.vo.*;
  */
 public class SystemUtils {
 
+	/**
+	 * 
+	 * @return the company's profile
+	 */
 	public static CompanyProfile getCompanyProfile(){
 		CompanyProfile profile = new CompanyProfile();
 		
@@ -31,6 +35,10 @@ public class SystemUtils {
 		return profile;
 	}
 	
+	/**
+	 * 
+	 * @return a unique sequence number
+	 */
 	public static String generateSequence(){
 		return UUID.randomUUID().toString();
 	}
