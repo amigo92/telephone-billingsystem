@@ -100,6 +100,9 @@ public class Customer extends VirtualObject implements Cloneable, Serializable{
 		this.isDeleted = isDeleted;
 	}
 	
+	/*
+	 * set the date customer is deleted;
+	 */
 	public void setIsDeleted(boolean isDeleted, Date today){
 		this.isDeleted = isDeleted;
 		this.acct.setDateDeleted(today);
@@ -128,14 +131,17 @@ public class Customer extends VirtualObject implements Cloneable, Serializable{
 	public String getAccountId(){
 		return this.acct.getAcctNo();
 	}
+	
+	/*
+	 * combine the address lines together;
+	 */
 	public String getAddress(){
 		return this.address1 + "\n" + this.address2 + "\n" + this.address3 + "\n";
 	}
 	
-	public String getAccIdByCust(){
-		return this.acct.getAcctNo();
-	}
-	
+	/*
+	 * reactive customer: set isDeleted to true, set the date created to current, set date deleted to null
+	 */
 	public void reactiveCustomer(Date today){
 		this.isDeleted = false;
 		this.acct.setDateCreated(today);
