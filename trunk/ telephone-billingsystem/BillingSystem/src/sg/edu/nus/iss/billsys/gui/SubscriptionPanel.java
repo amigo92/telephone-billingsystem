@@ -57,7 +57,10 @@ public class SubscriptionPanel extends JPanel {
 	    add ("North", createFormPanel());      
 	    add ("Center", bottomFormPanel); 
     }
-   
+   /* Render panel title
+    * Active customer list
+    * Register subscription plan panel
+    */
     private JPanel createFormPanel () {	
     	JLabel title = new JLabel("<html><center><h3>Manage Subscription</h3></center></html>");   
     	title.setHorizontalAlignment(SwingConstants.CENTER );
@@ -77,6 +80,8 @@ public class SubscriptionPanel extends JPanel {
      
         return bp;
     }
+    
+    /*Active Customer List*/
     private JComboBox createCustomerComboBox () {  	
 	    JComboBox accountBox = new JComboBox();
 	    int selectedIndex = 0;
