@@ -3,35 +3,24 @@ package sg.edu.nus.iss.billsys.gui;
  * @author Ma Huazhen
  *
  */
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.constant.FeatureType;
-import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
@@ -46,7 +35,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
         
     private JTextField fromField;
     private JTextField untilField;
-//    private JComboBox featureBox;
     private JPanel checkPanel;
 
     private ArrayList<String> selectedFeatures;
@@ -119,7 +107,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		p.setLayout (new GridLayout (0, 2));
 		
 		p.add (new JLabel("Please select: "));
-//		p.add(createFeatureComboBox()); 
 		checkPanel = new JPanel(new FlowLayout());
 		p.add (checkPanel);
 		
@@ -138,18 +125,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		return p;
 	}
 
-//	 private JComboBox createFeatureComboBox () {  	
-//			featureBox = new JComboBox();		
-//					    
-//			featureBox.addActionListener(new ActionListener (){
-//				public void actionPerformed (ActionEvent e) {
-//					   JComboBox cb = (JComboBox)e.getSource();
-//						   selectedFeatureType =  unregisteredFeatures.get(cb.getSelectedIndex());
-//			        }
-//			});
-//		
-//			return featureBox;
-//	   }
 	public void itemStateChanged(ItemEvent e) {
 
         JCheckBox source = (JCheckBox)e.getSource();

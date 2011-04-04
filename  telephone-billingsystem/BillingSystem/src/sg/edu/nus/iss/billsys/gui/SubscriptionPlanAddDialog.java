@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +17,6 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,12 +26,10 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.constant.PlanType.PlanCode;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
-import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements ItemListener{
@@ -99,11 +94,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 			}
 		    phoneNumberBox.setSelectedIndex(0);
 		}
-
 	}
 	
 	public void itemStateChanged(ItemEvent e) {
-
         JCheckBox source = (JCheckBox)e.getSource();
 
     	String featureName =source.getText();

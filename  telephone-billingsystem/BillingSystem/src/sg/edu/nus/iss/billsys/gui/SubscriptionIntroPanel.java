@@ -19,12 +19,9 @@ public class SubscriptionIntroPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BillingWindow        window;
 	private SubscriptionMgr      manager;
 
     public SubscriptionIntroPanel (BillingWindow window) {
- 
-    	this.window = window;
         manager = window.getSubscriptionMgr();
         setLayout (new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
@@ -43,12 +40,8 @@ public class SubscriptionIntroPanel extends JPanel {
     	for (PlanType planType : planTypes){
     	
     		p.add(new JLabel(planType.name));
-        	//p.add(new JLabel(""));
-        	//p.add(new JLabel(""));
         	FeatureType basicFeatureType = manager.getPlanBasicFeatures(planType);
-    	
-	    	//p.add(new JLabel("     " + basicFeatureType.name));
-	        p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(basicFeatureType))));
+    		p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(basicFeatureType))));
 	    	p.add(new JLabel(""));
 	    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);   	
 	    	for (FeatureType featureType : optionalFeatureTypes ){	
