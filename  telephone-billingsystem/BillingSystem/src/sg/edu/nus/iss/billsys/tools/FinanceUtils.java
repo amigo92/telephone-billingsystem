@@ -4,7 +4,7 @@ import java.text.*;
 import java.math.*;
 
 /**
- * 
+ * To manage related elements, e.g. number formatting and GST rate
  * @author Xu Guoneng
  *
  */
