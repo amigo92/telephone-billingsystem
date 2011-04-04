@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -12,9 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
+import sg.edu.nus.iss.billsys.vo.BillPeriod;
+import sg.edu.nus.iss.billsys.vo.PaymentHist;
 
 /**
- * @author Veera
+ * @author Veera, Xu Guoneng
  *
  */
 public class PaymentHistDaoTest {
@@ -47,9 +50,7 @@ public class PaymentHistDaoTest {
 	 */
 	@Test
 	public void testObjectDataMapping() {
-		if(payHxDao==null){
-			fail("Exception while initialising PaymentHistDao , objectDataMapping have errors !!");
-		}
+		assertNotNull(payHxDao);
 	}
 
 	/**
@@ -57,7 +58,8 @@ public class PaymentHistDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistByBillPeriodAcctNo() {
-		fail("Not yet implemented");
+		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriodAcctNo(new BillPeriod(2011, 3), "SA-2011-03-25-8481366");
+		assertEquals(2, list.size());
 	}
 
 	/**
@@ -65,7 +67,8 @@ public class PaymentHistDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistByBillPeriod() {
-		fail("Not yet implemented");
+		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriod(new BillPeriod(2011, 4));
+		assertEquals(1, list.size());
 	}
 
 }
