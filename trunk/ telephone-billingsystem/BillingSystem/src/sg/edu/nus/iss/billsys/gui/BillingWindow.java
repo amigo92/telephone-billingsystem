@@ -12,7 +12,6 @@ public class BillingWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private BillingSystem manager;
     private JPanel contentPane;
     private BillingWindow window;
     private SubscriptionMgr subscriptionMgr;
@@ -34,10 +33,8 @@ public class BillingWindow extends JFrame {
     };
 
     public BillingWindow (BillingSystem manager) {
-        super ("Billing System > Subscription");
+        super ("Billing System");
        
-        this.manager = manager;
-        //role = manager.getRole();
         window = this;
         addWindowListener(windowListener);
         
@@ -48,8 +45,7 @@ public class BillingWindow extends JFrame {
     
     public BillingWindow () {
         super ("Billing System");
-       
-        //role = manager.getRole();
+
         window = this;
         addWindowListener(windowListener);
         
@@ -72,10 +68,8 @@ public class BillingWindow extends JFrame {
         
         if (isAdmin) {
 			menu = new JMenu("Account  ");
-			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
 			menuItem = new JMenuItem("Customer Registration");
-			menuItem.setMnemonic(KeyEvent.VK_D);
 	
 				menuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -106,7 +100,6 @@ public class BillingWindow extends JFrame {
 				
 				
 				menuItem = new JMenuItem("View Customer Details");
-				menuItem.setMnemonic(KeyEvent.VK_D);
 				menuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -120,7 +113,6 @@ public class BillingWindow extends JFrame {
 				menu.addSeparator();
 				
 				menuItem = new JMenuItem("Search Customer");
-				menuItem.setMnemonic(KeyEvent.VK_D);
 				menuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -136,10 +128,8 @@ public class BillingWindow extends JFrame {
 		
 	
 			menu = new JMenu("Subscription  ");
-			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
 			menuItem = new JMenuItem("Charges");
-			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					SubscriptionIntroPanel currentPanel = new SubscriptionIntroPanel(
@@ -153,7 +143,6 @@ public class BillingWindow extends JFrame {
 			menu.addSeparator();
 			
 			menuItem = new JMenuItem("Manage Subscription");
-			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
@@ -169,10 +158,8 @@ public class BillingWindow extends JFrame {
 			
 			//Billing
 			menu = new JMenu("Bill  ");
-			menu.setMnemonic(KeyEvent.VK_A);
 			menuBar.add(menu);
 			menuItem = new JMenuItem("View Bill Report");
-			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BillingReportView currentPanel = new BillingReportView(
@@ -187,11 +174,9 @@ public class BillingWindow extends JFrame {
 		
 		// Complaint
         menu = new JMenu("Complaint  ");
-        menu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(menu);   
 
         menuItem = new JMenuItem("Log Complaint");
-        menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener (new ActionListener () {
 		     public void actionPerformed (ActionEvent e) {
 			       LogComplaintPanel currentPanel = new LogComplaintPanel (window);
@@ -205,7 +190,6 @@ public class BillingWindow extends JFrame {
         menu.addSeparator();
         
         menuItem = new JMenuItem("Update Complaint");
-        menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener (new ActionListener () {
 		     public void actionPerformed (ActionEvent e) {
 		    	   UpdateComplaintPanel currentPanel = new UpdateComplaintPanel (window);
@@ -219,11 +203,9 @@ public class BillingWindow extends JFrame {
 
 		// Logout
         menu = new JMenu("Logout  ");
-        menu.setMnemonic(KeyEvent.VK_A);
         menuBar.add(menu);   
 
         menuItem = new JMenuItem("Logout");
-        menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener (new ActionListener () {
 		     public void actionPerformed (ActionEvent e) {
 		    	 // clear the session
