@@ -192,7 +192,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 			window.refreshSubRegPanel(accountNo);
 			
 		} catch (BillingSystemException e) {
-			JOptionPane.showMessageDialog(window, e.getMessage(),"Error",0);	
+			JOptionPane.showMessageDialog(window, e.getMessagebyException(),"Error",0);	
 			return false;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"Error",0);	

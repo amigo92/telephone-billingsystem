@@ -79,11 +79,11 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 			return true;
 			
 		}catch(BillingSystemException ex){
-			JOptionPane.showMessageDialog(window, ex.getMessage(),"",0);	
+			JOptionPane.showMessageDialog(window, ex.getMessagebyException(),"Error",0);	
 			return false;
 		}
 		catch(Exception ex){
-			JOptionPane.showMessageDialog(window, ex.getMessage(),"",0);	
+			JOptionPane.showMessageDialog(window, ex.getMessage(),"Error",0);	
 			return false;
 		}
 	}
