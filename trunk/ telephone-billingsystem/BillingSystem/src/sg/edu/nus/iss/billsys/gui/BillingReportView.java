@@ -6,8 +6,6 @@ import sg.edu.nus.iss.billsys.mgr.*;
 import sg.edu.nus.iss.billsys.vo.*;
 
 import java.awt.Font;
-import java.awt.Label;
-import java.awt.Point;
 import java.awt.event.*;
 import java.util.ArrayList;
 
