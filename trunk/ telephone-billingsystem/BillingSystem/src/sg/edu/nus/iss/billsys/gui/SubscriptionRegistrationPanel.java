@@ -3,21 +3,13 @@ package sg.edu.nus.iss.billsys.gui;
  * @author Ma Huazhen
  *
  */
-import sg.edu.nus.iss.billsys.*;
-import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
-import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
-import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
-import sg.edu.nus.iss.billsys.tools.GuiConfirmDialog;
 import sg.edu.nus.iss.billsys.util.BillingUtil;
-import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
-
-
 
 import java.util.*;
 import java.util.List;
@@ -25,7 +17,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 
 public class SubscriptionRegistrationPanel extends JPanel {
 
@@ -246,11 +237,8 @@ public class SubscriptionRegistrationPanel extends JPanel {
 		                d.setVisible (true);
 			     }
 		    });
-			    
-//			    b.setPreferredSize(new Dimension(200, 30));
-//			    JPanel btnp= new JPanel();
-//			    btnp.add(b);    
-			    sp.add(b);
+			       
+			sp.add(b);
 			
 			List<Feature> features = plan.getOptionalFeatures();	
 			for(final Feature feature: features){
@@ -274,10 +262,6 @@ public class SubscriptionRegistrationPanel extends JPanel {
     			     }
 			    });
    			    
-//   			    b2.setPreferredSize(new Dimension(200, 30));
-//   			    btnp= new JPanel();
-//   			    btnp.add(b2);
-//	   			p.add(btnp);
    			    sp.add(b2);
 			}
 		}
