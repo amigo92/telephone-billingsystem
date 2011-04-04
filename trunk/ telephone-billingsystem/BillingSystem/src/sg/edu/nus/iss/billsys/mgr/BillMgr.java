@@ -11,7 +11,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 import sg.edu.nus.iss.billsys.vo.Bill.*;
 
 /**
- * 
+ * To search, generate and purge the bills
  * @author Xu Guoneng
  *
  */
@@ -26,7 +26,7 @@ public class BillMgr {
 	}
 	
 	/**
-	 * 
+	 * To retrieve a list of Bill Periods generated so far
 	 * @client GUI
 	 */
 	public BillPeriod[] getAllGeneratedBillPeriods(){
@@ -38,13 +38,18 @@ public class BillMgr {
 	}
 	
 	/**
-	 * 
+	 * To get the next Bill Period for bill generation
 	 * @client GUI
 	 */
 	public BillPeriod getNextBillPeriod(){
 		return aBillDao.getNextBillPeriod();
 	}
-		
+	
+	/**
+	 * To retrieve a list of bill based on the given billPeriod
+	 * @param billPeriod
+	 * @return empty list if no record found
+	 */
 	public ArrayList<Bill> getBills(BillPeriod billPeriod){
 		return aBillDao.getBills(billPeriod);
 	}
@@ -60,7 +65,7 @@ public class BillMgr {
 	}
 	
 	/**
-	 * Empty the BillStore
+	 * Empty the BillStore i.e. external file
 	 * @client GUI
 	 */
 	public void purge(){
@@ -74,6 +79,13 @@ public class BillMgr {
 		}
 	}
 	
+	/**
+	 * To write a list of bill of particular bill period to external text file
+	 * @param filePath
+	 * @param billPeriod
+	 * @param bills
+	 * @throws IOException
+	 */
 	public void writeBills(String filePath, BillPeriod billPeriod, ArrayList<Bill> bills) throws IOException{
 		new File(filePath).mkdirs();
 		File file = new File(filePath, "bills_" + billPeriod.toString() + ".txt");
@@ -99,7 +111,7 @@ public class BillMgr {
 	}
 	
 	/**
-	 * 
+	 * To generate bills for all customers based on the given billPeriod
 	 * @throws BillingSystemException 
 	 * @client GUI
 	 */
@@ -131,6 +143,13 @@ public class BillMgr {
 		}
 	}
 	
+	/**
+	 * To generate bill for a customer based on the given bill period
+	 * @param billPeriod
+	 * @param customer
+	 * @return
+	 * @throws BillingSystemException
+	 */
 	private Bill generate(BillPeriod billPeriod, Customer customer) throws BillingSystemException{;
 		Account acct = customer.getAcct();
 		
@@ -177,6 +196,13 @@ public class BillMgr {
 		}
 	}
 	
+	/**
+	 * To calculate the Detailed Charges for Voice Calls
+	 * @param bill
+	 * @param billPeriod
+	 * @param plan
+	 * @throws BillingSystemException
+	 */
 	private void processCallBasedPlan(Bill bill, BillPeriod billPeriod, VoicePlan plan) throws BillingSystemException{
 
 		DetailCharges detail = bill.new DetailCharges();
@@ -211,6 +237,13 @@ public class BillMgr {
 		bill.addSummaryCharges(sum);
 	}
 	
+	/**
+	 * To calculate the Detailed Charges for Cable TV plan
+	 * @param bill
+	 * @param billPeriod
+	 * @param cableTvPlan
+	 * @throws BillingSystemException
+	 */
 	private void processNonCallBasedPlan(Bill bill, BillPeriod billPeriod, CableTvPlan cableTvPlan) throws BillingSystemException {
 		Feature basicFeature = cableTvPlan.getBasicFeature();
 		
@@ -240,6 +273,15 @@ public class BillMgr {
 		bill.addDetailChargesList(detail);
 	}
 	
+	/**
+	 * To calculate the total usage charges for a Voice Call plan
+	 * @param billPeriod
+	 * @param bill
+	 * @param detail
+	 * @param plan
+	 * @return
+	 * @throws BillingSystemException
+	 */
 	private int getTotalUsage(BillPeriod billPeriod, Bill bill, DetailCharges detail, VoicePlan plan) throws BillingSystemException{
 		detail.addEntry(bill.new Entry("Usage Charges", null));
 		
@@ -259,6 +301,15 @@ public class BillMgr {
 		return total_use_charges;
 	}
 
+	/**
+	 * To calculate individual usage charge for a Voice Call plan
+	 * @param calls
+	 * @param bill
+	 * @param ct
+	 * @param plan
+	 * @return
+	 * @throws BillingSystemException
+	 */
 	private Entry calculateUsageCharges(ArrayList<CallHist> calls, Bill bill, FeatureType ct, VoicePlan plan) throws BillingSystemException{		
 		int total_duration = 0;
 		for(CallHist ch : calls){
@@ -277,6 +328,11 @@ public class BillMgr {
 		}
 	}
 	
+	/**
+	 * To calculate total current charges before GST
+	 * @param sums
+	 * @return
+	 */
 	private int calculateTotalCurrChargesBeforeGST(ArrayList<SummaryCharges> sums){
 		int amt = 0;
 		for(SummaryCharges s : sums){
@@ -286,6 +342,10 @@ public class BillMgr {
 		return amt;
 	}
 	
+	/**
+	 * To get a list of possible call transaction types
+	 * @return
+	 */
 	private static List<FeatureType> getCallTxnTypes(){
 		if(callTxnTypes == null){
 			callTxnTypes = new ArrayList<FeatureType>();
@@ -299,6 +359,12 @@ public class BillMgr {
 		return callTxnTypes;
 	}
 	
+	/**
+	 * To retrieve last month's remaining balance
+	 * @param currBillPeriod
+	 * @param acctNo
+	 * @return
+	 */
 	private int getPreviousBalance(BillPeriod currBillPeriod, String acctNo){
 		Bill bill = getBill(currBillPeriod.getPrevBillPeriod(), acctNo);
 		return bill != null ? bill.getCurrChargesDue() : 0;
