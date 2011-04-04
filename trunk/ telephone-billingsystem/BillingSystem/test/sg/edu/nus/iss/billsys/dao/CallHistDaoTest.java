@@ -5,6 +5,7 @@ package sg.edu.nus.iss.billsys.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -12,9 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
+import sg.edu.nus.iss.billsys.vo.BillPeriod;
+import sg.edu.nus.iss.billsys.vo.CallHist;
 
 /**
- * @author Veera
+ * @author Veera, Xu Guoneng
  *
  */
 public class CallHistDaoTest {
@@ -48,9 +51,7 @@ public class CallHistDaoTest {
 	 */
 	@Test
 	public void testObjectDataMapping() {
-		if(callHxDao==null){
-			fail("Exception while initialising CallHistDao , objectDataMapping have errors !!");
-		}
+		assertNotNull(callHxDao);
 	}
 
 	/**
@@ -58,7 +59,8 @@ public class CallHistDaoTest {
 	 */
 	@Test
 	public void testGetCallHistByBillDateAcctNo() {
-		fail("Not yet implemented");
+		List<CallHist> list = callHxDao.getCallHistByBillDateAcctNo(new BillPeriod(2011, 3), "SA-2011-03-25-8481362");
+		assertEquals(3, list.size());
 	}
 
 	/**
@@ -66,7 +68,8 @@ public class CallHistDaoTest {
 	 */
 	@Test
 	public void testGetCallHistByBillDate() {
-		fail("Not yet implemented");
+		List<CallHist> list = callHxDao.getCallHistByBillDate(new BillPeriod(2011, 4));
+		assertEquals(2, list.size());
 	}
 
 }
