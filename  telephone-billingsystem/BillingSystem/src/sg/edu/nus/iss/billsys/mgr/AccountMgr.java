@@ -6,19 +6,33 @@ import sg.edu.nus.iss.billsys.dao.ICustomerDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.vo.*;
 
+/*
+ * Author: Wen Jing
+ * Date: 30 Mar 2011
+ */
+
 public class AccountMgr {
 	private ICustomerDao custDao;
 	
 	
+	/*
+	 * read the data from data file
+	 */
 	protected AccountMgr() throws BillingSystemException{
 		custDao = DaoFactory.getInstanceOfCustomerDao();
 	}
-
+	
+	/*
+	 * Add customer to List
+	 */
 	public Customer createCustomer(Customer customer){
 		custDao.addCustomer(customer);
 		return customer;
 	}
 	
+	/*
+	 * Create and Add the customer, save data
+	 */
 	public Customer createCustomer(String name, String nric, String tel, String address1, String address2, String address3, String interest)throws BillingSystemException{
 		if(nric == null || nric == ""){
 	    	throw new BillingSystemException("Invalid NRIC!");
@@ -40,6 +54,10 @@ public class AccountMgr {
 		return newCust;
 	}
 	
+	/*
+	 * delete the customer by setting the isDeleted to true;
+	 * date deleted is today;
+	 */
 	public boolean deleteCustomer(String acctId){
 		Calendar today = Calendar.getInstance();
 		Date aDate = today.getTime();
@@ -74,6 +92,9 @@ public class AccountMgr {
 		return custDao.getCustomerListByAcctId(searchId);
 	}
 	
+	/*
+	 * reactive customer account;
+	 */
 	public boolean reactiveCustomer(String accId, Date today) throws BillingSystemException{
 		Customer cust = custDao.reactiveCustomer(accId, today);
 		if(cust != null){
