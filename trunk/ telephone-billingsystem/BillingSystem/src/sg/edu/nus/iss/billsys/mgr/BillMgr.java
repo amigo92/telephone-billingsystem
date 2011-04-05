@@ -231,7 +231,7 @@ public class BillMgr {
 		bill.addDetailChargesList(detail);
 		
 		SummaryCharges sum = bill.new SummaryCharges();
-		sum.setDesc(basicFeature.getName());
+		sum.setDesc(plan.getPlanDescription());
 		sum.addEntry(bill.new Entry("Subscription charges", total_sub_charges));
 		sum.addEntry(bill.new Entry("Usage charges", total_use_charges));
 		sum.setTotalAmt(total_sub_charges + total_use_charges);
