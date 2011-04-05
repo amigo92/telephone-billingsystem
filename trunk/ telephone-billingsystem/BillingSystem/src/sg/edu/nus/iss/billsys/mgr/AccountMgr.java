@@ -92,6 +92,10 @@ public class AccountMgr {
 		return custDao.getCustomerListByAcctId(searchId);
 	}
 	
+	public ArrayList<Customer> getCustomerListByNric(String nric){
+		return custDao.getCustomerListByNric(nric);
+	}
+	
 	/*
 	 * reactive customer account;
 	 */
