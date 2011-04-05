@@ -156,6 +156,18 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		return cust;
 	}
 	
+	
+	public ArrayList<Customer> getCustomerListByNric(String nric){
+		ArrayList<Customer> custList = new ArrayList<Customer>();
+		for(Customer c : listCustomer){
+			if(c.getNric().equals(nric)){
+				custList.add(c);
+			}
+		}
+		
+		return custList;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see sg.edu.nus.iss.billsys.dao.ICustomerDao#getCustomerListByAcctId(java.lang.String)

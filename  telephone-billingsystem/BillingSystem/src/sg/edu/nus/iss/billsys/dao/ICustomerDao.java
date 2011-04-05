@@ -27,5 +27,5 @@ public interface ICustomerDao {
 	public boolean updateCust(Customer newCust);
 	public boolean deleteCust(String accountId, Date today);
 	public void saveObjectData() throws BillingSystemException;
-
+	public ArrayList<Customer> getCustomerListByNric(String nric);
 }
