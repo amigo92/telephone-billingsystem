@@ -406,6 +406,9 @@ public class SubscriptionMgr {
     	if (feature == null) {
     		throw new BillingSystemException("Invalid feature id.");
     	}
+    	if (dateTerminated.before(feature.getDateCommenced())) {
+    		throw new BillingSystemException("Date terminated cannot be earlier than date commenced of the feature.");
+    	}
     	feature.setDateTerminated(dateTerminated);
     	if (saveObjData) {
     		subPlanDao.saveObjectData();
@@ -433,6 +436,9 @@ public class SubscriptionMgr {
     	SubscriptionPlan plan = subPlanDao.getAccountSubscription(acctNo, planId);
     	if (plan == null) {
     		throw new BillingSystemException("Invalid plan id.");
+    	}
+    	if (dateTerminated.before(plan.getDateCommenced())) {
+    		throw new BillingSystemException("Date terminated cannot be earlier than date commenced of the subscription plan.");
     	}
     	plan.setDateTerminated(dateTerminated);
     	List<Feature> regFeatures = getRegisteredFeatures(acctNo, planId);
