@@ -232,20 +232,22 @@ public class SubscriptionPanel extends JPanel {
 			sp.add (new JLabel (plan.getPlanDescription()));						
 			sp.add (new JLabel(strDateInfo));
 			
-			JButton b;
+			
 			if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
-				b = new JButton ("De-Register");
-			else
-				b = new JButton ("Extend Subscription");
+			{
+				JButton b= new JButton ("De-Register");
 			    b.addActionListener (new ActionListener () {
 			     public void actionPerformed (ActionEvent e) {		    			    	 	
 			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, null);
 		                d.pack();
 		                d.setVisible (true);
 			     }
-		    });
-			       
-			sp.add(b);
+			    });
+			    
+			    sp.add(b);	
+			}
+			else
+				sp.add(new JLabel(""));	
 			
 			List<Feature> features = plan.getOptionalFeatures();	
 			for(final Feature feature: features){
@@ -256,20 +258,22 @@ public class SubscriptionPanel extends JPanel {
 				sp.add ( new JLabel ("        " + feature.getName()));
 				sp.add(new JLabel(strDateInfo));
 				
-				JButton b2;
-				if(feature.getDateTerminated() == null || feature.getDateTerminated().after(BillingUtil.getCurrentDate())) 
-					b2 = new JButton ("De-Register");
-				else
-					b2 = new JButton ("Extend Subscription");
-   			    b2.addActionListener (new ActionListener () {
+				
+				if(feature.getDateTerminated() == null || feature.getDateTerminated().after(BillingUtil.getCurrentDate())) 	
+				{
+					JButton b2 = new JButton ("De-Register");
+					b2.addActionListener (new ActionListener () {
     			     public void actionPerformed (ActionEvent e) {
     			    	 	SubscriptionPlanDelDialog d = new SubscriptionPlanDelDialog (window, accountNo, plan, feature);
     			    	 	d.pack();
 	    		            d.setVisible (true);
     			     }
 			    });
-   			    
-   			    sp.add(b2);
+					sp.add(b2);	
+				}
+				else
+					sp.add(new JLabel(""));	
+				
 			}
 		}
 		JPanel bp = new JPanel(new BorderLayout());

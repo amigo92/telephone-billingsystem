@@ -199,7 +199,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
     	}else{
 	    	 for(Feature e: regFeatures){
 	    		if(!e.getFeatureType().allowMultiple)
-	    			 unRegisteredFestures.remove(e.getFeatureType());
+	    		{
+	    			if(!e.isTerminated())
+	    				unRegisteredFestures.remove(e.getFeatureType());
+	    		}
     		 }
 	    	return unRegisteredFestures;
     	}

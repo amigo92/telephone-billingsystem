@@ -24,18 +24,19 @@ public class BillingUtil {
 	     else
 	    	 return DATE_FORMAT.format(date);
 	    }
-	
 	public static Date getCurrentDate() {
 		  Calendar ca1 = Calendar.getInstance();
 		  return ca1.getTime();
 	    }
-	
-	
+	public static Date getYesterdayDate() {
+		  Calendar ca1 = Calendar.getInstance();
+		  ca1.add(Calendar.DATE, -1);
+		  return ca1.getTime();
+	    }
 	public static String getCurrentDateStr() {
 		 Date date = getCurrentDate();
 		 return getDateTimeStr(date);
 	    }
-	
 	public static Date getNextYear() {
 		  Calendar ca1 = Calendar.getInstance();
 		  ca1.add(Calendar.YEAR, 1);
