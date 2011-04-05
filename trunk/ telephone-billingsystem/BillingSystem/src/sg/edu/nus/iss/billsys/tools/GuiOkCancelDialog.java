@@ -8,7 +8,12 @@ import javax.swing.*;
 
 public abstract class GuiOkCancelDialog extends JDialog {
 
-    public GuiOkCancelDialog (JFrame parent, String title) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public GuiOkCancelDialog (JFrame parent, String title) {
         super (parent, title);
         
         add ("Center", createFormPanel());
