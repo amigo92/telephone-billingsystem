@@ -127,7 +127,7 @@ public class BillingWindow extends JFrame {
 				menu.add(menuItem);
 		
         
-		
+			if (isAdmin) {
 	
 			menu = new JMenu("Subscription  ");
 			menuBar.add(menu);
@@ -157,6 +157,7 @@ public class BillingWindow extends JFrame {
 				}
 			});
 			menu.add(menuItem);
+			}
 			
 			//Billing
 			menu = new JMenu("Bill  ");
