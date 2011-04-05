@@ -9,7 +9,6 @@ import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
-import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 import sg.edu.nus.iss.billsys.tools.SystemUtils;
 import sg.edu.nus.iss.billsys.vo.CableTvPlan;
 import sg.edu.nus.iss.billsys.vo.Customer;
