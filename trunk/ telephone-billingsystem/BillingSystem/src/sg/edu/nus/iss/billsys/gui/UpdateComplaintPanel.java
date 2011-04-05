@@ -33,6 +33,7 @@ import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 import sg.edu.nus.iss.billsys.util.NumberUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.CustComplaint;
@@ -161,7 +162,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				updateComplaintsLabel = new JLabel();
 				this.add(updateComplaintsLabel);
-				updateComplaintsLabel.setText("Update Complaints");
+				updateComplaintsLabel.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.heading"));
 				updateComplaintsLabel.setPreferredSize(new java.awt.Dimension(750, 23));
 				updateComplaintsLabel.setFont(new java.awt.Font("Tahoma",1,14));
 			}
@@ -173,13 +174,13 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				customerIdLabel = new JLabel();
 				this.add(customerIdLabel);
-				customerIdLabel.setText("Customer Id:");
+				customerIdLabel.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.customerid"));
 				customerIdLabel.setPreferredSize(new java.awt.Dimension(200, 14));
 			}
 			{
 				accountNoRadioButton = new JRadioButton();
 				this.add(accountNoRadioButton);
-				accountNoRadioButton.setText("Account #");
+				accountNoRadioButton.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.accountno"));
 				accountNoRadioButton.setPreferredSize(new java.awt.Dimension(100, 18));
 				accountNoRadioButton.setActionCommand("accountNo");
 				customerIdButtonGroup.add(accountNoRadioButton);
@@ -187,7 +188,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				nricRadioButton = new JRadioButton();
 				this.add(nricRadioButton);
-				nricRadioButton.setText("NRIC");
+				nricRadioButton.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.nric"));
 				nricRadioButton.setPreferredSize(new java.awt.Dimension(100, 18));
 				nricRadioButton.setSelected(true);
 				nricRadioButton.setActionCommand("nric");
@@ -201,7 +202,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				getComplaintsButton = new JButton();
 				this.add(getComplaintsButton);
-				getComplaintsButton.setText("Get Complaints");
+				getComplaintsButton.setText(ResourceHandler.getLabel("updatecomplaintform.btn.getcomplaints"));
 				getComplaintsButton.setPreferredSize(new java.awt.Dimension(150, 21));
 				getComplaintsButton.addActionListener(new ActionListener() {
 					@Override
@@ -272,7 +273,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				complaintIdLabel = new JLabel();
 				this.add(complaintIdLabel);
-				complaintIdLabel.setText("Complaint Id:");
+				complaintIdLabel.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.complaintid"));
 				complaintIdLabel.setPreferredSize(new java.awt.Dimension(200, 14));
 			}
 			{
@@ -290,7 +291,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				statusLabel = new JLabel();
 				this.add(statusLabel);
-				statusLabel.setText("Status:");
+				statusLabel.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.status"));
 				statusLabel.setPreferredSize(new java.awt.Dimension(200, 14));
 			}
 			{
@@ -304,7 +305,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				complaintLabel = new JLabel();
 				this.add(complaintLabel);
-				complaintLabel.setText("Complaint:");
+				complaintLabel.setText(ResourceHandler.getLabel("updatecomplaintform.lbl.complaint"));
 				complaintLabel.setPreferredSize(new java.awt.Dimension(200, 14));
 			}
 			{
@@ -316,7 +317,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				updateButton = new JButton();
 				this.add(updateButton);
-				updateButton.setText("Update");
+				updateButton.setText(ResourceHandler.getLabel("updatecomplaintform.btn.update"));
 				updateButton.setPreferredSize(new java.awt.Dimension(150, 21));
 				updateButton.addActionListener(new ActionListener() {
 					@Override
@@ -334,7 +335,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			{
 				cancelButton = new JButton();
 				this.add(cancelButton);
-				cancelButton.setText("Cancel");
+				cancelButton.setText(ResourceHandler.getLabel("updatecomplaintform.btn.cancel"));
 				cancelButton.setPreferredSize(new java.awt.Dimension(150, 21));
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
@@ -358,7 +359,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(this.customerIdTextField.getText())) {
-			JOptionPane.showMessageDialog(window, "Empty customer Id!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error1"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -377,7 +378,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			}
 			
 			if (customer == null) {
-				JOptionPane.showMessageDialog(window, "Invalid Account #!", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -394,7 +395,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			}
 			
 			if (customer == null) {
-				JOptionPane.showMessageDialog(window, "Invalid NRIC!", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error3"), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -433,7 +434,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 					getTableData(complaints), getColumnNames());
 			complaintsTable.setModel(complaintTableModel);
 		 } else {
-				JOptionPane.showMessageDialog(window, "No complaints found!", "Warning Message", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error4"), "Warning Message", JOptionPane.WARNING_MESSAGE);
 				// populate the table
 				TableModel complaintTableModel = new DefaultTableModel(
 						getTableData(new ArrayList<CustComplaint>()), getColumnNames());
@@ -480,12 +481,12 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 
 		// set error message
 		if (returnValue > 0) {
-			JOptionPane.showMessageDialog(window, "Successfully updated the complaint.", "Success Message", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getMessages("updatecomplaintform.success1"), "Success Message", JOptionPane.INFORMATION_MESSAGE);
 			
 			// reload the complaints list
 			getComplaintsButtonActionPerformed(null);
 		} else {
-			JOptionPane.showMessageDialog(window, "Internal error occurred during the complaint updation!.", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error5"), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -503,7 +504,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 	 * @return String[]
 	 */
 	private String[] getColumnNames() {
-		String[] cols = { "Id", "Date/ Time", "Complaint", "Status" };
+		String[] cols = { ResourceHandler.getLabel("updatecomplaintform.col1"),
+				ResourceHandler.getLabel("updatecomplaintform.col2"),
+				ResourceHandler.getLabel("updatecomplaintform.col3"),
+				ResourceHandler.getLabel("updatecomplaintform.col4") };
 		return cols;
 	}
 
