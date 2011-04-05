@@ -61,9 +61,16 @@ public abstract class SubscriptionPlan implements Serializable {
 		this.basicFeature = basicFeature;
 	}
 	
+	/*
+	 * To add an optional feature into the subscription plan.
+	 * 1. The feature must be in the plan type optional features.
+	 * 2. If the feature already exists, check if the feature allow multiple
+	 *    registration or the feature is terminated.
+	 * @throws BillingSystemException
+	 */
 	public void addOptionalFeature(Feature feature) throws BillingSystemException {
 		for (FeatureType ft : getPlanType().optionalFeatures) {
-			if (ft.getFeatureCd() == feature.getFeatureType().getFeatureCd()) {
+			if (ft == feature.getFeatureType()) {
 				for (Feature f : optionalFeatures) {
 					if (f.getFeatureType() == feature.getFeatureType()) {
 						if (!f.getFeatureType().allowMultiple && !f.isTerminated()) {
