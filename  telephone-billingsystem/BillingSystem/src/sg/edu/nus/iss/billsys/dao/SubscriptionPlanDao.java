@@ -24,17 +24,30 @@ import sg.edu.nus.iss.billsys.vo.VoicePlan;
 /**
  * 
  * @author Veera, Lem Kian Hao (Stephen)
+ * 
+ * This class is a implementation class for accessing the data layer to get the Subscription information
+ * It extends the genericdao to inherit the functionality of accessing the physical file and to return a 
+ * raw data of two dimensional string array , which will in turn mapped to the domain objects for easy 
+ * manipulation , This class also provides implementation to save back the domain object to the data file.
+ * 
+ * This class will be inheriting the Interface class to implement the public methods which will be used by the 
+ * manager classes for the data read / update / create functionalities.
  *
  */
 public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlanDao{
 	
-	private final static String  FEATURE_DATA_FILE="data/Feature.txt";
-	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";
-	private static final int SUBSCRIPTION_COL_LENGTH=4;
-	private static final int FEATURE_COL_LENGTH=5;
+	private final static String  FEATURE_DATA_FILE="data/Feature.txt";//This Constant is to specify the file path to load the Customer Optional and Basic Feature information
+	private final static String  SUBSCRIPTION_PLAN_DATA_FILE="data/SubscriptionPlan.txt";//This Constant is to specify the file path to load the Subscription information
+	private static final int SUBSCRIPTION_COL_LENGTH=4; //This constant would give the number of columns expected in the Subscription file 
+	private static final int FEATURE_COL_LENGTH=5; //This constant would give the number of columns expected in the Customer Optional and Basic Feature file 
 	
-	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();
+	private Map<String,List<SubscriptionPlan>> subscriptionMap=new HashMap<String,List<SubscriptionPlan>>();//Instance variable to hold the data from the parsed data of the file
 	
+	/*
+	 * This method will implement the logic to map the raw data of two dimensional array to the Domain objects which is then used by the public methods of the Dao.
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.GenericDao#objectDataMapping()
+	 */
 	@Override
 	protected final void objectDataMapping() throws BillingSystemException{
 		String[][] data=getDataAsArray(SUBSCRIPTION_PLAN_DATA_FILE);
@@ -223,6 +236,12 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		
 	}
 	
+	/*
+	 * This method implements the data mapping back to the raw format of two dimensional array from the domain objects and 
+	 * save it in to the file.
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.GenericDao#saveObjectData()
+	 */
 	@Override
 	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;	
@@ -302,7 +321,9 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		}
 		
 	}
-		
+	/*
+	 * The Constructor intialisation also invokes the call to map the raw data parsed from the file to domain object.
+	 */	
 	protected SubscriptionPlanDao() throws BillingSystemException{
 		this.objectDataMapping();
 	}

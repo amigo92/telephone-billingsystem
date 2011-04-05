@@ -12,15 +12,27 @@ import sg.edu.nus.iss.billsys.vo.Customer;
 /**
  * 
  * @author Veera
+ * 
+ * This class is a implementation class for accessing the data layer to get the customers information
+ * It extends the genericdao to inherit the functionality of accessing the physical file and to return a 
+ * raw data of two dimensional string array , which will in turn mapped to the domain objects for easy 
+ * manipulation , This class also provides implementation to save back the domain object to the data file.
+ * 
+ * This class will be inheriting the Interface class to implement the public methods which will be used by the 
+ * manager classes for the data read / update / create functionalities.
  *
  */
 
 public class CustomerDao extends GenericDao implements ICustomerDao{
 	
-	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";
-	private static final int COL_LENGTH=9;
-	private List<Customer> listCustomer=new ArrayList<Customer>();
-	
+	private final static String  CUSTOMER_DATA_FILE="data/Customer.txt";//This Constant is to specify the file path to load the Customer information
+	private static final int COL_LENGTH=9; //This constant would give the number of columns expected in the file 
+	private List<Customer> listCustomer=new ArrayList<Customer>();//Instance variable to hold the data from the parsed data of the file
+	/*
+	 * This method will implement the logic to map the raw data of two dimensional array to the Domain objects which is then used by the public methods of the Dao.
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.GenericDao#objectDataMapping()
+	 */
 	@Override
 	protected final void objectDataMapping() throws BillingSystemException{
 		String[][] data=getDataAsArray(CUSTOMER_DATA_FILE);
@@ -54,7 +66,12 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		}
 		
 	}
-	
+	/*
+	 * This method implements the data mapping back to the raw format of two dimensional array from the domain objects and 
+	 * save it in to the file.
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.GenericDao#saveObjectData()
+	 */
 	@Override
 	public final void saveObjectData() throws BillingSystemException{
 		int cnt=0;
@@ -82,7 +99,9 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		if(!storeDataByArray(CUSTOMER_DATA_FILE, data))throw new BillingSystemException("Saving to File Operation Failed for CustomerData");
 		}
 	}
-	
+	/*
+	 * The Constructor intialisation also invokes the call to map the raw data parsed from the file to domain object.
+	 */
 	protected CustomerDao() throws BillingSystemException{
 	 this.objectDataMapping();
 	}
