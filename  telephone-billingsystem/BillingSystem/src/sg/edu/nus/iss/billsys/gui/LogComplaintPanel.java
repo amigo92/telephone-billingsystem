@@ -24,6 +24,7 @@ import sg.edu.nus.iss.billsys.constant.ComplaintStatus;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
+import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
 
@@ -126,7 +127,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				logComplaintLabel = new JLabel();
 				this.add(logComplaintLabel);
-				logComplaintLabel.setText("Log Complaint");
+				logComplaintLabel.setText(ResourceHandler.getLabel("logcomplaintform.lbl.heading"));
 				logComplaintLabel.setFont(new java.awt.Font("Tahoma",1,14));
 				logComplaintLabel.setPreferredSize(new java.awt.Dimension(750, 25));
 			}
@@ -138,13 +139,13 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				customerIdLabel = new JLabel();
 				this.add(customerIdLabel);
-				customerIdLabel.setText("Customer Id:");
+				customerIdLabel.setText(ResourceHandler.getLabel("logcomplaintform.lbl.customerid"));
 				customerIdLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
 				accountNoRadioButton = new JRadioButton();
 				this.add(accountNoRadioButton);
-				accountNoRadioButton.setText("Account #");
+				accountNoRadioButton.setText(ResourceHandler.getLabel("logcomplaintform.lbl.accountno"));
 				accountNoRadioButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				accountNoRadioButton.setActionCommand("accountNo");
 				customerIdButtonGroup.add(accountNoRadioButton);
@@ -152,7 +153,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				nricRadioButton = new JRadioButton();
 				this.add(nricRadioButton);
-				nricRadioButton.setText("NRIC");
+				nricRadioButton.setText(ResourceHandler.getLabel("logcomplaintform.lbl.nric"));
 				nricRadioButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				nricRadioButton.setSelected(true);
 				nricRadioButton.setActionCommand("nric");
@@ -166,7 +167,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				statusLabel = new JLabel();
 				this.add(statusLabel);
-				statusLabel.setText("Status:");
+				statusLabel.setText(ResourceHandler.getLabel("logcomplaintform.lbl.status"));
 				statusLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
@@ -188,7 +189,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				complaintLabel = new JLabel();
 				this.add(complaintLabel);
-				complaintLabel.setText("Complaint:");
+				complaintLabel.setText(ResourceHandler.getLabel("logcomplaintform.lbl.complaint"));
 				complaintLabel.setPreferredSize(new java.awt.Dimension(200, 20));
 			}
 			{
@@ -205,7 +206,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				logButton = new JButton();
 				this.add(logButton);
-				logButton.setText("Log");
+				logButton.setText(ResourceHandler.getLabel("logcomplaintform.btn.log"));
 				logButton.setPreferredSize(new java.awt.Dimension(150, 20));
 				logButton.addActionListener(new ActionListener() {
 					@Override
@@ -223,7 +224,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			{
 				cancelButton = new JButton();
 				this.add(cancelButton);
-				cancelButton.setText("Cancel");
+				cancelButton.setText(ResourceHandler.getLabel("logcomplaintform.btn.cancel"));
 				cancelButton.setPreferredSize(new java.awt.Dimension(150, 21));
 				cancelButton.addActionListener(new ActionListener() {
 					@Override
@@ -248,12 +249,12 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 		Customer customer = null;
 
 		if (StringUtil.isNullOrEmpty(customerIdTextField.getText())) {
-			JOptionPane.showMessageDialog(window, "Empty Customer Id!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error1"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
 		if (StringUtil.isNullOrEmpty(complaintTextArea.getText())) {
-			JOptionPane.showMessageDialog(window, "Empty Complaint!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -273,7 +274,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			}
 			
 			if (customer == null) {
-				JOptionPane.showMessageDialog(window, "Invalid Account #!", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error3"), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -291,7 +292,7 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 			}
 
 			if (customer == null) {
-				JOptionPane.showMessageDialog(window, "Invalid NRIC!", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error4"), "Error Message", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -332,9 +333,9 @@ public class LogComplaintPanel extends javax.swing.JPanel {
 
 		// set error message
 		if (returnValue > 0) {
-			JOptionPane.showMessageDialog(window, "Successfully created the complaint.", "Success Message", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getMessages("logcomplaintform.success1"), "Success Message", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(window, "Internal error occurred during the complaint creation!.", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error5"), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

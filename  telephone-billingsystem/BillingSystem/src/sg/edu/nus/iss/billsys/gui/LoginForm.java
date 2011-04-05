@@ -78,10 +78,10 @@ public class LoginForm extends javax.swing.JFrame {
 					(JComponent) getContentPane());
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			this.setTitle("Login form");
+			this.setTitle(ResourceHandler.getLabel("loginform.lbl.title"));
 			{
 				cancelButton = new JButton();
-				cancelButton.setText("Cancel");
+				cancelButton.setText(ResourceHandler.getLabel("loginform.btn.cancel"));
 				cancelButton.addActionListener(new ActionListener() {
 
 					@Override
@@ -94,7 +94,7 @@ public class LoginForm extends javax.swing.JFrame {
 			}
 			{
 				loginButton = new JButton();
-				loginButton.setText("Login");
+				loginButton.setText(ResourceHandler.getLabel("loginform.btn.ok"));
 				getRootPane().setDefaultButton(loginButton);
 				loginButton.addActionListener(new ActionListener() {
 
@@ -111,7 +111,7 @@ public class LoginForm extends javax.swing.JFrame {
 			}
 			{
 				usernameLabel = new JLabel();
-				usernameLabel.setText("Username:");
+				usernameLabel.setText(ResourceHandler.getLabel("loginform.lbl.username"));
 			}
 			{
 				errorMsgLabel = new JLabel();
@@ -120,7 +120,7 @@ public class LoginForm extends javax.swing.JFrame {
 			}
 			{
 				passwordLabel = new JLabel();
-				passwordLabel.setText("Password:");
+				passwordLabel.setText(ResourceHandler.getLabel("loginform.lbl.password"));
 			}
 			{
 				passwordText = new JPasswordField();
@@ -282,7 +282,6 @@ public class LoginForm extends javax.swing.JFrame {
 	 */
 	protected void loginButtonActionPerformed(ActionEvent arg0) {
 		BillingSystemLogger.logInfo("loginButton.actionPerformed, arg0=" + arg0);
-//		BillingSystemLogger.logInfo(">>>>>" + ResourceHandler.getError("loginform.error1"));
 		BillingSystemLogger.logInfo(this.usernameText.getText());
 		BillingSystemLogger.logInfo(this.passwordText.getText());
 
@@ -290,7 +289,7 @@ public class LoginForm extends javax.swing.JFrame {
 		if (StringUtil.isNullOrEmpty(this.usernameText.getText())
 				|| StringUtil.isNullOrEmpty(this.passwordText.getText())) {
 			// display error message
-			JOptionPane.showMessageDialog(this, "Invalid input for username/ password!", "Error Message", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, ResourceHandler.getError("loginform.error1"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -311,7 +310,7 @@ public class LoginForm extends javax.swing.JFrame {
 				
 			} else {
 //				 display error message
-				JOptionPane.showMessageDialog(this, "Authentication failed!", "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, ResourceHandler.getError("loginform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (BillingSystemException e) {
 //			// display error message
