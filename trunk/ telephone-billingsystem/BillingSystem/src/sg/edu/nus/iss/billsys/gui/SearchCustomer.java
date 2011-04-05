@@ -249,7 +249,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				cust= MgrFactory.getAccountMgr().getCustomerListByName(SearchTextBox.getText());				
 			}
 			else {	
-				cust= MgrFactory.getAccountMgr().getCustomerListByAcctId(SearchTextBox.getText() );		
+				cust= MgrFactory.getAccountMgr().getCustomerListByNric(SearchTextBox.getText() );		
 				
 			}				
 		
