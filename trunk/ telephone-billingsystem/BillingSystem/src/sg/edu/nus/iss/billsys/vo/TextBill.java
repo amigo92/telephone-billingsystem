@@ -8,8 +8,9 @@ import java.util.Iterator;
 import sg.edu.nus.iss.billsys.tools.FinanceUtils;
 
 /**
- * 
  * @author Lem Kian Hoa (Stephen)
+ * 
+ * To print the bill in text format.
  *
  */
 

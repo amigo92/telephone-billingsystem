@@ -19,8 +19,13 @@ import sg.edu.nus.iss.billsys.vo.MobileVoicePlan;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
 /**
- * 
  * @author Lem Kian Hoa (Stephen)
+ * 
+ * To retrieve system plan types and feature types.
+ * To retrieve available digital voice and mobile phone numbers.
+ * To register and de-register subscription plans.
+ * To register and de-register plan features.
+ * To retrieve subscription plans of an account.
  *
  */
 
@@ -40,7 +45,8 @@ public class SubscriptionMgr {
 	}
 
 	/*
-	 * Call ISubscriptionPlanDao.saveObjData when value is set to true. (default)
+	 * Call ISubscriptionPlanDao.saveObjData if the value is set to true. (default)
+	 * For junit usage.
 	 */
 	public void setSaveObjData(boolean value) {
 		BillingSystemLogger.logInfo("Set save object data to "+value);
