@@ -57,7 +57,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		this.subscription = subscription;
 		
 		manager = window.getSubscriptionMgr();
-		unregisteredFeatures = getUnRegisterFeature( );
+		unregisteredFeatures = getAvailableFeatures( );
 
 		if(unregisteredFeatures == null || unregisteredFeatures.size() == 0){
 			JPanel p = new JPanel ();
@@ -185,14 +185,14 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		}
 		return true;
 	}
-	/*Get list of unregistered features 
+	/*Get list of available features for registration
 	 *except for Cable TV's feature "Additional channel" 
 	 *which can be registered for multiple times */
-    private List<FeatureType> getUnRegisterFeature () {
+    private List<FeatureType> getAvailableFeatures() {
     	List<FeatureType> allFeatureTypes = manager.getPlanOptionalFeatures(subscription.getPlanType());
     	List<Feature> regFeatures = subscription.getOptionalFeatures();
 
-    	List<FeatureType> unRegisteredFestures = (List<FeatureType>) allFeatureTypes;
+    	List<FeatureType> availableFeatures = (List<FeatureType>) allFeatureTypes;
   	
     	if(regFeatures == null || regFeatures.size() == 0 ){
     		return allFeatureTypes;
@@ -201,10 +201,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 	    		if(!e.getFeatureType().allowMultiple)
 	    		{
 	    			if(!e.isTerminated())
-	    				unRegisteredFestures.remove(e.getFeatureType());
+	    				availableFeatures.remove(e.getFeatureType());
 	    		}
     		 }
-	    	return unRegisteredFestures;
+	    	return availableFeatures;
     	}
     }
 }
