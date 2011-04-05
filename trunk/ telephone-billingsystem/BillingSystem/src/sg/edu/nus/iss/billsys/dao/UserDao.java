@@ -9,14 +9,27 @@ import sg.edu.nus.iss.billsys.vo.User;
 /**
  * 
  * @author Veera
+ * 
+ * This class is a implementation class for accessing the data layer to get the user information
+ * It extends the genericdao to inherit the functionality of accessing the physical file and to return a 
+ * raw data of two dimensional string array , which will in turn mapped to the domain objects for easy 
+ * manipulation , This class also provides implementation to save back the domain object to the data file.
+ * 
+ * This class will be inheriting the Interface class to implement the public methods which will be used by the 
+ * manager classes for the data read / update / create functionalities.
  *
  */
 public class UserDao extends GenericDao implements IUserDao{
 	
-	private final static String  USER_DATA_FILE="data/User.txt";
-	private static final int COL_LENGTH=3;
-	private List<User> listUser=new ArrayList<User>();
+	private final static String  USER_DATA_FILE="data/User.txt";//This Constant is to specify the file path to load the Authorised user information
+	private static final int COL_LENGTH=3; //This constant would give the number of columns expected in the file 
+	private List<User> listUser=new ArrayList<User>();//Instance variable to hold the data from the parsed data of the file
 	
+	/*
+	 * This method will implement the logic to map the raw data of two dimensional array to the Domain objects which is then used by the public methods of the Dao.
+	 * (non-Javadoc)
+	 * @see sg.edu.nus.iss.billsys.dao.GenericDao#objectDataMapping()
+	 */
 	@Override
 	protected final void objectDataMapping() throws BillingSystemException{
 		String[][] data=getDataAsArray(USER_DATA_FILE);
@@ -43,7 +56,9 @@ public class UserDao extends GenericDao implements IUserDao{
 	public final void saveObjectData() throws BillingSystemException{
 		//This method will not be implemented , since there is no save use case for this data,only read operation is required on the User Authentication
 	}	
-	
+	/*
+	 * The Constructor intialisation also invokes the call to map the raw data parsed from the file to domain object.
+	 */
 	protected UserDao() throws BillingSystemException{
 	 this.objectDataMapping();
 	}
