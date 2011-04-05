@@ -69,14 +69,21 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	protected boolean performOkAction(){
 		try{
         	dateTerminated = BillingUtil.getDateTime(untilField.getText());
-
-			if(featureType == null)
-				manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
-			else
-				manager.deregisterFeature(accountNo, planId, featureId, dateTerminated);
-
-			window.refreshSubRegPanel(accountNo);
-			return true;
+        	
+        	if(BillingUtil.getYesterdayDate().after(dateTerminated))
+        	{
+    			JOptionPane.showMessageDialog(window, "End Date must be today afterwards.","Error",0);	
+    			return false;
+    			
+        	}else{
+				if(featureType == null)
+					manager.deregisterSubscriptionPlan(accountNo, planId, dateTerminated);
+				else
+					manager.deregisterFeature(accountNo, planId, featureId, dateTerminated);
+	
+				window.refreshSubRegPanel(accountNo);
+				return true;
+        	}
 			
 		}catch(BillingSystemException ex){
 			JOptionPane.showMessageDialog(window, ex.getMessagebyException(),"Error",0);	
