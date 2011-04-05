@@ -160,7 +160,7 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 	public ArrayList<Customer> getCustomerListByNric(String nric){
 		ArrayList<Customer> custList = new ArrayList<Customer>();
 		for(Customer c : listCustomer){
-			if(c.getNric().equals(nric)){
+			if(c.getNric().toUpperCase().indexOf(nric.toUpperCase()) >= 0){
 				custList.add(c);
 			}
 		}
