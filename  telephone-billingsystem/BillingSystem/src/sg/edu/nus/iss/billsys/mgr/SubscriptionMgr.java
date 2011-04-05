@@ -38,29 +38,48 @@ public class SubscriptionMgr {
 		mobileNumbersDao = DaoFactory.getInstanceOfMobileNumbersDao();
 		digiVoiceNumbersDao = DaoFactory.getInstanceOfDigiVoiceNumbersDao();
 	}
-	
+
+	/*
+	 * Call ISubscriptionPlanDao.saveObjData when value is set to true. (default)
+	 */
 	public void setSaveObjData(boolean value) {
 		BillingSystemLogger.logInfo("Set save object data to "+value);
 		this.saveObjData = value;
 	}
-		
+	
+	/*
+	 * To retrieve subscription charge of a feature type.
+	 * @return int of subscription charge in cents.
+	 */
 	public int getSubscriptionCharge(FeatureType featureType){
-		BillingSystemLogger.logInfo("Retrieve subscription charge for FeatureType ["+featureType+"]");
+		BillingSystemLogger.logInfo("Retrieve subscription charge of FeatureType ["+featureType+"]");
 		return featureRateDao.getPricebyFeatureCode(featureType.getFeatureCd()).getPrice();
 	}
-	
+
+	/*
+	 * To retrieve all plan types.
+	 * @return an array of PlanTypes.
+	 */
 	public PlanType[] getAllPlanType() {
 		BillingSystemLogger.logInfo("Retrieve all plan types");
 		return PlanType.values();
 	}
 	
-	public FeatureType getPlanBasicFeatures(PlanType planType) {
-		BillingSystemLogger.logInfo("Retrieve basic feature for PlanType ["+planType+"]");
+	/*
+	 * To retrieve basic features of a plan type.
+	 * @return a FeatureType object.
+	 */
+	public FeatureType getPlanBasicFeature(PlanType planType) {
+		BillingSystemLogger.logInfo("Retrieve basic feature of PlanType ["+planType+"]");
 		return planType.basicFeature;
 	}	
 
+	/*
+	 * To retrieve optional features of a plan type.
+	 * @return a list of FeatureType objects.
+	 */
 	public List<FeatureType> getPlanOptionalFeatures(PlanType planType) {
-		BillingSystemLogger.logInfo("Retrieve optional features for PlanType ["+planType+"]");
+		BillingSystemLogger.logInfo("Retrieve optional features of PlanType ["+planType+"]");
 		List<FeatureType> list = new ArrayList<FeatureType>();
 		for (FeatureType f : planType.optionalFeatures) {
 			list.add(f);
@@ -68,8 +87,13 @@ public class SubscriptionMgr {
 		return list;
 	}
 
+
+	/*
+	 * To retrieve usage charge features of a plan type.
+	 * @return a list of FeatureType objects.
+	 */
 	public List<FeatureType> getPlanUsageChargeFeatures(PlanType planType) {
-		BillingSystemLogger.logInfo("Retrieve usage charge features for PlanType ["+planType+"]");
+		BillingSystemLogger.logInfo("Retrieve usage charge features of PlanType ["+planType+"]");
 		List<FeatureType> list = new ArrayList<FeatureType>();
 		for (FeatureType f : planType.usageChargeFeatures) {
 			list.add(f);
@@ -78,8 +102,8 @@ public class SubscriptionMgr {
 	}
 
     /*
-     * To get a list of available mobile numbers.
-     * @return list of String objects
+     * To retrieve a list of available mobile numbers.
+     * @return a list of String objects.
      */
 	public List<String> getAvailMobileNumbers() {
 		BillingSystemLogger.logInfo("Retrieve available mobile numbers");
@@ -87,8 +111,8 @@ public class SubscriptionMgr {
 	}
 
     /*
-     * To get a list of available digital voice numbers.
-     * @return list of String objects
+     * To retrieve a list of available digital voice numbers.
+     * @return a list of String objects.
      */
 	public List<String> getAvailDigiVoiceNumbers() {
 		BillingSystemLogger.logInfo("Retrieve available digital voice numbers");
@@ -96,8 +120,8 @@ public class SubscriptionMgr {
 	}
 
     /*
-     * To get a list of available phone numbers by plan type.
-     * @return list of String objects
+     * To retrieve a list of available phone numbers of a plan type.
+     * @return a list of String objects
      */
 	public List<String> getAvailPhoneNumbers(PlanType planType) {
 		switch(planType) {
@@ -111,29 +135,30 @@ public class SubscriptionMgr {
 	}
 
     /*
-     * To get all subscription plans of the account.
-     * @return list of SubscriptionPlan objects
+     * To retrieve all subscription plans of an account.
+     * @return a list of SubscriptionPlan objects
      */
     public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
-		BillingSystemLogger.logInfo("Retrieve all subscription plans for account ["+acctNo+"]");
+		BillingSystemLogger.logInfo("Retrieve all subscription plans of account ["+acctNo+"]");
     	return subPlanDao.getAccountSubscriptions(acctNo);
     }
 
     /*
-     * To get subscription plan of the account by plan id.
-     * @return SubscriptionPlan object
+     * To retrieve subscription plan of an account by plan id.
+     * @return a SubscriptionPlan object
      */
     public SubscriptionPlan getAccountSubscription(String acctNo, String planId) {
-		BillingSystemLogger.logInfo("Retrieve subscription plan for account ["+acctNo+"] by plan id ["+planId+"]");
+		BillingSystemLogger.logInfo("Retrieve subscription plan of account ["+acctNo+"] by plan id ["+planId+"]");
     	return subPlanDao.getAccountSubscription(acctNo, planId);
     }
     
     /*
-     * To register new subscription plan into the account.
-     * @return SubscriptionPlan object
+     * To register a new subscription plan into an account.
+     * @return a registered SubscriptionPlan object.
+     * @throws BillingSystemException
      */
     public SubscriptionPlan registerNewSubscriptionPlan(String acctNo, String assignedTelNo, PlanType planType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
-		BillingSystemLogger.logInfo("Register new subscription plan for account ["+acctNo+"], assignedTelNo ["+assignedTelNo+"] planType ["+planType+"] dateCommenced ["+dateCommenced+"] dateTerminated ["+dateTerminated+"]");
+		BillingSystemLogger.logInfo("Register new subscription plan of account ["+acctNo+"], assignedTelNo ["+assignedTelNo+"] planType ["+planType+"] dateCommenced ["+dateCommenced+"] dateTerminated ["+dateTerminated+"]");
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -211,11 +236,12 @@ public class SubscriptionMgr {
     }
 
     /*
-     * To register new optional feature of the plan.
-     * @return feature id
+     * To register a new optional feature of the subscription plan.
+     * @return a registered Feature object.
+     * @throws BillingSystemException
      */
     public Feature registerNewFeature(String acctNo, String planId, FeatureType featureType, Date dateCommenced, Date dateTerminated) throws BillingSystemException {
-		BillingSystemLogger.logInfo("Register new feature for account ["+acctNo+"], planId ["+planId+"] featureType ["+featureType+"] dateCommenced ["+dateCommenced+"] dateTerminated ["+dateTerminated+"]");
+		BillingSystemLogger.logInfo("Register new feature of account ["+acctNo+"], planId ["+planId+"] featureType ["+featureType+"] dateCommenced ["+dateCommenced+"] dateTerminated ["+dateTerminated+"]");
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -265,11 +291,11 @@ public class SubscriptionMgr {
     }
 
     /*
-     * To get all registered (active) features of the plan.
-     * @return list of Feature objects
+     * To retrieve all registered (active) features of the subscription plan.
+     * @return a list of Feature objects.
      */
     public List<Feature> getRegisteredFeatures(String acctNo, String planId) {
-		BillingSystemLogger.logInfo("Retrieve registered features for account ["+acctNo+"], planId ["+planId+"]");
+		BillingSystemLogger.logInfo("Retrieve registered features of account ["+acctNo+"], planId ["+planId+"]");
     	ArrayList<Feature> list = new ArrayList<Feature>();
        	if (acctNo == null) {
     		return list;
@@ -291,11 +317,11 @@ public class SubscriptionMgr {
     }
 
     /*
-     * To get feature of the plan.
-     * @return list of Feature object
+     * To retrieve feature of the subscription plan by feature id.
+     * @return a Feature object.
      */
     public Feature getAccountSubscriptionFeature(String acctNo, String planId, String featureId) {
-		BillingSystemLogger.logInfo("Retrieve a feature of subscription plan for account ["+acctNo+"], planId ["+planId+"] featureId ["+featureId+"]");
+		BillingSystemLogger.logInfo("Retrieve a feature of subscription plan of account ["+acctNo+"], planId ["+planId+"] featureId ["+featureId+"]");
         if (acctNo == null) {
     		return null;
     	}
@@ -316,8 +342,8 @@ public class SubscriptionMgr {
     }
 
     /*
-     * To get all deregistered (terminated) features of the plan.
-     * @return list of Feature objects
+     * To retrieve all de-registered (terminated) features of the subscription plan.
+     * @return a list of Feature objects.
      */
    public List<Feature> getDeregisteredFeatures(String acctNo, String planId) {
 		BillingSystemLogger.logInfo("Retrieve all de-registered features of subscription plan for account ["+acctNo+"], planId ["+planId+"]");
@@ -342,10 +368,11 @@ public class SubscriptionMgr {
     }
 
    /*
-    * To deregister (terminate) feature of the plan.
+    * To de-register (terminate) a feature of the subscription plan.
+    * @throws BillingSystemException
     */
     public void deregisterFeature(String acctNo, String planId, String featureId, Date dateTerminated) throws BillingSystemException {
-		BillingSystemLogger.logInfo("De-register feature for account ["+acctNo+"], planId ["+planId+"] featureId ["+featureId+"] dateTerminated ["+dateTerminated+"]");
+		BillingSystemLogger.logInfo("De-register feature of account ["+acctNo+"], planId ["+planId+"] featureId ["+featureId+"] dateTerminated ["+dateTerminated+"]");
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -381,10 +408,11 @@ public class SubscriptionMgr {
     }
 
     /*
-     * To deregister (terminate) the plan.
+     * To de-register (terminate) a subscription plan.
+     * @throws BillingSystemException
      */
     public void deregisterSubscriptionPlan(String acctNo, String planId, Date dateTerminated) throws BillingSystemException {
-		BillingSystemLogger.logInfo("De-register subscription plan for account ["+acctNo+"], planId ["+planId+"] dateTerminated ["+dateTerminated+"]");
+		BillingSystemLogger.logInfo("De-register subscription plan of account ["+acctNo+"], planId ["+planId+"] dateTerminated ["+dateTerminated+"]");
     	if (acctNo == null) {
     		throw new BillingSystemException("Account number cannot be null.");
     	}
@@ -411,8 +439,12 @@ public class SubscriptionMgr {
     	}
     }
     
+    /*
+     * To validate customer account by checking the customer object is active.
+     * @return true if the customer is active, otherwise false.
+     */
     private boolean validateAccount(String acctNo) throws BillingSystemException {
-		BillingSystemLogger.logInfo("Validate customer for account ["+acctNo+"]");
+		BillingSystemLogger.logInfo("Validate customer account ["+acctNo+"]");
     	Customer cust = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctNo);
     	if (cust == null) {
     		return false;

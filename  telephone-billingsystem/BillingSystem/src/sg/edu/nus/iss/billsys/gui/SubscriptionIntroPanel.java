@@ -45,7 +45,7 @@ public class SubscriptionIntroPanel extends JPanel {
 	    	for (PlanType planType : planTypes){
 	    	
 	    		p.add(new JLabel(planType.name));
-	        	FeatureType basicFeatureType = manager.getPlanBasicFeatures(planType);
+	        	FeatureType basicFeatureType = manager.getPlanBasicFeature(planType);
 	    		p.add(new JLabel("     " + FinanceUtils.formatCentToDollar(manager.getSubscriptionCharge(basicFeatureType))));
 		    	p.add(new JLabel(""));
 		    	List<FeatureType> optionalFeatureTypes = manager.getPlanOptionalFeatures(planType);   	
