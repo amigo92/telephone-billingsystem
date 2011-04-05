@@ -766,6 +766,19 @@ public class SubscriptionMgrTest extends TestCase {
 				cust.getAccountId(),
 				digiPlan.getPlanId(),
 				digiIDD.getFeatureId(),
+				TimeUtils.parseDate("2011-01-01 00:00:00")
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
+		}
+		try {
+			subMgr.deregisterFeature(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				digiIDD.getFeatureId(),
 				new Date()
 			);
 		} catch (BillingSystemException e) {
@@ -866,6 +879,18 @@ public class SubscriptionMgrTest extends TestCase {
 			fail();
 		} catch (BillingSystemException e) {
 			System.out.println(e.getMessage());
+		}
+		try {
+			subMgr.deregisterSubscriptionPlan(
+				cust.getAccountId(),
+				digiPlan.getPlanId(),
+				TimeUtils.parseDate("2011-01-01 00:00:00")
+			);
+			fail();
+		} catch (BillingSystemException e) {
+			System.out.println(e.getMessage());
+		} catch (ParseException e) {
+			fail();
 		}
 		try {
 			subMgr.deregisterSubscriptionPlan(
