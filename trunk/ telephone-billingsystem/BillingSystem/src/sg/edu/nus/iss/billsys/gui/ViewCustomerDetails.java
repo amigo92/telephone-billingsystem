@@ -255,6 +255,8 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					CustAccontNoLabel.setBounds(170, 405, 272, 10);
 					
 				}
+				if (window.isAdmin()){
+					
 				
 				btnSubscriptionInformation = new JButton("Subscription Information");
 				btnSubscriptionInformation.addActionListener(new ActionListener() {
@@ -276,6 +278,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				});
 				btnSubscriptionInformation.setBounds(371, 466, 180, 23);
 				ViewCustPanelCenter.add(btnSubscriptionInformation);
+				}
 				{
 					errorMsgSearchLabel = new JLabel("*No match record founds.");
 					errorMsgSearchLabel.setBounds(463, 20, 146, 14);
