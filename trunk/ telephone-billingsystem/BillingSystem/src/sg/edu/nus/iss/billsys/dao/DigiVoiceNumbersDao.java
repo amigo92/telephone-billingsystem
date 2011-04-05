@@ -45,10 +45,18 @@ public class DigiVoiceNumbersDao extends GenericDao implements IPhoneNumbersDao 
 		this.objectDataMapping();
 	}
 
+	/*
+	 * To retrieve a list of digital voice numbers from the dao.
+	 * @see sg.edu.nus.iss.billsys.dao.IPhoneNumbersDao#getPhoneNumbers()
+	 */
 	public List<String> getPhoneNumbers() {
 		return listNumbers;
 	}
 	
+	/*
+	 * To remove digital voice number from the dao.
+	 * @see sg.edu.nus.iss.billsys.dao.IPhoneNumbersDao#removePhoneNumber(java.lang.String)
+	 */
 	public boolean removePhoneNumber(String phoneNo) {
 		return listNumbers.remove(phoneNo);
 	}

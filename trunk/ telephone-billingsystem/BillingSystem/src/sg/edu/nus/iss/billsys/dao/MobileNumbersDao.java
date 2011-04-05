@@ -45,10 +45,18 @@ public class MobileNumbersDao extends GenericDao implements IPhoneNumbersDao {
 		this.objectDataMapping();
 	}
 
+	/*
+	 * To retrieve a list of mobile voice numbers from the dao.
+	 * @see sg.edu.nus.iss.billsys.dao.IPhoneNumbersDao#getPhoneNumbers()
+	 */
 	public List<String> getPhoneNumbers() {
 		return listMobileNumbers;
 	}
 	
+	/*
+	 * To remove mobile voice number from the dao.
+	 * @see sg.edu.nus.iss.billsys.dao.IPhoneNumbersDao#removePhoneNumber(java.lang.String)
+	 */
 	public boolean removePhoneNumber(String mobileNo) {
 		return listMobileNumbers.remove(mobileNo);
 	}

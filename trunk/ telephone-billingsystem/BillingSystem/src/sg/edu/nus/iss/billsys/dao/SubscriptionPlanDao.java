@@ -306,7 +306,11 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 	protected SubscriptionPlanDao() throws BillingSystemException{
 		this.objectDataMapping();
 	}
-	
+
+	/*
+	 * To retrieve a list of subscription plan objects of an account.
+	 * @see sg.edu.nus.iss.billsys.dao.ISubscriptionPlanDao#getAccountSubscriptions(java.lang.String)
+	 */
 	public List<SubscriptionPlan> getAccountSubscriptions(String acctNo) {
 		if (acctNo == null || acctNo.length() == 0) {
 			return null;
@@ -314,6 +318,10 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		return subscriptionMap.get(acctNo);
 	}
 	
+	/*
+	 * To retrieve subscription plan object of an account by plan id.
+	 * @see sg.edu.nus.iss.billsys.dao.ISubscriptionPlanDao#getAccountSubscription(java.lang.String, java.lang.String)
+	 */
 	public SubscriptionPlan getAccountSubscription(String acctNo, String planId) {
 		if (planId == null || planId.length() == 0) {
 			return null;
@@ -330,6 +338,10 @@ public class SubscriptionPlanDao extends GenericDao implements ISubscriptionPlan
 		return null;
 	}
 	
+	/*
+	 * To add subscription plan object of an account into the dao 
+	 * @see sg.edu.nus.iss.billsys.dao.ISubscriptionPlanDao#addAccountSubscription(java.lang.String, sg.edu.nus.iss.billsys.vo.SubscriptionPlan)
+	 */
 	public boolean addAccountSubscription(String acctNo, SubscriptionPlan plan) {
 		if (acctNo == null || acctNo.length() == 0) {
 			return false;
