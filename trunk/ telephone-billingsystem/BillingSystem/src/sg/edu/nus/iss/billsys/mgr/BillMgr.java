@@ -218,9 +218,11 @@ public class BillMgr {
 		detail.addEntry(bill.new Entry(basicFeature.getName(), basicCharges));
 		
 		for(Feature f : plan.getOptionalFeatures()){
-			int amt = f.getSubscriptionCharges();
-			total_sub_charges += amt;
-			detail.addEntry(bill.new Entry(f.getName(), amt));
+			if(billPeriod.isOverlapped(f.getDateCommenced(), f.getDateTerminated())){
+				int amt = f.getSubscriptionCharges();
+				total_sub_charges += amt;
+				detail.addEntry(bill.new Entry(f.getName(), amt));
+			}
 		}
 		
 		int total_use_charges = getTotalUsage(billPeriod, bill, detail, plan);
