@@ -205,7 +205,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				pTable.add(scrollpane, BorderLayout.CENTER);
 				{
 					lblNoteTo = new JLabel("Note : To View Customer Details , Please double click on the Customer NRIC or Name.");
-					lblNoteTo.setBounds(12, 285, 517, 14);
+					lblNoteTo.setBounds(12, 332, 517, 14);
 					SearchCustPantelCenter.add(lblNoteTo);
 				}
 				table.addMouseListener(new MouseAdapter() {
@@ -253,17 +253,14 @@ public class SearchCustomer extends javax.swing.JPanel {
 				
 			}				
 		
-			if (cust.size() >0 ){				
+			if (cust.size() >0 ){			
 		
-//				for (int i = 0; i < 3; i++) {	
-//					cust.add(new Customer("aa" + i,null,null,null,null,null, "bb"+i ));
-//					
-//				}
+
 				System.out.println("Count" + cust.size());				
 				
 				for (int i = 0; i < cust.size(); i++) {					
 					newlist.add(new String[] { cust.get(i).getName(), cust.get(i).getNric() });
-					//System.out.println(cust.get(i).getName()); 
+
 				}							
 				clearErrorMsgData();
 				
@@ -271,7 +268,6 @@ public class SearchCustomer extends javax.swing.JPanel {
 			else 
 			{				
 				System.out.println( newlist.size());
-				//newlist.add(new String[] { " ", " "});
 				errorMsgSearchLabel.setText("No match record founds." );
 				errorMsgSearchLabel.setVisible(true);
 			}	
