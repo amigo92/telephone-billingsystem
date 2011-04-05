@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.billsys.mgr;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
+import sg.edu.nus.iss.billsys.vo.Account;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
@@ -30,15 +32,21 @@ public class SubscriptionMgrTest extends TestCase {
 	public void setUp() throws Exception {
 		subMgr = MgrFactory.getSubscriptionMgr();
 		subMgr.setSaveObjData(false);
-		cust = MgrFactory.getAccountMgr().createCustomer(
-			"John",
-			"S1234567C",
-			"66667777",
+		cust = new Customer(
+			"John Smith",
 			"700 Hill Street",
 			"#11-11",
 			"Singapore 100000",
-			""
+			"66667777",
+			"Swimming",
+			"S1234567C"
 		);
+		Calendar today = Calendar.getInstance();
+		Date aDate = today.getTime();
+		Account account = new Account(new Date(), 1234567);
+		account.setDateCreated(aDate);
+		cust.setAcct(account);
+		MgrFactory.getAccountMgr().createCustomer(cust);
 	}
 
 	@After
