@@ -281,11 +281,5 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		}
 		return false;
 	}
-//	@Override
-/*	protected boolean validateData(String[][] data) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-*/	
 
 }
