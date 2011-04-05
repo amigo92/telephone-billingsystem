@@ -114,20 +114,10 @@ public class AccountMgr {
 		return custDao.getAllActiveCustomers();
 	}
 	
-	public boolean updateCustomer(Customer newCust){
-		return custDao.updateCust(newCust);
+	public boolean updateCustomer(Customer newCust) throws BillingSystemException{
+		boolean res = custDao.updateCust(newCust);
+		custDao.saveObjectData();
+		return res;
 	}
 
-	public void update(Account acct){
-		//TODO
-	}
-	
-	/**
-	 * Retrieve account obj by account no.
-	 * @client SubscriptionMgr
-	 */
-	public Account getAccountObject(String accountNo){
-		//TODO
-		return null;
-	}
 }
