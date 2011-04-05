@@ -168,14 +168,14 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
 			Customer element = (Customer) iter.next();
 			s = element.getAccountId();
-			if(s.indexOf(searchId)> 0 ){
+			if(s.indexOf(searchId)>= 0 ){
 				custList.add(element);
 			}
 			else
 			{
 				s = s.toLowerCase();
 				searchId = searchId.toLowerCase();
-				if(s.indexOf(searchId) > 0 ){
+				if(s.indexOf(searchId) >= 0 ){
 					custList.add(element);
 				}
 			}
@@ -195,14 +195,14 @@ public class CustomerDao extends GenericDao implements ICustomerDao{
 		for (Iterator iter = listCustomer.iterator(); iter.hasNext();) {
 			Customer element = (Customer) iter.next();
 			s = element.getName();
-			if(s.indexOf(searchName)> 0 ){
+			if(s.indexOf(searchName)>= 0 ){
 				custList.add(element);
 			}
 			else
 			{
 				s = s.toLowerCase();
 				searchName = searchName.toLowerCase();
-				if(s.indexOf(searchName) > 0 ){
+				if(s.indexOf(searchName) >= 0 ){
 					custList.add(element);
 				}
 			}
