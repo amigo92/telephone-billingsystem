@@ -3,4 +3,4 @@
 "SA-2011-03-25-8481364","Au Isaac","#06-430 , Blk 430","Jurong East","Singapore-190430","+65 9568780","Music,Games","false","S8481364F"
 "SA-2011-03-25-8481363","Madeleine Maria Laude","#12-10 , Blk 10","Clementi","Singapore-180010","+65 67912020","TV, Movies","false","S8481363F"
 "SA-2011-03-25-8481362","Soo Yu Hao","#312-1 , Blk 1","Changi Estate","Singapore-170312","+65 88810202","Entertainment , Stories","false","S8481362F"
-"SA-2011-03-25-8481361","Nor Nadya Binte Abdullah","#042 , Palace ","Tanjong pagar Estate","Singapore-160001","+65 64440102","Books","true","S8481361F"
+"SA-2011-03-25-8481361","Nor Nadya Binte Abdullah","#042 , Palace ","Tanjong pagar Estate","Singapore-160001","+65 64440102","Books","false","S8481361F"
