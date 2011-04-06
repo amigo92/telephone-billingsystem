@@ -150,7 +150,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 				utilDate = null;
 			else{
 				try {
-					utilDate = BillingUtil.getDateTime(untilField.getText());
+					utilDate = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");
 				} catch (ParseException e) {
 					JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 					return false;
