@@ -184,7 +184,7 @@ public class AddCustomer extends javax.swing.JPanel {
 								 
 							 	} catch (BillingSystemException ex) {
 								    // Print out the exception that occurred
-								    System.out.println(ex.getMessage());
+								  //  System.out.println(ex.getMessage());
 								    errorMsg=new BillingSystemException(ex).getMessagebyException();
 								} catch (Exception e) {
 								    // Print out the exception that occurred
@@ -240,13 +240,13 @@ public class AddCustomer extends javax.swing.JPanel {
 	}
 	
 	private void CancelButtonActionPerformed(ActionEvent evt) {
-		System.out.println("CancelButton.actionPerformed, event="+evt);
+	//	System.out.println("CancelButton.actionPerformed, event="+evt);
 		
 		this.setVisible(false);
 	}
 	
 	private void SubmitButtonActionPerformed(ActionEvent evt) throws BillingSystemException {
-		System.out.println("SubmitButton.actionPerformed, event="+evt);
+	//	System.out.println("SubmitButton.actionPerformed, event="+evt);
 
 		
 		try{
@@ -258,8 +258,8 @@ public class AddCustomer extends javax.swing.JPanel {
 				}
 				else{
 					cust = MgrFactory.getAccountMgr().createCustomer(CustNameText.getText(), CustNIRCText.getText(), CustContactTelText.getText(), CustAdd1Text.getText(), CustAdd2Text.getText(), CustAdd3Text.getText(), InterestingText.getText());
-					System.out.println("save");
-					System.out.println(cust.getAccIdByCust());
+					//System.out.println("save");
+					//System.out.println(cust.getAccIdByCust());
 					if ( cust.getAccIdByCust() != null){
 						JOptionPane.showMessageDialog(null ,"Customer Profile is created successfully.","BillingSystem ",1);
 						clearErrorMsgData();
