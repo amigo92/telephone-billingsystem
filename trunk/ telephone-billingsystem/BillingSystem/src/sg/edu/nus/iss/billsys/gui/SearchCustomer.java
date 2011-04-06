@@ -219,6 +219,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 		} catch (Exception e) {
 			//e.printStackTrace();
 			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 	}
 	
@@ -231,6 +232,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 			// TODO: handle exception
 			//e.printStackTrace();
 			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		boolean bNRIC= true;
 		
@@ -276,11 +278,13 @@ public class SearchCustomer extends javax.swing.JPanel {
 		catch ( BillingSystemException ex)
 		{
 			JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 			//ex.printStackTrace();
 		}catch (Exception e) {
 			// TODO: handle exception
 			//e.printStackTrace();
 			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 		
