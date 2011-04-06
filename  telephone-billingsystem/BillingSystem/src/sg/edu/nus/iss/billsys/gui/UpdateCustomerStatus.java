@@ -215,12 +215,13 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			}
 					
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	private void cancelButtonActionPerformed(ActionEvent evt) {
-		System.out.println("cancelButton.actionPerformed, event="+evt);
+	//	System.out.println("cancelButton.actionPerformed, event="+evt);
 		//TODO add your code for cancelButton.actionPerformed
 		this.setVisible(false);
 	}
@@ -234,7 +235,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 					
 					controlsToObject(cust);	
 				
-					System.out.println(cust.getAccIdByCust());
+				//	System.out.println(cust.getAccIdByCust());
 					Boolean bReturn= false;
 					if (rdActivitation.isSelected()){
 						Calendar today = Calendar.getInstance();
@@ -247,6 +248,7 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 				
 					if (bReturn){
 						JOptionPane.showMessageDialog(null,"Customer Status is updated." , "Billing System", 1);
+						return;
 					}
 					
 			}
@@ -255,7 +257,8 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 			}
 		
 		}catch (Exception e){
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 			
@@ -263,18 +266,20 @@ public class UpdateCustomerStatus extends javax.swing.JPanel {
 	
 	private void searchButtonActionPerformed(ActionEvent evt) {
 			clearErrorMsgData();
-			System.out.println("a");
+			//System.out.println("a");
 			if (validateControl()){					
 				
 			try {
 				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nrcText.getText() );
 			} catch (BillingSystemException e) {
 				// TODO Auto-generated catch block
-				e.getMessagebyException();
+				JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+				return;
 			}	
 			catch (Exception ex)
 			{
-				throw new RuntimeException(ex);
+				JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		
 			if (cust!=null){
