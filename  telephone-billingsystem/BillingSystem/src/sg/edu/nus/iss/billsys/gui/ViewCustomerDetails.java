@@ -262,12 +262,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				btnSubscriptionInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						// call 
-						System.out.println("aa");
+						
 						if (validateControl()){
 							window.refreshSubRegPanel(cust.getAccIdByCust());	
 						}
 						else {		
-							System.out.println("1");
+							
 							errorMsgNRICLabel.setVisible(true);
 							errorMsgSearchLabel.setVisible(false);
 							
