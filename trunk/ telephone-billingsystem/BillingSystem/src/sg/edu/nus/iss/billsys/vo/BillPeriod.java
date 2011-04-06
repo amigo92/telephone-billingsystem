@@ -44,12 +44,7 @@ public class BillPeriod implements Serializable, Comparable<BillPeriod>{
 	}
 	
 	public boolean isInRange(Date date){
-		if(date == null){
-			return false;
-		}
-		else{
-			return (!date.before(getStartTime())) && (!date.after(getEndTime()));
-		}
+		return (!date.before(getStartTime())) && (!date.after(getEndTime()));
 	}
 	
 	public boolean isOverlapped(Date sDate, Date eDate){
