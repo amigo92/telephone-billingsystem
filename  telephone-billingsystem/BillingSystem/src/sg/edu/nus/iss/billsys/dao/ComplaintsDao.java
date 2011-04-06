@@ -29,7 +29,7 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	private List<CustComplaint> listComplaints=new ArrayList<CustComplaint>();//Instance variable to hold the data from the parsed data of the file
 	
 	/*
-	 * The Constructor intialisation also invokes the call to map the raw data parsed from the file to domain object.
+	 * The Constructor initialisation also invokes the call to map the raw data parsed from the file to domain object.
 	 */
 	protected ComplaintsDao() throws BillingSystemException{
 		this.objectDataMapping();
@@ -113,9 +113,9 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	}
 	
 	/**
-	 * 
-	 * @param accNo
-	 * @return the list of complaints for this account
+	 * Get complaints in the data file that belong to this account
+	 * @param accNo account number to search for
+	 * @return the list of complaints for this account, return an empty list if not found
 	 */
 	public List<CustComplaint> getComplaintList(String accNo)
 	{			
@@ -133,9 +133,9 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	}	
 	
 	/**
-	 * 
+	 * Search for a complaint in the data file base on the complaint id
 	 * @param complaintId the complaint Id to search for
-	 * @return the complaint
+	 * @return the complaint, return null if not found
 	 */
 	public CustComplaint getComplaint(String complaintId)
 	{
@@ -152,7 +152,7 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	}
 	
 	/**
-	 * 
+	 * Create a new Complaint into the data file 
 	 * @param obj the Customer Complaints to be added
 	 * @return the newly created Complaint id
 	 */
@@ -166,7 +166,7 @@ public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	}
 	
 	/**
-	 * 
+	 * Update an existing Complaint into the data file
 	 * @param obj the customer Complaint object to be updated
 	 * @return true for success, false for fail
 	 */

@@ -78,6 +78,11 @@ public class UserDao extends GenericDao implements IUserDao{
 		
 	}
 	
+	/**
+	 * get the user from the data file base on the username
+	 * @param username the user name
+	 * @return return the user object if found, return null if not found 
+	 */
 	public User getUserByUsername(String username) throws BillingSystemException{
 		User temp=null;
 		
