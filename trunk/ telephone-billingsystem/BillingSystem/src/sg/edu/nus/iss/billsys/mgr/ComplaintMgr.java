@@ -13,7 +13,9 @@ import sg.edu.nus.iss.billsys.vo.*;
 /**
  * 
  * @author Yu Chui Chi
- *
+ * To create, update and retrieval of complaints.
+ * It make use of the ComplaintsDao to access the data file 
+ * and provide the functions to the GUI 
  */
 
 public class ComplaintMgr {
@@ -26,7 +28,7 @@ public class ComplaintMgr {
 	}
 	
 	/**
-	 * 
+	 * To create a complaint by account number
 	 * @param acctNo the account number this complaints belong to
 	 * @param description
 	 * @return the newly created Complaint id
@@ -60,6 +62,13 @@ public class ComplaintMgr {
 		}
 	}
 	
+	/***
+	 * to create a complaint by customer id
+	 * @param custId the customer id (NRIC)
+	 * @param description the complaint description
+	 * @return the newly created complaint id
+	 * @throws BillingSystemException
+	 */
 	public long createComplaintByCustomerId(String custId, String description) throws BillingSystemException
 	{
 		String acctNo = getAcctNoByCustId(custId);
@@ -69,11 +78,21 @@ public class ComplaintMgr {
 			return this.createComplaintByAccount(acctNo,description);
 	}
 	
+	/***
+	 * Get list of complaints belonging to this account
+	 * @param acctNo the account number to search for
+	 * @return a list of complaints belong to this account, return empty list if there is no complaints
+	 */
 	public List<CustComplaint> getComplaintByAccount(String acctNo)
 	{		
 		return dao.getComplaintList(acctNo);
 	}	
 	
+	/**
+	 * Get list of complaints belonging to this customer id
+	 * @param custId the customer id to search for
+	 * @return a list of complaints belong to this customer, return empty list if there is no complaints
+	 */
 	public List<CustComplaint> getComplaintByCustomerId(String custId)
 	{
 		String acctNo = getAcctNoByCustId(custId);		
@@ -81,8 +100,8 @@ public class ComplaintMgr {
 	}
 	
 	/***
-	 * 
-	 * @param complaintId
+	 * Update the complaint status
+	 * @param complaintId the complaint id to update for
 	 * @param status either "Pending" or "Completed"
 	 * @return 1 for success, 0 for fail
 	 * @throws BillingSystemException 
@@ -102,7 +121,7 @@ public class ComplaintMgr {
 	}	
 	
 	/**
-	 * 
+	 * to get the account number base on the customer id
 	 * @param custId the customer id/ nric to search by
 	 * @return the account number for this customer, will be empty string if not found
 	 */

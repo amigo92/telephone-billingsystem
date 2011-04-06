@@ -8,7 +8,7 @@ import sg.edu.nus.iss.billsys.vo.*;
 /**
  * 
  * @author Yu Chui Chi
- *
+ * This class is use by the GUI to authenticate the user
  */
 
 public class UserMgr {
@@ -24,16 +24,32 @@ public class UserMgr {
 		currentUser = null;
 	}
 	
+	/**
+	 * Get the current logged in user's user role
+	 * @return the current user role or null if not logged in
+	 */
 	public UserRole getAuthUserRole()
 	{		
 		return currentUser != null ? currentUser.getRole() : null;
 	}
 	
+	/**
+	 * Get the current logged in user's name
+	 * @return the current user name or null if not logged in
+	 */
 	public String getAuthUserName()
 	{
 		return currentUser != null ? currentUser.getUsername() : null;
 	}
 	
+	/***
+	 * To authenticate the user base on the user id and password
+	 * if successful, the user will be logged in
+	 * @param userId the user id
+	 * @param pwd the password
+	 * @return true for successful, false for failure
+	 * @throws BillingSystemException
+	 */
 	public boolean isValidAuthUser(String userId, String pwd) throws BillingSystemException
 	{	
 		if(userId != null && pwd != null){
