@@ -49,7 +49,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ErrMsgTeleNoLabel; 
 	private JLabel errorMsgLabelName;
 	
-	private String errorMsg=null;
+//	private String errorMsg=null;
 	private BillingWindow window;
 
 	
@@ -185,10 +185,12 @@ public class AddCustomer extends javax.swing.JPanel {
 							 	} catch (BillingSystemException ex) {
 								    // Print out the exception that occurred
 								  //  System.out.println(ex.getMessage());
-								    errorMsg=new BillingSystemException(ex).getMessagebyException();
+							 		JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+									return;
 								} catch (Exception e) {
 								    // Print out the exception that occurred
-									errorMsg=new BillingSystemException(e).getMessagebyException();
+									JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+									return;
 									
 								}
 								
@@ -236,6 +238,8 @@ public class AddCustomer extends javax.swing.JPanel {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 	}
 	
@@ -268,7 +272,8 @@ public class AddCustomer extends javax.swing.JPanel {
 			}
 		}
 		catch(Exception ex){
-			throw new RuntimeException(ex);
+			JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 
 
