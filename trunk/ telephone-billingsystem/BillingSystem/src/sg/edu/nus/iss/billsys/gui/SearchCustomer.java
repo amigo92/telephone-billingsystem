@@ -85,7 +85,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 			
 			BorderLayout thisLayout = new BorderLayout();
 			this.setLayout(thisLayout);
-			this.setPreferredSize(new Dimension(571, 396));
+			this.setPreferredSize(new Dimension(571, 473));
 			{
 				SearchCustPanel = new JPanel();
 				this.add(SearchCustPanel, BorderLayout.NORTH);
@@ -188,7 +188,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 					BorderLayout pTableLayout = new BorderLayout();
 					pTable.setLayout(pTableLayout);
 					SearchCustPantelCenter.add(pTable);
-					pTable.setBounds(12, 153, 547, 107);
+					pTable.setBounds(12, 153, 547, 256);
 					
 
 				}
@@ -205,7 +205,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				pTable.add(scrollpane, BorderLayout.CENTER);
 				{
 					lblNoteTo = new JLabel("Note : To View Customer Details , Please double click on the Customer NRIC or Name.");
-					lblNoteTo.setBounds(12, 332, 517, 14);
+					lblNoteTo.setBounds(12, 420, 517, 14);
 					SearchCustPantelCenter.add(lblNoteTo);
 				}
 				table.addMouseListener(new MouseAdapter() {
