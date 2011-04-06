@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -216,7 +217,8 @@ public class SearchCustomer extends javax.swing.JPanel {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -227,10 +229,11 @@ public class SearchCustomer extends javax.swing.JPanel {
 			accountMgr= MgrFactory.getAccountMgr();
 		}catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 		boolean bNRIC= true;
-		System.out.println("scaa123478910");
+		
 	
 		try
 		{
@@ -249,14 +252,10 @@ public class SearchCustomer extends javax.swing.JPanel {
 				cust= MgrFactory.getAccountMgr().getCustomerListByName(SearchTextBox.getText());				
 			}
 			else {	
-				cust= MgrFactory.getAccountMgr().getCustomerListByNric(SearchTextBox.getText() );		
-				
+				cust= MgrFactory.getAccountMgr().getCustomerListByNric(SearchTextBox.getText() );
 			}				
 		
-			if (cust.size() >0 ){			
-		
-
-				System.out.println("Count" + cust.size());				
+			if (cust.size() >0 ){		
 				
 				for (int i = 0; i < cust.size(); i++) {					
 					newlist.add(new String[] { cust.get(i).getName(), cust.get(i).getNric() });
@@ -267,7 +266,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 			}
 			else 
 			{				
-				System.out.println( newlist.size());
+				
 				errorMsgSearchLabel.setText("No match record founds." );
 				errorMsgSearchLabel.setVisible(true);
 			}	
@@ -276,10 +275,12 @@ public class SearchCustomer extends javax.swing.JPanel {
 		}
 		catch ( BillingSystemException ex)
 		{
-			ex.printStackTrace();
+			JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			//ex.printStackTrace();
 		}catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			//e.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		
