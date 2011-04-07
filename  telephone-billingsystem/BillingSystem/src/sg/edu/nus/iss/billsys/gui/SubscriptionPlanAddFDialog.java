@@ -23,7 +23,7 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
-import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
@@ -74,9 +74,9 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		else {
 			
 			// Initialize the start date field.
-			fromField.setText(BillingUtil.getCurrentDateStr());
+			fromField.setText(TimeUtils.getCurrentDateStr());
 			if(subscription.getDateTerminated() != null){
-				untilField.setText(BillingUtil.getDateTimeStr(subscription.getDateTerminated()));
+				untilField.setText(TimeUtils.getDateTimeStr(subscription.getDateTerminated()));
 				untilField.setEditable(false);
 			}
 			
@@ -155,7 +155,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 //			Validation
 			Date fromDate;
 			try {
-				fromDate = BillingUtil.getDateTime(fromField.getText());
+				fromDate = TimeUtils.getDateTime(fromField.getText());
 			} catch (ParseException e1) {
 				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
 				 return false;
@@ -169,7 +169,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 					utilDate = null;
 				else{
 					try {
-						utilDate = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");
+						utilDate = TimeUtils.getLongDateTime(untilField.getText()+ " 23:59:59");
 					} catch (ParseException e) {
 						JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 						return false;

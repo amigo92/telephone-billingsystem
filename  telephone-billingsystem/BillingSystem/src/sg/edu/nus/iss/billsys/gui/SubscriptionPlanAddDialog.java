@@ -28,7 +28,7 @@ import sg.edu.nus.iss.billsys.constant.PlanType.PlanCode;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
-import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
@@ -82,7 +82,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 			featureNames.add(ft.name);
     	}
     	// Initialize Start Date field
-		fromField.setText(BillingUtil.getCurrentDateStr());
+		fromField.setText(TimeUtils.getCurrentDateStr());
 	
 		// Initialize Phone number list
 		if(planType.planCode == PlanCode.CABLE_TV ){
@@ -170,7 +170,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 //		Validation
 		Date fromDate;
 		try {
-			fromDate = BillingUtil.getDateTime(fromField.getText());
+			fromDate = TimeUtils.getDateTime(fromField.getText());
 		} catch (ParseException e) {
 			JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
 			return false;
@@ -180,7 +180,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 			utilDate = null;
 		else{
 			try {
-				utilDate = BillingUtil.getLongDateTime(untilField.getText() + " 23:59:59");
+				utilDate = TimeUtils.getLongDateTime(untilField.getText() + " 23:59:59");
 			} catch (ParseException e) {
 				JOptionPane.showMessageDialog(window, e.getMessage(),"Error",0);	
 				return false;

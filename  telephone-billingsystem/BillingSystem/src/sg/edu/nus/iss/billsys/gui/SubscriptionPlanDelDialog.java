@@ -16,7 +16,7 @@ import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
 import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
-import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
@@ -45,7 +45,7 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 			this.featureId = feature.getFeatureId();
 		}	
 //		Initialize End Date field
-		untilField.setText(BillingUtil.getCurrentDateStr());
+		untilField.setText(TimeUtils.getCurrentDateStr());
 		
 		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
@@ -75,9 +75,9 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	 */
 	protected boolean performOkAction(){
 		try{
-        	dateTerminated = BillingUtil.getDateTime(untilField.getText());
+        	dateTerminated = TimeUtils.getDateTime(untilField.getText());
         	
-        	if(BillingUtil.getYesterdayDate().after(dateTerminated))
+        	if(TimeUtils.getYesterdayDate().after(dateTerminated))
         	{
     			JOptionPane.showMessageDialog(window, "End Date must be today afterwards.","Error",0);	
     			return false;
