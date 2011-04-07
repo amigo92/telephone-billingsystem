@@ -64,6 +64,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		featureNames = new ArrayList<String>();
 		JCheckBox cb;
 		
+		// Initialize feature combobox
     	featureTypes = manager.getPlanOptionalFeatures(planType);
     	for(FeatureType ft:featureTypes)
     	{
@@ -80,9 +81,10 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
     		}	
 			featureNames.add(ft.name);
     	}
-
+    	// Initialize Start Date field
 		fromField.setText(BillingUtil.getCurrentDateStr());
 	
+		// Initialize Phone number list
 		if(planType.planCode == PlanCode.CABLE_TV ){
 			assignedNumberLabel.setVisible(false);
 			phoneNumberBox.setVisible(false);
@@ -96,6 +98,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		}
 	}
 	
+	/**
+	 * Add or remove feature from selected feature list
+	 * */
 	public void itemStateChanged(ItemEvent e) {
         JCheckBox source = (JCheckBox)e.getSource();
 
@@ -112,6 +117,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
     }
 
 	@Override
+	/**
+	 * Main Form Panel
+	 */
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
@@ -137,6 +145,9 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		return p;
 	}
 	
+	/**
+	 * Phone number combobox
+	 */
 	private JComboBox createPhoneNumberComboBox () {  	
 	    phoneNumberBox = new JComboBox();
 
@@ -150,9 +161,13 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
     }
 
 	@Override
+	/**
+	 * Click OK button
+	 */
 	protected boolean performOkAction() {		
 		String assignedTelNo = selectedPhoneNumber;
 		
+//		Validation
 		Date fromDate;
 		try {
 			fromDate = BillingUtil.getDateTime(fromField.getText());
@@ -178,8 +193,10 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		}
 	
 		try {
-			
+			// Register new subscription plan
 			SubscriptionPlan plan = manager.registerNewSubscriptionPlan(accountNo, assignedTelNo, planType, fromDate, utilDate);
+			
+			// Register new features
 			String planId = plan.getPlanId();
 			if(selectedFeatures !=null && selectedFeatures.size() >0 ){	
 				for(String f : selectedFeatures ){

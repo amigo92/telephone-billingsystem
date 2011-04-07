@@ -43,13 +43,17 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 		if( feature != null) {
 			this.featureType = feature.getFeatureType();
 			this.featureId = feature.getFeatureId();
-		}		
+		}	
+//		Initialize End Date field
 		untilField.setText(BillingUtil.getCurrentDateStr());
 		
 		titleLabel.setText("De-Register for " + subscription.getPlanDescription() + (featureType == null ? "" : ":" + featureType.name));
 	}
 	
-	@Override	
+	@Override
+	/**
+	 * Main Form Panel
+	 */
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
@@ -66,6 +70,9 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	}
 
 	@Override
+	/**
+	 * Click OK button
+	 */
 	protected boolean performOkAction(){
 		try{
         	dateTerminated = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");

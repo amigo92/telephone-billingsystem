@@ -57,8 +57,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		this.subscription = subscription;
 		
 		manager = window.getSubscriptionMgr();
+		
 		unregisteredFeatures = getAvailableFeatures( );
-
+		
+//		No feature available for registration
 		if(unregisteredFeatures == null || unregisteredFeatures.size() == 0){
 			JPanel p = new JPanel ();
 			p.setLayout (new GridLayout (0, 2));
@@ -71,9 +73,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		}
 		else {
 			
-			
+			// Initialize the start date field.
 			fromField.setText(BillingUtil.getCurrentDateStr());
 			
+			// Initialize available features's check boxes
 			selectedFeatures = new ArrayList<String>();
 			featureNames = new ArrayList<String>();
 			JCheckBox cb;
@@ -96,6 +99,9 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		}
 	}
 	@Override
+	/*
+	 * Main Form Panel
+	 */
 	protected JPanel createFormPanel() {
 		JPanel p = new JPanel ();
 		p.setLayout (new GridLayout (0, 2));
@@ -118,7 +124,9 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		
 		return p;
 	}
-
+	/*
+	 * Add or remove feature from selected feature list
+	 * */
 	public void itemStateChanged(ItemEvent e) {
         JCheckBox source = (JCheckBox)e.getSource();
 
@@ -134,9 +142,13 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
         }
     }
 	 @Override	
+	 /**
+		 * Click OK button
+		 */
 	 protected boolean performOkAction() {
 		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0)
 		{
+//			Validation
 			Date fromDate;
 			try {
 				fromDate = BillingUtil.getDateTime(fromField.getText());
@@ -163,6 +175,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			}
 			
 			try {
+				// Register new features
 				if(selectedFeatures !=null && selectedFeatures.size() >0 ){	
 					for(String f : selectedFeatures ){
 						int index = featureNames.indexOf(f);

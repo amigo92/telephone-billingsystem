@@ -31,7 +31,9 @@ public class SubscriptionIntroPanel extends JPanel {
         
         add ("North", createFormPanel());      
     }
-    
+    /**
+     * Details of subscription plan & charge information
+     * */
     private JPanel createFormPanel () {
     	JPanel p = new JPanel (new GridLayout (0,3));
     	
