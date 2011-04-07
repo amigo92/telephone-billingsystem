@@ -6,7 +6,7 @@ package sg.edu.nus.iss.billsys.gui;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
-import sg.edu.nus.iss.billsys.util.BillingUtil;
+import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Customer;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
@@ -241,15 +241,15 @@ public class SubscriptionPanel extends JPanel {
 		sp.add(new JLabel("                "));
 
 		for(final SubscriptionPlan plan: subscribedPlans){
-			String strDateInfo =  "     " + BillingUtil.getDisplayDateTimeStr(plan.getDateCommenced())
+			String strDateInfo =  "     " + TimeUtils.getDisplayDateTimeStr(plan.getDateCommenced())
 						+	(plan.getDateTerminated() == null? " ": "  -  " ) 
-						+ BillingUtil.getDisplayDateTimeStr(plan.getDateTerminated());
+						+ TimeUtils.getDisplayDateTimeStr(plan.getDateTerminated());
 		    
 			sp.add (new JLabel (plan.getPlanDescription()));						
 			sp.add (new JLabel(strDateInfo));
 			
 			
-			if(plan.getDateTerminated() == null || plan.getDateTerminated().after(BillingUtil.getCurrentDate())) 
+			if(plan.getDateTerminated() == null || plan.getDateTerminated().after(TimeUtils.getCurrentDate())) 
 			{
 				JButton b= new JButton ("De-Register");
 			    b.addActionListener (new ActionListener () {
@@ -267,15 +267,15 @@ public class SubscriptionPanel extends JPanel {
 			
 			List<Feature> features = plan.getOptionalFeatures();	
 			for(final Feature feature: features){
-				strDateInfo =  "     " + BillingUtil.getDisplayDateTimeStr(feature.getDateCommenced())
+				strDateInfo =  "     " + TimeUtils.getDisplayDateTimeStr(feature.getDateCommenced())
 					+ (feature.getDateTerminated() == null? " ": "  -  " ) 
-					+ BillingUtil.getDisplayDateTimeStr(feature.getDateTerminated());
+					+ TimeUtils.getDisplayDateTimeStr(feature.getDateTerminated());
 		
 				sp.add ( new JLabel ("        " + feature.getName()));
 				sp.add(new JLabel(strDateInfo));
 				
 				
-				if(feature.getDateTerminated() == null || feature.getDateTerminated().after(BillingUtil.getCurrentDate())) 	
+				if(feature.getDateTerminated() == null || feature.getDateTerminated().after(TimeUtils.getCurrentDate())) 	
 				{
 					JButton b2 = new JButton ("De-Register");
 					b2.addActionListener (new ActionListener () {
