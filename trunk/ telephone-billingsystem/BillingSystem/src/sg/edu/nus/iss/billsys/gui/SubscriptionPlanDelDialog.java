@@ -75,9 +75,9 @@ public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	 */
 	protected boolean performOkAction(){
 		try{
-        	dateTerminated = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");
+        	dateTerminated = BillingUtil.getDateTime(untilField.getText());
         	
-        	if(BillingUtil.getYesterdayDate().after(BillingUtil.getDateTime(untilField.getText())))
+        	if(BillingUtil.getYesterdayDate().after(dateTerminated))
         	{
     			JOptionPane.showMessageDialog(window, "End Date must be today afterwards.","Error",0);	
     			return false;
