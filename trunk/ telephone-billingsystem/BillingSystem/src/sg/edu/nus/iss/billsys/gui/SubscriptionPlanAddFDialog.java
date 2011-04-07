@@ -75,6 +75,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			
 			// Initialize the start date field.
 			fromField.setText(BillingUtil.getCurrentDateStr());
+			if(subscription.getDateTerminated() != null){
+				untilField.setText(BillingUtil.getDateTimeStr(subscription.getDateTerminated()));
+				untilField.setEditable(false);
+			}
 			
 			// Initialize available features's check boxes
 			selectedFeatures = new ArrayList<String>();
