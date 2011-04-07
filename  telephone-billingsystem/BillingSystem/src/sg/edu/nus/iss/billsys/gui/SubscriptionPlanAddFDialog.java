@@ -99,7 +99,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		}
 	}
 	@Override
-	/*
+	/**
 	 * Main Form Panel
 	 */
 	protected JPanel createFormPanel() {
@@ -124,7 +124,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		
 		return p;
 	}
-	/*
+	/**
 	 * Add or remove feature from selected feature list
 	 * */
 	public void itemStateChanged(ItemEvent e) {
@@ -198,7 +198,8 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		}
 		return true;
 	}
-	/*Get list of available features for registration
+	/**
+	 * Get list of available features for registration
 	 *except for Cable TV's feature "Additional channel" 
 	 *which can be registered for multiple times */
     private List<FeatureType> getAvailableFeatures() {
