@@ -35,7 +35,7 @@ public class SubscriptionPanel extends JPanel {
 	private int selectedPlanIndex;
 	private List<SubscriptionPlan> subscribedPlans;
 	private ArrayList<Customer>  customersList;
-    
+   
 	
     public SubscriptionPanel (BillingWindow window) {
 		initialize(window);
@@ -44,6 +44,9 @@ public class SubscriptionPanel extends JPanel {
 		this.accountNo = accountNo;
 		initialize(window);
     }
+    /**
+     * Initialize the Panel
+     */
     private void initialize(BillingWindow window){
 		this.window = window;
 	    manager = window.getSubscriptionMgr();
@@ -58,7 +61,8 @@ public class SubscriptionPanel extends JPanel {
 	    add ("North", createFormPanel());      
 	    add ("Center", bottomFormPanel); 
     }
-   /* Render panel title
+   /**
+    *  Render title panel
     * Active customer list
     * Register subscription plan panel
     */
@@ -82,7 +86,8 @@ public class SubscriptionPanel extends JPanel {
         return bp;
     }
     
-    /*Active Customer List*/
+    /**  
+     * Render Active Customer List*/
     private JComboBox createCustomerComboBox () {  	
 	    JComboBox accountBox = new JComboBox();
 	    int selectedIndex = 0;
@@ -112,6 +117,8 @@ public class SubscriptionPanel extends JPanel {
 	    return accountBox;
     }
 
+    /**
+     * Register Subscription Plan Panel*/
     private JPanel registerSubscriptionPlanPanel () {
     	JPanel p = new JPanel (new GridLayout (0,2));
     
@@ -133,7 +140,9 @@ public class SubscriptionPanel extends JPanel {
       
         return bp;
     }
-
+    
+    /**
+     * ComboBox for Subscription Plans*/
     private JComboBox createComboBox () {  	
 	    listOfPlanType = manager.getAllPlanType();
 	   		
@@ -154,7 +163,9 @@ public class SubscriptionPanel extends JPanel {
 	    planTypeBox.setSelectedIndex(0);
 	    return planTypeBox;
     }
-  
+    
+    /** 
+     * Register Feature Panel & existing subscription information */
     private JPanel createBottomFormPanel () {
     	JPanel bp = new JPanel (new BorderLayout());
 		JPanel p = new JPanel (new GridLayout (0, 2));
@@ -190,7 +201,9 @@ public class SubscriptionPanel extends JPanel {
 		}
         return bp;
     }
-   
+    
+    /**
+     *  ComboBox registered Subscription Plans , cater for feature subscription*/
     private JComboBox createFeatureComboBox (List<SubscriptionPlan> subscribedPlans) {
     	JComboBox	planBox = new JComboBox();
     	
@@ -210,6 +223,9 @@ public class SubscriptionPanel extends JPanel {
 	    planBox.setSelectedIndex(0);
 	    return planBox;
     }
+    
+   /** 
+    * Existing Subscription information & de-register button for existing subscriptions*/
 	 private JScrollPane existingSubscriptionPanel (List<SubscriptionPlan> subscribedPlans) {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setAutoscrolls(true);
