@@ -162,14 +162,18 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			}
 			
 			Date utilDate;
-			if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
-				utilDate = null;
-			else{
-				try {
-					utilDate = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");
-				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
-					return false;
+			if(subscription.getDateTerminated() != null){
+				utilDate = subscription.getDateTerminated();
+			} else {
+				if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+					utilDate = null;
+				else{
+					try {
+						utilDate = BillingUtil.getLongDateTime(untilField.getText()+ " 23:59:59");
+					} catch (ParseException e) {
+						JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
+						return false;
+					}
 				}
 			}
 		
@@ -180,6 +184,7 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			
 			try {
 				// Register new features
+				
 				if(selectedFeatures !=null && selectedFeatures.size() >0 ){	
 					for(String f : selectedFeatures ){
 						int index = featureNames.indexOf(f);
