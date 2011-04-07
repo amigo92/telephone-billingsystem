@@ -199,9 +199,10 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		return true;
 	}
 	/**
-	 * Get list of available features for registration
+	 *Get list of available features for registration
 	 *except for Cable TV's feature "Additional channel" 
-	 *which can be registered for multiple times */
+	 *which can be registered for multiple times 
+	 **/
     private List<FeatureType> getAvailableFeatures() {
     	List<FeatureType> allFeatureTypes = manager.getPlanOptionalFeatures(subscription.getPlanType());
     	List<Feature> regFeatures = subscription.getOptionalFeatures();
