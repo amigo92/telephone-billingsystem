@@ -241,9 +241,9 @@ public class SubscriptionPanel extends JPanel {
 		sp.add(new JLabel("                "));
 
 		for(final SubscriptionPlan plan: subscribedPlans){
-			String strDateInfo =  "     " + BillingUtil.getDateTimeStr(plan.getDateCommenced())
+			String strDateInfo =  "     " + BillingUtil.getDisplayDateTimeStr(plan.getDateCommenced())
 						+	(plan.getDateTerminated() == null? " ": "  -  " ) 
-						+ BillingUtil.getDateTimeStr(plan.getDateTerminated());
+						+ BillingUtil.getDisplayDateTimeStr(plan.getDateTerminated());
 		    
 			sp.add (new JLabel (plan.getPlanDescription()));						
 			sp.add (new JLabel(strDateInfo));
@@ -267,9 +267,9 @@ public class SubscriptionPanel extends JPanel {
 			
 			List<Feature> features = plan.getOptionalFeatures();	
 			for(final Feature feature: features){
-				strDateInfo =  "     " + BillingUtil.getDateTimeStr(feature.getDateCommenced())
+				strDateInfo =  "     " + BillingUtil.getDisplayDateTimeStr(feature.getDateCommenced())
 					+ (feature.getDateTerminated() == null? " ": "  -  " ) 
-					+ BillingUtil.getDateTimeStr(feature.getDateTerminated());
+					+ BillingUtil.getDisplayDateTimeStr(feature.getDateTerminated());
 		
 				sp.add ( new JLabel ("        " + feature.getName()));
 				sp.add(new JLabel(strDateInfo));
