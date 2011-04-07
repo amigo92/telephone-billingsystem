@@ -2,7 +2,7 @@ One#                                                 One# Pte Ltd
                                                      41 Uni Lane,               
                                                      #02-003,                   
                                                      Singapore 654092           
-                                                     Call Call 1654             
+                                                     Call 1654                  
                                                      Email: customer@onehash.com
                                                                                 
 Veera                                                                           
@@ -17,11 +17,11 @@ Singapore-150033
 At a Glance                                                                     
                                                                                 
 Previous Balance.........................$0.00                                  
-Payments................................-$900.00                                
+Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$170000.40                             
+Current Charges Due on 15-Apr-2011.......$246.10                                
                                                                                 
-Please pay...............................$170000.40                             
+Please pay...............................$246.10                                
                                                                                 
                                                                                 
                                                                                 
@@ -71,57 +71,57 @@ One#                                           Account No: SA-2011-03-25-8481366
 --------------------------------------------------------------------------------
 Summary - Payment Details                                                       
 --------------------------------------------------------------------------------
-Payment received             18-Mar-2011             200.00                     
-Payment received             18-Mar-2011             300.00                     
-Payment received             18-Mar-2011             400.00                     
-                                                                  900.00        
+                                                                  0.00          
                                                                                 
 --------------------------------------------------------------------------------
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile                                                                          
-   Subscription charges                              100.00                     
-   Usage charges                                     0.00                       
-                                                                  100.00        
+Mobile Number 86366366                                                          
+   Subscription charges                              30.00                      
+   Usage charges                                     155.00                     
+                                                                  185.00        
                                                                                 
 Three Standard Channels                                                         
-   Subscription charges                              30.00                      
-   Additional Channel charges                        0.00                       
-                                                                  30.00         
+   Subscription charges                              25.00                      
+   Additional Channel charges                        6.00                       
+                                                                  31.00         
                                                                                 
-Line                                                                            
-   Subscription charges                              10.00                      
-   Usage charges                                     159580.00                  
-                                                                  159590.00     
+Digital Voice Number 62208127                                                   
+   Subscription charges                              13.00                      
+   Usage charges                                     1.00                       
+                                                                  14.00         
                                                                                 
-Total GST                                                         11180.40      
-Total Current Charges                                             170900.40     
+Total GST                                                         16.10         
+Total Current Charges                                             246.10        
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 66366366                                                          
+Mobile Number 86366366                                                          
    Subscription Charges                                                         
    Mobile                                            20.00                      
-   Roaming                                           80.00                      
+   Roaming                                           10.00                      
    Usage Charges                                                                
-                                                                  100.00        
-Cable TV MAC ID PLAN_ID_2                                                       
-   Subscriptions charges                             30.00                      
-   Additional 0 Channel(s) charges                   0.00                       
-                                                                  0.00          
-Digital Voice Number 81102121                                                   
+   Local Calls                                       5.00                       
+   Roaming Calls                                     150.00                     
+                                                                  185.00        
+Cable TV MAC ID 93F099054888                                                    
+   Subscriptions charges                             25.00                      
+   Additional 1 Channel(s) charges                   6.00                       
+                                                                  31.00         
+Digital Voice Number 62208127                                                   
    Subscription Charges                                                         
-   Line                                              10.00                      
+   Line                                              8.00                       
+   Call Transfer                                     5.00                       
    Usage Charges                                                                
-   Local Calls                                       86000.00                   
-   IDD Calls                                         360.00                     
-   Roaming Calls                                     73220.00                   
-                                                                  159590.00     
+   Local Calls                                       1.00                       
+                                                                  14.00         
                                                                                 
-Total GST                                                         11180.40      
-Total Current Charges                                             170900.40     
+Total GST                                                         16.10         
+Total Current Charges                                             246.10        
+                                                                                
+                                                                                
                                                                                 
                                                                                 
                                                                                 
@@ -142,10 +142,10 @@ One#                                                 One# Pte Ltd
                                                      41 Uni Lane,               
                                                      #02-003,                   
                                                      Singapore 654092           
-                                                     Call Call 1654             
+                                                     Call 1654                  
                                                      Email: customer@onehash.com
                                                                                 
-Veera                                                                           
+Au Isaac                                                                        
 #06-430 , Blk 430                                                               
 Jurong East                                                                     
 Singapore-190430                                                                
@@ -159,9 +159,9 @@ At a Glance
 Previous Balance.........................$0.00                                  
 Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$64.20                                 
+Current Charges Due on 15-Apr-2011.......$56.71                                 
                                                                                 
-Please pay...............................$64.20                                 
+Please pay...............................$56.71                                 
                                                                                 
                                                                                 
                                                                                 
@@ -217,44 +217,44 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile                                                                          
+Mobile Number 96346366                                                          
    Subscription charges                              20.00                      
    Usage charges                                     0.00                       
                                                                   20.00         
                                                                                 
 Three Standard Channels                                                         
-   Subscription charges                              30.00                      
+   Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
-                                                                  30.00         
+                                                                  25.00         
                                                                                 
-Line                                                                            
-   Subscription charges                              10.00                      
+Digital Voice Number 61102121                                                   
+   Subscription charges                              8.00                       
    Usage charges                                     0.00                       
-                                                                  10.00         
+                                                                  8.00          
                                                                                 
-Total GST                                                         4.20          
-Total Current Charges                                             64.20         
+Total GST                                                         3.71          
+Total Current Charges                                             56.71         
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 66346366                                                          
+Mobile Number 96346366                                                          
    Subscription Charges                                                         
    Mobile                                            20.00                      
    Usage Charges                                                                
                                                                   20.00         
-Cable TV MAC ID PLAN_ID_5                                                       
-   Subscriptions charges                             30.00                      
+Cable TV MAC ID 96B472B67504                                                    
+   Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
-                                                                  0.00          
-Digital Voice Number 91102121                                                   
+                                                                  25.00         
+Digital Voice Number 61102121                                                   
    Subscription Charges                                                         
-   Line                                              10.00                      
+   Line                                              8.00                       
    Usage Charges                                                                
-                                                                  10.00         
+                                                                  8.00          
                                                                                 
-Total GST                                                         4.20          
-Total Current Charges                                             64.20         
+Total GST                                                         3.71          
+Total Current Charges                                             56.71         
                                                                                 
                                                                                 
                                                                                 
@@ -282,10 +282,10 @@ One#                                                 One# Pte Ltd
                                                      41 Uni Lane,               
                                                      #02-003,                   
                                                      Singapore 654092           
-                                                     Call Call 1654             
+                                                     Call 1654                  
                                                      Email: customer@onehash.com
                                                                                 
-Veera                                                                           
+Madeleine Maria Laude                                                           
 #12-10 , Blk 10                                                                 
 Clementi                                                                        
 Singapore-180010                                                                
@@ -299,9 +299,9 @@ At a Glance
 Previous Balance.........................$0.00                                  
 Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$64.20                                 
+Current Charges Due on 15-Apr-2011.......$72.76                                 
                                                                                 
-Please pay...............................$64.20                                 
+Please pay...............................$72.76                                 
                                                                                 
                                                                                 
                                                                                 
@@ -357,46 +357,46 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile                                                                          
-   Subscription charges                              20.00                      
-   Usage charges                                     0.00                       
-                                                                  20.00         
-                                                                                
-Three Standard Channels                                                         
+Mobile Number 96346377                                                          
    Subscription charges                              30.00                      
-   Additional Channel charges                        0.00                       
+   Usage charges                                     0.00                       
                                                                   30.00         
                                                                                 
-Line                                                                            
-   Subscription charges                              10.00                      
-   Usage charges                                     0.00                       
-                                                                  10.00         
+Three Standard Channels                                                         
+   Subscription charges                              25.00                      
+   Additional Channel charges                        0.00                       
+                                                                  25.00         
                                                                                 
-Total GST                                                         4.20          
-Total Current Charges                                             64.20         
+Digital Voice Number 61232121                                                   
+   Subscription charges                              13.00                      
+   Usage charges                                     0.00                       
+                                                                  13.00         
+                                                                                
+Total GST                                                         4.76          
+Total Current Charges                                             72.76         
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 66346377                                                          
+Mobile Number 96346377                                                          
    Subscription Charges                                                         
    Mobile                                            20.00                      
+   Roaming                                           10.00                      
    Usage Charges                                                                
-                                                                  20.00         
-Cable TV MAC ID PLAN_ID_8                                                       
-   Subscriptions charges                             30.00                      
+                                                                  30.00         
+Cable TV MAC ID A203570FE0CA                                                    
+   Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
-                                                                  0.00          
-Digital Voice Number 91232121                                                   
+                                                                  25.00         
+Digital Voice Number 61232121                                                   
    Subscription Charges                                                         
-   Line                                              10.00                      
+   Line                                              8.00                       
+   IDD                                               5.00                       
    Usage Charges                                                                
-                                                                  10.00         
+                                                                  13.00         
                                                                                 
-Total GST                                                         4.20          
-Total Current Charges                                             64.20         
-                                                                                
-                                                                                
+Total GST                                                         4.76          
+Total Current Charges                                             72.76         
                                                                                 
                                                                                 
                                                                                 
@@ -422,10 +422,10 @@ One#                                                 One# Pte Ltd
                                                      41 Uni Lane,               
                                                      #02-003,                   
                                                      Singapore 654092           
-                                                     Call Call 1654             
+                                                     Call 1654                  
                                                      Email: customer@onehash.com
                                                                                 
-Veera                                                                           
+Soo Yu Hao                                                                      
 #312-1 , Blk 1                                                                  
 Changi Estate                                                                   
 Singapore-170312                                                                
@@ -437,11 +437,11 @@ Singapore-170312
 At a Glance                                                                     
                                                                                 
 Previous Balance.........................$0.00                                  
-Payments................................-$500.00                                
+Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$1939.60                               
+Current Charges Due on 15-Apr-2011.......$50.29                                 
                                                                                 
-Please pay...............................$1939.60                               
+Please pay...............................$50.29                                 
                                                                                 
                                                                                 
                                                                                 
@@ -491,62 +491,62 @@ One#                                           Account No: SA-2011-03-25-8481362
 --------------------------------------------------------------------------------
 Summary - Payment Details                                                       
 --------------------------------------------------------------------------------
-Payment received             18-Mar-2011             500.00       500.00        
+                                                                  0.00          
                                                                                 
 --------------------------------------------------------------------------------
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Line                                                                            
-   Subscription charges                              10.00                      
-   Usage charges                                     1940.00                    
-                                                                  1950.00       
+Digital Voice Number 61102020                                                   
+   Subscription charges                              18.00                      
+   Usage charges                                     4.00                       
+                                                                  22.00         
                                                                                 
 Three Standard Channels                                                         
-   Subscription charges                              30.00                      
-   Additional Channel charges                        180.00                     
-                                                                  210.00        
-                                                                                
-Mobile                                                                          
-   Subscription charges                              90.00                      
-   Usage charges                                     0.00                       
-                                                                  90.00         
-                                                                                
-Three Standard Channels                                                         
-   Subscription charges                              30.00                      
+   Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
-                                                                  30.00         
+                                                                  25.00         
                                                                                 
-Total GST                                                         159.60        
-Total Current Charges                                             2439.60       
+Total GST                                                         3.29          
+Total Current Charges                                             50.29         
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Digital Voice Number 81102020                                                   
+Digital Voice Number 61102020                                                   
    Subscription Charges                                                         
-   Line                                              10.00                      
+   Line                                              8.00                       
+   IDD                                               5.00                       
+   Call Transfer                                     5.00                       
    Usage Charges                                                                
-   Local Calls                                       1800.00                    
-   Roaming Calls                                     140.00                     
-                                                                  1950.00       
-Cable TV MAC ID PLAN_ID_11                                                      
-   Subscriptions charges                             30.00                      
-   Additional 2 Channel(s) charges                   180.00                     
-                                                                  0.00          
-Mobile Number 12345678                                                          
-   Subscription Charges                                                         
-   Mobile                                            20.00                      
-   Data Services                                     70.00                      
-   Usage Charges                                                                
-                                                                  90.00         
-Cable TV MAC ID 96434ADB840A                                                    
-   Subscriptions charges                             30.00                      
+   Local Calls                                       2.00                       
+   IDD Calls                                         2.00                       
+                                                                  22.00         
+Cable TV MAC ID 4E76187ADFAB                                                    
+   Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
-                                                                  0.00          
+                                                                  25.00         
                                                                                 
-Total GST                                                         159.60        
-Total Current Charges                                             2439.60       
+Total GST                                                         3.29          
+Total Current Charges                                             50.29         
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
                                                                                 
                                                                                 
                                                                      Page 2 of 2
@@ -562,10 +562,10 @@ One#                                                 One# Pte Ltd
                                                      41 Uni Lane,               
                                                      #02-003,                   
                                                      Singapore 654092           
-                                                     Call Call 1654             
+                                                     Call 1654                  
                                                      Email: customer@onehash.com
                                                                                 
-Veera                                                                           
+Nor Nadya Binte Abdullah                                                        
 #042 , Palace                                                                   
 Tanjong pagar Estate                                                            
 Singapore-160001                                                                
@@ -579,9 +579,9 @@ At a Glance
 Previous Balance.........................$0.00                                  
 Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$32.10                                 
+Current Charges Due on 15-Apr-2011.......$26.75                                 
                                                                                 
-Please pay...............................$32.10                                 
+Please pay...............................$26.75                                 
                                                                                 
                                                                                 
                                                                                 
@@ -638,23 +638,23 @@ Summary Current Charges
 --------------------------------------------------------------------------------
                                                                                 
 Three Standard Channels                                                         
-   Subscription charges                              30.00                      
+   Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
-                                                                  30.00         
+                                                                  25.00         
                                                                                 
-Total GST                                                         2.10          
-Total Current Charges                                             32.10         
+Total GST                                                         1.75          
+Total Current Charges                                             26.75         
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Cable TV MAC ID PLAN_ID_12                                                      
-   Subscriptions charges                             30.00                      
+Cable TV MAC ID F16766030F4D                                                    
+   Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
-                                                                  0.00          
+                                                                  25.00         
                                                                                 
-Total GST                                                         2.10          
-Total Current Charges                                             32.10         
+Total GST                                                         1.75          
+Total Current Charges                                             26.75         
                                                                                 
                                                                                 
                                                                                 
