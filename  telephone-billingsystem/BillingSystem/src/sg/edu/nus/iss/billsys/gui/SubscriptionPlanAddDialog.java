@@ -64,7 +64,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 		featureNames = new ArrayList<String>();
 		JCheckBox cb;
 		
-		// Initialize feature combobox
+		// Initialize feature ComboBox
     	featureTypes = manager.getPlanOptionalFeatures(planType);
     	for(FeatureType ft:featureTypes)
     	{
@@ -146,7 +146,7 @@ public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements Item
 	}
 	
 	/**
-	 * Phone number combobox
+	 * Phone number ComboBox
 	 */
 	private JComboBox createPhoneNumberComboBox () {  	
 	    phoneNumberBox = new JComboBox();
