@@ -77,7 +77,6 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			fromField.setText(TimeUtils.getCurrentDateStr());
 			if(subscription.getDateTerminated() != null){
 				untilField.setText(TimeUtils.getDateTimeStr(subscription.getDateTerminated()));
-				untilField.setEditable(false);
 			}
 			
 			// Initialize available features's check boxes
@@ -162,20 +161,26 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 			}
 			
 			Date utilDate;
-			if(subscription.getDateTerminated() != null){
-				utilDate = subscription.getDateTerminated();
-			} else {
-				if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+			if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+			{
+//				If feature end date is empty, it will follow subscription plan's end date
+				if (subscription.getDateTerminated() != null)
+					utilDate = subscription.getDateTerminated();
+				else
 					utilDate = null;
-				else{
-					try {
+			}
+			else{
+				try {		
 						utilDate = TimeUtils.getLongDateTime(untilField.getText()+ " 23:59:59");
-					} catch (ParseException e) {
-						JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
-						return false;
-					}
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(window, e.getMessage(),"",0);	
+					return false;
 				}
 			}
+			if(utilDate.after(subscription.getDateTerminated()) ){
+				JOptionPane.showMessageDialog(window, "Feature's End Date must be equal or before plan's End Date","",2);	
+				return false;	
+			} 
 		
 			if(utilDate != null && fromDate.after(utilDate)){
 				JOptionPane.showMessageDialog(window, "End Date must be after Start Date ","",2);	
