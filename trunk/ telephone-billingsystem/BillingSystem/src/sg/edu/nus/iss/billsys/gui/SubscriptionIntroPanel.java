@@ -38,8 +38,8 @@ public class SubscriptionIntroPanel extends JPanel {
     	JPanel p = new JPanel (new GridLayout (0,3));
     	
     	p.add(new JLabel(""));
-    	p.add(new JLabel("Monthly Subscription Charge"));
-    	p.add(new JLabel("Usage Charge (per second)"));
+    	p.add(new JLabel("Monthly Subscription Charge (S$)"));
+    	p.add(new JLabel("Usage Charge (S$/sec)"));
     	
     	try{
 	    	PlanType[] planTypes = manager.getAllPlanType();
@@ -67,7 +67,7 @@ public class SubscriptionIntroPanel extends JPanel {
     		JOptionPane.showMessageDialog(window, ex.getMessage(),"Error", 0);
     	} 	
     	
-    	JLabel title = new JLabel("<html><center><h3>Introduction of Subcription Plan</h3></center></html>");   
+    	JLabel title = new JLabel("<html><center><h3>Overview of Subcription & Usage Charges</h3></center></html>");   
     	title.setHorizontalAlignment(SwingConstants.CENTER );
     	    	
         JPanel bp = new JPanel ();
