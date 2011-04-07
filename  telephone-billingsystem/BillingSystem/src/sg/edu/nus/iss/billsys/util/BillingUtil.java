@@ -13,6 +13,8 @@ import sg.edu.nus.iss.billsys.gui.BillingWindow;
 
 public class BillingUtil {
 	private final static DateFormat DATE_FORMAT = new SimpleDateFormat("d-MMM-yyyy");
+	private final static DateFormat DATE_FORMAT_Display = new SimpleDateFormat("dd-MMM-yyyy");
+
 	private final static DateFormat DATE_FORMAT_LONG = new SimpleDateFormat("d-MMM-yyyy HH:mm:ss");
 
 	
@@ -20,10 +22,16 @@ public class BillingUtil {
 	        Date date = DATE_FORMAT.parse(strDate);
 	        return date;
 	    } 
+	public static String getDisplayDateTimeStr(Date date) {
+		 if (date == null)
+	    	 return "";
+	     else
+	    	 return DATE_FORMAT_Display.format(date);
+    } 
 	public static Date getLongDateTime(String strDate) throws ParseException {
         Date date = DATE_FORMAT_LONG.parse(strDate);
         return date;
-    } 
+    	} 
 	public static String getDateTimeStr(Date date) {
 	     if (date == null)
 	    	 return "";
