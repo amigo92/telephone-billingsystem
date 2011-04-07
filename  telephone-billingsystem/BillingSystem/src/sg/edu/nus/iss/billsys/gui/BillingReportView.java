@@ -53,8 +53,11 @@ public class BillingReportView extends JPanel {
 			iniListeners();
 		    iniLayout();
 		    
+//		    Initialize ComboBox & trigger listener to set the value for "accountNo" 
 		    ddAccount.setSelectedIndex(0);
+//		    Initialize ComboBox & trigger listener to set the value for "aBillPeriod" 
 	    	ddBillPeriod.setSelectedIndex(0);
+	    	
     	}
         catch(Exception ex){
     		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
@@ -81,6 +84,7 @@ public class BillingReportView extends JPanel {
     	lblBillPeriod = new JLabel ("Next Bill Period: " + aBillPeriod.printBillPeriod());
     	btnGenerate = new JButton ("Generate for all customers");
     	
+//    	Generate Bill Report function is only available for Administrator
     	if(!window.isAdmin()){
     		lblBillPeriod.setVisible(false);
     		btnGenerate.setVisible(false);
@@ -95,7 +99,7 @@ public class BillingReportView extends JPanel {
 				  Customer  selectedCustomer = customersList.get(cb.getSelectedIndex());
 				  accountNo = selectedCustomer.getAcct().getAcctNo();
 				 
-				  refreshReprot();
+				  refreshReport();
  	        }
  	    });
 
@@ -103,7 +107,7 @@ public class BillingReportView extends JPanel {
     	ddBillPeriod.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e) {
 	    		try{
-	    			refreshReprot();
+	    			refreshReport();
 	    		} catch(Exception ex){
 	        		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
 		    	} 
@@ -190,6 +194,9 @@ public class BillingReportView extends JPanel {
 	    return ddAccount;
     }
  
+    /**
+     *ComboBox for generated bill periods 
+     */
  	private JComboBox createBillPeriodComboBox() {  
     	BillPeriod[] bps = billMgr.getAllGeneratedBillPeriods();
     	String[] periods = new String[bps.length];
@@ -201,7 +208,11 @@ public class BillingReportView extends JPanel {
 	    return ddBillPeriod;
     }
  	
- 	private void refreshReprot(){
+ 	/**
+ 	 * Refresh report
+ 	 * Trigger by  Bill Report ComboBox change Or Customer ComboBox change
+ 	 */
+ 	private void refreshReport(){
 			String yearMonth = (String)ddBillPeriod.getSelectedItem();
     		BillPeriod billPeriod = new BillPeriod(Integer.parseInt(yearMonth.substring(0, 4)), Integer.parseInt(yearMonth.substring(5, 7)));
     		
