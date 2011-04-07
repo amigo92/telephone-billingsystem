@@ -28,7 +28,8 @@ public enum PlanType {
 			FeatureType.Roaming,
 		},new FeatureType[] {
 			FeatureType.MobileLocalCall,
-			FeatureType.MobileIDDCall
+			FeatureType.MobileIDDCall,
+			FeatureType.RoamingCall
 		}),
 	CableTv(
 		PlanCode.CABLE_TV,
