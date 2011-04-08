@@ -58,7 +58,7 @@ public class PaymentHistDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistByBillPeriodAcctNo() {
-		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriodAcctNo(new BillPeriod(2011, 3), "SA-2011-03-25-8481366");
+		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriodAcctNo(new BillPeriod(2011, 4), "SA-2011-03-25-8481361");
 		assertEquals(2, list.size());
 	}
 
@@ -67,7 +67,7 @@ public class PaymentHistDaoTest {
 	 */
 	@Test
 	public void testGetPaymentHistByBillPeriod() {
-		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriod(new BillPeriod(2011, 4));
+		List<PaymentHist> list = payHxDao.getPaymentHistByBillPeriod(new BillPeriod(2011, 5));
 		assertEquals(1, list.size());
 	}
 
