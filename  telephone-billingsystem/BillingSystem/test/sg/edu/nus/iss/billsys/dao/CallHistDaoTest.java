@@ -68,8 +68,8 @@ public class CallHistDaoTest {
 	 */
 	@Test
 	public void testGetCallHistByBillDate() {
-		List<CallHist> list = callHxDao.getCallHistByBillDate(new BillPeriod(2011, 4));
-		assertEquals(2, list.size());
+		List<CallHist> list = callHxDao.getCallHistByBillDate(new BillPeriod(2011, 2));
+		assertEquals(0, list.size());
 	}
 
 }
