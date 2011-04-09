@@ -276,6 +276,9 @@ public class SubscriptionMgr {
         	if (dateCommenced.after(plan.getDateTerminated())) {
         		throw new BillingSystemException("Date commenced cannot be later than date terminated of subscription plan.");
         	}
+        	if (dateTerminated == null) {
+        		dateTerminated = plan.getDateTerminated();
+        	}
     	}
     	if (dateTerminated != null && plan.getDateTerminated() != null) {
         	if (dateTerminated.after(plan.getDateTerminated())) {
