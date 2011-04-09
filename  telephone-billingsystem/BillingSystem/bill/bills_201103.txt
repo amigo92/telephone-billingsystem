@@ -77,17 +77,17 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile Number 86366366                                                          
+Mobile Number (86366366)                                                        
    Subscription charges                              30.00                      
    Usage charges                                     155.00                     
                                                                   185.00        
                                                                                 
-Three Standard Channels                                                         
+Cable TV (MAC ID 93F099054888)                                                  
    Subscription charges                              25.00                      
    Additional Channel charges                        6.00                       
                                                                   31.00         
                                                                                 
-Digital Voice Number 62208127                                                   
+Digital Voice Number (62208127)                                                 
    Subscription charges                              13.00                      
    Usage charges                                     1.00                       
                                                                   14.00         
@@ -98,24 +98,24 @@ Total Current Charges                                             246.10
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 86366366                                                          
+Mobile Number (86366366)                                                        
    Subscription Charges                                                         
-   Mobile                                            20.00                      
-   Roaming                                           10.00                      
+   - Mobile                                          20.00                      
+   - Roaming                                         10.00                      
    Usage Charges                                                                
-   Local Calls                                       5.00                       
-   Roaming Calls                                     150.00                     
+   - Local Calls                                     5.00                       
+   - Roaming Calls                                   150.00                     
                                                                   185.00        
-Cable TV MAC ID 93F099054888                                                    
+Cable TV (MAC ID 93F099054888)                                                  
    Subscriptions charges                             25.00                      
    Additional 1 Channel(s) charges                   6.00                       
                                                                   31.00         
-Digital Voice Number 62208127                                                   
+Digital Voice Number (62208127)                                                 
    Subscription Charges                                                         
-   Line                                              8.00                       
-   Call Transfer                                     5.00                       
+   - Line                                            8.00                       
+   - Call Transfer                                   5.00                       
    Usage Charges                                                                
-   Local Calls                                       1.00                       
+   - Local Calls                                     1.00                       
                                                                   14.00         
                                                                                 
 Total GST                                                         16.10         
@@ -217,17 +217,17 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile Number 96346366                                                          
+Mobile Number (96346366)                                                        
    Subscription charges                              20.00                      
    Usage charges                                     0.00                       
                                                                   20.00         
                                                                                 
-Three Standard Channels                                                         
+Cable TV (MAC ID 96B472B67504)                                                  
    Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
                                                                   25.00         
                                                                                 
-Digital Voice Number 61102121                                                   
+Digital Voice Number (61102121)                                                 
    Subscription charges                              8.00                       
    Usage charges                                     0.00                       
                                                                   8.00          
@@ -238,18 +238,18 @@ Total Current Charges                                             56.71
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 96346366                                                          
+Mobile Number (96346366)                                                        
    Subscription Charges                                                         
-   Mobile                                            20.00                      
+   - Mobile                                          20.00                      
    Usage Charges                                                                
                                                                   20.00         
-Cable TV MAC ID 96B472B67504                                                    
+Cable TV (MAC ID 96B472B67504)                                                  
    Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
                                                                   25.00         
-Digital Voice Number 61102121                                                   
+Digital Voice Number (61102121)                                                 
    Subscription Charges                                                         
-   Line                                              8.00                       
+   - Line                                            8.00                       
    Usage Charges                                                                
                                                                   8.00          
                                                                                 
@@ -299,11 +299,9 @@ At a Glance
 Previous Balance.........................$0.00                                  
 Payments................................-$0.00                                  
                                                                                 
-Current Charges Due on 15-Apr-2011.......$72.76                                 
+Current Charges Due on 15-Apr-2011.......$238.50                                
                                                                                 
-Please pay...............................$72.76                                 
-                                                                                
-                                                                                
+Please pay...............................$238.50                                
                                                                                 
                                                                                 
                                                                                 
@@ -343,7 +341,9 @@ Please pay...............................$72.76
                                                                                 
                                                                                 
                                                                                 
-                                                                     Page 1 of 2
+                                                                                
+                                                                                
+                                                                     Page 1 of 3
 One#                                           Account No: SA-2011-03-25-8481363
                                                Bill date: 31-Mar-2011           
                                                                                 
@@ -357,46 +357,66 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Mobile Number 96346377                                                          
+Mobile Number (96346377)                                                        
    Subscription charges                              30.00                      
-   Usage charges                                     0.00                       
-                                                                  30.00         
+   Usage charges                                     60.00                      
+                                                                  90.00         
                                                                                 
-Three Standard Channels                                                         
+Cable TV (MAC ID A203570FE0CA)                                                  
    Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
                                                                   25.00         
                                                                                 
-Digital Voice Number 61232121                                                   
+Digital Voice Number (61232121)                                                 
    Subscription charges                              13.00                      
    Usage charges                                     0.00                       
                                                                   13.00         
                                                                                 
-Total GST                                                         4.76          
-Total Current Charges                                             72.76         
+Mobile Number (81000000)                                                        
+   Subscription charges                              54.90                      
+   Usage charges                                     40.00                      
+                                                                  94.90         
+                                                                                
+Total GST                                                         15.60         
+Total Current Charges                                             238.50        
                                                                                 
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Mobile Number 96346377                                                          
+Mobile Number (96346377)                                                        
    Subscription Charges                                                         
-   Mobile                                            20.00                      
-   Roaming                                           10.00                      
+   - Mobile                                          20.00                      
+   - Roaming                                         10.00                      
    Usage Charges                                                                
-                                                                  30.00         
-Cable TV MAC ID A203570FE0CA                                                    
+   - Local Calls                                     10.00                      
+   - Roaming Calls                                   50.00                      
+                                                                  90.00         
+Cable TV (MAC ID A203570FE0CA)                                                  
    Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
                                                                   25.00         
-Digital Voice Number 61232121                                                   
+Digital Voice Number (61232121)                                                 
    Subscription Charges                                                         
-   Line                                              8.00                       
-   IDD                                               5.00                       
+   - Line                                            8.00                       
+   - IDD                                             5.00                       
    Usage Charges                                                                
                                                                   13.00         
+Mobile Number (81000000)                                                        
+   Subscription Charges                                                         
+   - Mobile                                          20.00                      
+   - IDD                                             5.00                       
+   - Data Services                                   19.90                      
+   - Roaming                                         10.00                      
+   Usage Charges                                                                
+   - Local Calls                                     40.00                      
+                                                                     Page 2 of 3
+One#                                           Account No: SA-2011-03-25-8481363
+                                               Bill date: 31-Mar-2011           
                                                                                 
-Total GST                                                         4.76          
-Total Current Charges                                             72.76         
+                                                                  94.90         
+                                                                                
+Total GST                                                         15.60         
+Total Current Charges                                             238.50        
                                                                                 
                                                                                 
                                                                                 
@@ -409,7 +429,53 @@ Total Current Charges                                             72.76
                                                                                 
                                                                                 
                                                                                 
-                                                                     Page 2 of 2
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                     Page 3 of 3
 
 
 
@@ -497,12 +563,12 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Digital Voice Number 61102020                                                   
+Digital Voice Number (61102020)                                                 
    Subscription charges                              18.00                      
    Usage charges                                     4.00                       
                                                                   22.00         
                                                                                 
-Three Standard Channels                                                         
+Cable TV (MAC ID 4E76187ADFAB)                                                  
    Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
                                                                   25.00         
@@ -513,16 +579,16 @@ Total Current Charges                                             50.29
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Digital Voice Number 61102020                                                   
+Digital Voice Number (61102020)                                                 
    Subscription Charges                                                         
-   Line                                              8.00                       
-   IDD                                               5.00                       
-   Call Transfer                                     5.00                       
+   - Line                                            8.00                       
+   - IDD                                             5.00                       
+   - Call Transfer                                   5.00                       
    Usage Charges                                                                
-   Local Calls                                       2.00                       
-   IDD Calls                                         2.00                       
+   - Local Calls                                     2.00                       
+   - IDD Calls                                       2.00                       
                                                                   22.00         
-Cable TV MAC ID 4E76187ADFAB                                                    
+Cable TV (MAC ID 4E76187ADFAB)                                                  
    Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
                                                                   25.00         
@@ -637,7 +703,7 @@ Summary - Payment Details
 Summary Current Charges                                                         
 --------------------------------------------------------------------------------
                                                                                 
-Three Standard Channels                                                         
+Cable TV (MAC ID F16766030F4D)                                                  
    Subscription charges                              25.00                      
    Additional Channel charges                        0.00                       
                                                                   25.00         
@@ -648,7 +714,7 @@ Total Current Charges                                             26.75
 ------------------------------- Account Details --------------------------------
                                                                                 
                                                      Amount (S$)  Total (S$)    
-Cable TV MAC ID F16766030F4D                                                    
+Cable TV (MAC ID F16766030F4D)                                                  
    Subscriptions charges                             25.00                      
    Additional 0 Channel(s) charges                   0.00                       
                                                                   25.00         
