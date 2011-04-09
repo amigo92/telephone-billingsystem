@@ -203,7 +203,7 @@ public class SubscriptionPanel extends JPanel {
     }
     
     /**
-     *  ComboBox registered Subscription Plans , cater for feature subscription*/
+     *  ComboBox for registered Subscription Plans , cater for feature subscription*/
     private JComboBox createFeatureComboBox (List<SubscriptionPlan> subscribedPlans) {
     	JComboBox	planBox = new JComboBox();
     	
