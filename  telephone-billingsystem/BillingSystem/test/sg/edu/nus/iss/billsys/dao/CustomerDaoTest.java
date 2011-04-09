@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 
 import org.junit.After;
@@ -154,8 +155,11 @@ public class CustomerDaoTest {
 			fail("Exception in dao generation , objectDataMapping have errors !!");
 		}
 		String testAcct = "SA-2011-03-25-8481361";
+		Date aDate = custDao.getCustomerByAcctId(testAcct).getAcct().getDateCreated();
 		custDao.deleteCust(testAcct, Calendar.getInstance().getTime());
-		assertEquals(true,custDao.getCustomerByAcctId(testAcct).getIsDeleted());
+		assertTrue(custDao.getCustomerByAcctId(testAcct).getIsDeleted());
+		custDao.reactiveCustomer(testAcct, aDate);
+		assertFalse(custDao.getCustomerByAcctId(testAcct).getIsDeleted());
 	}
 	
 	public void testGetCustomerListByAcctId(){
