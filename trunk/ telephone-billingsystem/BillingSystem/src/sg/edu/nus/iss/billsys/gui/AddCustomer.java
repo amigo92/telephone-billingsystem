@@ -326,7 +326,7 @@ public class AddCustomer extends javax.swing.JPanel {
 		if (StringUtil.isNullOrEmpty(this.CustNameText.getText())){
 			// display error message
 			errorMsgLabelName.setVisible(true);
-			bReturn= false;
+			bReturn= bReturn & false;
 		}
 		else
 		{
@@ -334,13 +334,13 @@ public class AddCustomer extends javax.swing.JPanel {
 			{
 				errorMsgLabelName.setVisible(false);
 				ErrMsgAlphabet.setVisible(true);
-				bReturn= false;
+				bReturn= bReturn & false;
 			}
 			else
 			{
 				errorMsgLabelName.setVisible(false);
 				ErrMsgAlphabet.setVisible(false);
-				bReturn= true;
+				bReturn= bReturn & true;
 			}
 		}
 		
@@ -348,7 +348,7 @@ public class AddCustomer extends javax.swing.JPanel {
 		if (StringUtil.isNullOrEmpty(this.CustNIRCText.getText())){
 			// display error message
 			errorMsgNIRC.setVisible(true);
-			bReturn= false;
+			bReturn=  bReturn & false;
 		}	
 		else
 		{
@@ -356,32 +356,31 @@ public class AddCustomer extends javax.swing.JPanel {
 			{
 				errorMsgNIRC.setVisible(false);
 				ErrMsgInvalidNric.setVisible(true);
-				bReturn= false;
+				bReturn= bReturn & false;
 			}
 			else
 			{
 				errorMsgNIRC.setVisible(false);
 				ErrMsgInvalidNric.setVisible(false);
-				bReturn= true;
+				bReturn= bReturn & true;
 			}
 	
 		}
 		
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
 			
-			if (!isNumeric(this.CustContactTelText.getText())){
+			if (this.CustContactTelText.getText().matches("\\d{2}-\\d{8}")){
 			// display error message
-			ErrMsgTeleNoLabel.setVisible(true);
-			bReturn= false;
+				ErrMsgTeleNoLabel.setVisible(true);
+				bReturn=bReturn &false;
 			}
 			else
 			{
 				ErrMsgTeleNoLabel.setVisible(false);
-				bReturn= true;
+				bReturn=bReturn & true;
 			}
 		}		
-		
-		
+			
 		
 		return bReturn;
 	}
