@@ -74,7 +74,8 @@ public class BillDao {
 	 * @return null if the bills for that month are not yet ready
 	 */
 	public ArrayList<Bill> getBills(BillPeriod billPeriod){
-		return aBillStore.getMap().get(billPeriod);
+		ArrayList<Bill> list = aBillStore.getMap().get(billPeriod);
+		return list != null ? list : new ArrayList<Bill>();
 	}
 	
 	/**
