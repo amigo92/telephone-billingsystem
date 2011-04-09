@@ -7,7 +7,10 @@ import sg.edu.nus.iss.billsys.mgr.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+/**
+ * @author Ma Huazhen
+ *
+ */
 public class BillingWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;

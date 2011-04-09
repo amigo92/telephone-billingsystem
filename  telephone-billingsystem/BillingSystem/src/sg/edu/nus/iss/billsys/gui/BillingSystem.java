@@ -1,6 +1,9 @@
 package sg.edu.nus.iss.billsys.gui;
 
-
+/**
+ * @author Ma Huazhen
+ *
+ */
 public class BillingSystem  {
 	
 	
