@@ -99,7 +99,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private int MaxCharForNRIC=10;
 	private int MaxCharForInteresting=50;
 	private boolean bFlagForEdit= false;
-	private int MaxCharForPhone=15;
+	private int MaxCharForPhone=8;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -126,6 +126,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		this.strNRC=strNRC;
 		this.GetCustomerDetails();
 		ObjectsToControls();
+		System.out.println("asdads");
+		
+		 if (window.isAdmin()){
+			 btnSubscriptionInformation.setVisible(true);
+			 btnEditCustomerInformation.setVisible(true);
+		 }
 	}
 	
 	public ViewCustomerDetails(BillingWindow window) {
@@ -275,6 +281,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					
 				
 				btnSubscriptionInformation = new JButton("Subscription Information");
+				btnSubscriptionInformation.setVisible(false);
 				btnSubscriptionInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						// call 
@@ -342,18 +349,22 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				
 				{
 				btnEditCustomerInformation = new JButton("Edit Customer Information");
+				btnEditCustomerInformation.setVisible(false);
 				btnEditCustomerInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0){
 						
 							if (btnEditCustomerInformation.getText().equals("Edit Customer Information")){
 								bFlagForEdit= true;
 								 VisibilityControls(true);
+								 btnSubscriptionInformation.setVisible(false);
 								
 							}
 							else if (btnEditCustomerInformation.getText().equals("Update Customer Information")){
 								 if (validateControl()){									
 									 UpdateCustomerInformation();
 									 bFlagForEdit=false;
+									 btnSubscriptionInformation.setVisible(true);
+									// btnEditCustomerInformation.setVisible(false);
 									// VisibilityControls(false);
 								 }	
 								 
@@ -418,7 +429,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					CustInterest.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
-					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.Please use xx-xxxxxxxx");
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.");
 					ErrMsgTeleNoLabel.setBounds(360, 250, 295, 14);
 					ViewCustPanelCenter.add(ErrMsgTeleNoLabel);
 					ErrMsgTeleNoLabel.setVisible(false);
@@ -457,13 +468,16 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		clearErrorMsgData();
 		bFlagForEdit= false;
 		
-		
-		
 		if (validateControl()){		
 			
-			VisibilityControls(false);
-			ControlBtnTextbox(false);
 			
+			System.out.println("done visis1111");
+			if (window.isAdmin()){
+				VisibilityControls(false);
+				ControlBtnTextbox(false);
+			}
+			System.out.println("done visis2222");
+					
 			try {
 				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nricText.getText() );
 			} catch (BillingSystemException e) {
@@ -476,11 +490,16 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			if (cust!=null){
 		
 				ObjectsToControls();
-				btnEditCustomerInformation.setVisible(true);
-				btnSubscriptionInformation.setVisible(true);
+				if (window.isAdmin()){	
+					btnEditCustomerInformation.setVisible(true);
+					btnSubscriptionInformation.setVisible(true);
+					}
 			}
-			else {			
-			
+			else {		
+				if (window.isAdmin()){
+				btnEditCustomerInformation.setVisible(false);
+				btnSubscriptionInformation.setVisible(false);
+				}
 				errorMsgSearchLabel.setVisible(true);
 				errorMsgNRICLabel.setVisible(false);
 				ClearData();
@@ -574,7 +593,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			cust.setIsDeleted(true);
 		}
 		
-		System.out.println("done");
+		
 	}
 	private void VisibilityControls(Boolean  bFlag){		
 		
@@ -598,15 +617,20 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		Custaddress3Label.setVisible(!bFlag);
 		CustTeleLabel.setVisible(!bFlag);
 		CustInterestLabel.setVisible(!bFlag);
+		
+		System.out.println("done visis");
 	}
 	
 	private void ControlBtnTextbox(boolean bFlag){
 		if (bFlag){
-			btnEditCustomerInformation.setText("Update Customer Information");				
-	 
+			btnEditCustomerInformation.setText("Update Customer Information");
+			btnSubscriptionInformation.setVisible(false);
+			
 		}
 		else {
 			btnEditCustomerInformation.setText("Edit Customer Information");	
+			btnSubscriptionInformation.setVisible(true);
+			
   
 		}	
 	}
@@ -646,20 +670,37 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}			
 	}
 	
+	public boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
+	}
+	
 	private boolean validateControl(){
 		boolean bReturn= true;
 		
-		System.out.println( "eeror"+bFlagForEdit);
+		
 		if (StringUtil.isNullOrEmpty(this.nricText.getText())){			
 			errorMsgSearchLabel.setVisible(true);
 			bReturn= bReturn & false;
 			System.out.println( "nricText "+bReturn);
 		}	
 		
+		System.out.println( "eeror" + bReturn);
+		if (window.isAdmin()){
 		if (bFlagForEdit){
 			
 			if (!StringUtil.isNullOrEmpty(this.CustContact.getText())){				
-				if (!this.CustContact.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
+				
+			
+				if (!isNumeric(this.CustContact.getText())){
 				// display error message
 				ErrMsgTeleNoLabel.setVisible(true);
 				bReturn=bReturn &  false;
@@ -690,9 +731,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					ErrMsgAlphabet.setVisible(false);
 					bReturn= bReturn & true;
 				}
-			}System.out.println("CustContact "+bReturn);
+			}
 		}
-		System.out.println( "Returnj "+bReturn);
+		}System.out.println( "eeror1" + bReturn);
 		return bReturn;
 	}
 	
@@ -700,8 +741,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private void clearErrorMsgData(){
 		errorMsgSearchLabel.setVisible(false);		
 		errorMsgNRICLabel.setVisible(false);
+		
+	
 		errorMsgLabelName.setVisible(false);
 		ErrMsgAlphabet.setVisible(false);
 		ErrMsgTeleNoLabel.setVisible(false);
+		
+		
 	}
 }
