@@ -1,8 +1,5 @@
 package sg.edu.nus.iss.billsys.gui;
-/**
- * @author Ma Huazhen
- *
- */
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,6 +29,10 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
 
+/**
+ * @author Ma Huazhen
+ *
+ */
 public class SubscriptionPlanAddDialog extends GuiOkCancelDialog implements ItemListener{
 	private static final long serialVersionUID = 1L;
 	

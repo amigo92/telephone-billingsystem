@@ -1,9 +1,5 @@
 package sg.edu.nus.iss.billsys.gui;
 
-/**
- * @author Ma Huazhen
- *
- */
 import sg.edu.nus.iss.billsys.constant.FeatureType;
 import sg.edu.nus.iss.billsys.constant.PlanType;
 import sg.edu.nus.iss.billsys.mgr.SubscriptionMgr;
@@ -13,7 +9,10 @@ import java.util.List;
 import java.awt.*;
 
 import javax.swing.*;
-
+/**
+ * @author Ma Huazhen
+ *
+ */
 public class SubscriptionIntroPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;

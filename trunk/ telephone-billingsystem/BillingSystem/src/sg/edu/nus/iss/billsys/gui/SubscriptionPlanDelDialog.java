@@ -1,8 +1,5 @@
 package sg.edu.nus.iss.billsys.gui;
-/**
- * @author Ma Huazhen
- *
- */
+
 import java.awt.GridLayout;
 import java.util.Date;
 
@@ -19,7 +16,10 @@ import sg.edu.nus.iss.billsys.tools.GuiOkCancelDialog;
 import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.Feature;
 import sg.edu.nus.iss.billsys.vo.SubscriptionPlan;
-
+/**
+ * @author Ma Huazhen
+ *
+ */
 public class SubscriptionPlanDelDialog extends GuiOkCancelDialog {
 	private static final long serialVersionUID = 1L;
 	
