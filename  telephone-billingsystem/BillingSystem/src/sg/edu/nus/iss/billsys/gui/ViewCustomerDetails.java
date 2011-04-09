@@ -28,6 +28,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.tools.*;
+import sg.edu.nus.iss.billsys.util.JTextFieldUtil;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
 import sg.edu.nus.iss.billsys.mgr.AccountMgr;
@@ -78,6 +79,10 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 
 	private JLabel errorMsgSearchLabel;
 	private JLabel errorMsgNRICLabel;
+	private JLabel ErrMsgTeleNoLabel;
+	private JLabel ErrMsgAlphabet;
+	private JLabel errorMsgLabelName;
+	
 	private JLabel lblCustomersStatus;
 	private JRadioButton rdbtnDeactivate;
 	private JRadioButton rdbtnActivated;
@@ -90,6 +95,11 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private JTextField CustContact;
 	private JTextField CustInterest;
 	private JButton  btnSubscriptionInformation;
+	private int MaxCharForString=30;
+	private int MaxCharForNRIC=10;
+	private int MaxCharForInteresting=50;
+	private boolean bFlagForEdit= false;
+	private int MaxCharForPhone=15;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -158,6 +168,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					nricText = new JTextField();
 					ViewCustPanelCenter.add(nricText);
 					nricText.setBounds(170, 16, 192, 23);
+					nricText.setDocument(new JTextFieldUtil(MaxCharForNRIC));
 				}
 				{
 					SearchCustButton = new JButton();
@@ -296,7 +307,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				}
 				{
 					errorMsgNRICLabel = new JLabel("*Please enter NRIC.");
-					errorMsgNRICLabel.setBounds(475, 20, 170, 14);
+					errorMsgNRICLabel.setBounds(463, 20, 170, 14);
 
 
 					errorMsgNRICLabel.setOpaque(true);
@@ -333,63 +344,104 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				btnEditCustomerInformation = new JButton("Edit Customer Information");
 				btnEditCustomerInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0){
-						if (validateControl()){
+						bFlagForEdit= true;
 							if (btnEditCustomerInformation.getText().equals("Edit Customer Information")){
 								 VisibilityControls(true);
+								
 							}
 							else if (btnEditCustomerInformation.getText().equals("Update Customer Information")){
-								 VisibilityControls(false);
-								 UpdateCustomerInformation();
+								 if (validateControl()){									
+									 UpdateCustomerInformation();	
+									// VisibilityControls(false);
+								 }	
+								
+								
+								 bFlagForEdit=false;
 							}
-						}	
-						else {		
 						
-							errorMsgNRICLabel.setVisible(true);
-							errorMsgSearchLabel.setVisible(false);							
-							ClearData();
-						}
 					}
 				});
 				btnEditCustomerInformation.setBounds(371, 326, 238, 23);
 				ViewCustPanelCenter.add(btnEditCustomerInformation);
 				}
 				}
-				CustNameTextBox = new JTextField();
-				CustNameTextBox.setBounds(170, 50, 192, 20);
-				ViewCustPanelCenter.add(CustNameTextBox);
-				CustNameTextBox.setColumns(10);
-				CustNameTextBox.setVisible(false);
 				
-				CustAdd1TextBox = new JTextField();
-				CustAdd1TextBox.setBounds(170, 95, 255, 20);
-				ViewCustPanelCenter.add(CustAdd1TextBox);
-				CustAdd1TextBox.setColumns(10);
-				CustAdd1TextBox.setVisible(false);
+				{
+					CustNameTextBox = new JTextField();				
+					CustNameTextBox.setBounds(170, 50, 192, 20);
+					ViewCustPanelCenter.add(CustNameTextBox);
+					CustNameTextBox.setColumns(10);
+					CustNameTextBox.setVisible(false);
+					CustNameTextBox.setDocument(new JTextFieldUtil(MaxCharForString));
+				}
 				
-				CustAdd2TextBox = new JTextField();
-				CustAdd2TextBox.setBounds(170, 147, 255, 20);
-				ViewCustPanelCenter.add(CustAdd2TextBox);
-				CustAdd2TextBox.setColumns(10);
-				CustAdd2TextBox.setVisible(false);
+				{
+					CustAdd1TextBox = new JTextField();
+					CustAdd1TextBox.setBounds(170, 95, 255, 20);
+					ViewCustPanelCenter.add(CustAdd1TextBox);
+					CustAdd1TextBox.setColumns(10);
+					CustAdd1TextBox.setVisible(false);
+					CustAdd1TextBox.setDocument(new JTextFieldUtil(MaxCharForString));
+				}
+				{
+					CustAdd2TextBox = new JTextField();
+					CustAdd2TextBox.setBounds(170, 147, 255, 20);
+					ViewCustPanelCenter.add(CustAdd2TextBox);
+					CustAdd2TextBox.setColumns(10);
+					CustAdd2TextBox.setVisible(false);
+					CustAdd2TextBox.setDocument(new JTextFieldUtil(MaxCharForString));
+				}
 				
-				CustAdd3TextBox = new JTextField();
-				CustAdd3TextBox.setBounds(170, 206, 255, 20);
-				ViewCustPanelCenter.add(CustAdd3TextBox);
-				CustAdd3TextBox.setColumns(10);
-				CustAdd3TextBox.setVisible(false);
+				{
+					CustAdd3TextBox = new JTextField();
+					CustAdd3TextBox.setBounds(170, 206, 255, 20);
+					ViewCustPanelCenter.add(CustAdd3TextBox);
+					CustAdd3TextBox.setColumns(10);
+					CustAdd3TextBox.setVisible(false);
+					CustAdd3TextBox.setDocument(new JTextFieldUtil(MaxCharForString));
+				}
 				
-				CustContact = new JTextField();
-				CustContact.setBounds(170, 247, 192, 20);
-				ViewCustPanelCenter.add(CustContact);
-				CustContact.setColumns(10);
-				CustContact.setVisible(false);
-				
-				CustInterest = new JTextField();
-				CustInterest.setBounds(170, 293, 255, 20);
-				ViewCustPanelCenter.add(CustInterest);
-				CustInterest.setColumns(10);
-				CustInterest.setVisible(false);
-				
+				{
+					CustContact = new JTextField();
+					CustContact.setBounds(170, 247, 192, 20);
+					ViewCustPanelCenter.add(CustContact);
+					CustContact.setColumns(10);
+					CustContact.setVisible(false);
+					CustContact.setDocument(new JTextFieldUtil(MaxCharForPhone));
+				}
+				{
+					CustInterest = new JTextField();
+					CustInterest.setBounds(170, 293, 255, 20);
+					ViewCustPanelCenter.add(CustInterest);
+					CustInterest.setColumns(10);
+					CustInterest.setVisible(false);
+					CustInterest.setDocument(new JTextFieldUtil(MaxCharForString));
+				}
+				{
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number");
+					ErrMsgTeleNoLabel.setBounds(371, 250, 194, 14);
+					ViewCustPanelCenter.add(ErrMsgTeleNoLabel);
+					ErrMsgTeleNoLabel.setVisible(false);
+					ErrMsgTeleNoLabel.setOpaque(true);
+					ErrMsgTeleNoLabel.setForeground(new java.awt.Color(255, 0, 0));
+				}
+				{
+					ErrMsgAlphabet = new JLabel("*Invalid alphabet.");
+					ErrMsgAlphabet.setBounds(381, 55, 207, 14);
+					ViewCustPanelCenter.add(ErrMsgAlphabet);
+					ErrMsgAlphabet.setVisible(false);
+					ErrMsgAlphabet.setOpaque(true);
+					ErrMsgAlphabet.setForeground(new java.awt.Color(255, 0, 0));
+				}
+				{
+					errorMsgLabelName = new JLabel();
+					ViewCustPanelCenter.add(errorMsgLabelName);
+					errorMsgLabelName.setText("*Please enter customer name.");
+					errorMsgLabelName.setBounds(381, 54, 207, 16);
+					errorMsgLabelName.setOpaque(true);
+					errorMsgLabelName.setForeground(new java.awt.Color(255, 0, 0));
+					errorMsgLabelName.setVisible(false);
+				}
 //				{
 //					qtm = new QueryTableModel();
 //				}
@@ -430,8 +482,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		else {		
 			
 			errorMsgNRICLabel.setVisible(true);
-			errorMsgSearchLabel.setVisible(false);
-			
+			errorMsgSearchLabel.setVisible(false);			
 			ClearData();
 		}
 	}
@@ -441,12 +492,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			ControlsToObject();
 			boolean bReturn = MgrFactory.getAccountMgr().updateCustomer(cust);
 			
+			System.out.println (bReturn);
 			if(bReturn){
 				ObjectsToControls();
 				JOptionPane.showMessageDialog(window, "Customer information has been updated. ", "Success Message", JOptionPane.INFORMATION_MESSAGE);
 				VisibilityControls(false);				
 			}		
-			
+			System.out.println (bReturn + "done");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -476,16 +528,28 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}
 
 	
-		CustNameTextBox.setText(cust.getName()) ;	
-		CustAdd1TextBox.setText(cust.getAddress1()) ;
-		CustAdd2TextBox.setText(cust.getAddress2()) ;
-		CustAdd3TextBox.setText(cust.getAddress3()) ;
-		CustContact.setText(cust.getContactTel());
-		CustInterest.setText(cust.getInterest());
+		CustNameTextBox.setText(changeNullValue(cust.getName())) ;	
+		CustAdd1TextBox.setText(changeNullValue(cust.getAddress1())) ;
+		CustAdd2TextBox.setText(changeNullValue(cust.getAddress2())) ;
+		CustAdd3TextBox.setText(changeNullValue(cust.getAddress3())) ;
+		CustContact.setText(changeNullValue(cust.getContactTel()));
+		CustInterest.setText(changeNullValue(cust.getInterest()));
 		
 		//qtm.updateTable(listSubPlan);
 	}
 	
+	private String changeNullValue(String s){
+		String returnString="";
+		System.out.println("assadad1" + returnString);
+		if (s == "null") {			
+			returnString="";}
+		else 
+		{
+			returnString=s;
+		}
+		System.out.println("assadad" + returnString);
+		return returnString;
+	}
 	private void ControlsToObject(){
 	
 		cust.setName(CustNameTextBox.getText());
@@ -502,7 +566,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			cust.setIsDeleted(true);
 		}
 		
-		
+		System.out.println("done");
 	}
 	private void VisibilityControls(Boolean  bFlag){		
 		
@@ -520,6 +584,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	 
 		}
 		else {
+			System.out.println ("Edit Customer Information");
 			btnEditCustomerInformation.setText("Edit Customer Information");				
 		   
 		}	
@@ -571,16 +636,60 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private boolean validateControl(){
 		boolean bReturn= true;
+		
+		System.out.println( "eeror"+bFlagForEdit);
 		if (StringUtil.isNullOrEmpty(this.nricText.getText())){			
 			errorMsgSearchLabel.setVisible(true);
-			bReturn= false;
+			bReturn= bReturn & false;
+			System.out.println( "nricText "+bReturn);
 		}	
-	
+		
+		if (bFlagForEdit){
+			
+			if (!StringUtil.isNullOrEmpty(this.CustContact.getText())){				
+				if (!this.CustContact.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
+				// display error message
+				ErrMsgTeleNoLabel.setVisible(true);
+				bReturn=bReturn &  false;
+				}
+				else
+				{
+					ErrMsgTeleNoLabel.setVisible(false);
+					bReturn= bReturn & true;
+				}System.out.println( "CustContact "+bReturn);
+			}	
+			
+			if (StringUtil.isNullOrEmpty(this.CustNameTextBox.getText())){
+				// display error message
+				errorMsgLabelName.setVisible(true);
+				bReturn= bReturn & false;
+			}
+			else
+			{
+				if (!this.CustNameTextBox.getText().matches("^[a-zA-Z ]+$"))
+				{
+					errorMsgLabelName.setVisible(false);
+					ErrMsgAlphabet.setVisible(true);
+					bReturn=bReturn &  false;
+				}
+				else
+				{
+					errorMsgLabelName.setVisible(false);
+					ErrMsgAlphabet.setVisible(false);
+					bReturn= bReturn & true;
+				}
+			}System.out.println("CustContact "+bReturn);
+		}
+		System.out.println( "Returnj "+bReturn);
 		return bReturn;
 	}
 	
+
 	private void clearErrorMsgData(){
 		errorMsgSearchLabel.setVisible(false);		
 		errorMsgNRICLabel.setVisible(false);
+		errorMsgLabelName.setVisible(false);
+		ErrMsgAlphabet.setVisible(false);
+		ErrMsgTeleNoLabel.setVisible(false);
 	}
 }
