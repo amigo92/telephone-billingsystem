@@ -455,7 +455,11 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private void SearchCustButtonActionPerformed(ActionEvent evt){
 		clearErrorMsgData();
-		if (validateControl()){					
+		bFlagForEdit= false;
+		VisibilityControls(false);
+		ControlBtnTextbox(false);
+		
+		if (validateControl()){				
 			
 			try {
 				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nricText.getText() );
@@ -580,15 +584,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		 rdbtnActivated.setEnabled(bFlag);
 		 rdbtnDeactivate.setEnabled(bFlag);
 		
-		if (bFlag){
-			btnEditCustomerInformation.setText("Update Customer Information");				
-	 
-		}
-		else {
-			btnEditCustomerInformation.setText("Edit Customer Information");		
-
-		   
-		}	
+		 
+		 ControlBtnTextbox(bFlag);
+		
 		
 		
 		CustNameLabel.setVisible(!bFlag);
@@ -599,6 +597,16 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		CustInterestLabel.setVisible(!bFlag);
 	}
 	
+	private void ControlBtnTextbox(boolean bFlag){
+		if (bFlag){
+			btnEditCustomerInformation.setText("Update Customer Information");				
+	 
+		}
+		else {
+			btnEditCustomerInformation.setText("Edit Customer Information");	
+  
+		}	
+	}
 	private void ClearData(){
 		CustNameLabel.setText(null) ;
 		//nricText.setText(null) ;
