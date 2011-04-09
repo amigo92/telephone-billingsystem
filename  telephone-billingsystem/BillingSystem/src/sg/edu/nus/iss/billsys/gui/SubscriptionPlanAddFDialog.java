@@ -152,9 +152,14 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 		if(unregisteredFeatures != null && unregisteredFeatures.size() > 0)
 		{
 //			Validation
+			if(StringUtil.isNullOrEmpty(fromField.getText())){	
+				JOptionPane.showMessageDialog(window, "Start Date can't be empty!","",0);	
+				 return false;
+			}
+			
 			Date fromDate;
-			try {
-				fromDate = TimeUtils.getDateTime(fromField.getText());
+			try {				
+				fromDate = TimeUtils.getDateTime(fromField.getText());		
 			} catch (ParseException e1) {
 				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
 				 return false;
