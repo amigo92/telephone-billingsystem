@@ -6,8 +6,6 @@ package sg.edu.nus.iss.billsys.gui;
  */
 public class BillingSystem  {
 	
-	
-	private  BillingWindow billingWindow;
 	private  LoginForm loginForm;
 
 	public BillingSystem () {
@@ -17,30 +15,12 @@ public class BillingSystem  {
 		BillingSystem manager = new BillingSystem ();
 	    manager.start ();
 	}
-	public void start() {
-		
+	public void start() {	
 		login();
-//		startBillingWindow();
 	}
-	
-	
-	public void startBillingWindow() {
 
-		BillingWindow billingWindow = new BillingWindow ();
-		billingWindow.pack ();
-		billingWindow.setSize(600, 600);
-		billingWindow.setVisible (true);	
-	}
     public void login() {
     	loginForm = new LoginForm();
 		loginForm.setVisible (true);		
 	}
-
-	
-    public BillingWindow getSubscriptionWindow() {
-	        return billingWindow;
-	}
-
-
-
 }
