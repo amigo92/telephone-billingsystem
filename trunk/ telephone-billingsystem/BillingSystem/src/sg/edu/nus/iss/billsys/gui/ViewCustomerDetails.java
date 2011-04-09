@@ -492,13 +492,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			ControlsToObject();
 			boolean bReturn = MgrFactory.getAccountMgr().updateCustomer(cust);
 			
-			System.out.println (bReturn);
+			
 			if(bReturn){
 				ObjectsToControls();
 				JOptionPane.showMessageDialog(window, "Customer information has been updated. ", "Success Message", JOptionPane.INFORMATION_MESSAGE);
 				VisibilityControls(false);				
 			}		
-			System.out.println (bReturn + "done");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -540,14 +540,14 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	
 	private String changeNullValue(String s){
 		String returnString="";
-		System.out.println("assadad1" + returnString);
+		
 		if (s == "null") {			
 			returnString="";}
 		else 
 		{
 			returnString=s;
 		}
-		System.out.println("assadad" + returnString);
+	
 		return returnString;
 	}
 	private void ControlsToObject(){
@@ -585,7 +585,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 		}
 		else {
 			System.out.println ("Edit Customer Information");
-			btnEditCustomerInformation.setText("Edit Customer Information");				
+				
 		   
 		}	
 		
