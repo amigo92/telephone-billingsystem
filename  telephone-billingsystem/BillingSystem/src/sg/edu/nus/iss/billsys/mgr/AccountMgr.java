@@ -1,9 +1,12 @@
 package sg.edu.nus.iss.billsys.mgr;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import sg.edu.nus.iss.billsys.dao.DaoFactory;
 import sg.edu.nus.iss.billsys.dao.ICustomerDao;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.vo.*;
 
 /*
@@ -26,7 +29,19 @@ public class AccountMgr {
 	 * Add customer to List
 	 */
 	public Customer createCustomer(Customer customer){
+		try{
+		Customer cust = MgrFactory.getAccountMgr().getCustomerDetailsById(customer.getNric());
+		if(cust != null){
+			BillingSystemLogger.logSevere("Customer already exsits!");
+		}else
+		{
 		custDao.addCustomer(customer);
+		}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return customer;
 	}
 	
