@@ -35,13 +35,21 @@ public class BillingSystemException extends Exception{
 		this.errorMsg=msg;
 		BillingSystemLogger.logSevere("New Billing Exception Initialised with the following message : "+getMessagebyException());
 	}
-		
+	
+	/*
+	 * To have more centralised controled over what message needs to be given for the exception 
+	 * for now we are returning the message of the exception and for anypoint of time we can make it a generic one 
+	 * for all the exceptions so we can hide the exception details and show a friendly error .
+	 * 
+	 */
 	private String getErrorCodebyException(Exception e){
 		
 		return e.getMessage();
 		
 	}
-	
+	/*
+	 * To log the exception
+	 */
 	private void logException(Exception e){
 		e.printStackTrace();
 		BillingSystemLogger.logSevere(e);
