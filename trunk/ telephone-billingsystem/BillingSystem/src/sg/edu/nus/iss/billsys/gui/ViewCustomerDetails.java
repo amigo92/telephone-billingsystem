@@ -418,8 +418,8 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 					CustInterest.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
-					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number");
-					ErrMsgTeleNoLabel.setBounds(371, 250, 194, 14);
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.Please use xx-xxxxxxxx");
+					ErrMsgTeleNoLabel.setBounds(371, 250, 262, 14);
 					ViewCustPanelCenter.add(ErrMsgTeleNoLabel);
 					ErrMsgTeleNoLabel.setVisible(false);
 					ErrMsgTeleNoLabel.setOpaque(true);
