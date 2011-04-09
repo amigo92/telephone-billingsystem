@@ -57,7 +57,7 @@ public class BillingWindow extends JFrame {
         JLabel title = new JLabel("<html> <h2>Welcome to One# Billing System</h2>  </html>");   
     	title.setHorizontalAlignment(SwingConstants.CENTER );
     	
-        JLabel teamInfo = new JLabel("<html> <h3> MTeh SE19 [Team 6]</h3> </html>");   
+        JLabel teamInfo = new JLabel("<html> <h3> MTeh SE19 [Team S06]</h3> </html>");   
         teamInfo.setHorizontalAlignment(SwingConstants.CENTER );
         contentPane.add(title);
         contentPane.add(teamInfo);
