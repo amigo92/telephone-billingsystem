@@ -362,6 +362,10 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error1"), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
+		//should clear the previous result		
+		TableModel emptyModel = new DefaultTableModel();
+		complaintsTable.setModel(emptyModel);
 
 		String customerIdType = null;
 
@@ -378,7 +382,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 			}
 			
 			if (customer == null) {
-				JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(window, ResourceHandler.getError("updatecomplaintform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);				
 				return;
 			}
 		}

@@ -11,11 +11,12 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 
 /**
- * 
- * @author Yu Chui Chi
+ *  
  * To create, update and retrieval of complaints.
  * It make use of the ComplaintsDao to access the data file 
- * and provide the functions to the GUI 
+ * and provide the functions to the GUI
+ * 
+ * @author Yu Chui Chi
  */
 
 public class ComplaintMgr {

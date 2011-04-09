@@ -7,8 +7,8 @@ import sg.edu.nus.iss.billsys.vo.*;
 
 /**
  * 
- * @author Yu Chui Chi
  * This class is use by the GUI to authenticate the user
+ * @author Yu Chui Chi
  */
 
 public class UserMgr {
