@@ -159,9 +159,9 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 				JOptionPane.showMessageDialog(window, e1.getMessage(),"",0);
 				 return false;
 			}
-			
+
 			Date utilDate;
-			if(StringUtil.isNullOrEmpty(untilField.getText().trim()))
+			if(StringUtil.isNullOrEmpty(untilField.getText()))
 			{
 //				If feature end date is empty, it will follow subscription plan's end date
 				if (subscription.getDateTerminated() != null)
@@ -177,7 +177,8 @@ public class SubscriptionPlanAddFDialog extends GuiOkCancelDialog implements Ite
 					return false;
 				}
 			}
-			if(utilDate.after(subscription.getDateTerminated()) ){
+			
+			if(utilDate != null && utilDate.after(subscription.getDateTerminated()) ){
 				JOptionPane.showMessageDialog(window, "Feature's End Date must be equal or before plan's End Date","",2);	
 				return false;	
 			} 
