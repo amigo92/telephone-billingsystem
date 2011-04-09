@@ -39,6 +39,11 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JRadioButton;
 
+
+/**
+* @author Win Kyi Tin 
+*/
+
 public class ViewCustomerDetails extends javax.swing.JPanel {
 
 
