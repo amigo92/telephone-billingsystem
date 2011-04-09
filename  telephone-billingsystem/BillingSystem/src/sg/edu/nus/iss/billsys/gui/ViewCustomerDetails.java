@@ -344,19 +344,19 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 				btnEditCustomerInformation = new JButton("Edit Customer Information");
 				btnEditCustomerInformation.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0){
-						bFlagForEdit= true;
+						
 							if (btnEditCustomerInformation.getText().equals("Edit Customer Information")){
+								bFlagForEdit= true;
 								 VisibilityControls(true);
 								
 							}
 							else if (btnEditCustomerInformation.getText().equals("Update Customer Information")){
 								 if (validateControl()){									
-									 UpdateCustomerInformation();	
+									 UpdateCustomerInformation();
+									 bFlagForEdit=false;
 									// VisibilityControls(false);
 								 }	
-								
-								
-								 bFlagForEdit=false;
+								 
 							}
 						
 					}
@@ -495,8 +495,9 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			
 			if(bReturn){
 				ObjectsToControls();
+				VisibilityControls(false);
 				JOptionPane.showMessageDialog(window, "Customer information has been updated. ", "Success Message", JOptionPane.INFORMATION_MESSAGE);
-				VisibilityControls(false);				
+								
 			}		
 			
 		} catch (Exception e) {
@@ -584,8 +585,8 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	 
 		}
 		else {
-			System.out.println ("Edit Customer Information");
-				
+			btnEditCustomerInformation.setText("Edit Customer Information");		
+
 		   
 		}	
 		
