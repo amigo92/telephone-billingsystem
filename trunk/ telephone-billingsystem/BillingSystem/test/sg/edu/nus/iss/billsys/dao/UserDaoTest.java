@@ -74,10 +74,10 @@ public class UserDaoTest {
 		}
 		
 		try{
-			User user=userDao.getUserByUsername("Veera");
+			User user=userDao.getUserByUsername("admin");
 			
 			if(user==null){
-				fail("Failed to retrieve the user by Name getUserByUsername(Veera) !!");
+				fail("Failed to retrieve the user by Name getUserByUsername(admin) !!");
 			}
 			
 			user=userDao.getUserByUsername("XXX");
