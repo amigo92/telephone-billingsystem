@@ -52,6 +52,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	
 //	private String errorMsg=null;
 	private BillingWindow window;
+	private JLabel ErrMsgAlphabet;
 
 	
 	public static void main(String[] args) {
@@ -244,6 +245,14 @@ public class AddCustomer extends javax.swing.JPanel {
 					ErrMsgInvalidNric.setOpaque(true);
 					ErrMsgInvalidNric.setForeground(new java.awt.Color(255, 0, 0));
 				}
+				{
+					ErrMsgAlphabet = new JLabel("*Invalid Character.");
+					ErrMsgAlphabet.setBounds(406, 19, 207, 14);
+					CustomerCenterPanel.add(ErrMsgAlphabet);
+					ErrMsgAlphabet.setVisible(false);
+					ErrMsgAlphabet.setOpaque(true);
+					ErrMsgAlphabet.setForeground(new java.awt.Color(255, 0, 0));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -306,6 +315,22 @@ public class AddCustomer extends javax.swing.JPanel {
 			errorMsgLabelName.setVisible(true);
 			bReturn= false;
 		}
+		else
+		{
+			if (!this.CustNameText.getText().matches("^[a-zA-Z]+$"))
+			{
+				errorMsgLabelName.setVisible(false);
+				ErrMsgAlphabet.setVisible(true);
+				bReturn= false;
+			}
+			else
+			{
+				errorMsgLabelName.setVisible(false);
+				ErrMsgAlphabet.setVisible(false);
+				bReturn= true;
+			}
+		}
+		
 		
 		if (StringUtil.isNullOrEmpty(this.CustNIRCText.getText())){
 			// display error message
@@ -314,11 +339,19 @@ public class AddCustomer extends javax.swing.JPanel {
 		}	
 		else
 		{
-			if (! this.CustNIRCText.getText().matches("S\\d{7}[A-Z]"))
+			if (!this.CustNIRCText.getText().matches("S\\d{7}[A-Z]"))
 			{
+				errorMsgNIRC.setVisible(false);
 				ErrMsgInvalidNric.setVisible(true);
 				bReturn= false;
 			}
+			else
+			{
+				errorMsgNIRC.setVisible(false);
+				ErrMsgInvalidNric.setVisible(false);
+				bReturn= true;
+			}
+	
 		}
 		
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
@@ -327,6 +360,11 @@ public class AddCustomer extends javax.swing.JPanel {
 			// display error message
 			ErrMsgTeleNoLabel.setVisible(true);
 			bReturn= false;
+			}
+			else
+			{
+				ErrMsgTeleNoLabel.setVisible(false);
+				bReturn= true;
 			}
 		}		
 		
@@ -348,14 +386,12 @@ public class AddCustomer extends javax.swing.JPanel {
 	  return true;  
 	}
 
-
-
-
 	
 	private void clearErrorMsgData(){
 		errorMsgLabelName.setVisible(false);
 		errorMsgNIRC.setVisible(false);
 		ErrMsgInvalidNric.setVisible(false);
+		ErrMsgAlphabet.setVisible(false);
 
 	}
 }
