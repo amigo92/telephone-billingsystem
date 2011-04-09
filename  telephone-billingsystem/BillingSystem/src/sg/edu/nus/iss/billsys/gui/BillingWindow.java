@@ -50,7 +50,15 @@ public class BillingWindow extends JFrame {
         addWindowListener(windowListener);
         
         this.setJMenuBar(createMenuBar());
-        contentPane = new JPanel(new BorderLayout());
+        contentPane = new JPanel(new GridLayout(0,1));
+        JLabel title = new JLabel("<html> <h2>Welcome to Billing System</h2>  </html>");   
+    	title.setHorizontalAlignment(SwingConstants.CENTER );
+    	
+        JLabel teamInfo = new JLabel("<html> <h3> MTeh SE19 [Team 6]</h3> </html>");   
+        teamInfo.setHorizontalAlignment(SwingConstants.CENTER );
+        contentPane.add(title);
+        contentPane.add(teamInfo);
+        
         this.setContentPane(contentPane);
     }
     
