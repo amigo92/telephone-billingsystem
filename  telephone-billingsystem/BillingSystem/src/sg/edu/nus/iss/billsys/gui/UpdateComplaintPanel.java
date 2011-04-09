@@ -98,7 +98,7 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 	 */
 	private JButton updateButton;
 	/**
-	 * This is the field to get comlaint input.
+	 * This is the field to get complaint input.
 	 */
 	private JTextArea complaintTextArea;
 	/**
@@ -366,7 +366,9 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		//should clear the previous result		
 		TableModel emptyModel = 
 			new DefaultTableModel(new String[3][4], getColumnNames());
-		complaintsTable.setModel(emptyModel);
+		complaintsTable.setModel(emptyModel);		
+		complaintIdTextField.setText("");
+		complaintTextArea.setText("");
 
 		String customerIdType = null;
 
