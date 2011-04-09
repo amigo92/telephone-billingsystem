@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.billsys.exception;
 
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.resource.ResourceHandler;
 
 /**
@@ -32,6 +33,7 @@ public class BillingSystemException extends Exception{
 	public BillingSystemException(String msg) {
 		super(msg);
 		this.errorMsg=msg;
+		BillingSystemLogger.logSevere("New Billing Exception Initialised with the following message : "+getMessagebyException());
 	}
 		
 	private String getErrorCodebyException(Exception e){
@@ -41,6 +43,8 @@ public class BillingSystemException extends Exception{
 	}
 	
 	private void logException(Exception e){
+		e.printStackTrace();
+		BillingSystemLogger.logSevere(e);
 		
 	}
 	/*
@@ -55,7 +59,7 @@ public class BillingSystemException extends Exception{
 			try{
 				errorMsg=ResourceHandler.getError(errorMsg);
 			}catch (Exception e) {
-				e.printStackTrace();
+				BillingSystemLogger.logInfo("Cannot find the error key inside resource file , hence returning the same string");
 			}
 		}
 		
