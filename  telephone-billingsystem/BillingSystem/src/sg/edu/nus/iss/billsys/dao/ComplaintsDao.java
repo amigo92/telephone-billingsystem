@@ -10,8 +10,7 @@ import sg.edu.nus.iss.billsys.tools.TimeUtils;
 import sg.edu.nus.iss.billsys.vo.*;
 
 /**
- * 
- * @author Veera, Yu Chui Chi
+ *  
  * This class is a implementation class for accessing the data layer to get the Complaint information
  * It extends the genericdao to inherit the functionality of accessing the physical file and to return a 
  * raw data of two dimensional string array , which will in turn mapped to the domain objects for easy 
@@ -20,6 +19,7 @@ import sg.edu.nus.iss.billsys.vo.*;
  * This class will be inheriting the Interface class to implement the public methods which will be used by the 
  * manager classes for the data read / update / create functionalities.
  *
+ * @author Veera, Yu Chui Chi
  */
 public class ComplaintsDao extends GenericDao implements IComplaintsDao{
 	
