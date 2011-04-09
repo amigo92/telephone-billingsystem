@@ -456,10 +456,13 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private void SearchCustButtonActionPerformed(ActionEvent evt){
 		clearErrorMsgData();
 		bFlagForEdit= false;
-		VisibilityControls(false);
-		ControlBtnTextbox(false);
 		
-		if (validateControl()){				
+		
+		
+		if (validateControl()){		
+			
+			VisibilityControls(false);
+			ControlBtnTextbox(false);
 			
 			try {
 				cust= MgrFactory.getAccountMgr().getCustomerDetailsById(nricText.getText() );
