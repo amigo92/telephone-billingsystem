@@ -330,7 +330,7 @@ public class AddCustomer extends javax.swing.JPanel {
 		}
 		else
 		{
-			if (!this.CustNameText.getText().matches("^[a-zA-Z]+$"))
+			if (!this.CustNameText.getText().matches("^[a-zA-Z ]+$"))
 			{
 				errorMsgLabelName.setVisible(false);
 				ErrMsgAlphabet.setVisible(true);
@@ -369,8 +369,7 @@ public class AddCustomer extends javax.swing.JPanel {
 		
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
 			
-			System.out.println(CustContactTelText.getText());
-			
+					
 			if (!this.CustContactTelText.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
 			// display error message
 				ErrMsgTeleNoLabel.setVisible(true);
