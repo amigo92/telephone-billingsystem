@@ -39,6 +39,6 @@ public class MobileVoicePlan extends VoicePlan {
 
 	@Override
 	public String getPlanDescription() {
-		return "Mobile Number " + getAssignedTelNo();
+		return "Mobile Number (" + getAssignedTelNo() + ")";
 	}
 }
