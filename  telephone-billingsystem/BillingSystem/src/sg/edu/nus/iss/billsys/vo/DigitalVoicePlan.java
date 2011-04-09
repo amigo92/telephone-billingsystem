@@ -38,6 +38,6 @@ public class DigitalVoicePlan extends VoicePlan {
 
 	@Override
 	public String getPlanDescription() {
-		return "Digital Voice Number " + getAssignedTelNo();
+		return "Digital Voice Number (" + getAssignedTelNo() + ")";
 	}
 }

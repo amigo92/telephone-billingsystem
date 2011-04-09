@@ -41,6 +41,6 @@ public class CableTvPlan extends SubscriptionPlan {
 		if (id.length() > 12) {
 			id = id.substring(id.length()-12);
 		}
-		return "Cable TV MAC ID "+id.toUpperCase();
+		return "Cable TV (MAC ID "+id.toUpperCase() + ")";
 	}
 }
