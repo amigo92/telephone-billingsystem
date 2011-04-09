@@ -410,7 +410,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			} catch (BillingSystemException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				errorMsg=new BillingSystemException(e).getMessagebyException();
+				errorMsg= e.getMessagebyException();
 				JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 			}			
 		
@@ -564,7 +564,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
-			errorMsg=new BillingSystemException(e).getMessagebyException();
+			errorMsg=e.getMessagebyException();
 			JOptionPane.showMessageDialog(window, errorMsg, "Error  Message", JOptionPane.ERROR_MESSAGE);
 		}			
 	}
