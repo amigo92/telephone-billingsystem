@@ -50,6 +50,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ErrMsgAlphabet;
 	private int MaxCharForString=30;
 	private int MaxCharForNRIC=10;
+	private int MaxCharForPhone=15;
 	private int MaxCharForInteresting=50;
 	
 
@@ -166,7 +167,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustContactTelText = new JTextField();
 					CustomerCenterPanel.add(CustContactTelText);
 					CustContactTelText.setBounds(148, 190, 164, 23);
-					CustContactTelText.setDocument(new JTextFieldUtil(MaxCharForNRIC));
+					CustContactTelText.setDocument(new JTextFieldUtil(MaxCharForPhone));
 				}
 				{
 					InterestingText  = new JTextField();
