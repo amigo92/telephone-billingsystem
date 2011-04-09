@@ -364,7 +364,8 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		}
 		
 		//should clear the previous result		
-		TableModel emptyModel = new DefaultTableModel();
+		TableModel emptyModel = 
+			new DefaultTableModel(new String[3][4], getColumnNames());
 		complaintsTable.setModel(emptyModel);
 
 		String customerIdType = null;
