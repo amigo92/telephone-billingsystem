@@ -48,6 +48,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel CustomerTitle;
 	private JLabel ErrMsgTeleNoLabel; 
 	private JLabel errorMsgLabelName;
+	private JLabel ErrMsgInvalidNric;
 	
 //	private String errorMsg=null;
 	private BillingWindow window;
@@ -235,6 +236,14 @@ public class AddCustomer extends javax.swing.JPanel {
 					ErrMsgTeleNoLabel.setOpaque(true);
 					ErrMsgTeleNoLabel.setForeground(new java.awt.Color(255, 0, 0));
 				}
+				{
+					ErrMsgInvalidNric = new JLabel("*Invalid NRIC.");
+					ErrMsgInvalidNric.setBounds(410, 50, 122, 14);
+					CustomerCenterPanel.add(ErrMsgInvalidNric);
+					ErrMsgInvalidNric.setVisible(false);
+					ErrMsgInvalidNric.setOpaque(true);
+					ErrMsgInvalidNric.setForeground(new java.awt.Color(255, 0, 0));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -303,6 +312,14 @@ public class AddCustomer extends javax.swing.JPanel {
 			errorMsgNIRC.setVisible(true);
 			bReturn= false;
 		}	
+		else
+		{
+			if (! this.CustNIRCText.getText().matches("S\\d{7}[A-Z]"))
+			{
+				ErrMsgInvalidNric.setVisible(true);
+				bReturn= false;
+			}
+		}
 		
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
 			
@@ -312,6 +329,8 @@ public class AddCustomer extends javax.swing.JPanel {
 			bReturn= false;
 			}
 		}		
+		
+		
 		
 		return bReturn;
 	}
@@ -336,6 +355,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private void clearErrorMsgData(){
 		errorMsgLabelName.setVisible(false);
 		errorMsgNIRC.setVisible(false);
+		ErrMsgInvalidNric.setVisible(false);
 
 	}
 }
