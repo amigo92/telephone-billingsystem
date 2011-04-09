@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.billsys.mgr;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,8 +34,10 @@ public class AccountMgrTest {
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId);
 			Date createdDate = test.getAcct().getDateCreated();
 			test.setIsDeleted(true, aDate);
+			assertTrue(MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId).getIsDeleted());
 			System.out.println(test);
 			test.reactiveCustomer(createdDate);
+			assertFalse(MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId).getIsDeleted());
 			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -44,7 +48,7 @@ public class AccountMgrTest {
 		String acctId = "S8481363F";
 		try{
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsById(acctId);
-			System.out.println(test);
+			assertNotNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -54,7 +58,7 @@ public class AccountMgrTest {
 		String acctId = "SA-2011-03-25-8481361";
 		try{
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId);
-			System.out.println(test);
+			assertNotNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -62,7 +66,7 @@ public class AccountMgrTest {
 		acctId = "test";
 		try{
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId);
-			System.out.println(test);
+			assertNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -72,14 +76,14 @@ public class AccountMgrTest {
 		String name = "Veera";
 		try{
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsByName(name);
-			System.out.println(test);
+			assertNotNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		name = "vee";
 		try{
 			Customer test = MgrFactory.getAccountMgr().getCustomerDetailsByName(name);
-			System.out.println(test);
+			assertNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -89,7 +93,7 @@ public class AccountMgrTest {
 		String name = "vee";
 		try{
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getCustomerListByName(name);
-			System.out.println(test);
+			assertNotNull(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -99,6 +103,7 @@ public class AccountMgrTest {
 		String name = "S";
 		try{
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getCustomerListByAcctId(name);
+			assertNotNull(test);
 			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -109,6 +114,7 @@ public class AccountMgrTest {
 		String name = "84813";
 		try{
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getCustomerListByNric(name);
+			assertNotNull(test);
 			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -125,6 +131,7 @@ public class AccountMgrTest {
 			System.out.println(test);
 			MgrFactory.getAccountMgr().reactiveCustomer(acctId, aDate);
 			test = MgrFactory.getAccountMgr().getAllActiveCustomers();
+			assertNotNull(test);
 			System.out.println(test);			
 		}catch(Exception e){
 			e.printStackTrace();
