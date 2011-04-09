@@ -20,6 +20,9 @@ import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import sg.edu.nus.iss.billsys.util.JTextFieldUtil;
 
 /**
 * @author Win Kyi Tin 
@@ -49,10 +52,11 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ErrMsgTeleNoLabel; 
 	private JLabel errorMsgLabelName;
 	private JLabel ErrMsgInvalidNric;
-	
-//	private String errorMsg=null;
 	private BillingWindow window;
 	private JLabel ErrMsgAlphabet;
+	private int MaxCharForString=30;
+	private int MaxCharForNRIC=10;
+	
 
 	
 	public static void main(String[] args) {
@@ -118,21 +122,26 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustNameText = new JTextField();
 					CustomerCenterPanel.add(CustNameText);
 					CustNameText.setBounds(148, 18, 252, 23);
+					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
 					CustNIRCText = new JTextField();
 					CustomerCenterPanel.add(CustNIRCText);
 					CustNIRCText.setBounds(148, 53, 252, 23);
+					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForNRIC));
 				}
 				{
-					CustAdd1Text = new JTextField();
+					CustAdd1Text = new JTextField();					
 					CustomerCenterPanel.add(CustAdd1Text);
 					CustAdd1Text.setBounds(148, 88, 252, 23);
+					CustAdd1Text.setDocument(new JTextFieldUtil(MaxCharForString));
+
 				}
 				{
 					CustAdd2Text = new JTextField();
 					CustomerCenterPanel.add(CustAdd2Text);
 					CustAdd2Text.setBounds(148, 122, 252, 23);
+					CustAdd2Text.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
 					CustAdd2Label = new JLabel();
@@ -150,6 +159,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustAdd3Text = new JTextField();
 					CustomerCenterPanel.add(CustAdd3Text);
 					CustAdd3Text.setBounds(148, 156, 252, 23);
+					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
 					ContactTelLabel = new JLabel();
@@ -161,11 +171,13 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustContactTelText = new JTextField();
 					CustomerCenterPanel.add(CustContactTelText);
 					CustContactTelText.setBounds(148, 190, 164, 23);
+					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForNRIC));
 				}
 				{
 					InterestingText  = new JTextField();
 					CustomerCenterPanel.add(InterestingText);
 					InterestingText.setBounds(148, 220, 353, 23);
+					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
 					IntestingLabel = new JLabel();
@@ -187,7 +199,7 @@ public class AddCustomer extends javax.swing.JPanel {
 							 	} catch (BillingSystemException ex) {
 								    // Print out the exception that occurred
 								  //  System.out.println(ex.getMessage());
-							 		JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+							 		JOptionPane.showMessageDialog(window,ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 									return;
 								} catch (Exception e) {
 								    // Print out the exception that occurred
@@ -246,7 +258,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					ErrMsgInvalidNric.setForeground(new java.awt.Color(255, 0, 0));
 				}
 				{
-					ErrMsgAlphabet = new JLabel("*Invalid Character.");
+					ErrMsgAlphabet = new JLabel("*Invalid alphabet.");
 					ErrMsgAlphabet.setBounds(406, 19, 207, 14);
 					CustomerCenterPanel.add(ErrMsgAlphabet);
 					ErrMsgAlphabet.setVisible(false);
@@ -307,7 +319,7 @@ public class AddCustomer extends javax.swing.JPanel {
 
 
 	}
-
+	
 	private boolean validateControls(){
 		boolean bReturn= true;
 		if (StringUtil.isNullOrEmpty(this.CustNameText.getText())){
@@ -394,4 +406,6 @@ public class AddCustomer extends javax.swing.JPanel {
 		ErrMsgAlphabet.setVisible(false);
 
 	}
+
 }
+
