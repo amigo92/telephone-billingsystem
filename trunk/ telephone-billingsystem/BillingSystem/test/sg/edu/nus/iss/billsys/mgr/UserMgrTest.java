@@ -17,10 +17,10 @@ import sg.edu.nus.iss.billsys.exception.BillingSystemException;
  */
 public class UserMgrTest {
 
-	String userId;
-	String password;
+	String userId,userId2;
+	String password, password2;
 	UserMgr manager;
-	UserRole role;
+	UserRole role, role2;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -31,6 +31,10 @@ public class UserMgrTest {
 		userId = "Chuichi";
 		password = "password$1";
 		role = UserRole.AGENT;
+		
+		userId2 = "Veera"; 
+		password2 = "password$1";
+		role2 = UserRole.ADMIN;
 	}
 
 	/**
@@ -61,7 +65,7 @@ public class UserMgrTest {
 				fail("Unable to get the user role for user 1");
 			
 			UserMgr manager2 = new UserMgr();
-			manager2.isValidAuthUser("Veera", "password$1");
+			manager2.isValidAuthUser(userId2, password2);
 			if(manager.getAuthUserRole().equals(UserRole.ADMIN)==false)
 				fail("Unable to get the user role for user 2");
 		}
