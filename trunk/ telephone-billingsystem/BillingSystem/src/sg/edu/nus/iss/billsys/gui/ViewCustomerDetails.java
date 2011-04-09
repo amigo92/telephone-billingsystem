@@ -510,12 +510,12 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private void ObjectsToControls(){		
 		CustNameLabel.setText(cust.getName()) ;
 		nricText.setText(cust.getNric()) ;
-		Custaddress1Label.setText(cust.getAddress1()) ;
-		Custaddress2Label.setText(cust.getAddress2()) ;
-		Custaddress3Label.setText(cust.getAddress3()) ;
-		CustTeleLabel.setText(cust.getContactTel());
-		CustInterestLabel.setText(cust.getInterest());
-		CustAccontNoLabel.setText(cust.getAccIdByCust()) ;
+		Custaddress1Label.setText(changeNullValue(cust.getAddress1())) ;
+		Custaddress2Label.setText(changeNullValue(cust.getAddress2())) ;
+		Custaddress3Label.setText(changeNullValue(cust.getAddress3())) ;
+		CustTeleLabel.setText(changeNullValue(cust.getContactTel()));
+		CustInterestLabel.setText(changeNullValue(cust.getInterest()));
+		CustAccontNoLabel.setText(changeNullValue(cust.getAccIdByCust())) ;
 		
 		if (cust.isDeleted()){
 			rdbtnActivated.setSelected(false);
@@ -541,7 +541,7 @@ public class ViewCustomerDetails extends javax.swing.JPanel {
 	private String changeNullValue(String s){
 		String returnString="";
 		
-		if (s == "null") {			
+		if (s.equalsIgnoreCase("null")) {			
 			returnString="";}
 		else 
 		{
