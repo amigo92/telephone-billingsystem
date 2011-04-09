@@ -7,6 +7,7 @@ import sg.edu.nus.iss.billsys.constant.*;
 import sg.edu.nus.iss.billsys.tools.*;
 import sg.edu.nus.iss.billsys.dao.*;
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
+import sg.edu.nus.iss.billsys.logger.BillingSystemLogger;
 import sg.edu.nus.iss.billsys.vo.*;
 import sg.edu.nus.iss.billsys.vo.Bill.*;
 
@@ -141,9 +142,14 @@ public class BillMgr {
 			
 			ArrayList<Customer> customers = MgrFactory.getAccountMgr().getAllCustomers();
 			for(Customer c : customers){
-				Bill bill = generate(billPeriod, c);
-				if(bill != null){
-					list.add(bill);
+				try{
+					Bill bill = generate(billPeriod, c);
+					if(bill != null){
+						list.add(bill);
+					}
+				}
+				catch(Exception ex){
+					BillingSystemLogger.logSevere(ex);
 				}
 			}
 			
