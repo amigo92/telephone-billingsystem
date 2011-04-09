@@ -175,7 +175,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 				{
 					errorMsgSearchLabel = new JLabel();
 					SearchCustPantelCenter.add(errorMsgSearchLabel);
-					errorMsgSearchLabel.setText("*Please enter customer name/ nrc.");
+					errorMsgSearchLabel.setText("*Please enter customer name/ nric.");
 					errorMsgSearchLabel.setBounds(12, 120, 386, 16);
 					errorMsgSearchLabel.setOpaque(true);
 					errorMsgSearchLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -310,7 +310,9 @@ public class SearchCustomer extends javax.swing.JPanel {
 		         int row = target.getSelectedRow();
 		         //int column = target.getSelectedColumn(); 
 		         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
+		         System.out.println(strCustomerNRC);
 		         window.refreshPanelForViewCust(strCustomerNRC);
+		         
 			}
 		}catch (Exception ex) {
 			// TODO: handle exception

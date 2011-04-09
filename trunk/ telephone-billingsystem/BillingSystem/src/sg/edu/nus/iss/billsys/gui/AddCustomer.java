@@ -50,7 +50,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ErrMsgAlphabet;
 	private int MaxCharForString=30;
 	private int MaxCharForNRIC=10;
-	private int MaxCharForPhone=15;
+	private int MaxCharForPhone=8;
 	private int MaxCharForInteresting=50;
 	
 
@@ -240,7 +240,7 @@ public class AddCustomer extends javax.swing.JPanel {
 					errorMsgNIRC.setForeground(new java.awt.Color(255, 0, 0));
 				}
 				{
-					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.Please use xx-xxxxxxxx.");
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.");
 					ErrMsgTeleNoLabel.setBounds(320, 194, 293, 14);
 					CustomerCenterPanel.add(ErrMsgTeleNoLabel);
 					ErrMsgTeleNoLabel.setVisible(false);
@@ -370,7 +370,8 @@ public class AddCustomer extends javax.swing.JPanel {
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
 			
 					
-			if (!this.CustContactTelText.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
+			//if (!this.CustContactTelText.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
+			if (!isNumeric(this.CustContactTelText.getText())){
 			// display error message
 				ErrMsgTeleNoLabel.setVisible(true);
 				bReturn=bReturn &false;
