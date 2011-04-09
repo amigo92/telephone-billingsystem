@@ -240,8 +240,8 @@ public class AddCustomer extends javax.swing.JPanel {
 					errorMsgNIRC.setForeground(new java.awt.Color(255, 0, 0));
 				}
 				{
-					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number");
-					ErrMsgTeleNoLabel.setBounds(320, 194, 194, 14);
+					ErrMsgTeleNoLabel = new JLabel("*Invalid Telephone Number.Please use xx-xxxxxxxx.");
+					ErrMsgTeleNoLabel.setBounds(320, 194, 293, 14);
 					CustomerCenterPanel.add(ErrMsgTeleNoLabel);
 					ErrMsgTeleNoLabel.setVisible(false);
 					ErrMsgTeleNoLabel.setOpaque(true);
@@ -369,7 +369,9 @@ public class AddCustomer extends javax.swing.JPanel {
 		
 		if (!StringUtil.isNullOrEmpty(this.CustContactTelText.getText())){
 			
-			if (this.CustContactTelText.getText().matches("\\d{2}-\\d{8}")){
+			System.out.println(CustContactTelText.getText());
+			
+			if (!this.CustContactTelText.getText().matches("^\\(?(\\d{2})\\)?[- ]?(\\d{8})$")){
 			// display error message
 				ErrMsgTeleNoLabel.setVisible(true);
 				bReturn=bReturn &false;
