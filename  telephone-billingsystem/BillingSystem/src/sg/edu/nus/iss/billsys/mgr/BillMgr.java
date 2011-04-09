@@ -215,13 +215,13 @@ public class BillMgr {
 		Feature basicFeature = plan.getBasicFeature();
 		int basicCharges = basicFeature.getSubscriptionCharges();
 		total_sub_charges += basicCharges;
-		detail.addEntry(bill.new Entry(basicFeature.getName(), basicCharges));
+		detail.addEntry(bill.new Entry("- " + basicFeature.getName(), basicCharges));
 		
 		for(Feature f : plan.getOptionalFeatures()){
 			if(billPeriod.isOverlapped(f.getDateCommenced(), f.getDateTerminated())){
 				int amt = f.getSubscriptionCharges();
 				total_sub_charges += amt;
-				detail.addEntry(bill.new Entry(f.getName(), amt));
+				detail.addEntry(bill.new Entry("- " + f.getName(), amt));
 			}
 		}
 		
@@ -323,7 +323,7 @@ public class BillMgr {
 		if(total_duration != 0){
 			int usage_per_number = total_duration * DaoFactory.getInstanceOfFeatureRateDao().getPricebyFeatureCode(ct.getFeatureCd()).getPrice();
 
-			return bill.new Entry(ct.name, usage_per_number);
+			return bill.new Entry("- " + ct.name, usage_per_number);
 		}
 		else{
 			return null;
