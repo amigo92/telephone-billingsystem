@@ -35,10 +35,8 @@ public class AccountMgrTest {
 			Date createdDate = test.getAcct().getDateCreated();
 			test.setIsDeleted(true, aDate);
 			assertTrue(MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId).getIsDeleted());
-			System.out.println(test);
 			test.reactiveCustomer(createdDate);
 			assertFalse(MgrFactory.getAccountMgr().getCustomerDetailsByAccountId(acctId).getIsDeleted());
-			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -104,7 +102,7 @@ public class AccountMgrTest {
 		try{
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getCustomerListByAcctId(name);
 			assertNotNull(test);
-			System.out.println(test);
+//			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -115,7 +113,7 @@ public class AccountMgrTest {
 		try{
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getCustomerListByNric(name);
 			assertNotNull(test);
-			System.out.println(test);
+//			System.out.println(test);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -128,11 +126,11 @@ public class AccountMgrTest {
 		try{
 			MgrFactory.getAccountMgr().deleteCustomer(acctId);
 			ArrayList<Customer> test = MgrFactory.getAccountMgr().getAllActiveCustomers();
-			System.out.println(test);
+//			System.out.println(test);
 			MgrFactory.getAccountMgr().reactiveCustomer(acctId, aDate);
 			test = MgrFactory.getAccountMgr().getAllActiveCustomers();
 			assertNotNull(test);
-			System.out.println(test);			
+//			System.out.println(test);			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
