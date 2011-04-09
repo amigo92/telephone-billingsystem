@@ -1,9 +1,6 @@
 package sg.edu.nus.iss.billsys.gui;
 import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.Panel;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,12 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import sg.edu.nus.iss.billsys.exception.BillingSystemException;
-import sg.edu.nus.iss.billsys.mgr.AccountMgr;
 import sg.edu.nus.iss.billsys.mgr.MgrFactory;
 import sg.edu.nus.iss.billsys.util.StringUtil;
 import sg.edu.nus.iss.billsys.vo.Customer;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import sg.edu.nus.iss.billsys.util.JTextFieldUtil;
 
 /**
@@ -56,6 +50,7 @@ public class AddCustomer extends javax.swing.JPanel {
 	private JLabel ErrMsgAlphabet;
 	private int MaxCharForString=30;
 	private int MaxCharForNRIC=10;
+	private int MaxCharForInteresting=50;
 	
 
 	
@@ -122,13 +117,13 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustNameText = new JTextField();
 					CustomerCenterPanel.add(CustNameText);
 					CustNameText.setBounds(148, 18, 252, 23);
-					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForString));
+					CustNameText.setDocument(new JTextFieldUtil(MaxCharForString));
 				}
 				{
 					CustNIRCText = new JTextField();
 					CustomerCenterPanel.add(CustNIRCText);
 					CustNIRCText.setBounds(148, 53, 252, 23);
-					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForNRIC));
+					CustNIRCText.setDocument(new JTextFieldUtil(MaxCharForNRIC));
 				}
 				{
 					CustAdd1Text = new JTextField();					
@@ -171,13 +166,13 @@ public class AddCustomer extends javax.swing.JPanel {
 					CustContactTelText = new JTextField();
 					CustomerCenterPanel.add(CustContactTelText);
 					CustContactTelText.setBounds(148, 190, 164, 23);
-					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForNRIC));
+					CustContactTelText.setDocument(new JTextFieldUtil(MaxCharForNRIC));
 				}
 				{
 					InterestingText  = new JTextField();
 					CustomerCenterPanel.add(InterestingText);
-					InterestingText.setBounds(148, 220, 353, 23);
-					CustAdd3Text.setDocument(new JTextFieldUtil(MaxCharForString));
+					InterestingText.setBounds(148, 220, 394, 23);
+					InterestingText.setDocument(new JTextFieldUtil(MaxCharForInteresting));
 				}
 				{
 					IntestingLabel = new JLabel();
@@ -199,10 +194,12 @@ public class AddCustomer extends javax.swing.JPanel {
 							 	} catch (BillingSystemException ex) {
 								    // Print out the exception that occurred
 								  //  System.out.println(ex.getMessage());
+							 		ex.printStackTrace();
 							 		JOptionPane.showMessageDialog(window,ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 									return;
 								} catch (Exception e) {
 								    // Print out the exception that occurred
+									e.printStackTrace();
 									JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 									return;
 									
