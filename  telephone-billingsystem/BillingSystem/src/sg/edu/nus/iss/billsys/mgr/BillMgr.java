@@ -29,6 +29,22 @@ public class BillMgr {
 	 * To retrieve a list of Bill Periods generated so far
 	 * @client GUI
 	 */
+	public BillPeriod[] getDisplayedGeneratedBillPeriods(){
+		BillPeriod[] arr = getAllGeneratedBillPeriods();
+		if(arr.length > 1){
+			BillPeriod[] temp = new BillPeriod[arr.length-1];
+			for(int i = 1; i < arr.length; i++){
+				temp[i-1] = arr[i];
+			}
+			return temp;
+		}
+		return arr;
+	}
+	
+	/**
+	 * To retrieve a list of Bill Periods generated so far
+	 * @client GUI
+	 */
 	public BillPeriod[] getAllGeneratedBillPeriods(){
 		Set<BillPeriod> set = aBillDao.getAllGeneratedBillPeriods();
 		BillPeriod[] bps = new BillPeriod[set.size()];
