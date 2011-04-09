@@ -198,7 +198,7 @@ public class BillingReportView extends JPanel {
      *ComboBox for generated bill periods 
      */
  	private JComboBox createBillPeriodComboBox() {  
-    	BillPeriod[] bps = billMgr.getDisplayedGeneratedBillPeriods();
+    	BillPeriod[] bps = billMgr.getAllGeneratedBillPeriods();
     	String[] periods = new String[bps.length];
     	for(int i = 0; i < bps.length; i++){
     		periods[i] = bps[i].printBillPeriod();
