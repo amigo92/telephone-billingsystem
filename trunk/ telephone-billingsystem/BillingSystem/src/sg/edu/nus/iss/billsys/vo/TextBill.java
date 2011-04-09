@@ -502,7 +502,7 @@ public class TextBill extends Bill {
 		return acctDetails;
 	}
 	
-	private TextItem printPageNo(int pageNo, int pageCount) {
+	private ArrayList<TextItem> printPageNo(int pageNo, int pageCount) {
 		TextItem item = new TextItem("Page "+pageNo+" of "+pageCount,SPACE);
 		ArrayList<TextItem> left = new ArrayList<TextItem>();
 		ArrayList<TextItem> right = new ArrayList<TextItem>();
@@ -510,7 +510,10 @@ public class TextBill extends Bill {
 		right.add(item);
 		int len = fillItems(right,item.text.length(),false);
 		fillItems(left,pageColumn-len,false);
-		return mergeItems(left,right).get(0);
+		ArrayList<TextItem> all = mergeItems(left,right);
+		all.add(new TextItem(HYPHEN));
+		fillItems(all,pageColumn,false);
+		return all;
 	}
 	
 	private ArrayList<TextItem> printBlank(int row) {
@@ -537,11 +540,11 @@ public class TextBill extends Bill {
 		
 		ArrayList<TextItem> billHdr = printBillHeader();
 		
-		int row = pageRow-billHdr.size()-1;
+		int row = pageRow-billHdr.size()-2;
 		int pageCount = (detailsPage.size()/row)+2;
 		
 		mainPage.addAll(printBlank(pageRow-mainPage.size()-1));
-		mainPage.add(printPageNo(1,pageCount));
+		mainPage.addAll(printPageNo(1,pageCount));
 		
 		for (int i = 0; i < pageCount-1; i++) {
 			int fromIndex = i*row;
@@ -551,7 +554,7 @@ public class TextBill extends Bill {
 			mainPage.addAll(billHdr);
 			mainPage.addAll(detailsPage.subList(fromIndex, toIndex));
 			mainPage.addAll(printBlank(row-(toIndex-fromIndex)));
-			mainPage.add(printPageNo(i+2,pageCount));
+			mainPage.addAll(printPageNo(i+2,pageCount));
 		}
 		return mainPage;
 	}
