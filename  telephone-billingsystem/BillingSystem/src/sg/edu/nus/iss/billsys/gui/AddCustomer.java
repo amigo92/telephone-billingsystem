@@ -292,17 +292,19 @@ public class AddCustomer extends javax.swing.JPanel {
 					{
 					cust = MgrFactory.getAccountMgr().createCustomer(CustNameText.getText(), CustNIRCText.getText(), CustContactTelText.getText(), CustAdd1Text.getText(), CustAdd2Text.getText(), CustAdd3Text.getText(), InterestingText.getText());
 					
-					System.out.println(cust.getAccIdByCust());
+					
 					if ( cust.getAccIdByCust() != null){
 						JOptionPane.showMessageDialog(null ,"Customer Profile is created successfully.","BillingSystem ",1);
 						clearErrorMsgData();
 					}
 					}
 					catch (BillingSystemException ex)
-					{						
+					{				
+						ex.printStackTrace();	
 						JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 						return;
 					}catch(Exception e){
+						e.printStackTrace();	
 						JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
@@ -310,6 +312,7 @@ public class AddCustomer extends javax.swing.JPanel {
 			}
 		}
 		catch(Exception ex){
+			ex.printStackTrace();	
 			JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
