@@ -451,6 +451,11 @@ public class UpdateComplaintPanel extends javax.swing.JPanel {
 		BillingSystemLogger.logInfo("Inside updateButtonActionPerformed(), arg0=" + arg0);
 		String customerIdType = null;
 		long returnValue = 0;
+		
+		if (StringUtil.isNullOrEmpty(complaintTextArea.getText())) {
+			JOptionPane.showMessageDialog(window, ResourceHandler.getError("logcomplaintform.error2"), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
 		BillingSystemLogger.logInfo("customerId:" + customerIdTextField.getText());
 		BillingSystemLogger.logInfo("Complaint:" + complaintTextArea.getText());
