@@ -63,7 +63,7 @@ public abstract class GenericDao {
 		    	StringBuffer sb=new StringBuffer("");
 		    	for(int z=0;z<data[i].length;z++){
 		    		sb.append("\"");
-		    		sb.append(data[i][z]!=null?data[i][z].replaceAll("\\r|\\n", " "):data[i][z]);
+		    		sb.append(data[i][z]!=null?data[i][z].replaceAll("\\r|\\n", " "):"");
 		    		if(z<data[i].length-1)sb.append("\",");
 		    		else sb.append("\"");
 		    	}
