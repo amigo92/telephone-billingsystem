@@ -15,10 +15,10 @@ public class QueryTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	List<String[]> table; // will hold String[] objects . . .
+	List<String[]> table; 
 	int colCount;
 	String[] headers;
-	String currentURL;
+//	String currentURL;
 
 	public QueryTableModel() {
 		table = new ArrayList<String[]>();
@@ -46,7 +46,7 @@ public class QueryTableModel extends AbstractTableModel {
 		headers = newlist.get(0);
 		newlist.remove(0);
 		table = newlist;
-		fireTableChanged(null); // notify everyone that we have a new table.
+		fireTableChanged(null);
 	}
 }
 
