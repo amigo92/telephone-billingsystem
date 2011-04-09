@@ -44,14 +44,14 @@ public class BillingWindow extends JFrame {
     }
     
     public BillingWindow () {
-        super ("Billing System");
+        super ("One# Billing System");
 
         window = this;
         addWindowListener(windowListener);
         
         this.setJMenuBar(createMenuBar());
         contentPane = new JPanel(new GridLayout(0,1));
-        JLabel title = new JLabel("<html> <h2>Welcome to Billing System</h2>  </html>");   
+        JLabel title = new JLabel("<html> <h2>Welcome to One# Billing System</h2>  </html>");   
     	title.setHorizontalAlignment(SwingConstants.CENTER );
     	
         JLabel teamInfo = new JLabel("<html> <h3> MTeh SE19 [Team 6]</h3> </html>");   
