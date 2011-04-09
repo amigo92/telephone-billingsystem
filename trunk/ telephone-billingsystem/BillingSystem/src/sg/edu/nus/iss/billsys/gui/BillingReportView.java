@@ -60,7 +60,7 @@ public class BillingReportView extends JPanel {
 	    	
     	}
         catch(Exception ex){
-    		JOptionPane.showMessageDialog(window, ex.getMessage(),"", 0);
+    		JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(),"Error", 0);
         }
     }
     
