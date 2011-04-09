@@ -50,8 +50,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 	private JLabel jLabel1;
 	private JPanel SearchCustPantelCenter;
 	private ArrayList<Customer>  cust;
-	private AccountMgr accountMgr;
-	//private  ArrayList<Customer> customer;
+	//private AccountMgr accountMgr;
 	private QueryTableModel qtm;
 	private BillingWindow  window;
 	private static final long serialVersionUID = 1L;
@@ -133,7 +132,7 @@ public class SearchCustomer extends javax.swing.JPanel {
 					NRICRadioButton = new JRadioButton();
 					NRICRadioButton.addMouseListener(new MouseAdapter() {						
 						public void mouseClicked(MouseEvent arg0) {
-							SearchTextBox.setText(null);
+							SearchTextBox.setText(null);							
 							 clearErrorMsgData();
 						}
 					});
@@ -159,17 +158,15 @@ public class SearchCustomer extends javax.swing.JPanel {
 					SearchButton.setText("Search");
 					SearchButton.setBounds(448, 89, 81, 23);
 					
-					System.out.println("scaa123478");
-					
 					SearchButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent evt) {
 							try
-							{
-								System.out.println("scaa1234789");
+							{	
 							  SearchButtonActionPerformed(evt);
 							
 							} catch (Exception e) {
 							    // Print out the exception that occurred
+								e.printStackTrace();
 								errorMsg=new BillingSystemException(e).getMessagebyException();
 							}
 						}
@@ -217,25 +214,30 @@ public class SearchCustomer extends javax.swing.JPanel {
 				}
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 	}
 	
 	private void SearchButtonActionPerformed(ActionEvent evt)  {
-		newlist= new ArrayList<String[]>(); 	
-	
-		try{
-			accountMgr= MgrFactory.getAccountMgr();
-		}catch (Exception e) {
-			// TODO: handle exception
-			//e.printStackTrace();
-			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		boolean bNRIC= true;
-		
+		initializeArrayList();	
+//		try{
+//			accountMgr= MgrFactory.getAccountMgr();
+//			}
+//			catch (BillingSystemException ex)
+//			{	
+//				ex.printStackTrace();					
+//				JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+//				return;
+//			}catch (Exception e) 
+//			{
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+//			return;
+//		}
+		boolean bNRIC= true;		
 	
 		try
 		{
@@ -246,53 +248,50 @@ public class SearchCustomer extends javax.swing.JPanel {
 			}
 			if (NRICRadioButton.isSelected()) {
 				bNRIC= true;
-			}
-		
-			newlist.add(new String[] { "Customer Name", "Customer NRIC"});
+			}		
 			
-			if (!bNRIC){				
-				cust= MgrFactory.getAccountMgr().getCustomerListByName(SearchTextBox.getText());				
+			try{
+				if (!bNRIC){				
+					cust= MgrFactory.getAccountMgr().getCustomerListByName(SearchTextBox.getText());				
+				}
+				else {	
+					cust= MgrFactory.getAccountMgr().getCustomerListByNric(SearchTextBox.getText() );
+				}
 			}
-			else {	
-				cust= MgrFactory.getAccountMgr().getCustomerListByNric(SearchTextBox.getText() );
-			}				
-		
+			catch (BillingSystemException ex)
+			{	
+				ex.printStackTrace();					
+				JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			if (cust.size() >0 ){		
 				
 				for (int i = 0; i < cust.size(); i++) {					
 					newlist.add(new String[] { cust.get(i).getName(), cust.get(i).getNric() });
-
 				}							
-				clearErrorMsgData();
+				errorMsgSearchLabel.setVisible(false);	
 				
 			}
 			else 
-			{				
-				
+			{	
 				errorMsgSearchLabel.setText("No match record founds." );
 				errorMsgSearchLabel.setVisible(true);
 			}	
 			qtm.updateTable(newlist);
 		}
-		}
-		catch ( BillingSystemException ex)
-		{
-			JOptionPane.showMessageDialog(window, ex.getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
-			return;
-			//ex.printStackTrace();
 		}catch (Exception e) {
 			// TODO: handle exception
-			//e.printStackTrace();
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(window, new BillingSystemException(e).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
-		
-		
 	}
 	
 
-	
+	private void initializeArrayList(){
+		newlist= new ArrayList<String[]>(); 
+		newlist.add(new String[] { "Customer Name", "Customer NRIC"});
+	}
 	private boolean validateControls(){
 		boolean bReturn= true;
 		if (StringUtil.isNullOrEmpty(this.SearchTextBox.getText())){			
@@ -304,18 +303,30 @@ public class SearchCustomer extends javax.swing.JPanel {
 	
 	private void tableHeaderMouseClicked(MouseEvent e) {
 		
-		if (e.getClickCount() == 2) {
-	         JTable target = (JTable)e.getSource();
-	         int row = target.getSelectedRow();
-	         //int column = target.getSelectedColumn(); 
-	         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
-	         window.refreshPanelForViewCust(strCustomerNRC);	
-	}
+		try
+		{
+			if (e.getClickCount() == 2) {
+		         JTable target = (JTable)e.getSource();
+		         int row = target.getSelectedRow();
+		         //int column = target.getSelectedColumn(); 
+		         String strCustomerNRC=target.getModel().getValueAt(row, 1).toString();
+		         window.refreshPanelForViewCust(strCustomerNRC);
+			}
+		}catch (Exception ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(window, new BillingSystemException(ex).getMessagebyException(), "Error Message", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
 }
 	
 	private void clearErrorMsgData(){
-		errorMsgSearchLabel.setVisible(false);
-
+		errorMsgSearchLabel.setVisible(false);	
+		initializeArrayList();
+		if (table != null)
+		{			
+			qtm.updateTable(newlist);
+		}
 	}
 }
